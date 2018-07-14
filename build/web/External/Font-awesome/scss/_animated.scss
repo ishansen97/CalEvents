@@ -1,3 +1,4 @@
+<<<<<<< OURS
 // Animated Icons
 // --------------------------
 
@@ -18,3 +19,25 @@
     transform: rotate(360deg);
   }
 }
+=======
+// Animated Icons
+// --------------------------
+
+.#{$fa-css-prefix}-spin {
+  animation: fa-spin 2s infinite linear;
+}
+
+.#{$fa-css-prefix}-pulse {
+  animation: fa-spin 1s infinite steps(8);
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+>>>>>>> THEIRS
