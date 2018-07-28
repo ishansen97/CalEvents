@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>User</title>
+<title>Dashboard</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
 
-    <%@ include file="Layouts/Footer.jsp" %>
+
 <!-- End page content -->
 </div>
 
