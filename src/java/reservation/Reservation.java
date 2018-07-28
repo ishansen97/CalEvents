@@ -15,16 +15,34 @@ public class Reservation {
     private String res_id = null;
     private String event_id;
     private int seat_no;
+    private String seat_array;
     private String cus_id;
     private Date res_date;
+    private int[] seats;
     
     public Reservation() {}
 
-    public Reservation(String event_id, int seat_no, String cus_id, Date res_date) {
+    public Reservation(String event_id, String seat_array, String cus_id, Date res_date) {
         this.event_id = event_id;
-        this.seat_no = seat_no;
+        this.seat_array = seat_array;
         this.cus_id = cus_id;
         this.res_date = res_date;
+    }
+    
+    public int[] SplitSeats() {
+        if (seat_array.contains(",")) {
+            String[] arr = seat_array.split(",");
+            int len = arr.length - 1;
+            seats = new int[len];
+            
+            for (int i = 0; i < len; i++) {
+                seats[i] = Integer.parseInt(arr[i + 1]);
+            }
+        }
+        else {
+            seat_no = Integer.parseInt(seat_array);
+        }
+        return seats;
     }
     
     public String generateResId() throws ClassNotFoundException, SQLException {
@@ -43,7 +61,11 @@ public class Reservation {
                 String[] idParts = last_id.split("R00", 2);
                 int integerId = Integer.parseInt(idParts[1]);
                 integerId++;
-                res_id = "R00" + integerId;
+                
+                if (integerId >= 10)
+                    res_id = "R0" + integerId;
+                else if (integerId >= 2 && integerId < 10) 
+                    res_id = "R00" + integerId;
             }
             else
                 res_id = "R001";
@@ -54,24 +76,34 @@ public class Reservation {
     public boolean isInserted() throws ClassNotFoundException, SQLException {
         String reservation = generateResId();
         String query = null;
+        int[] seat_arr = SplitSeats();
         
         ServerConnection.setConnection();
         
         if (ServerConnection.getConnectionStatus()) {
             Connection con = ServerConnection.getConnection();
-            query = "Insert into reservation values(?,?,?,?,?)";
+            query = "Insert into reservation values(?,?,?,?)";
             
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, reservation);
             pst.setString(2, cus_id);
             pst.setString(3, event_id);
-            pst.setInt(4, seat_no);
-            pst.setDate(5, res_date);
+            pst.setDate(4, res_date);
             
             int result = pst.executeUpdate();
             
-            if (result > 0) 
+            if (result > 0) {
+                String query1 = "INSERT INTO reservation_seats values(?,?)";
+                int len = seat_arr.length;
+                
+                for (int i = 0; i < len; i++) {
+                    PreparedStatement pst1 = con.prepareStatement(query1);
+                    pst1.setString(1, reservation);
+                    pst1.setInt(2, seat_arr[i]);
+                    pst1.executeUpdate();
+                }
                 return true;
+            }
             else
                 return false;
         }
@@ -119,4 +151,6 @@ public class Reservation {
         else
             return false;
     }
+    
+    
 }

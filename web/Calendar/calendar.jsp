@@ -54,6 +54,9 @@
                         <p><%=res.getString("date") %></p>
                     </div>
                     <% } %>
+                    <div id="view_more">
+                        <center><a href="#">View more</a><center>
+                    </div>
                     <!--<div id="e1">
                         <a href="test.jsp">Event 2</a>
                         <p>Exhibition</p>

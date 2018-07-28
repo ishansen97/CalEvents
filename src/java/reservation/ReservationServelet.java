@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,16 +50,18 @@ public class ReservationServelet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+            java.util.Date d = new java.util.Date();
+            String sdate = sdf.format(d);
+            out.println(sdate);
+            
             String event = request.getParameter("event");
-            String cus_id = request.getParameter("customer");
-            int seat = Integer.parseInt(request.getParameter("seat"));
-            String sdate = request.getParameter("date");
-            Date date = Date.valueOf(sdate);
-            String error = "duplicate entry";
+            String cus_id = "C006";
+            String seat_arr = request.getParameter("seat_num");
+            java.sql.Date date = java.sql.Date.valueOf(sdate);
             
-            Reservation res = new Reservation(event,seat,cus_id,date);
+            Reservation res = new Reservation(event,seat_arr,cus_id,date);
             
-            out.println(date);
             
             if (res.isInserted()) {
                 out.println("inserted");
@@ -70,9 +74,13 @@ public class ReservationServelet extends HttpServlet {
             //PrintWriter out = response.getWriter();
             ErrorHandling.setMessage(ex.getMessage());
             response.sendRedirect(request.getContextPath() + "/Calendar/error.jsp");
-    
-            
-        } 
+        
+        } catch (Exception ex) {
+            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
+            ErrorHandling.setMessage(ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/Calendar/error.jsp");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
