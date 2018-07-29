@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "Update_Employee", urlPatterns = {"/Administrator/Update_Employee"})
+@WebServlet(name = "Update_Employee", urlPatterns = {"/E-Management/Update-Employee"})
 public class Update_Employee extends HttpServlet {
 
     /**
@@ -37,22 +37,27 @@ public class Update_Employee extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             
-
+            Object authenticate = request.getSession(false).getAttribute("authenticated");
+            if(null != authenticate){
+            
+            // Getting process type from employees.jsp
             String process = request.getParameter("action");
            
             try {
-
+                // if (process == read_employee) following will trigger else will be redirected back to Employees servelet
                 if ("read_Employee".equals(process)) {
                     
+                    // Clearing cache to avoid old avatar shown as the new avatar
                     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
                     response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
                     response.setDateHeader("Expires", 0); // Proxies.
                     
+                    // Read all the necessary fields specific to received employee id 
                     ResultSet res = Employee.readEmployee(request.getParameter("empId"));
                     while (res.next()) {
 
+                       // Read table fields and set to session variables
                        request.getSession().setAttribute("id", res.getString("id"));
                        request.getSession().setAttribute("username", res.getString("username"));
                        request.getSession().setAttribute("nic", res.getString("nic"));
@@ -64,13 +69,17 @@ public class Update_Employee extends HttpServlet {
                        request.getSession().setAttribute("city", res.getString("city"));
                        request.getSession().setAttribute("zip", res.getString("zip"));
                        request.getSession().setAttribute("country", res.getString("country"));
+                       request.getSession().setAttribute("avatar", res.getString("avatar"));
                        request.getSession().setAttribute("privilege_mode", res.getString("privilege_mode"));
                        request.getSession().setAttribute("contact_number", res.getString("contact_number"));
                         
                     }
                     
+                    // Setting active nav links
+                    request.getSession().setAttribute("nav00", "w3-text-gray");
                     request.getSession().setAttribute("nav01", "");
                     request.getSession().setAttribute("nav02", "");
+                    request.getSession().setAttribute("nav03", "");
                 
                     request.getRequestDispatcher("/User/Update_Employee.jsp").forward(request, response);
                     
@@ -81,6 +90,10 @@ public class Update_Employee extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(Process_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            }else{
+                    response.sendRedirect("/CalEvents/Admin");
+                }
         }
     }
 

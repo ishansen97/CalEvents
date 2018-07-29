@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
+<head>
 <title>Update Employee</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="Layouts/Styles.jsp" %>
+</head>
 
 <body class="bg-secondary">
  
@@ -26,7 +26,7 @@
       </ol>
 
       <div class="container-fluid mb-3 bg-white">
-        <form action="Process_Employee" method="POST" enctype="multipart/form-data">
+        <form action="Process-Employee" method="POST" enctype="multipart/form-data">
             
         <div class="row">
             <div class="col-md-6"></div>
@@ -185,7 +185,7 @@
             <div class="col-md-6 text-center pb-5 bg-light">
                 <div class="row pt-5">
                     <div class="col-md-7 offset-md-2">
-                        <img src="../User/Images/${id}.png" class="img-fluid px-5 pt-5">
+                        <img src="${avatar}" class="img-fluid px-5 pt-5">
                     </div>
                     <div class="offset-md-4 pt-2">
                         <input class='file-upload form-control rounded-0 border border-0' style="background-color: transparent" type='file' name='avatar' accept='image/x-png'>

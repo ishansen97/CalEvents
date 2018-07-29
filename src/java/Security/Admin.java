@@ -3,15 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Employee;
+package Security;
 
-import Connection.ServerConnection;
-import static java.io.FileDescriptor.out;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "Employees", urlPatterns = {"/E-Management/Employees"})
-public class Employees extends HttpServlet {
+@WebServlet(name = "Admin", urlPatterns = {"/Admin"})
+public class Admin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +33,8 @@ public class Employees extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           
-            Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
-                // Setting active nav links
-                request.getSession().setAttribute("nav00", "w3-text-gray");
-                request.getSession().setAttribute("nav01", "");
-                request.getSession().setAttribute("nav02", "w3-blue");
-                request.getSession().setAttribute("nav03", "");
-
-                request.getRequestDispatcher("/User/Employees.jsp").forward(request, response);
-            }else{
-                response.sendRedirect("/CalEvents/Admin");
-            }
+            
+            request.getRequestDispatcher("/Admin_Login.jsp").forward(request, response);
         }
     }
 

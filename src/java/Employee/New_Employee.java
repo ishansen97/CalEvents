@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "New_Employee", urlPatterns = {"/Administrator/New_Employee"})
+@WebServlet(name = "New_Employee", urlPatterns = {"/E-Management/New-Employee"})
 public class New_Employee extends HttpServlet {
 
     /**
@@ -36,23 +36,34 @@ public class New_Employee extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             
+           Object authenticate = request.getSession(false).getAttribute("authenticated");
+           if(null != authenticate){
+           // Creating a object of employee class to get a new employee id
            Employee employee = new Employee();
            
             try {
+                // Getting a new id (last id + 1) to add an new employee
                 Integer empId = employee.getLastId();
                 
+                // Setting the new id to a session variable
                 request.getSession().setAttribute("empId", empId);
                 
+                // Setting active nav links
+                request.getSession().setAttribute("nav00", "w3-text-gray");
                 request.getSession().setAttribute("nav01", "w3-blue");
                 request.getSession().setAttribute("nav02", "");
+                request.getSession().setAttribute("nav03", "");
+                
                 
                 request.getRequestDispatcher("/User/New_Employee.jsp").forward(request, response);
                 
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(New_Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
+            }else{
+                    response.sendRedirect("/CalEvents/Admin");
+                }
         }
     }
 

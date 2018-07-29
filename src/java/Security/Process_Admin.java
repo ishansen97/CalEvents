@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Employee;
+package Security;
 
-import Connection.ServerConnection;
-import static java.io.FileDescriptor.out;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "Employees", urlPatterns = {"/E-Management/Employees"})
-public class Employees extends HttpServlet {
+@WebServlet(name = "Process_Admin", urlPatterns = {"/Process_Admin"})
+public class Process_Admin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +36,49 @@ public class Employees extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
            
-            Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
-                // Setting active nav links
-                request.getSession().setAttribute("nav00", "w3-text-gray");
-                request.getSession().setAttribute("nav01", "");
-                request.getSession().setAttribute("nav02", "w3-blue");
-                request.getSession().setAttribute("nav03", "");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
-                request.getRequestDispatcher("/User/Employees.jsp").forward(request, response);
-            }else{
-                response.sendRedirect("/CalEvents/Admin");
+            try{
+                HashPassword hashPassword = new HashPassword(password);
+                String encrypt_password = hashPassword.generatePassword();
+                
+                Authenticate authenticate = new Authenticate(username, encrypt_password);
+                String result = authenticate.validateAdmin();
+                
+                Integer rowCount = Integer.parseInt(result);
+                
+                if(rowCount == 1){
+                    
+                    String privilege_mode = authenticate.getPrivilegeMode();
+                    
+                    request.getSession().setAttribute("privilege_mode", privilege_mode);
+                    request.getSession().setAttribute("authenticated", "user_authenticated");
+                    
+                    String department = authenticate.getDepartment();
+                    
+                    switch(department){
+                        
+                        case "Event Department" : response.sendRedirect("E-Management/Dashboard"); break;
+                        case "Menu Department" : response.sendRedirect("EManagement/Dashboard"); break;
+                        case "Gallery Department" : response.sendRedirect("Administrator/Dashboard"); break;
+                        case "Facility Department" : response.sendRedirect("Administrator/Dashboard"); break;
+                        case "Kitchen Department" : response.sendRedirect("Administrator/Dashboard"); break;
+                        case "Customer Department" : response.sendRedirect("Administrator/Dashboard"); break;
+                        case "Human Resource Department" : response.sendRedirect("Administrator/Dashboard"); break;
+                    }
+               
+                }else{
+                    response.sendRedirect("Admin");
+                }
+                
+            }catch(Exception e){
+                out.print(e);
             }
+            
+            
         }
     }
 

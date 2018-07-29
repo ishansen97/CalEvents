@@ -1,6 +1,8 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link href="../External/w3/all.css" rel="stylesheet">
 <link href="../External/w3/avatar_upload.css" rel="stylesheet" type="text/css"/>
-<link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
 <link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="../External/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom fonts for this template-->

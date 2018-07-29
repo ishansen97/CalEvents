@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "Dashboard", urlPatterns = {"/Administrator/Dashboard"})
+@WebServlet(name = "Dashboard", urlPatterns = {"/E-Management/Dashboard"})
 public class Dashboard extends HttpServlet {
 
     /**
@@ -33,12 +33,20 @@ public class Dashboard extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
+
+            Object authenticate = request.getSession(false).getAttribute("authenticated");
+            if(null != authenticate){
+             // Setting active nav links
+            request.getSession().setAttribute("nav00", "w3-text-blue");
             request.getSession().setAttribute("nav01", "");
             request.getSession().setAttribute("nav02", "");
+            request.getSession().setAttribute("nav03", "");
             
             request.getRequestDispatcher("/User/index.jsp").forward(request, response);
+            
+            }else{
+                    response.sendRedirect("/CalEvents/Admin");
+                }
         }
     }
 

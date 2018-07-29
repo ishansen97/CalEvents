@@ -1,11 +1,11 @@
 <%@page import="java.sql.*,Employee.Employee" %>
 <!DOCTYPE html>
 <html>
+<head>
 <title>Employees</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="Layouts/Styles.jsp" %>
-
+</head>
+    
 <script>  
 var request;  
 function sendInfo()  
@@ -66,7 +66,7 @@ document.getElementById('amit').innerHTML=val;
         <div class="row">
             
             <div class="col-md-12 text-center py-md-3">
-            <form action="Update_Employee" method="POST">
+            <form action="Update-Employee" method="POST">
                 <table class="w3-table w3-striped" id="amit">
                 </table>
             </form>
@@ -74,13 +74,13 @@ document.getElementById('amit').innerHTML=val;
 
             
             <div class="col-md-12 text-center pb-5 py-2">
-            <form action="Update_Employee" method="POST">
+            <form action="Update-Employee" method="POST">
             <table class="w3-table w3-striped">
-              <tr class='w3-blue-gray'>
-                <th>EMPID</th>
-                <th>Department</th>
-                <th>Last Name</th>
-                <th></th>
+                <tr class='w3-blue-gray'>
+                <td>EMPID</td>
+                <td>Department</td>
+                <td>Last Name</td>
+                <td></td>
               </tr>
               <input type="text" value="read_Employee" name="action" hidden>
               
@@ -89,7 +89,7 @@ document.getElementById('amit').innerHTML=val;
               <%while (res.next()) { %>
               
               <tr>
-                <td><%=res.getString("id") %></td>
+                <td><%=res.getString(1) %></td>
                 <td><%=res.getString("department") %></td>
                 <td><%=res.getString("last_name") %></td>
                 <td style='width:120px'>

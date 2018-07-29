@@ -1,10 +1,10 @@
 <%@page import="java.sql.*,Employee.Employee" %>
 <!DOCTYPE html>
 <html>
+<head>
 <title>New Employee</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="Layouts/Styles.jsp" %>
+</head>
 
 <body class="bg-secondary">
  
@@ -25,7 +25,7 @@
       </ol>
 
       <div class="container-fluid mb-3 bg-white">
-        <form action="Process_Employee" method="POST" enctype="multipart/form-data">
+        <form action="Process-Employee" method="POST" enctype="multipart/form-data">
             
         <div class="row">
             <div class="col-md-6"></div>
@@ -55,10 +55,12 @@
                     <option>Choose a Department</option>
                     <option>Event Department</option>
                     <option>Menu Department</option>
+                    <option>Payment Department</option>
                     <option>Facility Department</option>
                     <option>Kitchen Department</option>
                     <option>Gallery Department</option>
                     <option>Customer Department</option>
+                    <option>Employee Department</option>
                   </select>
                 </div>
                 </div>

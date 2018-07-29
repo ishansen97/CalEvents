@@ -23,7 +23,7 @@ import javax.servlet.http.Part;
  * @author Uditha
  */
 @MultipartConfig
-@WebServlet(name = "Process_Employee", urlPatterns = {"/Administrator/Process_Employee"})
+@WebServlet(name = "Process_Employee", urlPatterns = {"/E-Management/Process-Employee"})
 public class Process_Employee extends HttpServlet {
 
     /**
@@ -44,7 +44,6 @@ public class Process_Employee extends HttpServlet {
 
             InputStream inputStream = null;
             Employee employee = new Employee();
-            HashPassword hashPassword = new HashPassword();
 
             String process = request.getParameter("action");
             String id = request.getParameter("id");
@@ -67,7 +66,10 @@ public class Process_Employee extends HttpServlet {
                     String contact_number = request.getParameter("contact_number");
                     String department = request.getParameter("department");
                     String privilege_mode = request.getParameter("privilege_mode");
-                    String password = hashPassword.generatePassword(nic);
+                    String avatar = "../User/Images/"+id+".png";
+                    
+                    HashPassword hashPassword = new HashPassword(nic);
+                    String password = hashPassword.generatePassword();
 
                     // obtains the upload file part in this multipart request
                     Part filePart = request.getPart("avatar");
@@ -79,13 +81,12 @@ public class Process_Employee extends HttpServlet {
                     OutputStream output = new FileOutputStream("C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Images/"+id+".png"); 
                     byte[] buffer = new byte[1024];
                     while (inputStream.read(buffer) > 0) {output.write(buffer);}  
-                        
-                        
 
-                    Integer addEmployee = employee.addEmployee(id, username, nic, first_name, last_name, gender, address_line_01, address_line_02, city, zip, country, contact_number, inputStream, department, privilege_mode, password);
+
+                    Integer addEmployee = employee.addEmployee(id, username, nic, first_name, last_name, gender, address_line_01, address_line_02, city, zip, country, contact_number, avatar, department, privilege_mode, password);
 
                     if (addEmployee > 0) {
-                        response.sendRedirect("New_Employee");
+                        response.sendRedirect("New-Employee");
                     }
                 }
                 
@@ -112,6 +113,7 @@ public class Process_Employee extends HttpServlet {
                     String contact_number = request.getParameter("contact_number");
                     String department = request.getParameter("department");
                     String privilege_mode = request.getParameter("privilege_mode");
+                    String avatar = "../User/Images/"+id+".png";
                     
                     // obtains the upload file part in this multipart request
                     Part filePart = request.getPart("avatar");
@@ -130,7 +132,7 @@ public class Process_Employee extends HttpServlet {
                         inputStream = null;
                     }
 
-                    Integer updateEmployee = employee.updateEmployee(id, username, nic, first_name, last_name, gender, address_line_01, address_line_02, city, zip, country, contact_number, inputStream, department, privilege_mode);
+                    Integer updateEmployee = employee.updateEmployee(id, username, nic, first_name, last_name, gender, address_line_01, address_line_02, city, zip, country, contact_number, avatar, department, privilege_mode);
 
                     if (updateEmployee > 0) {
                         response.sendRedirect("Employees");
@@ -168,7 +170,7 @@ public class Process_Employee extends HttpServlet {
                         request.getSession().removeAttribute("username");
                         request.getSession().removeAttribute("avatar");
                         
-                        response.sendRedirect("Update_Employees");
+                        response.sendRedirect("Employees");
                     }
                 }
                 

@@ -3,8 +3,14 @@ package Security;
 import java.security.MessageDigest;
 
 public class HashPassword {
+    
+    private String password;
+    
+    public HashPassword(String password){
+        this.password = password;
+    }
 
-    public String generatePassword(String password) throws Exception {
+    public String generatePassword() throws Exception {
         
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(password.getBytes());

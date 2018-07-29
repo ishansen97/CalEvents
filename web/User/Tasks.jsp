@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dashboard</title>
+<title>Tasks</title>
 <%@ include file="Layouts/Styles.jsp" %>
 </head>
-
+    
 <body class="bg-secondary">
  
 <%@ include file="Layouts/Navigation.jsp" %>

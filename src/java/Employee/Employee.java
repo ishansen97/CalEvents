@@ -13,7 +13,7 @@ public class Employee {
     ResultSet resultSet = null;
 
     // Add employee
-    public Integer addEmployee(String id, String username, String nic, String first_name, String last_name, String gender, String address_line_1, String address_line_2, String city, String zip, String country, String contact_number, InputStream avatar, String department, String privilege_mode, String password) throws ClassNotFoundException, SQLException {
+    public Integer addEmployee(String id, String username, String nic, String first_name, String last_name, String gender, String address_line_1, String address_line_2, String city, String zip, String country, String contact_number, String avatar, String department, String privilege_mode, String password) throws ClassNotFoundException, SQLException {
 
         
         // Setting server connection
@@ -38,7 +38,7 @@ public class Employee {
             ps.setString(10, zip);
             ps.setString(11, country);
             ps.setString(12, contact_number);
-            ps.setBlob(13, avatar);
+            ps.setString(13, avatar);
             ps.setString(14, department);
             ps.setString(15, privilege_mode);
             ps.setString(16, password);
@@ -53,7 +53,7 @@ public class Employee {
 
     
     // Update employee
-    public Integer updateEmployee(String id, String username, String nic, String first_name, String last_name, String gender, String address_line_1, String address_line_2, String city, String zip, String country, String contact_number, InputStream avatar, String department, String privilege_mode) throws ClassNotFoundException, SQLException {
+    public Integer updateEmployee(String id, String username, String nic, String first_name, String last_name, String gender, String address_line_1, String address_line_2, String city, String zip, String country, String contact_number, String avatar, String department, String privilege_mode) throws ClassNotFoundException, SQLException {
 
         // Setting server connection
         ServerConnection.setConnection();
@@ -101,7 +101,7 @@ public class Employee {
                 ps.setString(9, zip);
                 ps.setString(10, country);
                 ps.setString(11, contact_number);
-                ps.setBlob(12, avatar);
+                ps.setString(12, avatar);
                 ps.setString(13, department);
                 ps.setString(14, privilege_mode);
                 int querry = ps.executeUpdate();
