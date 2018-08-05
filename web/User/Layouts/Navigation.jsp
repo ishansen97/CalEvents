@@ -9,13 +9,18 @@
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="" class="w3-circle w3-margin-right" style="width:46px">
+        <a href="Profile"><img src="${p_avatar}" class="w3-circle w3-margin-right" style="width:46px"></a>
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Mike</strong></span><br>
+      <span>Welcome, <strong>${p_first_name} ${p_last_name}</strong></span><br>
+      <div class='w3-dropdown-hover'>
+        <button class='w3-button'><i class='fa fa-cog'></i></button>
+        <div class='w3-dropdown-content w3-bar-block w3-border'>
+        <a href='/CalEvents/Logout' class='w3-bar-item w3-button' style='text-decoration: none;'>Logout</a>
+	<a href='Profile' class='w3-bar-item w3-button' style='text-decoration: none;'>Update Profile</a>
+	</div>
+      </div>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
     </div>
   </div>
   <hr>
@@ -27,7 +32,8 @@
     
     <a href="New-Employee" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav01}" style="text-decoration: none"><i class="fa fa-user-tie fa-fw"></i>&nbsp; New Employee</a>
     <a href="Employees" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav02}" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees</a>
-    <a href="Tasks" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav03}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Events</a>
+    <a href="Tasks" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav03}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Event Assignment</a>
+    <a href="Logs" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav04}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Activity Log</a>
 <!--    <div class="w3-dropdown-hover">
     <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees <i class="fa fa-caret-down"></i></button>
     <div class="w3-dropdown-content w3-bar-block">
@@ -48,3 +54,6 @@
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+<div id="snackbar">${message}</div>

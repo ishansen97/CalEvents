@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Employee;
+package Security;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Uditha
  */
-@WebServlet(name = "Tasks", urlPatterns = {"/E-Management/Tasks"})
-public class Tasks extends HttpServlet {
+@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,22 +34,13 @@ public class Tasks extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           
-             Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
-                
-            // Setting active nav links
-            request.getSession().setAttribute("nav00", "w3-text-gray");
-            request.getSession().setAttribute("nav01", "");
-            request.getSession().setAttribute("nav02", "");
-            request.getSession().setAttribute("nav03", "w3-blue");
-            request.getSession().setAttribute("nav04", "");
+            /* TODO output your page here. You may use following sample code. */
             
-            request.getRequestDispatcher("/User/Tasks.jsp").forward(request, response);
-            
-            }else{
-                    response.sendRedirect("/CalEvents/Admin");
-                }
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+                response.sendRedirect("/CalEvents/Admin");
+            }
         }
     }
 

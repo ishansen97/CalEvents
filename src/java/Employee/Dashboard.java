@@ -35,18 +35,25 @@ public class Dashboard extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
-             // Setting active nav links
-            request.getSession().setAttribute("nav00", "w3-text-blue");
-            request.getSession().setAttribute("nav01", "");
-            request.getSession().setAttribute("nav02", "");
-            request.getSession().setAttribute("nav03", "");
-            
-            request.getRequestDispatcher("/User/index.jsp").forward(request, response);
-            
-            }else{
-                    response.sendRedirect("/CalEvents/Admin");
-                }
+            if (null != authenticate) {
+
+                // Clearing cache to avoid old avatar shown as the new avatar
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+                response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+                response.setDateHeader("Expires", 0); // Proxies.
+
+                // Setting active nav links
+                request.getSession().setAttribute("nav00", "w3-text-blue");
+                request.getSession().setAttribute("nav01", "");
+                request.getSession().setAttribute("nav02", "");
+                request.getSession().setAttribute("nav03", "");
+                request.getSession().setAttribute("nav04", "");
+
+                request.getRequestDispatcher("/User/index.jsp").forward(request, response);
+
+            } else {
+                response.sendRedirect("/CalEvents/Admin");
+            }
         }
     }
 

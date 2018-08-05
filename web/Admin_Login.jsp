@@ -23,7 +23,6 @@
                 box-shadow: 0 0 0 0.2rem rgba(254, 216, 89, 0.25);
             }
         </style>-->
-
     </head>
     <body>
 

@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "Tasks", urlPatterns = {"/E-Management/Tasks"})
-public class Tasks extends HttpServlet {
+@WebServlet(name = "Profile", urlPatterns = {"/E-Management/Profile"})
+public class Profile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,22 +33,13 @@ public class Tasks extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           
-             Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
-                
-            // Setting active nav links
-            request.getSession().setAttribute("nav00", "w3-text-gray");
-            request.getSession().setAttribute("nav01", "");
-            request.getSession().setAttribute("nav02", "");
-            request.getSession().setAttribute("nav03", "w3-blue");
-            request.getSession().setAttribute("nav04", "");
+
+            // Clearing cache to avoid old avatar shown as the new avatar
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+            response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+            response.setDateHeader("Expires", 0); // Proxies.
             
-            request.getRequestDispatcher("/User/Tasks.jsp").forward(request, response);
-            
-            }else{
-                    response.sendRedirect("/CalEvents/Admin");
-                }
+            request.getRequestDispatcher("/User/Profile.jsp").forward(request, response);
         }
     }
 

@@ -48,7 +48,7 @@ document.getElementById('amit').innerHTML=val;
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="../Lecturer">Dashboard</a>
+          <a href="Dashboard">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">Employees</li>
       </ol>
@@ -88,7 +88,7 @@ document.getElementById('amit').innerHTML=val;
 
               <%while (res.next()) { %>
               
-              <tr>
+              <tr style="font-family: 'Quicksand', sans-serif; font-size: 17px" class="w3-hover-light-gray">
                 <td><%=res.getString(1) %></td>
                 <td><%=res.getString("department") %></td>
                 <td><%=res.getString("last_name") %></td>
@@ -103,6 +103,7 @@ document.getElementById('amit').innerHTML=val;
             </form>
             </div>
         </div>
+    </div> 
                     
       </div> 
   </div>

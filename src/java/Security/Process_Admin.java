@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 package Security;
-
+import Employee.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +59,30 @@ public class Process_Admin extends HttpServlet {
                     request.getSession().setAttribute("authenticated", "user_authenticated");
                     
                     String department = authenticate.getDepartment();
+                    
+                    ResultSet res = Employee.readEmployeeProfile(username);
+                    while (res.next()) {
+
+                       // Read table fields and set to session variables
+                       request.getSession().setAttribute("p_id", res.getString("id"));
+                       request.getSession().setAttribute("p_username", res.getString("username"));
+                       request.getSession().setAttribute("p_nic", res.getString("nic"));
+                       request.getSession().setAttribute("p_first_name", res.getString("first_name"));
+                       request.getSession().setAttribute("p_last_name", res.getString("last_name"));
+                       request.getSession().setAttribute("p_id", res.getString("id"));
+                       request.getSession().setAttribute("p_address_line_1", res.getString("address_line_1"));
+                       request.getSession().setAttribute("p_address_line_2", res.getString("address_line_2"));
+                       request.getSession().setAttribute("p_city", res.getString("city"));
+                       request.getSession().setAttribute("p_zip", res.getString("zip"));
+                       request.getSession().setAttribute("p_country", res.getString("country"));
+                       request.getSession().setAttribute("p_contact_number", res.getString("contact_number"));
+                       request.getSession().setAttribute("p_avatar", res.getString("avatar"));
+                       request.getSession().setAttribute("p_gender", res.getString("gender"));
+                       request.getSession().setAttribute("p_department", res.getString("department"));
+                       request.getSession().setAttribute("p_privilege_mode", res.getString("privilege_mode"));
+                       
+                    }
+                    
                     
                     switch(department){
                         

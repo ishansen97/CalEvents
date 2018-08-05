@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Employee;
+package Security;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "Tasks", urlPatterns = {"/E-Management/Tasks"})
-public class Tasks extends HttpServlet {
+@WebServlet(name = "test", urlPatterns = {"/test"})
+public class test extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,22 +35,15 @@ public class Tasks extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           
-             Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
-                
-            // Setting active nav links
-            request.getSession().setAttribute("nav00", "w3-text-gray");
-            request.getSession().setAttribute("nav01", "");
-            request.getSession().setAttribute("nav02", "");
-            request.getSession().setAttribute("nav03", "w3-blue");
-            request.getSession().setAttribute("nav04", "");
+            /* TODO output your page here. You may use following sample code. */
             
-            request.getRequestDispatcher("/User/Tasks.jsp").forward(request, response);
+            HashPassword hashPassword = new HashPassword("960563506V");
             
-            }else{
-                    response.sendRedirect("/CalEvents/Admin");
-                }
+            try {
+                out.print(hashPassword.generatePassword());
+            } catch (Exception ex) {
+                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
