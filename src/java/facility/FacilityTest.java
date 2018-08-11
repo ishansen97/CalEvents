@@ -28,8 +28,8 @@ abstract class FacilityTest {
     String condition;
     DBConnect dbcon;
     
-        public FacilityTest(String id,String name,String status,int quantity,String condition){
-            this.itemId=id;
+        public FacilityTest(String name,String status,int quantity,String condition){
+            //this.itemId=id;
             this.itemName=name;
             this.status=status;
             this.quantity=quantity;
@@ -77,10 +77,10 @@ abstract class FacilityTest {
 }
 
 class F_Sounds extends FacilityTest{
-    private final String brand;
-    public F_Sounds(String id, String name, String status, int quantity, String condition,String brand) {
-        super(id, name, status, quantity, condition);
-        this.brand=brand;
+    //private final String brand;
+    public F_Sounds( String name, String status, int quantity, String condition) {
+        super(name, status, quantity, condition);
+        //this.brand=brand;
     }
 
     @Override
@@ -93,7 +93,7 @@ class F_Sounds extends FacilityTest{
                 Connection connect = dbcon.getCon();                               
                 id = generate_Facility_Id("Sounds");
                 
-                addF = connect.prepareStatement("insert in to Sounds (Facility_ID,Facility_Name,Status,Quantity,Condition) values (?,?,?,?,?)");
+                addF = connect.prepareStatement("INSERT INTO `sounds`(`Facility_ID`, `Facility_Name`, `Status`, `Quantity`, `Condition`) VALUES (?,?,?,?,?)");
                 addF.setString(1, id);
                 addF.setString(2, itemName);
                 addF.setString(3, status);
@@ -128,8 +128,8 @@ class F_Tents extends FacilityTest{
     private final String color;
     private final String size;
     
-    public F_Tents(String id, String name, String status, int quantity, String condition,String color,String size) {
-        super(id, name, status, quantity, condition);
+    public F_Tents(String name, String status, int quantity, String condition,String color,String size) {
+        super(name, status, quantity, condition);
         this.color=color;
         this.size=size;
     }
@@ -144,7 +144,7 @@ class F_Tents extends FacilityTest{
                 Connection connect = dbcon.getCon();                               
                 id = generate_Facility_Id("Tents");
                 
-                addF = connect.prepareStatement("insert in to Sounds (Facility_ID,Facility_Name,Status,Quantity,F_Condition,Color,Size) values (?,?,?,?,?,?,?)");
+                addF = connect.prepareStatement("INSERT INTO `tents`(`Facility_ID`, `Facility_Name`, `Status`, `Quantity`, `F_Condition`, `Color`, `Size`) VALUES(?,?,?,?,?,?,?)");
                 addF.setString(1, id);
                 addF.setString(2, itemName);
                 addF.setString(3, status);
@@ -180,8 +180,8 @@ class F_Tents extends FacilityTest{
 class F_Chair extends FacilityTest{
     private final String material;
     
-    public F_Chair(String id, String name, String status, int quantity, String condition,String material) {
-        super(id, name, status, quantity, condition);
+    public F_Chair(String name, String status, int quantity, String condition,String material) {
+        super(name, status, quantity, condition);
         this.material=material;
     }
 
@@ -203,8 +203,8 @@ class F_Chair extends FacilityTest{
 
 class F_Table extends FacilityTest{
     private final String size;
-    public F_Table(String id, String name, String status, int quantity, String condition,String size) {
-        super(id, name, status, quantity, condition);
+    public F_Table(String name, String status, int quantity, String condition,String size) {
+        super(name, status, quantity, condition);
         this.size=size;
     }
 
@@ -227,8 +227,8 @@ class F_Table extends FacilityTest{
 
 class F_Lights extends FacilityTest{
     private final String type;
-    public F_Lights(String id, String name, String status, int quantity, String condition,String type) {
-        super(id, name, status, quantity, condition);
+    public F_Lights(String name, String status, int quantity, String condition,String type) {
+        super(name, status, quantity, condition);
         this.type=type;
     }
 
@@ -251,8 +251,8 @@ class F_Lights extends FacilityTest{
 
 class F_Kitchen_Utensils extends FacilityTest{
     private final String type;
-    public F_Kitchen_Utensils(String id, String name, String status, int quantity, String condition,String type) {
-        super(id, name, status, quantity, condition);
+    public F_Kitchen_Utensils(String name, String status, int quantity, String condition,String type) {
+        super(name, status, quantity, condition);
         this.type=type;
     }
 
@@ -270,4 +270,21 @@ class F_Kitchen_Utensils extends FacilityTest{
     public int get_Available_Quantity() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+}
+
+
+
+
+class test{
+public static void main(String[] args){
+ 
+    FacilityTest f1 = new F_Sounds("Electric Guitar","available",5,"good");
+    if(f1.add_Facility()!=true){System.out.println("Successful!!");}
+    else System.out.println("Unsuccessful!!");
+    
+    
+        
+        
+}
+
 }
