@@ -1,5 +1,11 @@
 package facility;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,7 +23,7 @@ public class Facility {
     protected String status;
     protected int quantity;
     protected String condition;
-    
+    public Facility(){}
     public Facility(String id,String name,String status,int quantity,String condition){
         this.itemId=id;
         this.itemName=name;
@@ -26,11 +32,77 @@ public class Facility {
         this.condition=condition;
     }
     
+     public String generate_Facility_Id(String type) throws ClassNotFoundException, SQLException{
+        DBConnect dbcon = DBConnect.getInstance();
+        String id_Q = null;
+        char start = type.charAt(0);
+        
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+            Statement stmt = connect.createStatement();
+            
+            
+            
+            id_Q = "select Facility_ID from "+type+" order by Facility_ID desc limit 1";
+
+            ResultSet rs = stmt.executeQuery(id_Q);
+
+            if (rs.next()) {
+                String ID = rs.getString("Facility_ID");
+                String[] parts = ID.split(start+"00", 2);
+                int integerid = Integer.parseInt(parts[1]);
+                integerid++;
+                itemId = start+"00" + integerid;
+            }
+            else
+                itemId = start+"001";
+
+        }
+        return itemId;
+            
+    } 
+    
+    public boolean add_Facility(String facility_Type) throws ClassNotFoundException, SQLException{
+        DBConnect dbcon = DBConnect.getInstance();
+        String query = null;
+        Boolean result=null;
+        
+        itemId = generate_Facility_Id(facility_Type);
+        
+         if (dbcon.isConnected()) {
+             Connection connection = dbcon.getCon();
+             PreparedStatement add_F = connection.prepareStatement("insert in to "+facility_Type+" values (?,?,?,?,?)");
+             
+             add_F.setString(1, itemId);
+             add_F.setString(2, itemName);
+             add_F.setString(3, status);
+             add_F.setInt(4, quantity);
+             add_F.setString(5, condition);
+             result = add_F.execute();
+             return result;
+         }
+        else
+             return false;
+    }
+    
     public void remove_Facility(){
     
     }
         
-    public void add_Facility(){
+    public ResultSet fetch_Facility_Packages() throws ClassNotFoundException, SQLException{
+        DBConnect dbcon = DBConnect.getInstance();
+        String query = null;
+        ResultSet facilities=null;
+         if (dbcon.isConnected()) {
+             Connection connection = dbcon.getCon();
+             PreparedStatement ps = connection.prepareStatement("select * from facility_packages");
+             
+             facilities = ps.executeQuery();
+
+        }
+        return facilities;
+         
+         
         
     }
     
@@ -53,7 +125,7 @@ class Tent extends Facility{
         this.color=color;
         this.size=size;
     }
-
+    
 }
 
 class Chair extends Facility{
@@ -79,6 +151,7 @@ class Sounds extends Facility{
         super(id, name, status, quantity, condition);
         this.brand=brand;
     }
+
 }
 
 class Lights extends Facility{
@@ -95,4 +168,15 @@ class Kitchen_Utensils extends Facility{
         super(id, name, status, quantity, condition);
         this.type=type;
     }
+}
+
+class Test{
+public static void main(String[] args) throws ClassNotFoundException, SQLException{
+
+        Facility f1 = new Facility();
+        
+          
+
+}
+
 }
