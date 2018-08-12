@@ -184,12 +184,7 @@ public class rawMaterials {
     }
     
     
-    
-    
-    
-    
-    
-
+      
     
     
     
@@ -209,10 +204,22 @@ public class rawMaterials {
     }
     
     
-    public void update_Quantity(){
+    public ResultSet separate_Food(String menu_ID){
+        ResultSet foodID=null;
         
-        
+        return foodID;
     }
+    
+    public ResultSet determine_Raw_Materials(String food_ID){
+        ResultSet raw_M=null;
+    
+        return raw_M;
+    }
+    
+    public void deduct_Raw(String r_ID){}
+
+
+
     
 }
 
