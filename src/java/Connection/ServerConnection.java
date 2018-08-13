@@ -1,7 +1,5 @@
 package Connection;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ServerConnection {
 
@@ -9,9 +7,9 @@ public class ServerConnection {
 	private static ServerConnection instance;
         static public Connection con = null;
         private static String url = "jdbc:mysql://127.0.0.1/";
-        private static String dbname = "calevents";
+        private static String dbname = "project1";
         private static String username = "root";
-        private static String password = "root";
+        private static String password = "";
 
 
 	//Creating a private constructor(outside classes cannot access this)
@@ -29,20 +27,8 @@ public class ServerConnection {
             con = DriverManager.getConnection(url+dbname,username,password);
         }
 
-        public static Connection getConnection() {
-            try {
-                // check if connection is null or closed (checks if connection was disconnected and retries)
-                if (con == null || con.isClosed()) {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    con = DriverManager.getConnection(url+dbname, username, password);
-                }
-            }
-            catch (Exception ex) {
-                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            finally {
-                return con;
-            }
+        public static Connection getConnection(){
+            return con;
         }
 
         public static boolean getConnectionStatus(){
