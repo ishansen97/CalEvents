@@ -43,7 +43,7 @@ public class Payment {
         // ServerConnection.setConnection();
         String query = "INSERT INTO `payment` (`res_id`, `amount`, `method`) VALUES (?, ?, ?)";
 
-        Connection con = ServerConnection.getConnection();
+        Connection con = PaymentDB.getConnection();
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, resId);
         ps.setString(2, amount);
@@ -64,10 +64,10 @@ public class Payment {
      */
     public static ResultSet getAllPayments() throws ClassNotFoundException, SQLException {
         // ServerConnection.setConnection();
-        String query = "SELECT * from payment";
+        String query = "SELECT * FROM payment_res_event";
         ResultSet res = null;
 
-        Connection con = ServerConnection.getConnection();
+        Connection con = PaymentDB.getConnection();
         Statement st = con.createStatement();
         res = st.executeQuery(query);
 
