@@ -16,26 +16,47 @@
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
   <br>
-  <div class="container">
-    <%@include file="payment.jsp"%>
+  <form action="" class="container" id="search_payments" style="padding:0">
+   <div class="input-group">
+      <input type="text" class="form-control" placeholder="Event" style="width:40%">
+      <input type="date" class="form-control" >
+      <select name="" id="" class="form-control">
+        <option value="">Method</option>
+      </select>
+      <div class="input-group-append">
+        <button class="form-control btn btn-primary">Search</button>
+      </div>
+   </div>
+  </form>
+<!--  <div class="container card">
+    <%--<%@include file="payment.jsp"%>--%>
+  </div>-->
+  <br>
+  <div class="container card" style="padding: 0">
     <% try {
         ResultSet rs = Payment.getAllPayments(); %>
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped" style="margin:0">
       <thead class="thead-dark">
         <th>#</th>
-        <th>Reservation</th>
-        <th>Payment Amount</th>
-        <th>Payment Date</th>
-        <th>Payment Method</th>
+        <th width="30%">Customer</th>
+        <th colspan="2">Event name</th>
+        <!--<th>Event Description</th>-->
+        <th class="text-center">Amount</th>
+        <th class="text-center">Method</th>
+        <th>Paid Date</th>
+        <th class="text-center">Details</th>
       </thead>
       <tbody>
         <% while(rs.next()) { %>
         <tr>
-          <td><%= rs.getString("pay_id") %></td>
-          <td><%= rs.getString("res_id") %></td>
-          <td><%= rs.getString("amount") %></td>
-          <td><%= rs.getString("date_time") %></td>
-          <td><%= rs.getString("method") %></td>
+          <th><%= rs.getString("pay_id") %></th>
+          <td>Customer Name</td>
+          <td><%= rs.getString("event_name") %></td>
+          <td class="text-right"><small>Reserved: <%= rs.getString("res_date") %></small></td>
+          <td class="text-center">$<%= rs.getString("amount") %></td>
+          <td class="text-center"><%= rs.getString("method") %></td>
+          <td><%= rs.getString("pay_date") %></td>
+          <td class="text-center"><a href="#">View</a></td>
         </tr>
         <% } %>
       </tbody>
@@ -46,6 +67,7 @@
     </div>
     <% } %>
   </div>
+  <br>
   <%@ include file="Layouts/Footer.jsp" %>
 <!-- End page content -->
 </div>

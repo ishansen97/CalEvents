@@ -5,8 +5,8 @@
     <script src="validation.js" type="text/javascript"></script>
     <div class="container container-small">
       <form id="payment" action="${pageContext.request.contextPath}/ProcessPayment" onsubmit="return validatePayment()" method="POST">
-        <input name="reservationId" value="R001">
-        <input name="paymentAmount" value="10000">
+        <input name="reservationId" value="R001" hidden="">
+        <input name="paymentAmount" value="10000" hidden>
         <div class="card">
           <div class="card-header">
             <span>Payment</span>
