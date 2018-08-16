@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,13 +44,24 @@ public class Update_Employee extends HttpServlet {
 
                 // Getting process type from employees.jsp
                 String process = request.getParameter("action");
+                
+                // Getting logged in employee's id
+                HttpSession session = request.getSession();
+                String logged_id = session.getAttribute("p_id").toString();
 
                 try {
                     // if (process == read_employee) following will trigger else will be redirected back to Employees servelet
                     if ("read_Employee".equals(process)) {
+                        
+                        if(logged_id.equals(request.getParameter("empId"))){
+                            
+                            request.getSession().setAttribute("message", "Cannot view your own profile");
+                            response.sendRedirect("Logs");
+                        }
+                        
 
                         // Read all the necessary fields specific to received employee id 
-                        ResultSet res = Employee.readEmployee(request.getParameter("empId"));
+                        ResultSet res = Employee.readEmployee(request.getParameter("empId"), logged_id);
                         while (res.next()) {
 
                             // Read table fields and set to session variables

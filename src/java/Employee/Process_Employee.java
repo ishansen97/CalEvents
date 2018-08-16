@@ -172,7 +172,36 @@ public class Process_Employee extends HttpServlet {
                         response.sendRedirect("Employees");
                     }
                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                if("reset_password".equals(process)){
+                    
+                    String nic = request.getParameter("nic");
+                    
+                    HashPassword hashPassword = new HashPassword(nic);
+                    password = hashPassword.generatePassword();
+                    
+                    Integer resetPassword = employee.resetPassword(id, password);
+                    
+                    if (resetPassword > 0) {
+                        request.getSession().setAttribute("message", "Employee successfully updated");
 
+                        activity.recordActivity(actor, "Employee " + id + " password was resetted");
+
+                        response.sendRedirect("Employees");
+                    }
+                
+                }
+
+                
+                
+                
                 
                 
                 

@@ -4,14 +4,12 @@
 <head>
 <title>Employees</title>
 <%@ include file="Layouts/Styles.jsp" %>
-</head>
-    
 <script>  
 var request;  
 function sendInfo()  
 {  
 var v=document.employees.search.value;  
-var url="/CalEvents/User/Search.jsp?val="+v;  
+var url="/CalEvents/User/Search_Employee.jsp?val="+v;  
   
 if(window.XMLHttpRequest){  
 request=new XMLHttpRequest();  
@@ -35,6 +33,7 @@ document.getElementById('amit').innerHTML=val;
 }  
   
 </script> 
+</head>
 
 <body class="bg-secondary">
  
@@ -84,12 +83,15 @@ document.getElementById('amit').innerHTML=val;
               </tr>
               <input type="text" value="read_Employee" name="action" hidden>
               
-              <% ResultSet res = Employee.readEmployees(); %>
+             <% 
+             String logged_user = session.getAttribute("p_id").toString();
+             ResultSet res = Employee.readEmployees(logged_user); 
+             %>
 
               <%while (res.next()) { %>
               
-              <tr style="font-family: 'Quicksand', sans-serif; font-size: 17px" class="w3-hover-light-gray">
-                <td><%=res.getString(1) %></td>
+              <tr style="font-family: 'Quicksand', sans-serif; font-size: 17px; cursor: default" class="w3-hover-dark-gray">
+                <td><%=res.getString("id") %></td>
                 <td><%=res.getString("department") %></td>
                 <td><%=res.getString("last_name") %></td>
                 <td style='width:120px'>

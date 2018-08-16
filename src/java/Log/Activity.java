@@ -13,7 +13,7 @@ public class Activity {
     PreparedStatement ps = null;
     private String sql = null;
 
-    // Add employee
+    // Add log record
     public Integer recordActivity(String actor, String activity) throws ClassNotFoundException, SQLException {
 
         
@@ -39,7 +39,7 @@ public class Activity {
     }
     
     
-        // View all employees
+    // View all log records
     public static ResultSet readActivity() throws ClassNotFoundException, SQLException {
 
         ServerConnection.setConnection();
@@ -51,6 +51,27 @@ public class Activity {
             Statement st = con.createStatement();
 
             query = "SELECT * FROM activity_log ORDER BY activity_log.occurred_on DESC";
+
+            res = st.executeQuery(query);
+        }
+        return res;
+
+    }
+    
+    
+    
+    // Search log record
+    public static ResultSet searchActivity(String date) throws ClassNotFoundException, SQLException {
+
+        ServerConnection.setConnection();
+        String query = null;
+        ResultSet res = null;
+
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+
+            query = "SELECT * FROM activity_log WHERE occurred_on LIKE '"+date+"%' ORDER BY activity_log.occurred_on DESC"; 
 
             res = st.executeQuery(query);
         }

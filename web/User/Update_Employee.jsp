@@ -115,7 +115,8 @@
             <div class="col-md-6"></div>
             <div class="col-md-6 bg-light">
                 <button type="submit" name="action" value="update_employee" class="btn btn-outline-warning float-right rounded-0 mt-4 ml-3"><i class="fa fa-wrench"></i> Update</button>
-                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-danger float-right rounded-0 mt-4"><i class="fa fa-trash"></i> Remove</button>
+                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-danger float-right rounded-0 mt-4 ml-3"><i class="fa fa-trash"></i> Remove</button>
+                <button type="submit" name="action" value="reset_password" class="btn btn-outline-secondary float-right rounded-0 mt-4"><i class="fa fa-exclamation-triangle"></i></button>
             </div>
         </div>
           

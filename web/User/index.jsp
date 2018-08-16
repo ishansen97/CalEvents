@@ -125,14 +125,14 @@
             function drawChart() {
               var data = google.visualization.arrayToDataTable([
               ['Task', 'Hours per Day'],
-              ['Event', <% out.print(Data.getEventDepartmentCount()); %>],
-              ['Menu', <% out.print(Data.getMenuDepartmentCount()); %>],
-              ['Payment', <% out.print(Data.getPaymentDepartmentCount()); %>],
-              ['Facility', <% out.print(Data.getFacilityDepartmentCount()); %>],
-              ['Kitchen', <% out.print(Data.getKitchenDepartmentCount()); %>],
-              ['Gallery', <% out.print(Data.getGalleryDepartmentCount()); %>],
-              ['Customer', <% out.print(Data.getCustomerDepartmentCount()); %>],
-              ['Employee', <% out.print(Data.getEmployeeDepartmentCount()); %>]
+              ['Event', <% out.print(Data.getDepartmentCount("Event Department")); %>],
+              ['Menu', <% out.print(Data.getDepartmentCount("Menu Department")); %>],
+              ['Payment', <% out.print(Data.getDepartmentCount("Payment Department")); %>],
+              ['Facility', <% out.print(Data.getDepartmentCount("Facility Department")); %>],
+              ['Kitchen', <% out.print(Data.getDepartmentCount("Kitchen Department")); %>],
+              ['Gallery', <% out.print(Data.getDepartmentCount("Gallery Department")); %>],
+              ['Customer', <% out.print(Data.getDepartmentCount("Customer Department")); %>],
+              ['Employee', <% out.print(Data.getDepartmentCount("Employee Department")); %>]
             ]);
 
               // Optional; add a title and set the width and height of the chart

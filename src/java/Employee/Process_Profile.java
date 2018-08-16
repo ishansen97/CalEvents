@@ -97,14 +97,7 @@ public class Process_Profile extends HttpServlet {
                     }
 
                     // If the password is null, old password will be new password
-                    if ("".equals(oldPassword)) {
-                        password = oldPassword;
-                    } else {
-                        HashPassword hashPassword = new HashPassword(newPassword);
-                        password = hashPassword.generatePassword();
-                    }
-                    
-                    if ("".equals(oldPassword)) {
+                    if ("".equals(newPassword)) {
                         password = oldPassword;
                     } else {
                         HashPassword hashPassword = new HashPassword(newPassword);

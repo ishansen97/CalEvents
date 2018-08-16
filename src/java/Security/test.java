@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Uditha
  */
-@WebServlet(name = "test", urlPatterns = {"/test"})
+@WebServlet(name = "test", urlPatterns = {"/E-Management/test"})
 public class test extends HttpServlet {
 
     /**
@@ -37,13 +37,15 @@ public class test extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            HashPassword hashPassword = new HashPassword("960563506V");
+            String date = request.getParameter("bday");
+            out.print(date);
+//            HashPassword hashPassword = new HashPassword("960563506V");
             
-            try {
-                out.print(hashPassword.generatePassword());
-            } catch (Exception ex) {
-                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//              /  out.print(hashPassword.generatePassword());
+//            } catch (Exception ex) {
+//                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }
 

@@ -14,9 +14,10 @@ out.print("<tr class='w3-blue-gray'>"
         + "<td></td>"
         + "</tr>");
 try{  
-ResultSet res = Employee.readEmployee(s);
+String logged_user = session.getAttribute("p_id").toString();
+ResultSet res = Employee.readEmployee(s, logged_user);
 while(res.next()){
-out.print("<tr>"
+out.print("<tr style='font-family: 'Quicksand', sans-serif; font-size: 17px; cursor: default' class='w3-hover-dark-gray'>"
         + "<td>"+res.getString(1)+"</td>"
         + "<td>"+res.getString(14)+"</td>"
         + "<td>"+res.getString(5)+"</td>"

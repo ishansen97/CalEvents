@@ -84,7 +84,8 @@ public class Employee {
                 ps.setString(15, password);
                 int querry = ps.executeUpdate();
 
-                return querry;}catch(Exception e){
+                return querry;
+                }catch(Exception e){
                 }
             }
 
@@ -114,10 +115,46 @@ public class Employee {
         // If error in establishing Connection 
         return error;
     }
+    
+    
+    
+    // Reset employee password 
+    public Integer resetPassword(String id, String password) throws ClassNotFoundException, SQLException {
+
+        // Setting server connection
+        ServerConnection.setConnection();
+
+        // Checking for server status
+        if (ServerConnection.getConnectionStatus()) {
+
+            // If connection successfully established
+            Connection con = ServerConnection.getConnection();
+            
+            try{
+                sql = "UPDATE employees SET password=? WHERE employees.id="+id;
+                ps = con.prepareStatement(sql);
+                ps.setString(1, password);
+                int querry = ps.executeUpdate();
+
+                return querry;
+                }catch(Exception e){
+                }
+        }
+
+        // If error in establishing Connection 
+        return error;
+    }
 
     
+    
+    
+    
+    
+    
+    
+    
     // View all employees
-    public static ResultSet readEmployees() throws ClassNotFoundException, SQLException {
+    public static ResultSet readEmployees(String id) throws ClassNotFoundException, SQLException {
 
         ServerConnection.setConnection();
         String query = null;
@@ -127,7 +164,7 @@ public class Employee {
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
 
-            query = "SELECT * FROM employees ORDER BY employees.id ASC";
+            query = "SELECT * FROM employees WHERE id NOT LIKE '"+id+"' ORDER BY employees.id ASC";
 
             res = st.executeQuery(query);
         }
@@ -138,7 +175,7 @@ public class Employee {
     
     
     // View specific employee
-    public static ResultSet readEmployee(String id) throws ClassNotFoundException, SQLException {
+    public static ResultSet readEmployee(String id, String logged_id) throws ClassNotFoundException, SQLException {
 
         ServerConnection.setConnection();
         String query = null;
@@ -148,7 +185,7 @@ public class Employee {
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
 
-            query = "SELECT * FROM employees WHERE id LIKE '"+id+"%'";
+            query = "SELECT * FROM employees WHERE id LIKE '"+id+"%' AND id NOT LIKE '"+logged_id+"' ORDER BY employees.id ASC";
 
             res = st.executeQuery(query);
         }
