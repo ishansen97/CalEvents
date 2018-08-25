@@ -1,6 +1,6 @@
 <%-- 
-    Document   : test
-    Created on : Jul 16, 2018, 10:49:52 AM
+    Document   : event_reservation
+    Created on : Aug 9, 2018, 9:08:49 PM
     Author     : DELL
 --%>
 
@@ -12,6 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%--@include file="Layouts/Styles.jsp" %>
+        <%@include file="Layouts/Scripts.jsp" --%>
         <script src="../External/Jquery/jquery.min.js" type="text/javascript"></script>
         <!--<link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>-->
         <!--<script src="../External/Bootstrap/js/bootstrap.js" type="text/javascript"></script>-->
@@ -83,7 +85,7 @@
                 //var seat_number = document.getElementById("show").value;
                 var no_of_seats = document.getElementById("no_of_seats").value;
                 var payAmount = 1000;
-               
+                
                 if (seat_arr === "") {
                     alert("Please select a seat number");
                 }
@@ -122,7 +124,6 @@
                 }
             }
             
-            
             function showSeats() {
                 var seats = document.getElementById('seats');
                 //seats.classList.toggle('collapse');
@@ -140,93 +141,74 @@
                     alert("Please select your seats (maximum 4)");
                     return false;
                 }
-                else
-                    return true;
+//                else
+//                    return true;
             }
             
             function undo_seats() {
-                var seat_arr = document.getElementById("seat_array").innerHTML;
+                var seat_arr = document.getElementById("seat_array").value;
                 var array = [seat_arr];
                 var seat = array.pop();
                 document.getElementById("seat_array").innerHTML = array;
                 document.getElementById("no_of_seats").value = "";
-                alert("the seats has been unselected");
+                alert(seat);
             }
             
-            function validatePhone() {
-                var phone = document.getElementById("phoneNum").value;
-                var phoneNum = phone.toString();
-                var exp = /^[0-9]+$/;
-                
-                if (phoneNum.match(exp)) {
-                    return true;
-                }
-                else {
-                    alert("Enter numbers only for the phone number");
-                    return false;
-                }
-            }
-            
+            //payment validations
             function validateInput(input, match) {
-                if (match === true || input.value.match(match)) {
-                    input.classList.remove('is-invalid');
-                    return true;
-                }
-                input.classList.add('is-invalid');
-                input.value = '';
-                return false;
-            }
+        if (match === true || input.value.match(match)) {
+          input.classList.remove('is-invalid');
+          return true;
+        }
+        input.classList.add('is-invalid');
+        input.value = '';
+        return false;
+      }
 
-            function validatePayment() {
-                var ccNo = document.forms["payment"]["cardNumber"];
-                var ccCCV = document.forms["payment"]["cardCCV"];
-                var ccName = document.forms["payment"]["cardName"];
-                var expMM = document.forms["payment"]["expiryMonth"];
-                var expYY = document.forms["payment"]["expiryYear"];
-                var dateMM = Number(expMM.value);
-                var dateYY = Number(expYY.value);
+      function validatePayment() {
+        var ccNo = document.forms["payment"]["cardNumber"];
+        var ccCCV = document.forms["payment"]["cardCCV"];
+        var ccName = document.forms["payment"]["cardName"];
+        var expMM = document.forms["payment"]["expiryMonth"];
+        var expYY = document.forms["payment"]["expiryYear"];
+        var dateMM = Number(expMM.value);
+        var dateYY = Number(expYY.value);
 
-                // validate CardNo and CCV
-                var validCCNo = validateInput(ccNo,  /^(\d{4}(\s|-)?){3}(\d{2,4})$/);
-                var validCCV  = validateInput(ccCCV, /^\d{3}$/);
-                var validName = validateInput(ccCCV, /^\w+/);
-                var validExMM = validateInput(expMM, (dateMM > 0 && dateMM <= 12));
-                var validExYY = validateInput(expYY, (dateYY >= new Date().getFullYear() % 100));
-                var seat_validate = validate();
-                var validPhone = validatePhone();
-                
-//                alert("Card num " + validCCNo);
-//                alert("CCV " + validCCV);
-//                alert("seat_validate " + seat_validate);
-//                alert("Name " + validName);
-//                alert("exp month " + validExMM);
-//                alert("exp year " + validExYY);
-//                alert("Phone " + validPhone);
-                
-                //return false;
+        // validate CardNo and CCV
+        var validCCNo = validateInput(ccNo,  /^(\d{4}(\s|-)?){3}(\d{2,4})$/);
+        var validCCV  = validateInput(ccCCV, /^\d{3}$/);
+        var validName = validateInput(ccCCV, /^\w+/);
+        var validExMM = validateInput(expMM, (dateMM > 0 && dateMM <= 12));
+        var validExYY = validateInput(expYY, (dateYY >= new Date().getFullYear() % 100));
+        var seat_validate = validate();
 
-                return validCCNo && validCCV && validExMM && validExYY && seat_validate && validPhone;
-            }
+        return validCCNo && validCCV && validExMM && validExYY && seat_validate;
+      }
             
         </script>
     </head>
     <body>
         
         <% 
-            
-            String event_id = request.getParameter("id");
-
-            EventViewer ev = new EventViewer(event_id);
-            ResultSet rs = ev.getSeats();
-            int noOfSeats = ev.getNoOfSeats();
-            ResultSet event = ev.getEventDetails();
+            try {
+                String customer_id = session.getAttribute("customer_id").toString();
+                String customer_name = session.getAttribute("customer_name").toString();
+                String event_id = request.getParameter("id");
+                
+                if (customer_id != null) {
+                    EventViewer ev = new EventViewer(event_id);
+                    ResultSet rs = ev.getSeats();
+                    int noOfSeats = ev.getNoOfSeats();
+                    ResultSet event = ev.getEventDetails();
            
         %>
  
         <div class="container" style="border: 2px solid blue">
+            <a href="calendar.jsp" class="btn btn-light">Go To Calendar View</a>
+            <a href="handleReservation.jsp?customer_id=<%=customer_id %>" class="btn btn-light">My reservations</a>
+            <a href="profile.jsp" style="float: right"><%=customer_name %></a>
+            <h1>Hello World!</h1>
             <div id="event" class="jumbotron">
-                <a href="calendar.jsp" class="btn btn-light">Go To Calendar View</a>
-                <h1>Event Details</h1>
                 <table>
                     <% while (event.next()) { %>
                     <tr>
@@ -253,14 +235,15 @@
                 </table>
             </div>
             <div id="div1">
-                <!--<p id="para" onclick="buttonColor()" data-toggle="collapse" data-target="#seats">Click on me to see the difference!!</p>-->
                 <% if (noOfSeats == 0) { %>
                     <p style="color: red">No Seats are available</p>
-                <% } else { %>
-                    <!--<button type="button" data-toggle="collapse" data-target="#seats" class="btn btn-success" >Show</button>-->
+                <%} else if (ev.isBookedByCustomer(customer_id)) { %>
+                <p style="color: red">You have already made a reservation for this event</p>
+                <%} else { %>
                     <a href="#seats" data-toggle="collapse" data-target="#seats" style="font-size:20px">Seat Arrangements<span style="color:red">(<%=noOfSeats %> available)</span></a>
                <% } %>
             </div>
+            
             
 
             <div id="seats" class="jumbotron col-12 collapse">
@@ -274,94 +257,80 @@
             <button type="button" id="confirm_seat" data-toggle="collapse" data-target="#customer" class="btn btn-success" onclick="return displayCus()">Confirm</button>
             <button type="button" id="undo" class="btn btn-info" onclick="undo_seats()">Undo</button>
             <p id="seat_array"></p>
-            <input type="number" id="no_of_seats" value="">
+            <input type="number" id="no_of_seats">
             </div>
             
             
             
-            <div id="customer" class="col-lg-12 collapse" style="border: 2px solid green">
-                <a href="#customer" id="customer_payment" data-toggle="collapse" style="font-size: 20px">Customer & Payment Details</a>
-                <div class="row">
-                    <div id="part1" class="col-sm-12" style="border: 2px solid black">
-                        <h1>Customer Details...</h1>
-                        <form action="<%=request.getContextPath() %>/ReservationServelet" method="post" onsubmit="return validatePayment()" id="payment">
-                            <table>
-                                <tr>
-                                    <td>Customer Name : </td>
-                                    <td><input type="text" name="fname" id="fname" value="" required></td>
-                                </tr>
-                                <tr>
-                                    <td>Address : </td>
-                                    <td><textarea name="address" cols="42" rows="5" required></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Phone : </td>
-                                    <td><input type="text" id="phoneNum" name="phone" required></td>
-                                </tr>
-                                <tr>
-                                    <td>Email : </td>
-                                    <td><input type="email" name="email" required></td>
-                                </tr>
-                            </table>
-                    </div>
+          <div id="customer" class="col-lg-12 collapse" style="border: 2px solid green">
+                <a href="#customer" id="customer_payment" data-toggle="collapse" style="font-size: 20px">Payment Details</a>
+
+
+                <form action="${pageContext.request.contextPath}/ReservationServelet1" onsubmit="return validatePayment()" method="POST">
+          
+                                <input type="text" id="show" name="seat_num">
+                                <input type="hidden" id="event" name="event" value="<%=event_id %>">
+                                <input type="text" id="amount" name="paymentAmount">
+                                <p id="final_seat_array"></p>
+        <div class="card">
+          <div class="card-header">
+            <h1>Payment</h1>
+            <span class="card-text" style="float:right">
+              <i class="fa fa-credit-card"></i>
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="col-md-8 form-group">
+                <label for="cardName">Full Name on Card</label>
+                 PAYMENT CARD NAME 
+                <input type="text" class="form-control" name="cardName" placeholder="Full name" required>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="">Expiry</label>
+                <div class="input-group">
+                   PAYMENT EXPIRY DATE
+                  <input type="number" min="1" max="12" class="form-control" name="expiryMonth" placeholder="MM" required>
+                  <input type="number" min="18" class="form-control" name="expiryYear" placeholder="YY" required>
                 </div>
-                <div id="part2" class="col-sm-12" style="border: 2px solid black">
-                        <h1>Payment Details...</h1>
-                            <input type="text" id="show" name="seat_num">
-                            <input type="hidden" id="event" name="event" value="<%=event_id %>">
-                            <input type="text" id="amount" name="paymentAmount">
-                            <p id="final_seat_array"></p>
-                        <div class="card">
-                          <div class="card-header">
-                            <h1>Payment</h1>
-                            <span class="card-text" style="float:right">
-                              <i class="fa fa-credit-card"></i>
-                            </span>
-                          </div>
-                          <div class="card-body">
-                            <div class="form-row">
-                              <div class="col-md-8 form-group">
-                                <label for="cardName">Full Name on Card</label>
-                                 PAYMENT CARD NAME 
-                                <input type="text" class="form-control" name="cardName" placeholder="Full name" required>
-                              </div>
-                              <div class="col-md-4 form-group">
-                                <label for="">Expiry</label>
-                                <div class="input-group">
-                                   PAYMENT EXPIRY DATE
-                                  <input type="number" min="1" max="12" class="form-control" name="expiryMonth" placeholder="MM" required>
-                                  <input type="number" min="18" class="form-control" name="expiryYear" placeholder="YY" required>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-row">
-                              <div class="col-md-8 form-group">
-                                 PAYMENT CARD NUMBER
-                                <label for="cardNumber">Credit Card Number <small class="text-muted">(spaces or dashes are allowed)</small></label>
-                                <input type="text" class="form-control" name="cardNumber" placeholder="xxxx xxxx xxxx xxxx" required>
-                              </div>
-                              <div class="col-md-4 form-group">
-                                <label for="">CCV</label>
-                                 PAYMENT CCV
-                                <input type="text" class="form-control" name="cardCCV" placeholder="CCV" required>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-block btn-lg">Continue</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
+              </div>
             </div>
-            
+            <div class="form-row">
+              <div class="col-md-8 form-group">
+                 PAYMENT CARD NUMBER
+                <label for="cardNumber">Credit Card Number <small class="text-muted">(spaces or dashes are allowed)</small></label>
+                <input type="text" class="form-control" name="cardNumber" placeholder="xxxx xxxx xxxx xxxx" required>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="">CCV</label>
+                 PAYMENT CCV
+                <input type="text" class="form-control" name="cardCCV" placeholder="CCV" required>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+              
+                                <button type="submit" class="btn btn-primary btn-block btn-lg">Continue</button>
+          </div>
         </div>
-        
-        <script src="../External/Bootstrap/js/bootstrap.js"></script>
+      </form>
+    </div>
+            </div>
+                                
+       <script src="../External/Bootstrap/js/bootstrap.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="../External/Bootstrap/js/bootstrap.js"></script>
-        
-    
+        <% } else {
+                String query = "id=" + event_id;
+                response.sendRedirect("test.jsp?" + query);
+        }
+        %>
+        <% } catch (Exception ex) {
+                out.println("Error");
+                response.sendRedirect("test.jsp?id=E002");
+        }
+        %>
     </body>
 </html>
+

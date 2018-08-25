@@ -1,10 +1,8 @@
 <%-- 
-    Document   : error
-    Created on : Jul 15, 2018, 6:16:19 PM
+    Document   : interReservation
+    Created on : Aug 11, 2018, 9:46:28 PM
     Author     : DELL
 --%>
-
-<%@page import="reservation.ErrorHandling" %> 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,10 +12,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
         <script>
-            alert("You cannot make more than one reservation!!!");
+            alert("Your record has been deleted");
         </script>
-        <%@include file="calendar.jsp" %>
+        
+        <%@include file="handleReservation.jsp" %>
     </body>
 </html>

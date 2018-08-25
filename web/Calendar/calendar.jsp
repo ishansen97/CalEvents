@@ -31,7 +31,7 @@
                 <%@ page import="com.dhtmlx.planner.*,com.dhtmlx.planner.data.*,java.util.Date"%>
                 <%! String getPlanner(HttpServletRequest request) throws Exception {
                         DHXPlanner pl = new DHXPlanner("./codebase/", DHXSkin.TERRACE);
-                        pl.setWidth(1250);
+                        pl.setWidth(1100);
                         pl.setInitialDate(new Date()); 
                         pl.calendars.attachMiniCalendar();
                         pl.load("events.jsp", DHXDataFormat.JSON);
@@ -50,12 +50,12 @@
                     <h1>Upcoming Events</h1>
                     <%while (res.next()) { %>
                     <div id="e">
-                        <a href="test.jsp?id=<%=res.getString("event_ID") %>"><%=res.getString("event_name") %></a>
+                        <a href="event_reservation.jsp?id=<%=res.getString("event_ID") %>"><%=res.getString("event_name") %></a>
                         <p><%=res.getString("date") %></p>
                     </div>
                     <% } %>
                     <div id="view_more">
-                        <center><a href="#">View more</a><center>
+                        <center><a href="event_reservation.jsp?id=E006">View more</a><center>
                     </div>
                     <!--<div id="e1">
                         <a href="test.jsp">Event 2</a>

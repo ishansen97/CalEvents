@@ -5,30 +5,30 @@
  */
 package reservation;
 
+import com.payment.CreditCardValidator;
+import com.payment.Payment;
 import com.payment.exception.CreditCardExpiredException;
 import com.payment.exception.CreditCardNumberInvalidException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import com.payment.*;
-import customer.Customer;
 import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "ReservationServelet", urlPatterns = {"/ReservationServelet"})
-public class ReservationServelet extends HttpServlet {
+@WebServlet(name = "ReservationServelet1", urlPatterns = {"/ReservationServelet1"})
+public class ReservationServelet1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,29 +42,21 @@ public class ReservationServelet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try  {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            PrintWriter out = response.getWriter();
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ReservationServelet</title>");            
+            out.println("<title>Servlet ReservationServelet1</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ReservationServelet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReservationServelet1 at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
             
-            //creating a session object
+            //creating a session object an acquiring values
             HttpSession session = request.getSession();
-            
-            
-            String cus_name = request.getParameter("fname");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String address = request.getParameter("address");
-            
-            Customer customer = new Customer(cus_name, address, phone, email);
+            String customer = session.getAttribute("customer_id").toString();
             
             //getting payment details
             String amount = request.getParameter("paymentAmount");
@@ -91,37 +83,24 @@ public class ReservationServelet extends HttpServlet {
             
             //getting reservation details
             String event = request.getParameter("event");
-            String cus_id = customer.generateCustomerId();
+            String cus_id = customer;
             String seat_arr = request.getParameter("seat_num");
             java.sql.Date date = java.sql.Date.valueOf(sdate);
             
-            if (!customer.isEmailAvailable()) {
-                if (customer.isInserted()) {
-                    Reservation res = new Reservation(event,seat_arr,cus_id,date);
+            Reservation res = new Reservation(event,seat_arr,cus_id,date);
 
-                    if (res.isInserted()) {
-                        String reservation = res.getRes_id();
-                        Payment payment = new Payment(reservation, amount, "Credit Card");
-                        if (payment.insertPayment()) {
-                            session.setAttribute("reservation", reservation);
-                            session.setAttribute("customer_id", customer.getCus_id());
-                            session.setAttribute("customer_name", customer.getFullName());
-                            session.setAttribute("reservationObj", res);
-                            response.sendRedirect(request.getContextPath() + "/Calendar/successfulReservation.jsp");
-                        }
-                        else
-                            out.println("payment cannot be made");
-                    }
-                    else
-                        out.println("cannot be inserted");
-                }
+
+            if (res.isInserted()) {
+                String reservation = res.getRes_id();
+                Payment payment = new Payment(reservation, amount, "Credit Card");
+                if (payment.insertPayment())
+                    response.sendRedirect(request.getContextPath() + "/Calendar/calendar.jsp");
                 else
-                    out.println("customer cannot be inserted");
+                    out.println("payment cannot be made");
             }
-            else {
-                session.setAttribute("email", email);
-                response.sendRedirect(request.getContextPath() + "/Calendar/insertCustomerDetails.jsp");
-            }
+            else
+                out.println("cannot be inserted");
+         
             
         } 
         catch (ClassNotFoundException | SQLException ex) {
@@ -133,17 +112,17 @@ public class ReservationServelet extends HttpServlet {
 //        catch (CreditCardExpiredException ex) {
 //            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
 //            PrintWriter out = response.getWriter();
-//            out.println("CreditCardExpiredException : " + ex.getMessage());
+//            out.println(ex.getMessage());
 //        }
 //        catch (CreditCardNumberInvalidException ex) {
 //            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
 //            PrintWriter out = response.getWriter();
-//            out.println("CreditCardNumberInvalidException : " + ex.getMessage());
+//            out.println(ex.getMessage());
 //        }
         catch (Exception ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
-            out.println("Exception : " + ex.getMessage());
+            out.println(ex.getMessage());
         }
         
     }

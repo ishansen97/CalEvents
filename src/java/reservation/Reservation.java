@@ -5,6 +5,7 @@
  */
 package reservation;
 import java.sql.*;
+import java.util.Arrays;
 import Connection.ServerConnection;
 
 /**
@@ -28,6 +29,13 @@ public class Reservation {
         this.cus_id = cus_id;
         this.res_date = res_date;
     }
+
+    public Reservation(String res_id, String seat_array) {
+        this.res_id = res_id;
+        this.seat_array = seat_array;
+    }
+    
+    
     
     public int[] SplitSeats() {
         if (seat_array.contains(",")) {
@@ -58,7 +66,7 @@ public class Reservation {
             
             if (result1.next()) {
                 String last_id = result1.getString("res_id");
-                String[] idParts = last_id.split("R00", 2);
+                String[] idParts = last_id.split("R0", 2);
                 int integerId = Integer.parseInt(idParts[1]);
                 integerId++;
                 
@@ -131,20 +139,29 @@ public class Reservation {
         return res_date;
     }
     
-    public boolean isDeleted(String res_id) throws ClassNotFoundException, SQLException {
+    public static boolean isDeleted(String res_id) throws ClassNotFoundException, SQLException {
         String query = null;
+        String query1 = null;
         ServerConnection.setConnection();
         
         if (ServerConnection.getConnectionStatus()) {
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
             
-            query = "Delete from reservation where res_id = '" +res_id+ "'";
+            query = "Delete from reservation_seats where res_id = '" +res_id+ "'";
             
             int result = st.executeUpdate(query);
             
-            if (result > 0)
-                return true;
+            if (result > 0) {
+                Statement st1 = con.createStatement();
+                query1 = "DELETE FROM reservation where res_id = '" +res_id+ "'";
+                int result1 = st1.executeUpdate(query1);
+                
+                if (result1 > 0)
+                    return true;
+                else
+                    return  false;
+            }
             else
                 return false;
         }
@@ -152,5 +169,146 @@ public class Reservation {
             return false;
     }
     
+    public static ResultSet getReservationDetails(String customer) throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        String query = null;
+        ResultSet res = null;
+        
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement stmt = con.createStatement();
+            
+            query = "SELECT pe.event_name,r.res_id,r.date FROM public_events pe, reservation r WHERE r.event_id = pe.event_ID AND r.cus_id = '" +customer+ "'";
+            
+            res = stmt.executeQuery(query);
+        }
+        
+        return res;
+    }
+    
+    public static ResultSet getReservedSeats(String res_id) throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        String query = null;
+        ResultSet res = null;
+        
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement stmt = con.createStatement();
+            
+            query = "SELECT seat_num FROM reservation_seats WHERE res_id = '" +res_id+ "'";
+            
+            res = stmt.executeQuery(query);
+        }
+        
+        return res;
+    }
+    
+    public boolean containsAllSeats() throws ClassNotFoundException, SQLException {
+        int[] seats = SplitSeats();
+        int temp;
+        int count = 0;
+        ResultSet result = null;
+        ResultSet result1 = null;
+        
+        /*for (int i = 0; i < seats.length; i++) {
+            for (int j = i + 1; j < seats.length; j++) {
+                if (seats[i] == seats[j]) {
+                    temp = seats[i];
+                    seats[i] = seats[j];
+                    seats[j] = temp;
+                }
+            }
+        }*/
+        
+        result = getReservedSeats(res_id);
+        
+        while (result.next()) {
+            count++;
+        }
+        
+        /*int[] reserved_seats = new int[count];
+        
+        result1 = getReservedSeats(res_id);
+        
+        int i = 0;
+        
+        while (result1.next()) {
+            while (i < count) {
+                reserved_seats[i] = result1.getInt("seat_num");
+                i++;
+                break;
+            }
+        }
+        
+        
+        if (Arrays.equals(seats, reserved_seats)) 
+            return true;
+        else
+            return false;*/
+        
+        if (seats.length == count)
+            return true;
+        else
+            return false;
+        
+        
+    }
+    
+    public boolean isUpdated() throws ClassNotFoundException, SQLException {
+        int[] seats = SplitSeats();
+        ServerConnection.setConnection();
+        String query = null;
+        String query1 = null;
+        ResultSet result = null;
+        
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+            Statement st1 = con.createStatement();
+            
+            if (containsAllSeats()) {
+                query = "DELETE FROM reservation_seats WHERE res_id = '" +res_id+ "'";
+                query1 = "DELETE FROM reservation WHERE res_id = '" +res_id+ "'";
+                int res = st.executeUpdate(query);
+                
+                if (res > 0) {
+                    int res1 = st1.executeUpdate(query1);
+                    
+                    if (res1 > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            else {
+                for (int i = 0; i < seats.length; i++) {
+                    query = "DELETE FROM reservation_seats WHERE res_id = '" +res_id+ "' AND seat_num = " +seats[i];
+                    st.executeUpdate(query);
+                }
+                return true;
+            }
+            
+        }
+        else
+            return false;
+    }
+    
+    public static ResultSet displayReservationDetails(Reservation res) throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        String query = null;
+        ResultSet result = null;
+        String customer_id = res.getCus_id();
+        
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+            query = "SELECT DISTINCT b.event_name,res.date,p.amount FROM public_events b,reservation res,payment p WHERE res.cus_id = '" +customer_id+ "' AND b.event_ID = res.event_id AND res.res_id = p.res_id";
+            
+            result = st.executeQuery(query);
+        }
+        return result;
+    }
     
 }

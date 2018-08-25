@@ -37,6 +37,7 @@ public class EventViewer {
         return res;
     }
     
+    //to display the event details
     public ResultSet getEventDetails() throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
         String query = null;
@@ -70,6 +71,7 @@ public class EventViewer {
         return res;
     }
     
+    //to display the upcoming events on the calendar page
     public static ResultSet getEventView() throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
         String query = null;
@@ -90,6 +92,7 @@ public class EventViewer {
         return res;
     }
     
+    //to display the number of seats available for a given event
     public int getNoOfSeats() throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
         String query = null;
@@ -124,4 +127,23 @@ public class EventViewer {
         return count;
     }
     
+    public boolean isBookedByCustomer(String customer_id) throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        String query = null;
+        
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+            query = "SELECT * FROM reservation WHERE cus_id = '" +customer_id+ "' AND event_id = '" +event_id+ "'";
+            
+            ResultSet result = st.executeQuery(query);
+            
+            if (result.next())
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
 }
