@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package facility;
+package event.facilities;
 
 /**
  *
  * @author Sachith
  */
+import facility.*;
 import java.sql.*;
 
 public class DBConnect {
@@ -17,7 +18,7 @@ public class DBConnect {
     private String url, username, password;
     
     private DBConnect() {
-        this.url = "jdbc:mysql://localhost:3306/cal";
+        this.url = "jdbc:mysql://localhost:3306/facilitydemo";
         this.username = "root";
         this.password = "";
         
