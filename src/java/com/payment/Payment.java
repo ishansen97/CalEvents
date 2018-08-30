@@ -7,7 +7,7 @@ package com.payment;
 
 import Connection.ServerConnection;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,5 +72,39 @@ public class Payment {
         res = st.executeQuery(query);
 
         return res;
+    }
+
+    public static ResultSet getPaymentsForMonth(String date) throws ClassNotFoundException, SQLException {
+        String[] yyyyMM = date.split("-");
+        String query = "SELECT * FROM payment_res_event "
+                + "WHERE year(pay_date) = ? AND month(pay_date) = ?";
+
+        Connection con = PaymentDB.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, yyyyMM[0]);
+        ps.setString(2, yyyyMM[1]);
+
+        return ps.executeQuery();
+    }
+
+    public static ResultSet getPaymentById(String id) throws ClassNotFoundException, SQLException {
+        Connection con = PaymentDB.getConnection();
+        String query = "SELECT * FROM payment_res_event "
+                + "WHERE pay_id = ? ORDER BY pay_date ASC";
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, id);
+        ResultSet res = ps.executeQuery();
+
+        return res;
+    }
+
+    public static ResultSet getPaymentSummary() throws ClassNotFoundException, SQLException {
+        Connection con = PaymentDB.getConnection();
+        String query = "SELECT year(date_time) as year, month(date_time) as month, count(amount) as count, sum(amount) as sum "
+                + "FROM payment "
+                + "GROUP BY year(date_time), month(date_time)";
+        PreparedStatement ps = con.prepareStatement(query);
+        return ps.executeQuery();
     }
 }
