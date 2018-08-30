@@ -32,6 +32,23 @@
       background: #aaa;
   }
   </style>
+  
+  <script type="text/javascript">
+      function formValidate(form) {
+          var price = document.getElementById("main_price").value;
+          
+          var exp = /[0-9]/;
+          if (price.toString().match(exp)) {
+              return true;
+          }
+          else {
+              alert("Please Enter Numbers Only.");
+              return false;
+          }
+
+      }
+      
+  </script>
 
 
 
@@ -45,7 +62,7 @@
     <%  String main_id = request.getParameter("main_id");
         ResultSet res = MainDish.displayMain(main_id); 
     %>
-    <form action="<%=request.getContextPath() %>/UpdateMainDish" method="post">
+    <form action="<%=request.getContextPath() %>/UpdateMainDish" method="post" onsubmit="return formValidate()">
         <table>
             <% while (res.next()) { %>
             <tr>
@@ -58,7 +75,7 @@
             </tr>
             <tr>
                 <td>Price</td>
-                <td><input type="text" name="price" value="<%=res.getString("Price") %>"</td>
+                <td><input type="text" name="price" id="main_price" value="<%=res.getString("Price") %>"</td>
             </tr>
             <tr>
                 <td><button type="submit" name="sub" class="btn btn-success">Submit</button></td>

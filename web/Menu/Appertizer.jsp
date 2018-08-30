@@ -19,9 +19,26 @@
       background: #aaa;
   }
   </style>
+  
+  <script type="text/javascript">
+      function formValidate(form) {
+          var price = document.getElementById("appertizer_Price");
+          
+          var exp = /^[0-9]+$/;
+          if (price.toString().match(exp)) {
+              return true;
+          }
+          else {
+              alert("Please Enter Numbers Only.");
+              return false;
+          }
 
+      }
+      
+      
 
-
+  </script>
+    
 <body class="w3-light-grey">
  
 <%@ include file="Layouts/Navigation.jsp" %>
@@ -33,7 +50,7 @@
     
     <div class="container">
         <center><h2>Add your Appetizer</h2></center>
-            <form action="<%=request.getContextPath()%>/AppertizerServlet" >
+            <form action="<%=request.getContextPath()%>/AppertizerServlet" onsubmit="return formValidate()">
         <!--<div class="form-group">
             <label for="email"> Appetizer ID : </label>
             <input type="text" class="form-control" placeholder=" Enter ID " name="email">
@@ -49,7 +66,7 @@
         
         <div class="form-group">
             <label> Price (in $): </label>
-            <input type="text" class="form-control" placeholder="Enter Price " name="appertizer_Price" >
+            <input type="text" class="form-control" placeholder="Enter Price " name="appertizer_Price" id="appertizer_Price">
         </div> 
         
         <div class="row">

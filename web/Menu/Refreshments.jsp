@@ -19,7 +19,23 @@
       background: #aaa;
   }
   </style>
+  
+  <script type="text/javascript">
+      function formValidate(form) {
+          var price = document.getElementById("refreshment_Price").value;
+          
+          var exp = /[0-9]/;
+          if (price.toString().match(exp)) {
+              return true;
+          }
+          else {
+              alert("Please Enter Numbers Only.");
+              return false;
+          }
 
+      }
+      
+  </script>
 
 
 <body class="w3-light-grey">
@@ -32,7 +48,7 @@
     <!-- Type your code Here -->
     <div class="container">
        <center> <h3> Add Your Refreshments. </h3> </center>
-       <form action="<%=request.getContextPath()%>/RefreshmentsServlet">
+       <form action="<%=request.getContextPath()%>/RefreshmentsServlet" onsubmit=" return formValidate()">
            <div class="form-group">
             <label> Refreshment Name : </label>
             <input type="text" class="form-control" placeholder="Enter Refreshment  " name="refresh_name" required=" ">
@@ -47,7 +63,7 @@
         
         <div class="form-group">
             <label> Price (in $) : </label>
-            <input type="text" class="form-control" placeholder="Enter Price " name="deserts_Price" >
+            <input type="text" class="form-control" placeholder="Enter Price " name="refreshment_Price" id="refreshment_Price">
         </div>
               
            <div class="row">

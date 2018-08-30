@@ -54,8 +54,8 @@
             <td><%=res.getString("R_name") %></td>
             <td><%=res.getString("Ingredient") %></td>
             <td><%=res.getString("Price") %></td>
-            <td><a href="editrefresh.jsp?ref_id=<%=res.getString("R_id") %>">Edit</a></td>
-            <td><a href="deleterefresh.jsp?ref_id=<%=res.getString("R_id") %>">Delete</a></td>
+            <td><a href="editrefresh.jsp?ref_id=<%=res.getString("R_id") %>" class="btn btn-success">Edit</a></td>
+            <td><a href="deleterefresh.jsp?ref_id=<%=res.getString("R_id") %>" class="btn btn-danger">Delete</a></td>
         </tr>
         <% } %>
     </table>

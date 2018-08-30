@@ -19,8 +19,26 @@
       background: #aaa;
   }
   </style>
+  
+  
+    <script type="text/javascript">
+      function formValidate(form) {
+          var price = document.getElementById("main_Price").value;
+          
+          var exp = /[0-9]/;
+          if (price.toString().match(exp)) {
+              return true;
+          }
+          else {
+              alert("Please Enter Numbers Only.");
+              return false;
+          }
 
+      }
+      
+  </script>
 
+  
 
 <body class="w3-light-grey">
  
@@ -34,7 +52,7 @@
      
     <div class="container">
         <center> <h3> Add Your Main Dish </h3> </center>
-        <form action="<%=request.getContextPath()%>/MainDishServlet">
+        <form action="<%=request.getContextPath()%>/MainDishServlet" onsubmit="return formValidate()">
         <div class="form-group">
             <label> Main-Dish Name : </label>
             <input type="text" class="form-control" placeholder="Enter Main-Dish Name " name="main_name" required=" ">
@@ -46,7 +64,7 @@
         
         <div class="form-group">
             <label> Price (in $) : </label>
-            <input type="text" class="form-control" placeholder="Enter Price " name="main_Price" >
+            <input type="text" class="form-control" placeholder="Enter Price " name="main_Price" id="main_Price">
         </div> 
         
         <div></div>    

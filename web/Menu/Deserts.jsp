@@ -16,6 +16,25 @@
       background: #aaa;
   }
   </style>
+  
+    <script type="text/javascript">
+      function formValidate() {
+          var price = document.getElementById("deserts_Price").value;
+          
+          var exp = /^[0-9]+$/;
+          if (price.toString().match(exp)) {
+              return true;
+          }
+          else {
+              alert("Please Enter Numbers Only.");
+              return false;
+          }
+
+      }
+      
+      
+
+  </script>
 
 
 
@@ -29,7 +48,7 @@
     <!-- Type your code Here -->
     <div class="container">
        <center> <h3> Add Your Desert </h3> </center>
-       <form action ="<%=request.getContextPath() %>/DesertServlet">
+       <form action ="<%=request.getContextPath() %>/DesertServlet" onsubmit="return formValidate()">
            <div class="form-group">
                <lable> Desert Name : </lable>
                <input type="text" class="form-control" placeholder="Enter Desert " name="desert_name">
@@ -42,7 +61,7 @@
         
         <div class="form-group">
             <label> Price (in $) : </label>
-            <input type="text" class="form-control" placeholder="Enter Price " name="deserts_Price" >
+            <input type="text" class="form-control" placeholder="Enter Price " name="deserts_Price" id="deserts_Price">
         </div>
            
            <div></div>

@@ -32,6 +32,23 @@
       background: #aaa;
   }
   </style>
+  
+  <script type="text/javascript">
+      function formValidate(form) {
+          var price = document.getElementById("app_price").value;
+          
+          var exp = /[0-9]/;
+          if (price.toString().match(exp)) {
+              return true;
+          }
+          else {
+              alert("Please Enter Numbers Only.");
+              return false;
+          }
+
+      }
+      
+  </script>
 
 
 
@@ -45,7 +62,7 @@
     <%  String app_id = request.getParameter("app_id");
         ResultSet res = Appertizer.displayApp(app_id); 
     %>
-    <form action="<%=request.getContextPath() %>/UpdateAppetizer" method="post">
+    <form action="<%=request.getContextPath() %>/UpdateAppetizer" method="post" onsubmit="return formValidate()">
         <table>
             <% while (res.next()) { %>
             <tr>
@@ -58,7 +75,7 @@
             </tr>
             <tr>
                 <td>Price</td>
-                <td><input type="text" name="price" value="<%=res.getString("Price") %>"</td>
+                <td><input type="text" name="price" id="app_price" value="<%=res.getString("Price") %>"</td>
             </tr>
             <tr>
                 <td><button type="submit" name="sub" class="btn btn-success">Submit</button></td>
