@@ -119,13 +119,13 @@ public abstract class Facility {
         
         }
         
-        public abstract int getAvailableQuantity(String soundKey);
-        public abstract int getTotalQuantity(String soundKey);
-        public abstract boolean updateCondition(String soundKey,String condition);
-        public abstract boolean reduceAvailableQuantity(int quantity, String soundKey);        
-        public abstract boolean incrementAvailableQuantity(int quantity, String soundKey);
-        public abstract boolean reduceTotalQuantity(int quantity, String soundKey);
-        public abstract boolean incrementTotalQuantity(int quantity, String soundKey);
+        public abstract int getAvailableQuantity(String Key);
+        public abstract int getTotalQuantity(String Key);
+        public abstract boolean updateCondition(String Key,String condition);
+        public abstract boolean reduceAvailableQuantity(int quantity, String Key);        
+        public abstract boolean incrementAvailableQuantity(int quantity, String Key);
+        public abstract boolean reduceTotalQuantity(int quantity, String Key);
+        public abstract boolean incrementTotalQuantity(int quantity, String Key);
         public abstract String add_Facility();
         public abstract boolean remove_Facility(String f_ID);
     
