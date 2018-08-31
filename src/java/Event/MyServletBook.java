@@ -72,6 +72,8 @@ public class MyServletBook extends HttpServlet {
             Booked_Event b_event = new Booked_Event( B_event_name,B_category, B_event_discription,B_date,start,end,location,seats);
             out.println("Object is created");
             
+            out.println("New ID : " + b_event.generateBookEventId());
+            
             if (b_event.isInserted()){
                 out.println("row is inserted");
             }

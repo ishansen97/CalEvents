@@ -50,10 +50,13 @@ public class Event {
 
             if (rs.next()) {
                 String ID = rs.getString("event_ID");
-                String[] parts = ID.split("E00", 2);
+                String[] parts = ID.split("E0", 2);
                 int integerid = Integer.parseInt(parts[1]);
                 integerid++;
+                if(integerid > 1 && integerid<10)
                 event_id = "E00" + integerid;
+                else
+                    event_id = "E0"+integerid;
             }
             else
                 event_id = "E001";
@@ -110,7 +113,82 @@ public class Event {
         }
        
     }
+    
+    public static ResultSet getEventDetails() throws SQLException, ClassNotFoundException {
+        DBConnect connect = DBConnect.getInstance();
+        ResultSet result = null;
         
+        if (connect.isConnected()) {
+            Connection con = connect.getCon();
+            Statement st = con.createStatement();
+            String query = "SELECT * FROM public_events";
+            result = st.executeQuery(query);
+        }
+        return result;
+    }
+    
+    public static ResultSet displayThisEvent(String event_id) throws ClassNotFoundException, SQLException {
+        DBConnect connect = DBConnect.getInstance();
+        ResultSet result = null;
+        
+        if (connect.isConnected()) {
+            Connection con = connect.getCon();
+            Statement st = con.createStatement();
+            String query = "SELECT * FROM public_events WHERE event_ID = '" +event_id+ "'";
+            result = st.executeQuery(query);
+        }
+        return result;
+    }
+    
+    public boolean isUpdated(String event_id) throws ClassNotFoundException, SQLException {
+        DBConnect connect = DBConnect.getInstance();
+        String query = null;
+        
+        if (connect.isConnected()) {
+            Connection con = connect.getCon();
+            query = "UPDATE public_events SET event_name = ?, location_ID = ?, description = ?, date = ?, start_time = ?, end_time = ? WHERE event_ID = '" +event_id+ "'";
+            PreparedStatement ps = con.prepareStatement(query);
+            
+            //assigning values 
+            ps.setString(1, event_name);
+            ps.setString(2, location);
+            ps.setString(3, description);
+            ps.setDate(4, date);
+            ps.setTime(5, start_time);
+            ps.setTime(6, end_time);
+            
+                int result = ps.executeUpdate();
+            
+            if (result > 0)
+                return true;
+            else
+                return false;
+        } 
+        else
+            return false;
+    }
+    public static boolean isDeleted(String event_id) throws ClassNotFoundException, SQLException {
+        DBConnect connect = DBConnect.getInstance();
+        String query = null;
+        
+        if(connect.isConnected()){
+            Connection con = connect.getCon();
+            query = "DELETE FROM public_events WHERE event_ID=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, event_id);
+            
+            int result = ps.executeUpdate();
+            
+            if (result > 0)
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+    
+    }
 
-}
+
 

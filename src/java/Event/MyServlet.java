@@ -72,6 +72,7 @@ public class MyServlet extends HttpServlet {
             
             Event event = new Event(event_name,description,location,start_date,start,end);
             out.println("Working");
+            out.print("new id:"+event.generateEventId());
             
             if (event.isInserted()) {
                 out.println("row is inserted");

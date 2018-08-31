@@ -1,4 +1,4 @@
-package Event;
+  package Event;
 
 
 import java.sql.*;
@@ -51,10 +51,13 @@ public class Booked_Event {
         
             if(rs.next()){
                 String ID = rs.getString("event_ID");
-                String[] parts = ID.split("BE00",2);
+                String[] parts = ID.split("BE0",2);
                 int integerid = Integer.parseInt(parts[1]);
                 integerid++;
-                B_event_ID = "BE00"+integerid;
+                if (integerid > 1 && integerid < 10)
+                    B_event_ID = "BE00"+integerid;
+                else
+                    B_event_ID = "BE0" + integerid;
             }
             else 
                 B_event_ID = "BE001";
@@ -73,7 +76,7 @@ public class Booked_Event {
                 Connection con = connect.getCon();
                 query = "insert into booked_event values (?,?,?,?,?,?,?,?,?)";
                 PreparedStatement st = con.prepareStatement(query);
-                st.setString(1, eid);
+                st.setString(1, B_event_ID);
                 st.setString(2, B_event_name);
                 st.setString(3, B_category);
                 st.setString(4, B_event_discription);
@@ -83,7 +86,7 @@ public class Booked_Event {
                 st.setString(8, location);
                 st.setInt(9, seats);
                 
-                int result = st.executeUpdate();
+                int result = st.executeUpdate();    
                 
                 if(result > 0 )
                     return true;
@@ -104,4 +107,77 @@ public class Booked_Event {
         return false;
     }
    }
+    public static ResultSet getBookedEventDetails()throws SQLException, ClassNotFoundException{
+        DBConnect connect = DBConnect.getInstance();
+        ResultSet result = null;
+        
+        if(connect.isConnected()){
+            Connection con = connect.getCon();
+            Statement st = con.createStatement();
+            String query = "SELECT* FROM booked_event";
+            result = st.executeQuery(query);
+        }
+        return result;
+    }
+    public static ResultSet displayThisBookedEvent(String event_id)throws ClassNotFoundException,SQLException{
+        DBConnect connect = DBConnect.getInstance();
+        ResultSet result = null;
+        
+        if(connect.isConnected()){
+            Connection con = connect.getCon();
+            Statement st = con.createStatement();
+            String query = "SELECT* FROM booked_event WHERE event_ID = '"+event_id+"'";
+            result = st.executeQuery(query);
+        }
+        return result;
+    }
+    public boolean isUpdated(String event_id) throws ClassNotFoundException, SQLException{
+       DBConnect connect = DBConnect.getInstance();
+       String query= null;
+       if(connect.isConnected()){
+           Connection con = connect.getCon();
+           query = "UPDATE booked_event SET event_Name = ?,Category = ?,description=?,Date=?,start_time=?,end_time=?,location_id=?,no_seats=? WHERE event_ID='"+event_id+"'";
+           PreparedStatement ps = con.prepareStatement(query);
+           
+           ps.setString(1,B_event_name);
+           ps.setString(2,B_category);
+           ps.setString(3,B_event_discription);
+           ps.setDate(4,B_date);
+           ps.setTime(5,B_start_time);
+           ps.setTime(6,B_end_time);
+           ps.setString(7,location);
+           ps.setInt(8,seats);
+           
+           int result = ps.executeUpdate();
+                
+           
+           if(result > 0)
+               return true;
+           else
+               return false;
+       }
+       else
+           return false;
+    }
+    public static boolean isDeleted(String event_id) throws ClassNotFoundException, SQLException{
+        DBConnect connect = DBConnect.getInstance();
+        String query = null;
+        
+        if(connect.isConnected()){
+            Connection con = connect.getCon();
+            query="DELETE FROM booked_events WHERE event_ID=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, event_id);
+            
+            int result = ps.executeUpdate();
+            
+            if(result > 0)
+                return true;
+            else
+                return false;
+        }
+        else 
+            return false;
+    }
+    
 } 
