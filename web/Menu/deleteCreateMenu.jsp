@@ -1,10 +1,10 @@
 <%-- 
-    Document   : deleteapp
-    Created on : Aug 2, 2018, 3:26:29 PM
+    Document   : deleteCreateMenu
+    Created on : Aug 31, 2018, 10:39:53 AM
     Author     : Sohan
 --%>
 
-<%@page import="menu.Appertizer"%>
+<%@page import="menu.EventMenu" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,16 +15,18 @@
     <body>
         
         
-        <% String id = request.getParameter("app_id");
+        <% String id = request.getParameter("CM_id");
            
-           if (Appertizer.isDeleted(id)) {
+           if (EventMenu.isDeleted(id)) {
         %>
         <script>
             alert("Your record has been successfully deleted");
         </script>
-        <%@include file="/Menu/UpdateAppertizer.jsp" %> 
+        <%@include file="/Menu/showCreateMenu.jsp" %> 
         <% }else
             out.println("sorry your record cannot be deleted");
         %>
+        
+        
     </body>
 </html>

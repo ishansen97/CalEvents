@@ -25,8 +25,15 @@
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a>
-    <a href="../Menu/index.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Main Menu</a>
+    <a href="../Menu/index.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp;Add Main Menu Items</a>
+    
+    <div class="w3-dropdown-hover"> 
+        <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Create Menu <i class="fa fa-caret-down"></i> </button>
+        <div class="w3-dropdown-content w3-bar-block">
+    <a href="../Menu/CreateMenu.jsp" class="w3-bar-item w3-button w3-padding " style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp;Create Menu </a>
+    <a href="../Menu/showCreateMenu.jsp" class="w3-bar-item w3-button w3-padding " style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Show Created Menu </a>
+        </div> 
+    </div>    
     <br><br>
   </div>
 </nav>

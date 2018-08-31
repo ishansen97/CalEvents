@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Customer_Menu
-    Created on : Aug 11, 2018, 1:31:17 PM
+    Document   : CreateMenu
+    Created on : Aug 30, 2018, 10:14:02 AM
     Author     : Sohan
 --%>
 <%@page import="java.sql.*, menu.*" %>
@@ -9,27 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Customer Menu</title>
+        <title>Create Menu</title>
+        
+                 <%@ include file="Layouts/Styles.jsp" %>   
+
         
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <script src="External/Jquery/jquery.min.js" type="text/javascript"></script>
-        <script src="External/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <link href="External/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../External/Jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="../External/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <link href="../External/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         
-        <style>
-            th,td {
-                padding: 20px;
-            }
-        </style>
         
     </head>
-    <body>
-        <div align="center">
-        <h1>Select Your Menu!</h1>
-        <script>
-            function getAppertizers(obj) {
+    <script>
+        function getAppertizers(obj) {
             var appertizer = document.getElementById(obj).value;
             var appertizer_arr = document.getElementById("appertizer_array").innerHTML;
             var arr1 = [appertizer_arr];
@@ -75,13 +70,28 @@
             document.getElementById("main_menu").value = main_dishes;
             document.getElementById("desert_menu").value = deserts;
             document.getElementById("refresh_menu").value = refreshments;
-            
-            document.getElementById("display_app").innerHTML = appertizers;
-            document.getElementById("display_main").innerHTML = main_dishes;;
-            document.getElementById("display_deserts").innerHTML = deserts;
-            document.getElementById("display_refresh").innerHTML = refreshments;
         }
-        </script>
+        
+        function validation() {
+            var appertizers = document.getElementById("app_menu").value;
+            var main_dishes = document.getElementById("main_menu").value;
+            var deserts = document.getElementById("desert_menu").value;
+            var refreshments = document.getElementById("refresh_menu").value;
+            
+            if (appertizers === "" && main_dishes === "" && deserts === "" && refreshments === "") {
+                alert("Please select menu items");
+                return false;
+            }
+            else
+                return true;
+        }
+        
+        
+    </script>
+    <body>
+        
+        <div align="center">
+        <h1>Create Menu!</h1>
         
         <% ResultSet appertizers = Appertizer.getApperizer(); 
            ResultSet deserts = Deserts.getDeserts();
@@ -90,7 +100,7 @@
         %>
         
         </div>
-        <!--<form>-->
+        <form action="<%=request.getContextPath() %>/Create_Menu" onsubmit="return validation()">
             <a href="#app_chk_box" data-toggle="collapse" data-target="#app_chk_box">Appetizer : </a>
           <div class="form-group">
               
@@ -132,37 +142,15 @@
                   <p id="refreshments_array" hidden></p>
               </div>
           </div>  
-                  <button type="submit" class="btn btn-success" data-toggle="collapse" data-target="#display_menu" onclick="integrate()"> Show </button>
-        
-<!--                  <button type="reset" class="btn btn-danger"> Reset </button>-->
-                  
-        <!--</form>-->
-        <input type="text" name="app_menu" id="app_menu">
+            <button type="submit" class="btn btn-success">Create</button>
+            <button type="button" class="btn btn-success" onclick="return integrate()">Confirm</button>
+            <input type="text" name="app_menu" id="app_menu">
             <input type="text" name="main_menu" id="main_menu">
             <input type="text" name="desert_menu" id="desert_menu">
             <input type="text" name="refresh_menu" id="refresh_menu">
-              
-              <div class="jumbotron collapse" id="display_menu">
-                  <table>
-                      <tr>
-                          <th>Appertizers</th>
-                          <th>Main Dishes</th>
-                          <th>Deeserts</th>
-                          <th>Refreshments</th>
-                      </tr>
-                      <tr>
-                          <td><p id="display_app"></p></td>
-                          <td><p id="display_main"></p></td>
-                          <td><p id="display_deserts"></p></td>
-                          <td><p id="display_refresh"></p></td>
-                      </tr>
-                      
-                      
-                      
-                  </table>
-              </div>
-        
-        
+            
+            <button type="reset" class="btn btn-danger"> Reset </button>
+        </form>
         
     </body>
 </html>
