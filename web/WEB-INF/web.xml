@@ -4,9 +4,17 @@
         <servlet-name>admin</servlet-name>
         <servlet-class>event.facility.servelets.admin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addfacilityservelet</servlet-name>
+        <servlet-class>event.facility.servelets.addfacilityservelet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addfacilityservelet</servlet-name>
+        <url-pattern>/addfacilityservelet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

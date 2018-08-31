@@ -2,58 +2,94 @@
 <%@page import="supporting.Fetch"%>
 <!DOCTYPE html>
 <html>
+<head>
 <title>Facility</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<script>
+    function addf(){
+        //view Add operations
+        document.getElementById('addM').style.display='';
+    }
+    function deletef(){
+        //view Add operations
+        document.getElementById('addM').style.display='';
+    }
+    function updatef(){
+        //view Add operations
+        document.getElementById('addM').style.display='';
+    }
+</script>
+<style>            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+            
+            .button5 {
+                background-color: white;
+                color: black;
+                border: 2px solid #555555;
+            }
+            .button5:hover {
+                background-color: #555555;
+                color: white;
+            }</style>
+    
+</head>
 <%@ include file="Layouts/Styles.jsp" %>
-<body class="w3-light-grey">
+<body style="background-color: #555555">
  
 <%@ include file="Layouts/Navigation.jsp" %>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     
-    <form method="POST" action="../admin">
-        
+<!--        
     <div class="container-fluid" style=" padding-left: 200px; padding-top: 200px">
         <div class="row">
-            <div class="col-md-3" style="background-color: #009688;">
-            <h1 style="color: #c0c0c0">Select Facility :</h1>
-            </div>
-            <div class="col-md-4" style="background-color: #009688;">
+            <div class="col-md-4" style="background-color: #009688;">-->
+            <h1 style="color: white">Select an Operation:</h1>
+            <!--</div>-->
+            <br>    <br> <br>
+
+            <!--<div class="col-1" style="background-color: #009688;font-size: 30px;" >-->
+                <input class="button button5"  style=" color: #009999" type="submit" value="ADD" name="addF" onclick="javascript:addf();" />
+            <!--</div>-->
+            <!--<div class="col-1.5" style="background-color: #009688;font-size: 30px;" >-->
+                <input  class="button button5" style=" color: #009999" type="submit" value="DELETE" name="deleteF" onclick="javascript:deletef();" />
+            <!--</div>-->
+            <!--<div class="col-2" style="background-color: #009688;font-size: 30px;" >-->
+                <input  class="button button5" style=" color: #009999" type="submit" value="UPDATE" name="updateF" onclick="javascript:updatef();" />
+            <!--</div>-->
                 
-            <select name="addFacility" style="font-size: 40px;">
-                
-            <%
-                Fetch fetchTypes = new Fetch();
-                ResultSet types = fetchTypes.fetchTypes();
-            %>
+                <input  class="button button5" style=" color: #009999" type="submit" value="VIEW" name="viewF" onclick="javascript:viewf();" />
+        <!--</div>-->
+    <!--</div>-->
             
-            <%while (types.next()){%>
-            <option class="lt"><%=types.getString("name")%></option>
-            <%}%>
-            
-            </select>
-            
-            </div>
-            <div class="col-1" style="background-color: #009688;font-size: 30px;" >
-                <input style=" color: #009999" type="submit" value="ADD" name="addF" />
-            </div>
-            <div class="col-1.5" style="background-color: #009688;font-size: 30px;" >
-                <input style=" color: #009999" type="submit" value="DELETE" name="deleteF" />
-            </div>
-            <div class="col-2" style="background-color: #009688;font-size: 30px;" >
-                <input style=" color: #009999" type="submit" value="UPDATE" name="updateF" />
-            </div>
-        </div>
-    </div>
-            
-    </form>
-<div style="position:absolute; bottom:0; width:100%; height:60px; background:#6cf;">
-        <%@ include file="Layouts/Footer.jsp" %></div>
+            <div style="display: none" id="addM">
+            <%@include file="addFacility.jsp" %>
+            </div></div>
+                        
+            <% String message = (String)request.getAttribute("errorMessage");%>
+            <%if(message!=null){%>
+            <script type="text/javascript">
+            var msg = "<%=message%>";
+            alert(msg);
+
+            </script><%}%>
+        <%--<%@ include file="Layouts/Footer.jsp" %>--%>
+<!--</div>-->
     
-</div>
 <%@ include file="Layouts/Scripts.jsp" %>
 
 </body>

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author Sachith Fernando
  */
 
-class Sounds extends Facility{
+public class Sounds extends Facility{
 
     private String brand;
     
@@ -413,5 +413,27 @@ class Sounds extends Facility{
         if(incremented == 1) return true;
         
         else return false;
+    }
+    
+    public ResultSet fetch(){
+        
+            PreparedStatement fetch = null;
+            ResultSet details = null;
+            
+        try {
+            
+            if(dbcon.isConnected()){
+                Connection connect = dbcon.getCon();
+                fetch = connect.prepareStatement("SELECT * FROM `facilitysound`");
+                details = fetch.executeQuery();
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Tents.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Tents.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+            return details;
     }
 }

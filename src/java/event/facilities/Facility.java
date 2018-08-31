@@ -118,6 +118,29 @@ public abstract class Facility {
             return "no such facility called " + type;
         
         }
+        public String getItemID(String view,String name) throws ClassNotFoundException, SQLException{
+            
+            
+            PreparedStatement ps = null;
+            ResultSet result = null;
+            String id = "";
+            
+            if(dbcon.isConnected()){
+                
+                Connection connect = dbcon.getCon();
+                ps = connect.prepareStatement("SELECT * FROM "+view+" WHERE `facilitiyName` = ? ");
+                ps.setString(1, name);
+                
+                result = ps.executeQuery();
+                while(result.next()){
+                    id = result.getString("facilityID");
+                }
+                
+            }
+            else return "Connection Error!";
+            
+            return id;
+        }
         
         public abstract int getAvailableQuantity(String Key);
         public abstract int getTotalQuantity(String Key);
@@ -128,5 +151,6 @@ public abstract class Facility {
         public abstract boolean incrementTotalQuantity(int quantity, String Key);
         public abstract String add_Facility();
         public abstract boolean remove_Facility(String f_ID);
+        public abstract ResultSet fetch();
     
 }
