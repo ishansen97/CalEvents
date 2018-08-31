@@ -1,6 +1,6 @@
 <%-- 
-    Document   : deleted
-    Created on : Aug 30, 2018, 10:32:48 PM
+    Document   : errorUpdatingQty
+    Created on : Aug 31, 2018, 9:31:40 PM
     Author     : Lini Eisha
 --%>
 
@@ -13,10 +13,9 @@
         
     </head>
     <body>
-    <script>alert("Record updated Successfully!")</script>
+    <script>alert("Error Please Try Again!")</script>
     
-    <%@include file="Rawadmin.jsp" %>
+    <%@include file="updateQty.jsp" %>
     
     </body>
 </html>
-

@@ -212,7 +212,7 @@ public class Raw_Materials {
         
     }
     
-    public boolean reduceQuantity(String name , double quantity) throws ClassNotFoundException, SQLException{
+    public String reduceQuantity(String name , double quantity) throws ClassNotFoundException, SQLException{
         
         PreparedStatement reduce= null;
         double reduced = 0;
@@ -236,15 +236,15 @@ public class Raw_Materials {
             }
         
         else
-        return false;
+        return "connection error!";
         
-        if(reduced==1)return true;
+        if(reduced==1)return "record added!";
         
-        else return false;
+        else return "record not added";
         
     }
     
-    public boolean incrementQuantity(String name , double quantity) throws ClassNotFoundException, SQLException{
+    public String incrementQuantity(String name , double quantity) throws ClassNotFoundException, SQLException{
         PreparedStatement increment= null;
         double incremented = 0;
         
@@ -267,40 +267,36 @@ public class Raw_Materials {
             }
         
         else
-        return false;
+        return "connection error!";
         
-        if(incremented==1)return true;
+        if(incremented==1)return "record added!";
         
-        else return false;
+        else return "record not added";
     }
     
     
-    public void getDetails() throws ClassNotFoundException, SQLException{
-        
-     Statement stmt = null;
-    ResultSet rs   = null;
-        
-        ArrayList<String> rm = new ArrayList<String>();
-        
-        if (dbcon.isConnected())
-            {
-                Connection connect = dbcon.getCon();
-                
-        rm.add("first");
-
-        String sql = "SELECT * FROM raw_materials";
-        rs = stmt.executeQuery(sql);
-        while(rs.next()){
-            String str  = rs.getString("str");
-            rm.add(str);
+  /* public ResultSet fetchTypes() throws SQLException, ClassNotFoundException{
+            
+    ResultSet result = null;        
+    PreparedStatement statement = null;
+    
+     if (dbcon.isConnected()) 
+    {
+    Connection connect = dbcon.getCon();
+    
+    statement = connect.prepareStatement("SELECT * FROM `raw_materials`");
+    
+    result = statement.executeQuery();
+  
     }
     
+    return result;
     
     
     
     
-}
-    }}
+}*/
+    }
 
 class test{
 public static void main(String[] args) throws ClassNotFoundException, SQLException{

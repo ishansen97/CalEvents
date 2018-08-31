@@ -15,7 +15,7 @@
     <body>
     <script>alert("Record Inserted Successfully!")</script>
     
-    <%@include file="Rawadmin.jsp" %>
+    <%@include file="insert.jsp" %>
     
     </body>
 </html>

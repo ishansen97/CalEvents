@@ -1,4 +1,4 @@
-package rawServelets;
+    package rawServelets;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -91,7 +91,7 @@ public class insertRaw extends HttpServlet {
 //            out.println(message);
             if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
             else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
-            else response.sendRedirect("Kitchen/wrong.");
+            else if(message.equalsIgnoreCase("raw material already exist")) response.sendRedirect("Kitchen/wrong.");
             
             
         } catch (ClassNotFoundException ex) {

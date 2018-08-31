@@ -86,20 +86,43 @@ public class updateQuantity extends HttpServlet {
             out.println("Error");
         }
         
-        else if(addremove.equals("add")){
+        if(addremove.equals("add")){
         String name = request.getParameter("name");
         double qty = Double.parseDouble(request.getParameter("qty"));
             
         Raw_Materials raw = new Raw_Materials(name,qty);
             try {
              
-                boolean message = raw.incrementQuantity(name, qty);
+                String message = raw.incrementQuantity(name, qty);
+                
+                if(message.equalsIgnoreCase("record added!"))response.sendRedirect("Kitchen/qtyUpdated.jsp");
+                else response.sendRedirect("Kitchen/errorUpdatingQty.jsp");
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
             }
         
+            }
+            
+            if(addremove.equals("remove")){
+        String name = request.getParameter("name");
+        double qty = Double.parseDouble(request.getParameter("qty"));
+            
+        Raw_Materials raw = new Raw_Materials(name,qty);
+            try {
+             
+                String message = raw.incrementQuantity(name, qty);
+                
+                if(message.equalsIgnoreCase("record added!"))response.sendRedirect("Kitchen/qtyUpdated.jsp");
+                else response.sendRedirect("Kitchen/errorUpdatingQty.jsp");
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
     }
 

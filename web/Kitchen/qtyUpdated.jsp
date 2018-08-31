@@ -15,7 +15,7 @@
     <body>
     <script>alert("Record Updated Successfully!")</script>
     
-    <%@include file="Rawadmin.jsp" %>
+    <%@include file="updateQty.jsp" %>
     
     </body>
 </html>

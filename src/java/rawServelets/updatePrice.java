@@ -89,8 +89,8 @@ public class updatePrice extends HttpServlet {
         try {
             String message = raw.updatePrice(name, price);
             
-            if(message.equalsIgnoreCase("Record Updated"))response.sendRedirect("Kitchen/deleted.jsp");
-             else if(message.equalsIgnoreCase("raw material doesn't exist"))response.sendRedirect("Kitchen/errorDeleting.jsp");
+            if(message.equalsIgnoreCase("Record Updated"))response.sendRedirect("Kitchen/priceUpdated.jsp");
+             else if(message.equalsIgnoreCase("raw material doesn't exist"))response.sendRedirect("Kitchen/errorUpdatingPrice.jsp");
             
             
         } catch (ClassNotFoundException ex) {

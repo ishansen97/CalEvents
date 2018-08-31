@@ -1,6 +1,6 @@
 <%-- 
-    Document   : inserted
-    Created on : Aug 30, 2018, 1:03:28 PM
+    Document   : priceUpdated
+    Created on : Aug 31, 2018, 11:25:34 PM
     Author     : Lini Eisha
 --%>
 
@@ -13,9 +13,9 @@
         
     </head>
     <body>
-    <script>alert("Error Please Try Again!")</script>
+    <script>alert("Record Updated Successfully!")</script>
     
-    <%@include file="insert.jsp" %>
+    <%@include file="updatePrice.jsp" %>
     
     </body>
 </html>

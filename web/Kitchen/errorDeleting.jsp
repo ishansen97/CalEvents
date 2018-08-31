@@ -15,7 +15,7 @@
     <body>
     <script>alert("Error Please Try Again!")</script>
     
-    <%@include file="Rawadmin.jsp" %>
+    <%@include file="delete.jsp" %>
     
     </body>
 </html>

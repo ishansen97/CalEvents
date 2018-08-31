@@ -15,7 +15,7 @@
     <body>
     <script>alert("Record Deleted Sucessfully!")</script>
     
-    <%@include file="Rawadmin.jsp" %>
+    <%@include file="adminPanal.jsp" %>
     
     </body>
 </html>
