@@ -99,6 +99,35 @@ public class Payment {
         return res;
     }
 
+    public static ResultSet getPaymentSummaryForMonth(String date) throws ClassNotFoundException, SQLException {
+        String[] yyyyMM = date.split("-");
+        String query = "SELECT date(date_time), sum(amount) "
+                + "FROM payment "
+                + "WHERE year(date_time) = ? AND month(date_time) = ? "
+                + "GROUP BY year(date_time), month(date_time), day(date_time)";
+
+        Connection con = PaymentDB.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, yyyyMM[0]);
+        ps.setString(2, yyyyMM[1]);
+
+        return ps.executeQuery();
+    }
+
+    public static ResultSet getEventsSummary(String date) throws ClassNotFoundException, SQLException {
+        String[] yyyyMM = date.split("-");
+        String query = "SELECT event_id, count(event_id) FROM `payment_res_event` "
+                + "WHERE year(pay_date) = ? AND month(pay_date) = ? "
+                + "GROUP BY year(pay_date), month(pay_date), event_Id";
+
+        Connection con = PaymentDB.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, yyyyMM[0]);
+        ps.setString(2, yyyyMM[1]);
+
+        return ps.executeQuery();
+    }
+
     public static ResultSet getPaymentSummary() throws ClassNotFoundException, SQLException {
         Connection con = PaymentDB.getConnection();
         String query = "SELECT year(date_time) as year, month(date_time) as month, count(amount) as count, sum(amount) as sum "

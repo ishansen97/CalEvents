@@ -9,7 +9,7 @@
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img class="w3-circle w3-margin-right" style="width:46px; height: 46px; background: gray">
     </div>
     <div class="w3-col s8 w3-bar">
       <span>Welcome, <strong>Mike</strong></span><br>
@@ -22,11 +22,10 @@
   <div class="w3-container">
     <h5>Dashboard</h5>
   </div>
-  <div class="w3-bar-block">
-    <a href="./" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-    <a href="./" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-pie-chart"></i>&nbsp; Overview</a>
-    <a href="./payments.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; User Payments</a>
-    <a href="./payment.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-area-chart fa-fw"></i>&nbsp; Expenses</a>
+  <div class="w3-bar-block" id="w3-nav-buttons">
+    <a href="./" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bar-chart-o fa-fw"></i>&nbsp; Overview</a>
+    <a href="./payments.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Payments</a>
+    <a href="./payment_test.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users-cog fa-fw"></i>&nbsp; Expenses</a>
   </div>
 </nav>
 <!-- End of Sidebar/menu -->

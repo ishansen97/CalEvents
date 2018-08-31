@@ -28,7 +28,7 @@
                 Date dateRes = rs.getDate("res_date");
                 Date datePay = rs.getDate("pay_date");
     %>
-    <div class="container" style="max-width: 900px">
+    <div class="container">
       <div class="d-flex justify-content-between align-items-center">
         <h3>Invoice #<%= String.format("%05d", rs.getInt("pay_id"))%></h3>
         <date><%= rs.getString("pay_date")%></date>
@@ -82,7 +82,7 @@
           </tr>
           <tr>
             <th class="text-right pr-2">Payment Method</th>
-            <td class="pl-3"><%= rs.getString("method")%></td>
+            <td class="pl-3"><%= rs.getString("pay_method")%></td>
           </tr>
           <tr>
             <th class="text-right pr-2">Amount Paid</th>
@@ -103,7 +103,7 @@
           <td class="border-right-0">
             <b><%=rs.getString("event_name")%></b>
             <small class="text-small">
-              -- <%= rs.getString("description")%>
+              -- <%= rs.getString("event_id")%>
             </small>
           </td>
           <td class="border-left-0"></td>
@@ -137,7 +137,6 @@
         <div class="d-flex justify-content-end">
           <a class="btn btn-sm btn-primary mr-2" href="#" onclick="window.print()">Print</a>
           <!-- ADMIN ONLY -->
-          <a class="btn btn-sm btn-primary mr-2" href="#" onclick="">Edit</a>
           <a class="btn btn-sm btn-danger" href="#" onclick="confirmDelete('<%= rs.getInt("pay_id")%>')">Delete</a>
         </div>
       </footer>

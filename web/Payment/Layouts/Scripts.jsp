@@ -31,4 +31,9 @@ function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
+
+var path = window.location.pathname;
+var search = "." + path.substr(path.lastIndexOf('/'));
+$("#w3-nav-buttons a[href='"+search+"']").addClass("w3-blue");
+console.log(search);
 </script>
