@@ -75,7 +75,8 @@ public class MyServletBook extends HttpServlet {
             out.println("New ID : " + b_event.generateBookEventId());
             
             if (b_event.isInserted()){
-                out.println("row is inserted");
+                out.println("row is inserted");response.sendRedirect(request.getContextPath()+"/Event/eventListB.jsp");
+                
             }
             else{
                 out.println("row not inserted");

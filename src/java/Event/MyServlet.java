@@ -76,6 +76,7 @@ public class MyServlet extends HttpServlet {
             
             if (event.isInserted()) {
                 out.println("row is inserted");
+                response.sendRedirect(request.getContextPath()+"/Event/eventListP.jsp");
             }
             else {
                 out.println("row is not inserted");
