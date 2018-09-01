@@ -13,7 +13,7 @@
         
     </head>
     <body>
-    <script>alert("Record Updated Successfully!")</script>
+    <script>alert("Sorry! Something went wrong")</script>
     
     <%@include file="updatePrice.jsp" %>
     

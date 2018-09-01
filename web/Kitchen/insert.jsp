@@ -75,7 +75,7 @@
                             <td><input type="text" name="name"  placeholder="Name" required="" /></td>
                         </tr>
                         <tr>
-                            <td>Unity Type :</td>
+                            <td>Unit Type :</td>
                             <td><input type="text" name="Utype"  placeholder="Type" required="" /></td>
                         </tr>
                         <tr>

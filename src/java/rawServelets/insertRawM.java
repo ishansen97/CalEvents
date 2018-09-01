@@ -76,18 +76,18 @@ public class insertRawM extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        //response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
         
-       /* 
+        
         String name = request.getParameter("name");
         String type = request.getParameter("Utype");
         double price = Double.parseDouble(request.getParameter("Uprice"));
         double qty = Double.parseDouble(request.getParameter("qty"));
         //out.println(name);
         
-        Raw_Materials raw = new Raw_Materials();
+        Raw_Materials raw = new Raw_Materials(name,type,price,qty);
        
         
         try {
@@ -102,11 +102,7 @@ public class insertRawM extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(insertRawM.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        */
-        
-        
-        
+          
     }
 
     /**

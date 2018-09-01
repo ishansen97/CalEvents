@@ -44,6 +44,10 @@ public class Raw_Materials {
     public Raw_Materials(String name, double qty) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public Raw_Materials(String name, String type, double price, double qty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     public String generate_Raw_Id() throws ClassNotFoundException, SQLException{
