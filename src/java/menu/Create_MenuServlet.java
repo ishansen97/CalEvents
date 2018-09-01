@@ -37,20 +37,20 @@ public class Create_MenuServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Create_Menu</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Create_Menu at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet Create_Menu</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet Create_Menu at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
             
-            String appertizers = request.getParameter("app_menu");
-            String main_dishes = request.getParameter("main_menu");
-            String deserts = request.getParameter("desert_menu");
-            String refreshments = request.getParameter("refresh_menu");
+            String appertizers = request.getParameter("appertizers");
+            String main_dishes = request.getParameter("main_dishes");
+            String deserts = request.getParameter("deserts");
+            String refreshments = request.getParameter("refreshments");
             
 //            out.println("Appertizers : " + appertizers + "\n");
 //            out.println("main dishes : " + main_dishes + "\n");
@@ -60,7 +60,11 @@ public class Create_MenuServlet extends HttpServlet {
             EventMenu eventMenu = new EventMenu(appertizers, main_dishes, deserts, refreshments);
             
             if (eventMenu.isInserted()) {
+                
                 out.println("Inserted");
+                //response.sendRedirect(request.getContextPath() + "Menu/success.jsp");
+                
+                
             }
             else {
                 out.println("not inserted");

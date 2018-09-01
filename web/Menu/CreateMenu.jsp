@@ -86,8 +86,19 @@
                 return true;
         }
         
+        $(document).ready(function() {
+            $("#create").click(function() {
+                var appertizers = document.getElementById("app_menu").value;
+                var main_dishes = document.getElementById("main_menu").value;
+                var deserts = document.getElementById("desert_menu").value;
+                var refreshments = document.getElementById("refresh_menu").value;
+                
+                $.post("<%=request.getContextPath() %>/Create_Menu", {appertizers : appertizers, main_dishes : main_dishes, deserts : deserts, refreshments : refreshments}, function(data) {
+                    alert("Your data is : " + data); });
+            });
+        });
         
-    </script>
+   </script>
     <body>
         
         <div align="center">
@@ -100,7 +111,7 @@
         %>
         
         </div>
-        <form action="<%=request.getContextPath() %>/Create_Menu" onsubmit="return validation()">
+        <!--<form action="<%=request.getContextPath() %>/Create_Menu" onsubmit="return validation()">-->
             <a href="#app_chk_box" data-toggle="collapse" data-target="#app_chk_box">Appetizer : </a>
           <div class="form-group">
               
@@ -142,7 +153,7 @@
                   <p id="refreshments_array" hidden></p>
               </div>
           </div>  
-            <button type="submit" class="btn btn-success">Create</button>
+            <button type="submit" class="btn btn-success" id="create">Create</button>
             <button type="button" class="btn btn-success" onclick="return integrate()">Confirm</button>
             <input type="text" name="app_menu" id="app_menu">
             <input type="text" name="main_menu" id="main_menu">
@@ -150,7 +161,8 @@
             <input type="text" name="refresh_menu" id="refresh_menu">
             
             <button type="reset" class="btn btn-danger"> Reset </button>
-        </form>
+           
+        <!--</form>-->
         
     </body>
 </html>
