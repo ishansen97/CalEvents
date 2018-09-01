@@ -21,7 +21,7 @@ import test.Raw_Materials;
  *
  * @author Lini Eisha
  */
-@WebServlet(name = "removeRaw", urlPatterns = {"/removeRaw"})
+//@WebServlet(name = "removeRaw", urlPatterns = {"/removeRaw"})
 public class removeRaw extends HttpServlet {
 
     /**

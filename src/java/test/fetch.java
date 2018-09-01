@@ -41,4 +41,25 @@ DBConnect dbcon;
     return result;
     
     }
+    
+    
+    public ResultSet fetchName() throws ClassNotFoundException, SQLException{
+        
+        ResultSet result = null;
+        PreparedStatement statement = null;
+        
+        
+     if (dbcon.isConnected()) 
+    {
+    Connection connect = dbcon.getCon();
+    
+    statement = connect.prepareStatement("SELECT name FROM `raw_materials`");
+    
+    result = statement.executeQuery();
+  
+    }
+    
+    return result;
+    
+    } 
 }
