@@ -146,16 +146,29 @@
             }
             
             function undo_seats() {
-                var seat_arr = document.getElementById("seat_array").value;
+//                var seat_arr = document.getElementById("seat_array").value;
+//                var array = [seat_arr];
+//                var seat = array.pop();
+//                document.getElementById("seat_array").innerHTML = array;
+//                document.getElementById("no_of_seats").value = "";
+//                alert(seat);
+                var seat_arr = document.getElementById("seat_array").innerHTML;
                 var array = [seat_arr];
                 var seat = array.pop();
+                var i;
                 document.getElementById("seat_array").innerHTML = array;
                 document.getElementById("no_of_seats").value = "";
-                alert(seat);
+                alert("the seats has been unselected");
+                
+                for (i = 1; i < 20; i++) {
+                    var selected = document.getElementById(i).checked;
+                    if (selected === true)
+                        document.getElementById(i).checked = false;
+                }
             }
             
             //payment validations
-            function validateInput(input, match) {
+      function validateInput(input, match) {
         if (match === true || input.value.match(match)) {
           input.classList.remove('is-invalid');
           return true;
@@ -173,13 +186,16 @@
         var expYY = document.forms["payment"]["expiryYear"];
         var dateMM = Number(expMM.value);
         var dateYY = Number(expYY.value);
+        
+        var expDate = new Date("1/"+expMM.value + "/"+expYY.value);
+        var isValidDate = new Date().getTime() < expDate.getTime();
 
         // validate CardNo and CCV
         var validCCNo = validateInput(ccNo,  /^(\d{4}(\s|-)?){3}(\d{2,4})$/);
         var validCCV  = validateInput(ccCCV, /^\d{3}$/);
         var validName = validateInput(ccCCV, /^\w+/);
-        var validExMM = validateInput(expMM, (dateMM > 0 && dateMM <= 12));
-        var validExYY = validateInput(expYY, (dateYY >= new Date().getFullYear() % 100));
+        var validExYY = validateInput(expYY, isValidDate);
+        var validExMM = validateInput(expMM, isValidDate);
         var seat_validate = validate();
 
         return validCCNo && validCCV && validExMM && validExYY && seat_validate;
@@ -207,8 +223,8 @@
             <a href="calendar.jsp" class="btn btn-light">Go To Calendar View</a>
             <a href="handleReservation.jsp?customer_id=<%=customer_id %>" class="btn btn-light">My reservations</a>
             <a href="profile.jsp" style="float: right"><%=customer_name %></a>
-            <h1>Hello World!</h1>
             <div id="event" class="jumbotron">
+                <h1>Event Details</h1>
                 <table>
                     <% while (event.next()) { %>
                     <tr>
@@ -247,17 +263,19 @@
             
 
             <div id="seats" class="jumbotron col-12 collapse">
+                <form>
                 <h1>Select a Seat <span style="color:red">(Maximum 4 seats)</span></h1>
             <% while (rs.next()) {
                 int seat = rs.getInt("seat_num");
             %>
-            <p id="demo"></p>
-            <button type="button" id="<%=seat%>" class="btn btn-light" onclick="display(this.id)"><%=seat %></button>
+            <!--<p id="demo"></p>-->
+            <input type="checkbox" id="<%=seat %>" value="<%=seat %>" onclick="display(this.id)" style="font-size: 30px"><%=seat %>
             <% } %>
             <button type="button" id="confirm_seat" data-toggle="collapse" data-target="#customer" class="btn btn-success" onclick="return displayCus()">Confirm</button>
-            <button type="button" id="undo" class="btn btn-info" onclick="undo_seats()">Undo</button>
+            <button type="reset" id="undo" class="btn btn-info" onclick="undo_seats()">Reset</button>
             <p id="seat_array"></p>
-            <input type="number" id="no_of_seats">
+            <input type="hidden" id="no_of_seats">
+                </form>
             </div>
             
             
@@ -266,12 +284,22 @@
                 <a href="#customer" id="customer_payment" data-toggle="collapse" style="font-size: 20px">Payment Details</a>
 
 
-                <form action="${pageContext.request.contextPath}/ReservationServelet1" onsubmit="return validatePayment()" method="POST">
+                <form action="${pageContext.request.contextPath}/ReservationServelet1" name="payment" onsubmit="return validatePayment()" method="POST">
           
-                                <input type="text" id="show" name="seat_num">
-                                <input type="hidden" id="event" name="event" value="<%=event_id %>">
-                                <input type="text" id="amount" name="paymentAmount">
-                                <p id="final_seat_array"></p>
+                        <table>
+                            <tr>
+                                <td>Seats selected</td>
+                                <td><input type="text" id="show" name="seat_num" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" id="event" name="event" value="<%=event_id %>"></td>
+                            </tr>
+                            <tr>
+                                <td>Amount</td>
+                                <td><input type="text" id="amount" name="paymentAmount" readonly></td>
+                                <td><p id="final_seat_array"></p></td>
+                            </tr>
+                        </table>
         <div class="card">
           <div class="card-header">
             <h1>Payment</h1>
@@ -327,8 +355,9 @@
         }
         %>
         <% } catch (Exception ex) {
-                out.println("Error");
-                response.sendRedirect("test.jsp?id=E002");
+                String event_id = request.getParameter("id");
+                String query = "id=" + event_id;
+                response.sendRedirect("test.jsp?" + query);
         }
         %>
     </body>

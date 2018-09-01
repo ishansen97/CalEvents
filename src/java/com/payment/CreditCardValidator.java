@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package com.payment;
-import com.payment.exception.CreditCardExpiredException;
+
 import com.payment.exception.CreditCardNumberInvalidException;
+import com.payment.exception.CreditCardExpiredException;
 import java.util.Date;
 
 /**
  *
- * @author DELL
+ * @author muammar
  */
 public class CreditCardValidator {
     private String cardNo, CCV, name;

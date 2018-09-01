@@ -20,6 +20,12 @@ public class Customer {
         this.contactNumber = contactNumber;
         this.email = email;
     }
+
+    public Customer(String email) {
+        this.email = email;
+    }
+    
+    
     
     public String generateCustomerId() throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
@@ -85,6 +91,26 @@ public class Customer {
             ResultSet result = st.executeQuery(query);
             
             if (result.next())
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+    
+    public static boolean passWordUpdated(Customer cus, String password) throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        String query = null;
+        String customer_id = cus.getCus_id();
+        
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+            query = "UPDATE customer SET password = '" +password+ "' WHERE cus_id = '" +customer_id+ "'";
+            int result = st.executeUpdate(query);
+            
+            if (result > 0)
                 return true;
             else
                 return false;

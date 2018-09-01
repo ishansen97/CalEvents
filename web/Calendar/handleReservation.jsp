@@ -33,9 +33,10 @@
                 </div>
             </div>
             
-            <%  String cus_id = request.getParameter("customer_id");
-                ResultSet result = Reservation.getReservationDetails(cus_id);
-                int i = 0;
+            <%  try {
+                    String cus_id = request.getParameter("customer_id");
+                    ResultSet result = Reservation.getReservationDetails(cus_id);
+                    int i = 0;
             %>
             
             <div class="row">
@@ -45,21 +46,24 @@
                             <th>Reservation No.</th>
                             <th>Event Name</th>
                             <th>Date</th>
-                            <th>seats</th>
                         </tr>
                         <% while (result.next()) { %>
                         <tr>
                             <td><%=++i %></td>
                             <td><%=result.getString("event_name") %></td>
                             <td><%=result.getString("date") %></td>
-                            <td><a href="editReservation.jsp?id=<%=result.getString("res_id") %>">Edit</a></td>
-                            <td><a href="deleteReservation.jsp?id=<%=result.getString("res_id") %>">Delete</a></td>
+                            <td><a href="editReservation.jsp?id=<%=result.getString("res_id") %>" class="btn btn-success">Edit</a></td>
+                            <td><a href="deleteReservation.jsp?id=<%=result.getString("res_id") %>" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
                         </tr>
                         <% } %>
                     </table>
                 </div>
             </div>
         </div>
+        <% } catch (Exception ex) {
+                response.sendRedirect("404.jsp");
+           } 
+        %>
         
         
         

@@ -7,9 +7,9 @@ package com.payment.exception;
 
 /**
  *
- * @author DELL
+ * @author muammar
  */
-public class CreditCardExpiredException extends Throwable {
+public class CreditCardExpiredException extends Exception {
     public CreditCardExpiredException() {
         super("Credit card is expired!");
     }

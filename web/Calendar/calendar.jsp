@@ -24,14 +24,14 @@
     </head>
     <body>
         <div class="row">
-        <div id="container" class="col-lg-9 d-none d-md-block pl-5 bg-dark">
+        <div id="container" class="col-lg-9 d-none d-md-block pl-4 bg-dark">
             <div id="content-container">
 
                 <div id="planner" class="planner"><%=getPlanner(request) %></div>
                 <%@ page import="com.dhtmlx.planner.*,com.dhtmlx.planner.data.*,java.util.Date"%>
                 <%! String getPlanner(HttpServletRequest request) throws Exception {
                         DHXPlanner pl = new DHXPlanner("./codebase/", DHXSkin.TERRACE);
-                        pl.setWidth(1100);
+                        pl.setWidth(1200);
                         pl.setInitialDate(new Date()); 
                         pl.calendars.attachMiniCalendar();
                         pl.load("events.jsp", DHXDataFormat.JSON);

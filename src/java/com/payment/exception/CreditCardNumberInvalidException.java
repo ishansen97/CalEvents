@@ -7,10 +7,12 @@ package com.payment.exception;
 
 /**
  *
- * @author DELL
+ * @author admin
  */
-public class CreditCardNumberInvalidException extends Throwable {
+public class CreditCardNumberInvalidException extends Exception {
+
     public CreditCardNumberInvalidException() {
-        super("Card number is invalid");
+        super("Credit card number is invalid!");
     }
+
 }

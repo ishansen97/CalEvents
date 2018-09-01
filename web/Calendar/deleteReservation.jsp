@@ -15,15 +15,16 @@
     </head>
     <body>
         <% String res_id = request.getParameter("id");
+           String customer_id = session.getAttribute("customer_id").toString();
         
            if (Reservation.isDeleted(res_id)) {
-           
+               response.sendRedirect("handleReservation.jsp?customer_id=" + customer_id);
         %>
         
         <script>
             alert("You record has been deleted successfully");
         </script>
-        <%@include file="handleReservation.jsp" %>
+        
         
         <% } else { 
             out.println("cannot be deleted");

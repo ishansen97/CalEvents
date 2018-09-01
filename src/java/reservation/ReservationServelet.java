@@ -82,7 +82,7 @@ public class ReservationServelet extends HttpServlet {
             Date expiry = format.parse(expiryString);
             
             CreditCardValidator ccValidator = new CreditCardValidator(cardNum, cardName, CCV, expiry);
-            //ccValidator.validate();
+            ccValidator.validate();
             
             
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
@@ -94,6 +94,7 @@ public class ReservationServelet extends HttpServlet {
             String cus_id = customer.generateCustomerId();
             String seat_arr = request.getParameter("seat_num");
             java.sql.Date date = java.sql.Date.valueOf(sdate);
+            session.setAttribute("event_id", event);
             
             if (!customer.isEmailAvailable()) {
                 if (customer.isInserted()) {
@@ -107,16 +108,17 @@ public class ReservationServelet extends HttpServlet {
                             session.setAttribute("customer_id", customer.getCus_id());
                             session.setAttribute("customer_name", customer.getFullName());
                             session.setAttribute("reservationObj", res);
+                            session.setAttribute("customerObj", customer);
                             response.sendRedirect(request.getContextPath() + "/Calendar/successfulReservation.jsp");
                         }
                         else
-                            out.println("payment cannot be made");
+                            response.sendRedirect(request.getContextPath() + "Calendar/paymentError.jsp");
                     }
                     else
-                        out.println("cannot be inserted");
+                        response.sendRedirect(request.getContextPath() + "Calendar/reservationError.jsp");
                 }
                 else
-                    out.println("customer cannot be inserted");
+                    response.sendRedirect(request.getContextPath() + "Calendar/customerError.jsp");
             }
             else {
                 session.setAttribute("email", email);
@@ -127,23 +129,25 @@ public class ReservationServelet extends HttpServlet {
         catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             ErrorHandling.setMessage(ex.getMessage());
-            response.sendRedirect(request.getContextPath() + "/Calendar/error.jsp");
+            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         
         }
-//        catch (CreditCardExpiredException ex) {
-//            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
-//            PrintWriter out = response.getWriter();
-//            out.println("CreditCardExpiredException : " + ex.getMessage());
-//        }
-//        catch (CreditCardNumberInvalidException ex) {
-//            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
-//            PrintWriter out = response.getWriter();
-//            out.println("CreditCardNumberInvalidException : " + ex.getMessage());
-//        }
+        catch (CreditCardExpiredException ex) {
+            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
+            PrintWriter out = response.getWriter();
+            //out.println("CreditCardExpiredException : " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
+        }
+        catch (CreditCardNumberInvalidException ex) {
+            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
+            PrintWriter out = response.getWriter();
+            //out.println("CreditCardNumberInvalidException : " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
+        }
         catch (Exception ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
-            out.println("Exception : " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         }
         
     }

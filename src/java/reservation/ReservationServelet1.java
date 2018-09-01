@@ -74,7 +74,7 @@ public class ReservationServelet1 extends HttpServlet {
             Date expiry = format.parse(expiryString);
             
             CreditCardValidator ccValidator = new CreditCardValidator(cardNum, cardName, CCV, expiry);
-            //ccValidator.validate();
+            ccValidator.validate();
             
             
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
@@ -106,23 +106,23 @@ public class ReservationServelet1 extends HttpServlet {
         catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             ErrorHandling.setMessage(ex.getMessage());
-            response.sendRedirect(request.getContextPath() + "/Calendar/error.jsp");
+            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         
         }
-//        catch (CreditCardExpiredException ex) {
-//            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
-//            PrintWriter out = response.getWriter();
-//            out.println(ex.getMessage());
-//        }
-//        catch (CreditCardNumberInvalidException ex) {
-//            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
-//            PrintWriter out = response.getWriter();
-//            out.println(ex.getMessage());
-//        }
-        catch (Exception ex) {
+        catch (CreditCardExpiredException ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
             out.println(ex.getMessage());
+        }
+        catch (CreditCardNumberInvalidException ex) {
+            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
+            PrintWriter out = response.getWriter();
+            out.println(ex.getMessage());
+        }
+        catch (Exception ex) {
+            Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
+            PrintWriter out = response.getWriter();
+            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         }
         
     }

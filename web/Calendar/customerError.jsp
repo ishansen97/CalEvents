@@ -1,6 +1,6 @@
 <%-- 
-    Document   : interReservation
-    Created on : Aug 11, 2018, 9:46:28 PM
+    Document   : customerError
+    Created on : Sep 1, 2018, 6:11:32 AM
     Author     : DELL
 --%>
 
@@ -13,13 +13,12 @@
     </head>
     <body>
         <script>
-            alert("Your record has been deleted");
+            alert("something wrong with the customer details.Please try again later");
         </script>
         
-        <% String customer_id = session.getAttribute("customer_id").toString(); 
-            response.sendRedirect("handleReservation.jsp?customer_id=" +customer_id);
+        <% String event_id = session.getAttribute("event_id").toString();
+           String url = "test.jsp?id=" +event_id;
+           response.sendRedirect(url);
         %>
-        
-        
     </body>
 </html>

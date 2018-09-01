@@ -47,7 +47,7 @@
                     //document.getElementById("checked_seats").innerHTML = check_arr;
                 }
                 else {
-                    alert("not okay " + obj);
+                    alert("unselected seat number " + obj);
                     //price = price - 1000;
                     uncheck_arr[uncheck_arr.length] = obj;
                     document.getElementById("unchecked_seats").innerHTML = uncheck_arr;
@@ -70,13 +70,15 @@
             }
         </script>
         
-        <% String reservation = request.getParameter("id");
-           ResultSet result = Reservation.getReservedSeats(reservation);
+        <% try {
+                String reservation = request.getParameter("id");
+                ResultSet result = Reservation.getReservedSeats(reservation);
+                String customer_id = session.getAttribute("customer_id").toString();
         %>
         <div class="row">
             <div class="container d-md-block pl-5 jumbotron">
-                <a href="handleReservation.jsp" class="btn btn-info">Back to reservation list</a>
-                <h1>Your seat reservations</h1>
+                <a href="handleReservation.jsp?customer_id=<%=customer_id %>" class="btn btn-info">Back to reservation list</a>
+                <h1>Your seat reservations</h1><span style="color: red">(unchecking all the seats will delete your reservation)</span>
                 <div id="seats">
                 <% while (result.next()) { 
                     int seat = Integer.parseInt(result.getString("seat_num"));
@@ -90,14 +92,17 @@
                     <p id="checked_seats"></p>-->
                     <h1>unchecked seats</h1>
                     <p id="unchecked_seats"></p>
-                    <input type="text" id="final_seats" name="final_seats" value="">
-                    <input type="text" name="reservation" value="<%=reservation %>">
-                    <button type="submit" name="submit">Submit</button>
+                    <input type="hidden" id="final_seats" name="final_seats" value="">
+                    <input type="hidden" name="reservation" value="<%=reservation %>">
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                 </form>
             </div>
                 
         </div>
-        
+        <% } catch (Exception ex) {
+                response.sendRedirect("404.jsp");
+           } 
+        %>
         
         
         <script src="../External/Bootstrap/js/bootstrap.js"></script>

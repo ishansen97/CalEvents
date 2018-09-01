@@ -3,51 +3,51 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservation;
-import java.util.Arrays;
-import java.sql.*;
-import java.util.Properties;
+package email;
 import javax.mail.*;
-import javax.mail.internet.*;
+import java.util.*;
 import javax.activation.*;
+import javax.mail.internet.*;
 
 /**
  *
  * @author DELL
  */
-public class Temp {
+public class EmailNotification {
+    
     public static void main(String[] args) {
-        String to = "uditha1003@gmail.com";
+        String to = "abishaanr99@gmail.com";
         String from = "ishanksen@gmail.com";
-        //String host = "localhost";
-        //Properties properties = System.getProperties();
+        //get system properties
         Properties properties = new Properties();
+        
+        //assign objects for certain parameters
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.startls.enable", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.host", 587);
+        properties.put("mail.smtp.port", 587);
         
         Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("ishanksen@gmail.com", "fbg+149mghimym27!pl");
+                return new PasswordAuthentication("ishanksen@gmail.com", "fepyzoeedqavflwc");
             }
 });
         
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Hello...this is a message from Ishan");
-            message.setText("This is a testing message");
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Message number 2");
+            message.setContent("<h1>Hello Abishaan...sorry to bother you again</h1>", "text/html");
             
+            //sending the email
             Transport.send(message);
-            System.out.println("message sent successfully");
+            System.out.println("Message sent successfully");
         }
         catch (MessagingException ex) {
-            //System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
-        
-        
     }
+    
+    
 }

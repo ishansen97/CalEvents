@@ -20,6 +20,7 @@
         <style>
             #seats {
                 margin-top: 50px;
+                font-size: 20px;
             }
             
             #customer {
@@ -131,7 +132,18 @@
             $(document).on("show.bs.collapse", function(e){
                 console.log(e);
                 e.target.scrollIntoView();
-            })
+            });
+            
+            $(document).ready(function() {
+                $("#email_address").keyup(function() {
+                    var email = $(this).val();
+                    email = email.toString();      
+
+                      $.post("<%=request.getContextPath() %>/CheckEmailAvailability", {email : email}, function(data) { 
+                          $(".status").html(data);
+                      }, "text");
+                });
+            });            
             
             function validate() {
                 var seats = document.getElementById("show").value;
@@ -148,9 +160,16 @@
                 var seat_arr = document.getElementById("seat_array").innerHTML;
                 var array = [seat_arr];
                 var seat = array.pop();
+                var i;
                 document.getElementById("seat_array").innerHTML = array;
                 document.getElementById("no_of_seats").value = "";
                 alert("the seats has been unselected");
+                
+                for (i = 1; i < 20; i++) {
+                    var selected = document.getElementById(i).checked;
+                    if (selected === true)
+                        document.getElementById(i).checked = false;
+                }
             }
             
             function validatePhone() {
@@ -213,13 +232,13 @@
     <body>
         
         <% 
-            
-            String event_id = request.getParameter("id");
+            try {
+                String event_id = request.getParameter("id");
 
-            EventViewer ev = new EventViewer(event_id);
-            ResultSet rs = ev.getSeats();
-            int noOfSeats = ev.getNoOfSeats();
-            ResultSet event = ev.getEventDetails();
+                EventViewer ev = new EventViewer(event_id);
+                ResultSet rs = ev.getSeats();
+                int noOfSeats = ev.getNoOfSeats();
+                ResultSet event = ev.getEventDetails();
            
         %>
  
@@ -265,16 +284,18 @@
 
             <div id="seats" class="jumbotron col-12 collapse">
                 <h1>Select a Seat <span style="color:red">(Maximum 4 seats)</span></h1>
+                <form>
             <% while (rs.next()) {
                 int seat = rs.getInt("seat_num");
             %>
-            <p id="demo"></p>
-            <button type="button" id="<%=seat%>" class="btn btn-light" onclick="display(this.id)"><%=seat %></button>
+            <!--<p id="demo"></p>-->
+            <input type="checkbox" id="<%=seat %>" value="<%=seat %>" onclick="display(this.id)" style="font-size: 30px"><%=seat %>
             <% } %>
             <button type="button" id="confirm_seat" data-toggle="collapse" data-target="#customer" class="btn btn-success" onclick="return displayCus()">Confirm</button>
-            <button type="button" id="undo" class="btn btn-info" onclick="undo_seats()">Undo</button>
+            <button type="reset" id="undo" class="btn btn-info" onclick="undo_seats()">Reset</button>
             <p id="seat_array"></p>
-            <input type="number" id="no_of_seats" value="">
+            <input type="hidden" id="no_of_seats" value="">
+                </form>
             </div>
             
             
@@ -300,17 +321,29 @@
                                 </tr>
                                 <tr>
                                     <td>Email : </td>
-                                    <td><input type="email" name="email" required></td>
+                                    <td><input type="email" name="email" id="email_address" required></td>
+                                    <td><div class="status"></div></td>
+                                    <td><p id="demo"></p></td>
                                 </tr>
                             </table>
                     </div>
                 </div>
                 <div id="part2" class="col-sm-12" style="border: 2px solid black">
                         <h1>Payment Details...</h1>
-                            <input type="text" id="show" name="seat_num">
-                            <input type="hidden" id="event" name="event" value="<%=event_id %>">
-                            <input type="text" id="amount" name="paymentAmount">
-                            <p id="final_seat_array"></p>
+                        <table>
+                            <tr>
+                                <td>Seats selected</td>
+                                <td><input type="text" id="show" name="seat_num" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" id="event" name="event" value="<%=event_id %>"></td>
+                            </tr>
+                            <tr>
+                                <td>Amount</td>
+                                <td><input type="text" id="amount" name="paymentAmount" readonly></td>
+                                <td><p id="final_seat_array"></p></td>
+                            </tr>
+                        </table>
                         <div class="card">
                           <div class="card-header">
                             <h1>Payment</h1>
@@ -356,6 +389,11 @@
             </div>
             
         </div>
+          
+        <% } catch(Exception ex) {
+                response.sendRedirect("404.jsp");
+           }
+        %>
         
         <script src="../External/Bootstrap/js/bootstrap.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
