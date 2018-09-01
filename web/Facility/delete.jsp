@@ -35,7 +35,7 @@
 <button class="w3-bar-item w3-button" onclick="openT('chairsTable')">Chairs</button>
 </div>
         
-        
+    <form method="POST" action="../delete">        
 <div id="tentTable" class="w3-container tableName" style="margin-left: 0%; margin-top: 0%;">
     
   <h2>Tent Information</h2>
@@ -61,13 +61,16 @@
           <td><%= tentsV.getString("totalQuantity") %></td>
           <td><%= tentsV.getString("facilityCondition") %></td>
           <td><%= tentsV.getString("tentColor") %></td>
-          <td><%= tentsV.getString("tentSize") %></td>
+          <td><%= tentsV.getString("tentSize") %></td>          
+          <!--<td><input type="hidden" name="fID" value= /></td>--><%
+            request.setAttribute("id", tentsV.getString("facilityID"));%>
+          <td><input type="submit" value="Delete" id=<%= tentsV.getString("facilityID")%>/></td>
       </tr><%}%>
     </tbody>
   </table>
     
 </div>        
-        
+</form>        
         
 <div id="soundsTable" class="w3-container tableName"  style="display: none;">
     

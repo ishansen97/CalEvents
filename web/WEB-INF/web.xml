@@ -8,6 +8,10 @@
         <servlet-name>addfacilityservelet</servlet-name>
         <servlet-class>event.facility.servelets.addfacilityservelet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>delete</servlet-name>
+        <servlet-class>event.facility.servelets.delete</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>addfacilityservelet</servlet-name>
         <url-pattern>/addfacilityservelet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>delete</servlet-name>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
