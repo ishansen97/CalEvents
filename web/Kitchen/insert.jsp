@@ -119,8 +119,6 @@
                             <td><%=data1.getString("qType")%></td>
                             <td style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
                             <%}%>
-
-
                         </tr>
                     </tbody>
                 </table>

@@ -83,7 +83,7 @@
                             <td align="right"><button class="button">DELETE</button>  </td>
                         </tr>
                     </table>
-                
+               
             </div>--%>
             <div class="col-sm-6">
                 <form action="../removeRaw" method="POST" onclick="submit">

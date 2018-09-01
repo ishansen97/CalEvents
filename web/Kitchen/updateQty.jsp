@@ -94,7 +94,7 @@
                             <th>Quantity</th>
                             <th>Quantity Type</th>
                             <th>Unit Price</th>
-                            
+                        
                         </tr>
                     </thead>
 
