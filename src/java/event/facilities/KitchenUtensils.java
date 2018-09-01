@@ -408,5 +408,27 @@ public class KitchenUtensils extends Facility {
         else return false;
     }
     
+    public ResultSet fetch(){
+        
+            PreparedStatement fetch = null;
+            ResultSet details = null;
+            
+        try {
+            
+            if(dbcon.isConnected()){
+                Connection connect = dbcon.getCon();
+                fetch = connect.prepareStatement("SELECT * FROM `facilitykitchen`");
+                details = fetch.executeQuery();
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Tents.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Tents.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+            return details;
+    }
+    
 }
 

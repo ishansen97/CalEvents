@@ -9,7 +9,6 @@ package event.facilities;
  *
  * @author Sachith
  */
-import facility.*;
 import java.sql.*;
 
 public class DBConnect {
