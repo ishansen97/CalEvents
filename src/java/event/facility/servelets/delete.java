@@ -5,12 +5,19 @@
  */
 package event.facility.servelets;
 
+import event.facilities.Facility;
+import event.facilities.Sounds;
+import event.facilities.Tents;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -74,8 +81,61 @@ public class delete extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String name = request.getAttribute("id").toString();
-        out.print(name);
+        String name = request.getParameter("idT");
+        String view = request.getParameter("view");
+//        out.println(name);
+        out.println(view);
+
+        if(view.equals("facilitytent")){
+        Facility facility = new Tents();
+        try {
+            
+            String id = facility.getItemID(view, name);
+            String message = "failed!";
+            if(facility.remove_Facility(id)){
+                message = "Deleted!! ";
+            }
+            
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facility_admin.jsp");
+            
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(delete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(delete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        }
+        
+        else if(view.equals("facilitysound")){
+            Facility facility = new Sounds();
+            
+            try {
+                
+                String id = facility.getItemID(view, name);
+                out.println(id);
+//                facility.remove_Facility(id);
+//            
+//                String message = "failed!";
+//            
+//                if(facility.remove_Facility(id)){
+//                message = "Deleted!! ";
+//                }   
+//            
+//                HttpSession session = request.getSession();
+//                session.setAttribute("FacilityErrorMessage", message);
+//                response.sendRedirect("Facility/facility_admin.jsp");
+            
+                
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(delete.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(delete.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
