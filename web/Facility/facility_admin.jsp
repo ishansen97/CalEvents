@@ -8,16 +8,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
     function addf(){
+        
+        //hide
+        
+        document.getElementById('updateM').style.display='none'; 
+        document.getElementById('deleteM').style.display='none';   
+        document.getElementById('viewM').style.display='none';
+            
         //view Add operations
         document.getElementById('addM').style.display='';
     }
     function deletef(){
+        
+        //hide 
+                
+        document.getElementById('updateM').style.display='none';                
+        document.getElementById('viewM').style.display='none';
+        document.getElementById('addM').style.display='none';
+        
         //view Add operations
-        document.getElementById('addM').style.display='';
+        document.getElementById('deleteM').style.display='';
     }
     function updatef(){
+        //hide 
+                
+        document.getElementById('viewM').style.display='none';
+        document.getElementById('addM').style.display='none';
+        document.getElementById('deleteM').style.display='none';
+        
+        
         //view Add operations
-        document.getElementById('addM').style.display='';
+        document.getElementById('updateM').style.display='';
+    }
+    function viewf(){
+        
+        //hide
+        document.getElementById('updateM').style.display='none'; 
+        document.getElementById('deleteM').style.display='none';        
+        document.getElementById('addM').style.display='none';
+        
+        //view Add operations
+        document.getElementById('viewM').style.display='';
     }
 </script>
 <style>            .button {
@@ -78,8 +109,20 @@
             
             <div style="display: none" id="addM">
             <%@include file="addFacility.jsp" %>
-            </div></div>
-                        
+            </div>
+            
+            <div style="display: none" id="viewM">
+            <%@include file="viewFacility.jsp" %>
+            </div>
+            
+            <div style="display: none" id="deleteM">
+            <%@include file="deleteFacility.jsp" %>
+            </div>
+            
+            <div style="display: none" id="updateM">
+            <%@include file="updateFacility.jsp" %>
+            </div></div>       
+            
             <% String message = (String)request.getAttribute("errorMessage");%>
             <%if(message!=null){%>
             <script type="text/javascript">

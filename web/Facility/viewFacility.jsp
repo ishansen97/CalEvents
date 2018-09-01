@@ -155,54 +155,11 @@
         <input type="submit" class="button button5"  value="View tables" name="Tents" id="tents" onclick="javascript:tables();" />
         <input type="submit" class="button button5"  value="View chairs" name="Tents" id="tents" onclick="javascript:chairs();" />
         <!--facility class-->
-        <%Facility facility;%>
         
         <div id="tentsTable" style="display: none;">
-        <% facility = new Tents();
-           ResultSet tentDetails = facility.fetch();
-          
-        %>
-        <table>
-            <tr>
-                <th>Tent</th>
-                <th>Available Quantity</th>
-                <th>Total Quantity</th>
-                <th>Condition</th>
-                <th>Tent Color</th>
-                <th>Tent Size</th>    
-            </tr>
-            <tr><% while(tentDetails.next()){%>
-                <td><%=tentDetails.getString("facilitiyName")%></td>
-                <td><%=tentDetails.getString("availableQuantity")%></td>
-                <td><%=tentDetails.getString("totalQuantity")%></td>
-                <td><%=tentDetails.getString("facilityCondition")%></td>
-                <td><%=tentDetails.getString("tentColor")%></td>
-                <td><%=tentDetails.getString("tentSize")%></td>
-            </tr><%}%>
-        </table>
         </div>
         
         <div id="soundsTable" style="display: none;">
-        <% // facility = new Sounds();
-//           ResultSet soundDetails = facility.fetch();
-          
-        %>
-<!--         <table>
-            <tr>
-                <th>Equipment</th>
-                <th>Available Quantity</th>
-                <th>Total Quantity</th>
-                <th>Condition</th>
-                <th>Brand</th>    
-            </tr>
-            <tr><% while(tentDetails.next()){%>
-                <td><%=tentDetails.getString("facilitiyName")%></td>
-                <td><%=tentDetails.getString("availableQuantity")%></td>
-                <td><%=tentDetails.getString("totalQuantity")%></td>
-                <td><%=tentDetails.getString("facilityCondition")%></td>
-                <td><%=tentDetails.getString("soundsBrand")%></td>
-            </tr><%}%>
-        </table>-->
         </div>
         <div id="lightsTable" style="display: none;"><h1>lights area</h1></div>
         <div id="kitchenTable" style="display: none;"><h1>kitchen area</h1></div>
