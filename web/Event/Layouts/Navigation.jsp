@@ -38,7 +38,7 @@
         <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Events List <i class="fa fa-caret-down"></i></button>
         <div class="w3-dropdown-content w3-bar-block">
       <a href="eventListP.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Public Events List</a>
-      <a href="" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Booked Events List</a>
+      <a href="eventListB.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Booked Events List</a>
       <a href="" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Private Events List</a>
     </div>
  <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Profile</a>        

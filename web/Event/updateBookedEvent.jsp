@@ -11,6 +11,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="Layouts/Styles.jsp" %>
+<style>
+    .eventForm input[type=text], .eventForm input[type=date], .eventForm input[type=time]
+    {
+        width:100%;
+        border:1px solid black;
+        font-size:18px;
+        padding:5px;
+        font-family: Calibri;
+        outline:none;
+        border-radius:10px;
+    }
+    .eventForm input[type=text]:focus, .eventForm input[type=date]:focus, .eventForm input[type=time]:focus
+    {
+        border:1px solid #007bff;
+    }
+    .eventForm input[type=submit]
+    {
+        width:50%;
+        border:1px solid whitesmoke;
+        color:whitesmoke;
+        font-size:18px;
+        background-color: #007bff;
+        font-family: Calibri;
+        border-radius:10px;
+        padding:5px;
+        transition-duration: 0.5s;
+    }
+    .eventForm input[type=submit]:hover
+    {
+        background-color: whitesmoke;
+        color:#007bff;
+        border:1px solid #007bff;
+    }
+</style>
 
 
 <body class="w3-light-grey">
@@ -23,13 +57,13 @@
     <div class="row">
           <div class="col-12">
               
-              <p style="color:black;font-size:50px;text-align:center">Update Public Event</p>
+              <p style="color:black;font-size:50px;text-align:center">Update Booked Event</p>
               
         <% String event_id = request.getParameter("event_id"); 
            ResultSet result = Booked_Event.displayThisBookedEvent(event_id);
         %>
         
-        <form action="<%=request.getContextPath() %>/UpdateBookedEventServelet" method="post">
+        <form action="<%=request.getContextPath() %>/UpdateBookedEventServelet" method="post" class="eventForm">
             <% while (result.next()) { %>
             <table class="table table-striped">
                 <tr>
@@ -65,11 +99,11 @@
                 </tr>
                 <tr>
                     <td>Number of seats :</td>
-                    <td><input type="text" name="B_seats" value="<%=result.getString("no_seats") %>" ></td>
+                    <td><input type="number" name="B_seats" min="1" max="50" value="<%=result.getInt("no_seats") %>" ></td>
                 </tr>                
                 <tr>
                     <td><input type="hidden" name="B_event_ID" value="<%=result.getString("event_ID") %>"></td>
-                    <td><button type="submit" name="submit">Update</button></td>
+                    <td><input type="submit" name="submit" value="Update"></td>
                 </tr>
             <% } %>
             </table>

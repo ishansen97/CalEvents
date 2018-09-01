@@ -38,6 +38,8 @@ public class Booked_Event {
         this.B_end_time = B_end_time;
         this.seats = seats;
     }
+    
+    public Booked_Event() {}
     public String generateBookEventId() throws ClassNotFoundException, SQLException{
         DBConnect dbcon = DBConnect.getInstance();
         String query = null;
@@ -165,7 +167,7 @@ public class Booked_Event {
         
         if(connect.isConnected()){
             Connection con = connect.getCon();
-            query="DELETE FROM booked_events WHERE event_ID=?";
+            query="DELETE FROM booked_event WHERE event_ID=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, event_id);
             

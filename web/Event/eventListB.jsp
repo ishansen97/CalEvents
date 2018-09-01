@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="Layouts/Styles.jsp" %>
+<%@ include file="Layouts/Scripts.jsp" %>
 <style>
     th,td {
         padding : 10px;
@@ -19,6 +20,22 @@
 </style>
 
 <body class="w3-light-grey">
+    <script>
+        $(document).ready(function() {
+            $("a.btn-danger").click(function() {
+               var response = confirm("Do you want to delete");
+               if (response === false) {
+                   return false;
+               }
+               else {
+                   return true;
+               }
+            });
+        });
+    </script>
+ 
+
+    
  
 <%@ include file="Layouts/Navigation.jsp" %>
 
@@ -32,7 +49,7 @@
               
               <% ResultSet result = Booked_Event.getBookedEventDetails();
               %>
-              <table>
+              <table class="table table-striped">
                   <tr>
                       <th>Event ID</th>
                       <th>Event Name</th>

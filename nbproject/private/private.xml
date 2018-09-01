@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/deleteEvent.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/UpdateBookedEventServelet.java</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/deleteBookedEvent.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListB.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/Booked_Event.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/UpdateEventServelet.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/updateBookedEvent.jsp</file>
         </group>
     </open-files>
 </project-private>

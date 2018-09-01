@@ -45,7 +45,7 @@
               
               <% ResultSet result = Event.getEventDetails();
               %>
-                <table>
+                <table class="table table-striped">
                     <tr>
                         <th>Event ID</th>
                         <th>Event Name</th>

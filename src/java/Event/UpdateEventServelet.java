@@ -68,6 +68,7 @@ public class UpdateEventServelet extends HttpServlet {
             
             if (updateEvent.isUpdated(event_id)) {
                 out.println("updated");
+                response.sendRedirect(request.getContextPath()+"/Event/eventListP.jsp");
             }
             else {
                 out.println("not updated");

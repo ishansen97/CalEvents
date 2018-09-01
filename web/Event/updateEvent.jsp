@@ -7,12 +7,47 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <head>
 <title>Event</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="Layouts/Styles.jsp" %>
 
-
+<style>
+    .eventForm input[type=text], .eventForm input[type=date], .eventForm input[type=time]
+    {
+        width:100%;
+        border:1px solid black;
+        font-size:18px;
+        padding:5px;
+        font-family: Calibri;
+        outline:none;
+        border-radius:10px;
+    }
+    .eventForm input[type=text]:focus, .eventForm input[type=date]:focus, .eventForm input[type=time]:focus
+    {
+        border:1px solid #007bff;
+    }
+    .eventForm input[type=submit]
+    {
+        width:50%;
+        border:1px solid whitesmoke;
+        color:whitesmoke;
+        font-size:18px;
+        background-color: #007bff;
+        font-family: Calibri;
+        border-radius:10px;
+        padding:5px;
+        transition-duration: 0.5s;
+    }
+    .eventForm input[type=submit]:hover
+    {
+        background-color: whitesmoke;
+        color:#007bff;
+        border:1px solid #007bff;
+    }
+</style>
+    </head>
 <body class="w3-light-grey">
  
 <%@ include file="Layouts/Navigation.jsp" %>
@@ -29,7 +64,7 @@
            ResultSet result = Event.displayThisEvent(event_id);
         %>
         
-        <form action="<%=request.getContextPath() %>/UpdateEventServelet" method="post">
+        <form action="<%=request.getContextPath() %>/UpdateEventServelet" method="post" class="eventForm">
             <% while (result.next()) { %>
             <table class="table table-striped">
                 <tr>
@@ -61,7 +96,7 @@
                 </tr>
                 <tr>
                     <td><input type="hidden" name="event_ID" value="<%=result.getString("event_ID") %>"></td>
-                    <td><button type="submit" name="submit">Update</button></td>
+                    <td><input type="submit" name="submit" value="Update"></td>
                 </tr>
             <% } %>
             </table>
