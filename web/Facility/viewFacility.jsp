@@ -120,31 +120,6 @@
                 background-color: #555555;
                 color: white;
             }
-#tentsTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    margin-left: 30%;
-    margin-top: 10%
-}
-
-#tentsTable td, #tentsTable th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-#tentsTable tr:nth-child(even){background-color: #f2f2f2;}
-
-#tentsTable tr:hover {background-color: #ddd;}
-
-#tentsTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #555555;
-    color: white;
-}
 </style>
     </head>
     <body>

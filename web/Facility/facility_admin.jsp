@@ -51,7 +51,7 @@
         document.getElementById('viewM').style.display='';
     }
 </script>
-<style>            .button {
+<style>     .button {
                 background-color: #4CAF50; /* Green */
                 border: none;
                 color: white;
@@ -78,7 +78,7 @@
     
 </head>
 <%@ include file="Layouts/Styles.jsp" %>
-<body style="background-color: #555555">
+<body style="background-color: #ededed">
  
 <%@ include file="Layouts/Navigation.jsp" %>
 
@@ -89,7 +89,7 @@
     <div class="container-fluid" style=" padding-left: 200px; padding-top: 200px">
         <div class="row">
             <div class="col-md-4" style="background-color: #009688;">-->
-            <h1 style="color: white">Select an Operation:</h1>
+            <h1 style="color: #ededed">Select an Operation:</h1>
             <!--</div>-->
             <br>    <br> <br>
 
@@ -112,7 +112,7 @@
             </div>
             
             <div style="display: none" id="viewM">
-            <%@include file="viewFacility.jsp" %>
+            <%@include file="view.jsp" %>
             </div>
             
             <div style="display: none" id="deleteM">
