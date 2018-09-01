@@ -123,13 +123,16 @@
             <%@include file="updateFacility.jsp" %>
             </div></div>       
             
-            <% String message = (String)request.getAttribute("errorMessage");%>
+            <% String message = (String)session.getAttribute("FacilityErrorMessage");%>
             <%if(message!=null){%>
             <script type="text/javascript">
             var msg = "<%=message%>";
             alert(msg);
 
-            </script><%}%>
+            </script><% 
+                session.removeAttribute("FacilityErrorMessage");
+                    }%>
+            
         <%--<%@ include file="Layouts/Footer.jsp" %>--%>
 <!--</div>-->
     

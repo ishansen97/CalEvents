@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -96,9 +97,12 @@ public class addfacilityservelet extends HttpServlet {
                 Facility facility = new Tents(name,quantity,condition,color,size);
                 String message = facility.add_Facility();
                 
-                request.setAttribute("errorMessage", message);
-                RequestDispatcher rd = request.getRequestDispatcher("Facility/facility_admin.jsp");
-                rd.forward(request, response);       
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facility_admin.jsp");
+//                request.setAttribute("errorMessage", message);
+//                RequestDispatcher rd = request.getRequestDispatcher("Facility/facility_admin.jsp");
+//                rd.forward(request, response);       
                 
         }
         else if(buttonSounds!=null){
