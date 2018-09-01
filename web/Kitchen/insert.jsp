@@ -68,7 +68,7 @@
             <hr>
             <div class="row">
             <div class="col-6">
-                <form action="../insertRawM" method="POST" onclick="submit">
+                <form action="../ins" method="POST" onclick="submit">
                     <table>
                         <tr>
                             <td>Raw material Name :</td>

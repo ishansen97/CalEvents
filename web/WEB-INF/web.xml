@@ -4,9 +4,25 @@
         <servlet-name>insertRaw</servlet-name>
         <servlet-class>insertRaw</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ins</servlet-name>
+        <servlet-class>rawServelets.ins</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>rem</servlet-name>
+        <servlet-class>rawServelets.rem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ins</servlet-name>
+        <url-pattern>/ins</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rem</servlet-name>
+        <url-pattern>/rem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

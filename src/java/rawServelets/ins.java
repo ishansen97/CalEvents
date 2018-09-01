@@ -21,7 +21,7 @@ import test.Raw_Materials;
  *
  * @author Lini Eisha
  */
-public class insertRawM extends HttpServlet {
+public class ins extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,19 +34,19 @@ public class insertRawM extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet insertRaw</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet insertRaw at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-          out.println("</html>");
-       }
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet insertRaw</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet insertRaw at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//          out.println("</html>");
+//       }
     }
    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,13 +85,14 @@ public class insertRawM extends HttpServlet {
         String type = request.getParameter("Utype");
         double price = Double.parseDouble(request.getParameter("Uprice"));
         double qty = Double.parseDouble(request.getParameter("qty"));
-        //out.println(name);
-        
-        Raw_Materials raw = new Raw_Materials(name,type,price,qty);
+        out.println(name);
+        out.println(type);
+        out.println(price);
+        out.println(qty);
+        Raw_Materials rawm = new Raw_Materials(name,price,type,qty);
        
-        
         try {
-           String message = raw.insertRaw();
+           String message = rawm.insertRaw();
             
         if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
         else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");

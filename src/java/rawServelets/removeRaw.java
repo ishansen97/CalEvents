@@ -36,18 +36,18 @@ public class removeRaw extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet removeRaw</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet removeRaw at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet removeRaw</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet removeRaw at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,27 +77,30 @@ public class removeRaw extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
         
-        PrintWriter PrintWriterout = response.getWriter();
+        PrintWriter out = response.getWriter();
         
-        String name = request.getParameter("name");
+        String name = request.getParameter("nidimathai");
+        out.print(name);
         
-        Raw_Materials raw = new Raw_Materials();
-        try {
-            String message = raw.removeRaw(name);
-            
-            if(message.equalsIgnoreCase("Record Removed"))response.sendRedirect("Kitchen/removed.jsp");
-            else if(message.equalsIgnoreCase("Record does not exist"))response.sendRedirect("Kitchen/errorDeleting.jsp");
-            
-               
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+//        
+//        Raw_Materials raw = new Raw_Materials();
+//        try {
+//            String message = raw.removeRaw(name);
+//            
+//            if(message.equalsIgnoreCase("Record Removed"))response.sendRedirect("Kitchen/removed.jsp");
+//            else if(message.equalsIgnoreCase("Record does not exist"))response.sendRedirect("Kitchen/errorDeleting.jsp");
+//            
+//               
+//            
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        
         
         
     }

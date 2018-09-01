@@ -1,10 +1,9 @@
-package rawServelets;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package rawServelets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,16 +11,18 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import test.Raw_Materials;
 
-/** 
- *
+/**
+ * 
  * @author Lini Eisha
  */
-public class insertRawM extends HttpServlet {
+//@WebServlet(name = "removeRaw", urlPatterns = {"/removeRaw"})
+public class rem extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,20 +36,20 @@ public class insertRawM extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet insertRaw</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet insertRaw at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-          out.println("</html>");
-       }
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet removeRaw</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet removeRaw at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
-   
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -75,34 +76,33 @@ public class insertRawM extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
         
+        String name = request.getParameter("nidimathai").toString();
+        out.print(name);
         
-        String name = request.getParameter("name");
-        String type = request.getParameter("Utype");
-        double price = Double.parseDouble(request.getParameter("Uprice"));
-        double qty = Double.parseDouble(request.getParameter("qty"));
-        //out.println(name);
+//        
+//        Raw_Materials raw = new Raw_Materials();
+//        try {
+//            String message = raw.removeRaw(name);
+//            
+//            if(message.equalsIgnoreCase("Record Removed"))response.sendRedirect("Kitchen/removed.jsp");
+//            else if(message.equalsIgnoreCase("Record does not exist"))response.sendRedirect("Kitchen/errorDeleting.jsp");
+//            
+//               
+//            
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        
         
-        Raw_Materials raw = new Raw_Materials(name,type,price,qty);
-       
         
-        try {
-           String message = raw.insertRaw();
-            
-        if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
-        else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
-        else if(message.equalsIgnoreCase("raw material already exist"))response.sendRedirect("Kitchen/wrong.jsp");
-     
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(insertRawM.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(insertRawM.class.getName()).log(Level.SEVERE, null, ex);
-        }
-          
     }
 
     /**
