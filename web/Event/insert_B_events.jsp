@@ -191,7 +191,11 @@
                                 <label> Location:</label>
                             </td>
                             <td>
-                                 <input type="text" name="B_location"><br>
+                                 <select name="B_location">
+                                     <option>H001</option>
+                                     <option>H002</option>
+                                      <option>H003</option>
+                                 </select><br>
                             </td>
                         </tr>
                         <tr>
@@ -199,7 +203,7 @@
                                 <label>Seats Allocation:</label>
                             </td>
                             <td>
-                                <input type="number" name="seats" min="1" max="50"><br>
+                                <input type="number" name="seats" min="1" max="500"><br>
                             </td>
                         </tr>
                         <tr>

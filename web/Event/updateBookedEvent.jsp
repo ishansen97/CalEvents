@@ -99,7 +99,7 @@
                 </tr>
                 <tr>
                     <td>Number of seats :</td>
-                    <td><input type="number" name="B_seats" min="1" max="50" value="<%=result.getInt("no_seats") %>" ></td>
+                    <td><input type="text" name="B_seats" value="<%=result.getInt("no_seats") %>" ></td>
                 </tr>                
                 <tr>
                     <td><input type="hidden" name="B_event_ID" value="<%=result.getString("event_ID") %>"></td>

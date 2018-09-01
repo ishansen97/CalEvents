@@ -24,7 +24,11 @@
                         Date:<input type="date" name="date" required><br>
                         Start time:<input type="time" name="start_time"><br>
                         End time:<input type="time" name="end_time"><br>
-                        Location:<input type="text" name="location"><br>                
+                        Location:<select name="location">
+                            <option>H001</option>
+                            <option>H002</option>
+                            <option>H003</option>
+                        </select>
                         <input type="submit" name="submit" value="submit">
                     </form>
 

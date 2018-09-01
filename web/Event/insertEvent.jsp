@@ -162,7 +162,11 @@
                               <label>Location:</label>
                           </td>
                           <td>
-                              <input type="text" name="location">
+                              <select name="location">
+                                <option>H001</option>
+                                <option>H002</option>
+                                <option>H003</option>
+                              </select>
                           </td>
                       </tr>
                       <tr>
