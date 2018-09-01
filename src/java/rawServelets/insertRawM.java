@@ -1,4 +1,4 @@
-    package rawServelets;
+package rawServelets;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,7 +21,7 @@ import test.Raw_Materials;
  *
  * @author Lini Eisha
  */
-public class insertRaw extends HttpServlet {
+public class insertRawM extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,19 +34,19 @@ public class insertRaw extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet insertRaw</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet insertRaw at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet insertRaw</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet insertRaw at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+          out.println("</html>");
+       }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -75,30 +75,38 @@ public class insertRaw extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-
-        response.setContentType("text/html;charset=UTF-8");
+        
+        //response.setContentType("text/html;charset=UTF-8");
+        
         PrintWriter out = response.getWriter();
         
+       /* 
         String name = request.getParameter("name");
+        String type = request.getParameter("Utype");
         double price = Double.parseDouble(request.getParameter("Uprice"));
         double qty = Double.parseDouble(request.getParameter("qty"));
-        String type = request.getParameter("Utype");
+        //out.println(name);
         
-        Raw_Materials raw = new Raw_Materials(name,price,type,qty);
+        Raw_Materials raw = new Raw_Materials();
+       
+        
         try {
-            String message = raw.insertRaw();
-//            out.println(message);
-            if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
-            else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
-            else if(message.equalsIgnoreCase("raw material already exist")) response.sendRedirect("Kitchen/wrong.");
+           String message = raw.insertRaw();
             
-            
+        if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
+        else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
+        else if(message.equalsIgnoreCase("raw material already exist"))response.sendRedirect("Kitchen/wrong.jsp");
+     
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(insertRaw.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(insertRawM.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(insertRaw.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(insertRawM.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        */
+        
+        
+        
     }
 
     /**

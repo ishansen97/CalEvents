@@ -296,6 +296,14 @@ public class Raw_Materials {
     
     
 }*/
+
+    public String insertRaw(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String insertRaw(String name, double price, String type, double qty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     }
 
 class test{

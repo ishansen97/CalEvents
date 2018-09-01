@@ -36,19 +36,19 @@ public class updateQuantity extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet updateQuantity</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet updateQuantity at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet updateQuantity</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet updateQuantity at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,61 +77,57 @@ public class updateQuantity extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-        PrintWriter PrintWriterout = response.getWriter();
-        
-        String addremove = request.getParameter("addremove");
-        if(addremove == null){
-            out.println("Error");
-        }
-        
-        if(addremove.equals("add")){
-        String name = request.getParameter("name");
-        double qty = Double.parseDouble(request.getParameter("qty"));
+        try {
+            //processRequest(request, response);
             
-        Raw_Materials raw = new Raw_Materials(name,qty);
-            try {
-             
-                String message = raw.incrementQuantity(name, qty);
-                
-                if(message.equalsIgnoreCase("record added!"))response.sendRedirect("Kitchen/qtyUpdated.jsp");
-                else response.sendRedirect("Kitchen/errorUpdatingQty.jsp");
-                
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-            }
+            response.setContentType("text/html;charset=UTF-8");
             
-            if(addremove.equals("remove")){
-        String name = request.getParameter("name");
-        double qty = Double.parseDouble(request.getParameter("qty"));
+            PrintWriter out = response.getWriter();
             
-        Raw_Materials raw = new Raw_Materials(name,qty);
-            try {
-             
-                String message = raw.incrementQuantity(name, qty);
-                
-                if(message.equalsIgnoreCase("record added!"))response.sendRedirect("Kitchen/qtyUpdated.jsp");
-                else response.sendRedirect("Kitchen/errorUpdatingQty.jsp");
-                
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-    }
+            String add = request.getParameter("addR");
+            String remove = request.getParameter("removeR");
+//        if(addremove == null){
+//            out.println("Error");
+//        }
+//        
+//        if(add.equals("add")){
+            String name = request.getParameter("name");
+            double qty = Double.parseDouble(request.getParameter("qty"));
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    }    @Override
+//out.print(name);
+            if(add!=null){
+            Raw_Materials raw = new Raw_Materials();
+
+            String message = raw.incrementQuantity(name, qty);
+
+            if(message.equalsIgnoreCase("record added!"))response.sendRedirect("Kitchen/qtyUpdated.jsp");
+            else response.sendRedirect("Kitchen/errorUpdatingQty.jsp");
+    }
+            if(remove!=null){
+            Raw_Materials raw = new Raw_Materials();
+
+            String message = raw.reduceQuantity(name, qty);
+
+            if(message.equalsIgnoreCase("record added!"))response.sendRedirect("Kitchen/qtyUpdated.jsp");
+            else response.sendRedirect("Kitchen/errorUpdatingQty.jsp");
+    
+}
+}
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(updateQuantity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+/**
+ * Returns a short description of the servlet.
+ *
+ * @return a String containing servlet description
+ */ }
+
+
+
+    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>

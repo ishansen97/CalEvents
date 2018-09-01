@@ -77,6 +77,9 @@ public class removeRaw extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        
+        PrintWriter PrintWriterout = response.getWriter();
+        
         String name = request.getParameter("name");
         
         Raw_Materials raw = new Raw_Materials();

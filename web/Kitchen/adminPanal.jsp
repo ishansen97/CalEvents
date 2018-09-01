@@ -62,13 +62,9 @@
     </div>
     
       
-        <div class="container-fluid" width='40%' align='right'>
+    <div class="con" width='40%' height='90%' style="text-align:center; align-content: center">
         
-
-         </div>
-    <div class="con" width='40%' align='center' height='90%'>
-        
-        <table border="1" width="35%" cellspacing="2">
+        <table border="5" width="35%" cellspacing="2" align="center" >
             <thead>
                 <tr>
                     <th>Raw Materials Name</th>
@@ -84,53 +80,20 @@
            
             <tbody>
                 
-                
-                
-                
-            <td>
              <%
                 fetch name = new fetch();
                 ResultSet data1 = name.fetchData();
             %>
             
             <%while (data1.next()){%>
-            <option><%=data1.getString("name")%></option>
-
-            <%}%>
-            </td>
+            <tr>
+            <td><%=data1.getString("name")%></td>
+            <td><%=data1.getString("quantity")%></td>
+            <td><%=data1.getString("qType")%></td>
+            <td style="text-align:right;"><%=data1.getDouble("unit_price")%>0</td><%}%>
             
-          <%--  <td>
-             <%
-                fetch quantity = new fetch();
-                ResultSet data2 = quantity.fetchData();
-            %>
             
-            <%while (data2.next()){%>
-            <option><%=data2.getString("quantity")%></option>
-            <%}%>
-            </td>
-            
-            <td>
-             <%
-                fetch qType = new fetch();
-                ResultSet data3 = qType.fetchData();
-            %>
-            
-            <%while (data3.next()){%>
-            <option><%=data3.getString("qType")%></option>
-            <%}%>
-            </td>
-            
-           <td>
-             <%
-                fetch price = new fetch();
-                ResultSet data4 = price.fetchData();
-            %>
-            
-            <%while (data4.next()){%>
-            <option><%data4.get("unit_price")%></option>
-            <%}%>
-        </td> --%>
+        </tr>
             </tbody>
         </table>
     </div> 
