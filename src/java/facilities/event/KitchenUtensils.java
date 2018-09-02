@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package event.facilities;
+package facilities.event;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,24 +16,20 @@ import java.util.logging.Logger;
  *
  * @author User
  */
-public class Tables extends Facility{
+public class KitchenUtensils extends Facility {
     
-    private String size;
-    private String noOfC;
-    private String shape;
+    private String kUType ;
     
-    public Tables(){}
+    public KitchenUtensils(){}
     
-    public Tables(String name, int quantity, String condition, String size, String noOfC, String shape){
+    public KitchenUtensils(String name, int quantity, String condition, String type){
         super(name,quantity,condition);
-        this.size = size;
-        this.noOfC = noOfC;
-        this.shape = shape;
-        
-    }
+        this.kUType = type;
     
+    }
+
     @Override
-    public int getAvailableQuantity(String tableKey) {
+    public int getAvailableQuantity(String kitchenKey) {
         
         PreparedStatement getA = null;
     
@@ -46,8 +42,8 @@ public class Tables extends Facility{
             {
                 Connection connect = dbcon.getCon();
                 
-                getA = connect.prepareStatement("SELECT * FROM `facilitytable` WHERE `facilityID` = ?");
-                getA.setString(1,tableKey);
+                getA = connect.prepareStatement("SELECT * FROM `facilitykitchen` WHERE `facilityID` = ?");
+                getA.setString(1,kitchenKey);
                 
                 quantity = getA.executeQuery();
                 
@@ -72,12 +68,10 @@ public class Tables extends Facility{
         }
         
         return availableQuantity;
-        
     }
 
     @Override
-    public int getTotalQuantity(String tableKey) {
-        
+    public int getTotalQuantity(String kitchenKey) {
         
         PreparedStatement getT = null;
         ResultSet quantity = null ;
@@ -88,8 +82,8 @@ public class Tables extends Facility{
             {
                 Connection connect = dbcon.getCon();
                 
-                getT = connect.prepareStatement("SELECT * FROM `facilitytable` WHERE `facilityID` = ?");
-                getT.setString(1,tableKey);
+                getT = connect.prepareStatement("SELECT * FROM `facilitykitchen` WHERE `facilityID` = ?");
+                getT.setString(1,kitchenKey);
                 
                 quantity = getT.executeQuery();
                 
@@ -117,8 +111,8 @@ public class Tables extends Facility{
     }
 
     @Override
-    public boolean updateCondition(String tableKey, String condition) {
-        
+    public boolean updateCondition(String kitchenKey, String condition) {
+           
         PreparedStatement updateConditionQ = null;
         
         int updated = 0;
@@ -132,7 +126,7 @@ public class Tables extends Facility{
                 
                 updateConditionQ.setString(1, condition);
                 
-                updateConditionQ.setString(2, tableKey);
+                updateConditionQ.setString(2, kitchenKey);
                 
                 
                 updated = updateConditionQ.executeUpdate();
@@ -158,11 +152,11 @@ public class Tables extends Facility{
     }
 
     @Override
-    public boolean reduceAvailableQuantity(int quantity, String tableKey) {
+    public boolean reduceAvailableQuantity(int quantity, String kitchenKey) {
         
         PreparedStatement reduceAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(tableKey);
+        int availableQuantity = getAvailableQuantity(kitchenKey);
         
         availableQuantity = availableQuantity - quantity;
         
@@ -177,7 +171,7 @@ public class Tables extends Facility{
                 
                 reduceAvailable.setInt(1, availableQuantity);
                 
-                reduceAvailable.setString(2, tableKey);
+                reduceAvailable.setString(2, kitchenKey);
                 
                 reduced = reduceAvailable.executeUpdate();
                 
@@ -197,13 +191,11 @@ public class Tables extends Facility{
     }
 
     @Override
-    public boolean incrementAvailableQuantity(int quantity, String tableKey) {
-        
-        
+    public boolean incrementAvailableQuantity(int quantity, String kitchenKey) {
         
         PreparedStatement incrementAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(tableKey);
+        int availableQuantity = getAvailableQuantity(kitchenKey);
         
         availableQuantity = availableQuantity + quantity;
         
@@ -218,7 +210,7 @@ public class Tables extends Facility{
                 
                 incrementAvailable.setInt(1, availableQuantity);
                 
-                incrementAvailable.setString(2, tableKey);
+                incrementAvailable.setString(2, kitchenKey);
                 
                 incremented = incrementAvailable.executeUpdate();
                 
@@ -238,13 +230,11 @@ public class Tables extends Facility{
     }
 
     @Override
-    public boolean reduceTotalQuantity(int quantity, String tableKey) {
-        
-        
+    public boolean reduceTotalQuantity(int quantity, String kitchenKey) {
         
         PreparedStatement reduceTotal = null;
         
-        int totalQuantity = getTotalQuantity(tableKey);
+        int totalQuantity = getTotalQuantity(kitchenKey);
         
         totalQuantity = totalQuantity - quantity;
         
@@ -259,7 +249,7 @@ public class Tables extends Facility{
                 
                 reduceTotal.setInt(1, totalQuantity);
                 
-                reduceTotal.setString(2, tableKey);
+                reduceTotal.setString(2, kitchenKey);
                 
                 reduced = reduceTotal.executeUpdate();
                 
@@ -279,12 +269,11 @@ public class Tables extends Facility{
     }
 
     @Override
-    public boolean incrementTotalQuantity(int quantity, String tableKey) {
-        
+    public boolean incrementTotalQuantity(int quantity, String kitchenKey) {
         
         PreparedStatement incrementTotal = null;
         
-        int totalQuantity = getTotalQuantity(tableKey);
+        int totalQuantity = getTotalQuantity(kitchenKey);
         
         totalQuantity = totalQuantity + quantity;
         
@@ -299,7 +288,7 @@ public class Tables extends Facility{
                 
                 incrementTotal.setInt(1, totalQuantity);
                 
-                incrementTotal.setString(2, tableKey);
+                incrementTotal.setString(2, kitchenKey);
                 
                 incremented = incrementTotal.executeUpdate();
                 
@@ -320,26 +309,25 @@ public class Tables extends Facility{
 
     @Override
     public String add_Facility() {
-                               
+        
             int res = 0 ;
             
-            PreparedStatement addTents = null;
+            PreparedStatement addKitchen = null;
             
         try {
             
             
             
             
-            String id = generate_Facility_Id("tables");
+            String id = generate_Facility_Id("kitchen");
                 
             if (dbcon.isConnected())
             {
                 Connection connect = dbcon.getCon();
             
-                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitytable` WHERE `facilitiyName` = ? AND `nOfChairsPT` = ? AND `tableShape` = ?");
+                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitykitchen` WHERE `facilitiyName` = ? AND `kUType` = ?");
                 soundExistCheck.setString(1, itemName);
-                soundExistCheck.setString(2, noOfC);
-                soundExistCheck.setString(3, shape);
+                soundExistCheck.setString(2, kUType);
                 
                 ResultSet alreadyExist = soundExistCheck.executeQuery();
                 
@@ -348,20 +336,18 @@ public class Tables extends Facility{
                 else                
                 {
                 
-                addTents = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`, `tableSize`, `nOfChairsPT`, `tableShape`)"
-                        + " VALUES (?,?,?,?,?,?,?,?,?)");
+                addKitchen = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`,`kUType`)"
+                        + " VALUES (?,?,?,?,?,?,?)");
                 
-                addTents.setString(1, id);
-                addTents.setString(2, itemName);
-                addTents.setString(3, "table");
-                addTents.setInt   (4, quantity);
-                addTents.setInt   (5, quantity);
-                addTents.setString(6, condition);
-                addTents.setString(7, size);
-                addTents.setString(8, noOfC);
-                addTents.setString(9, shape);
+                addKitchen.setString(1, id);
+                addKitchen.setString(2, itemName);
+                addKitchen.setString(3, "kitchen");
+                addKitchen.setInt   (4, quantity);
+                addKitchen.setInt   (5, quantity);
+                addKitchen.setString(6, condition);
+                addKitchen.setString(7, kUType);
                 
-                res = addTents.executeUpdate();
+                res = addKitchen.executeUpdate();
                 }
                  
             }          
@@ -431,7 +417,7 @@ public class Tables extends Facility{
             
             if(dbcon.isConnected()){
                 Connection connect = dbcon.getCon();
-                fetch = connect.prepareStatement("SELECT * FROM `facilitytable`");
+                fetch = connect.prepareStatement("SELECT * FROM `facilitykitchen`");
                 details = fetch.executeQuery();
             }
             
@@ -445,7 +431,4 @@ public class Tables extends Facility{
     }
     
 }
-
-
-
 

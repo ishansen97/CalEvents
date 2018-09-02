@@ -5,7 +5,7 @@
  */
 package supporting;
 
-import event.facilities.DBConnect;
+import facilities.event.DBConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

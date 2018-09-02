@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.sql.ResultSet"%>
-<%@page import="event.facilities.*"%>
+<%@page import="facilities.event.*"%>
 <%--<%@page import="event.facilities.Facility"%>--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package event.facility.servelets;
+package facility.servelets;
 
-import event.facilities.Facility;
-import event.facilities.KitchenUtensils;
-import event.facilities.Sounds;
-import event.facilities.Tents;
+import facilities.event.Facility;
+import facilities.event.KitchenUtensils;
+import facilities.event.Sounds;
+import facilities.event.Tents;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;

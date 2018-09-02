@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package event.facilities;
+package facilities.event;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,21 +16,25 @@ import java.util.logging.Logger;
  *
  * @author User
  */
-public class Tents extends Facility {
+public class Tables extends Facility{
     
-    private String color;
     private String size;
+    private String noOfC;
+    private String shape;
     
-    public Tents(){}
+    public Tables(){}
     
-    public Tents(String name, int quantity, String condition, String color, String size){
+    public Tables(String name, int quantity, String condition, String size, String noOfC, String shape){
         super(name,quantity,condition);
-        this.color = color;
         this.size = size;
+        this.noOfC = noOfC;
+        this.shape = shape;
+        
     }
     
     @Override
-    public int getAvailableQuantity(String tentKey) {
+    public int getAvailableQuantity(String tableKey) {
+        
         PreparedStatement getA = null;
     
         ResultSet quantity = null ;
@@ -42,8 +46,8 @@ public class Tents extends Facility {
             {
                 Connection connect = dbcon.getCon();
                 
-                getA = connect.prepareStatement("SELECT * FROM `facilitytent` WHERE `facilityID` = ?");
-                getA.setString(1,tentKey);
+                getA = connect.prepareStatement("SELECT * FROM `facilitytable` WHERE `facilityID` = ?");
+                getA.setString(1,tableKey);
                 
                 quantity = getA.executeQuery();
                 
@@ -68,10 +72,12 @@ public class Tents extends Facility {
         }
         
         return availableQuantity;
+        
     }
 
     @Override
-    public int getTotalQuantity(String tentKey) {
+    public int getTotalQuantity(String tableKey) {
+        
         
         PreparedStatement getT = null;
         ResultSet quantity = null ;
@@ -82,8 +88,8 @@ public class Tents extends Facility {
             {
                 Connection connect = dbcon.getCon();
                 
-                getT = connect.prepareStatement("SELECT * FROM `facilitytent` WHERE `facilityID` = ?");
-                getT.setString(1,tentKey);
+                getT = connect.prepareStatement("SELECT * FROM `facilitytable` WHERE `facilityID` = ?");
+                getT.setString(1,tableKey);
                 
                 quantity = getT.executeQuery();
                 
@@ -111,8 +117,8 @@ public class Tents extends Facility {
     }
 
     @Override
-    public boolean updateCondition(String tentKey, String condition) {
-            
+    public boolean updateCondition(String tableKey, String condition) {
+        
         PreparedStatement updateConditionQ = null;
         
         int updated = 0;
@@ -126,7 +132,7 @@ public class Tents extends Facility {
                 
                 updateConditionQ.setString(1, condition);
                 
-                updateConditionQ.setString(2, tentKey);
+                updateConditionQ.setString(2, tableKey);
                 
                 
                 updated = updateConditionQ.executeUpdate();
@@ -152,10 +158,11 @@ public class Tents extends Facility {
     }
 
     @Override
-    public boolean reduceAvailableQuantity(int quantity, String tentKey) {
+    public boolean reduceAvailableQuantity(int quantity, String tableKey) {
+        
         PreparedStatement reduceAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(tentKey);
+        int availableQuantity = getAvailableQuantity(tableKey);
         
         availableQuantity = availableQuantity - quantity;
         
@@ -170,7 +177,7 @@ public class Tents extends Facility {
                 
                 reduceAvailable.setInt(1, availableQuantity);
                 
-                reduceAvailable.setString(2, tentKey);
+                reduceAvailable.setString(2, tableKey);
                 
                 reduced = reduceAvailable.executeUpdate();
                 
@@ -190,11 +197,13 @@ public class Tents extends Facility {
     }
 
     @Override
-    public boolean incrementAvailableQuantity(int quantity, String tentKey) {
+    public boolean incrementAvailableQuantity(int quantity, String tableKey) {
+        
+        
         
         PreparedStatement incrementAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(tentKey);
+        int availableQuantity = getAvailableQuantity(tableKey);
         
         availableQuantity = availableQuantity + quantity;
         
@@ -209,7 +218,7 @@ public class Tents extends Facility {
                 
                 incrementAvailable.setInt(1, availableQuantity);
                 
-                incrementAvailable.setString(2, tentKey);
+                incrementAvailable.setString(2, tableKey);
                 
                 incremented = incrementAvailable.executeUpdate();
                 
@@ -229,11 +238,13 @@ public class Tents extends Facility {
     }
 
     @Override
-    public boolean reduceTotalQuantity(int quantity, String tentKey) {
+    public boolean reduceTotalQuantity(int quantity, String tableKey) {
+        
+        
         
         PreparedStatement reduceTotal = null;
         
-        int totalQuantity = getTotalQuantity(tentKey);
+        int totalQuantity = getTotalQuantity(tableKey);
         
         totalQuantity = totalQuantity - quantity;
         
@@ -248,7 +259,7 @@ public class Tents extends Facility {
                 
                 reduceTotal.setInt(1, totalQuantity);
                 
-                reduceTotal.setString(2, tentKey);
+                reduceTotal.setString(2, tableKey);
                 
                 reduced = reduceTotal.executeUpdate();
                 
@@ -268,10 +279,12 @@ public class Tents extends Facility {
     }
 
     @Override
-    public boolean incrementTotalQuantity(int quantity, String tentKey) {
+    public boolean incrementTotalQuantity(int quantity, String tableKey) {
+        
+        
         PreparedStatement incrementTotal = null;
         
-        int totalQuantity = getTotalQuantity(tentKey);
+        int totalQuantity = getTotalQuantity(tableKey);
         
         totalQuantity = totalQuantity + quantity;
         
@@ -286,7 +299,7 @@ public class Tents extends Facility {
                 
                 incrementTotal.setInt(1, totalQuantity);
                 
-                incrementTotal.setString(2, tentKey);
+                incrementTotal.setString(2, tableKey);
                 
                 incremented = incrementTotal.executeUpdate();
                 
@@ -307,7 +320,7 @@ public class Tents extends Facility {
 
     @Override
     public String add_Facility() {
-                
+                               
             int res = 0 ;
             
             PreparedStatement addTents = null;
@@ -317,14 +330,16 @@ public class Tents extends Facility {
             
             
             
-            String id = generate_Facility_Id("tents");
+            String id = generate_Facility_Id("tables");
                 
             if (dbcon.isConnected())
             {
                 Connection connect = dbcon.getCon();
             
-                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitytent` WHERE `facilitiyName` = ?");
+                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitytable` WHERE `facilitiyName` = ? AND `nOfChairsPT` = ? AND `tableShape` = ?");
                 soundExistCheck.setString(1, itemName);
+                soundExistCheck.setString(2, noOfC);
+                soundExistCheck.setString(3, shape);
                 
                 ResultSet alreadyExist = soundExistCheck.executeQuery();
                 
@@ -333,17 +348,18 @@ public class Tents extends Facility {
                 else                
                 {
                 
-                addTents = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`, `tentColor`, `tentSize`)"
-                        + " VALUES (?,?,?,?,?,?,?,?)");
+                addTents = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`, `tableSize`, `nOfChairsPT`, `tableShape`)"
+                        + " VALUES (?,?,?,?,?,?,?,?,?)");
                 
                 addTents.setString(1, id);
                 addTents.setString(2, itemName);
-                addTents.setString(3, "tent");
+                addTents.setString(3, "table");
                 addTents.setInt   (4, quantity);
                 addTents.setInt   (5, quantity);
                 addTents.setString(6, condition);
-                addTents.setString(7, color);
-                addTents.setString(8, size);
+                addTents.setString(7, size);
+                addTents.setString(8, noOfC);
+                addTents.setString(9, shape);
                 
                 res = addTents.executeUpdate();
                 }
@@ -369,6 +385,7 @@ public class Tents extends Facility {
 
     @Override
     public boolean remove_Facility(String f_ID) {
+        
         PreparedStatement deleteQ = null;
         
         int deleted = 0;
@@ -414,7 +431,7 @@ public class Tents extends Facility {
             
             if(dbcon.isConnected()){
                 Connection connect = dbcon.getCon();
-                fetch = connect.prepareStatement("SELECT * FROM `facilitytent`");
+                fetch = connect.prepareStatement("SELECT * FROM `facilitytable`");
                 details = fetch.executeQuery();
             }
             
@@ -429,13 +446,6 @@ public class Tents extends Facility {
     
 }
 
-class demo {
-public static void main(String[] args) throws ClassNotFoundException, SQLException{
 
-    Facility n = new Tents();
-    while(n.fetch().next()){
-        System.out.println(n.fetch().getString("facilitiyName"));
-    }
-}
 
-}
+

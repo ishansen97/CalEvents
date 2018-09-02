@@ -4,9 +4,7 @@
     Author     : Lini Eisha
 --%>
 
-<%@page import="event.facilities.Tents"%>
-<%@page import="event.facilities.Facility"%>
-<%@page import="event.facilities.Facility"%>
+<%@page import="facilities.event.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

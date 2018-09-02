@@ -4,14 +4,8 @@
     Author     : User
 --%>
 
-<%@page import="event.facilities.Chairs"%>
-<%@page import="event.facilities.Tables"%>
-<%@page import="event.facilities.KitchenUtensils"%>
-<%@page import="event.facilities.Lights"%>
-<%@page import="event.facilities.Sounds"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="event.facilities.Tents"%>
-<%@page import="event.facilities.Facility"%>
+<%@page import="facilities.event.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

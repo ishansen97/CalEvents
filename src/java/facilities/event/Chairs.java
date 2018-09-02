@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package event.facilities;
+package facilities.event;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,20 +16,18 @@ import java.util.logging.Logger;
  *
  * @author User
  */
-public class KitchenUtensils extends Facility {
+public class Chairs extends Facility{
     
-    private String kUType ;
+    private String material;
     
-    public KitchenUtensils(){}
+    public Chairs(){}
     
-    public KitchenUtensils(String name, int quantity, String condition, String type){
+    public Chairs(String name, int quantity, String condition, String material){
         super(name,quantity,condition);
-        this.kUType = type;
-    
+        this.material = material; 
     }
-
     @Override
-    public int getAvailableQuantity(String kitchenKey) {
+    public int getAvailableQuantity(String chairKey) {
         
         PreparedStatement getA = null;
     
@@ -42,8 +40,8 @@ public class KitchenUtensils extends Facility {
             {
                 Connection connect = dbcon.getCon();
                 
-                getA = connect.prepareStatement("SELECT * FROM `facilitykitchen` WHERE `facilityID` = ?");
-                getA.setString(1,kitchenKey);
+                getA = connect.prepareStatement("SELECT * FROM `facilitychair` WHERE `facilityID` = ?");
+                getA.setString(1,chairKey);
                 
                 quantity = getA.executeQuery();
                 
@@ -71,7 +69,7 @@ public class KitchenUtensils extends Facility {
     }
 
     @Override
-    public int getTotalQuantity(String kitchenKey) {
+    public int getTotalQuantity(String chairKey) {
         
         PreparedStatement getT = null;
         ResultSet quantity = null ;
@@ -82,8 +80,8 @@ public class KitchenUtensils extends Facility {
             {
                 Connection connect = dbcon.getCon();
                 
-                getT = connect.prepareStatement("SELECT * FROM `facilitykitchen` WHERE `facilityID` = ?");
-                getT.setString(1,kitchenKey);
+                getT = connect.prepareStatement("SELECT * FROM `facilitychair` WHERE `facilityID` = ?");
+                getT.setString(1,chairKey);
                 
                 quantity = getT.executeQuery();
                 
@@ -111,8 +109,9 @@ public class KitchenUtensils extends Facility {
     }
 
     @Override
-    public boolean updateCondition(String kitchenKey, String condition) {
-           
+    public boolean updateCondition(String chairKey, String condition) {
+        
+            
         PreparedStatement updateConditionQ = null;
         
         int updated = 0;
@@ -126,7 +125,7 @@ public class KitchenUtensils extends Facility {
                 
                 updateConditionQ.setString(1, condition);
                 
-                updateConditionQ.setString(2, kitchenKey);
+                updateConditionQ.setString(2, chairKey);
                 
                 
                 updated = updateConditionQ.executeUpdate();
@@ -152,11 +151,10 @@ public class KitchenUtensils extends Facility {
     }
 
     @Override
-    public boolean reduceAvailableQuantity(int quantity, String kitchenKey) {
-        
+    public boolean reduceAvailableQuantity(int quantity, String chairKey) {
         PreparedStatement reduceAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(kitchenKey);
+        int availableQuantity = getAvailableQuantity(chairKey);
         
         availableQuantity = availableQuantity - quantity;
         
@@ -171,7 +169,7 @@ public class KitchenUtensils extends Facility {
                 
                 reduceAvailable.setInt(1, availableQuantity);
                 
-                reduceAvailable.setString(2, kitchenKey);
+                reduceAvailable.setString(2, chairKey);
                 
                 reduced = reduceAvailable.executeUpdate();
                 
@@ -191,11 +189,11 @@ public class KitchenUtensils extends Facility {
     }
 
     @Override
-    public boolean incrementAvailableQuantity(int quantity, String kitchenKey) {
+    public boolean incrementAvailableQuantity(int quantity, String chairKey) {
         
         PreparedStatement incrementAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(kitchenKey);
+        int availableQuantity = getAvailableQuantity(chairKey);
         
         availableQuantity = availableQuantity + quantity;
         
@@ -210,7 +208,7 @@ public class KitchenUtensils extends Facility {
                 
                 incrementAvailable.setInt(1, availableQuantity);
                 
-                incrementAvailable.setString(2, kitchenKey);
+                incrementAvailable.setString(2, chairKey);
                 
                 incremented = incrementAvailable.executeUpdate();
                 
@@ -230,11 +228,10 @@ public class KitchenUtensils extends Facility {
     }
 
     @Override
-    public boolean reduceTotalQuantity(int quantity, String kitchenKey) {
-        
+    public boolean reduceTotalQuantity(int quantity, String chairKey) {
         PreparedStatement reduceTotal = null;
         
-        int totalQuantity = getTotalQuantity(kitchenKey);
+        int totalQuantity = getTotalQuantity(chairKey);
         
         totalQuantity = totalQuantity - quantity;
         
@@ -249,7 +246,7 @@ public class KitchenUtensils extends Facility {
                 
                 reduceTotal.setInt(1, totalQuantity);
                 
-                reduceTotal.setString(2, kitchenKey);
+                reduceTotal.setString(2, chairKey);
                 
                 reduced = reduceTotal.executeUpdate();
                 
@@ -269,11 +266,10 @@ public class KitchenUtensils extends Facility {
     }
 
     @Override
-    public boolean incrementTotalQuantity(int quantity, String kitchenKey) {
-        
+    public boolean incrementTotalQuantity(int quantity, String chairKey) {
         PreparedStatement incrementTotal = null;
         
-        int totalQuantity = getTotalQuantity(kitchenKey);
+        int totalQuantity = getTotalQuantity(chairKey);
         
         totalQuantity = totalQuantity + quantity;
         
@@ -288,7 +284,7 @@ public class KitchenUtensils extends Facility {
                 
                 incrementTotal.setInt(1, totalQuantity);
                 
-                incrementTotal.setString(2, kitchenKey);
+                incrementTotal.setString(2, chairKey);
                 
                 incremented = incrementTotal.executeUpdate();
                 
@@ -309,25 +305,24 @@ public class KitchenUtensils extends Facility {
 
     @Override
     public String add_Facility() {
-        
+                
             int res = 0 ;
             
-            PreparedStatement addKitchen = null;
+            PreparedStatement addTents = null;
             
         try {
             
             
             
             
-            String id = generate_Facility_Id("kitchen");
+            String id = generate_Facility_Id("chairs");
                 
             if (dbcon.isConnected())
             {
                 Connection connect = dbcon.getCon();
             
-                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitykitchen` WHERE `facilitiyName` = ? AND `kUType` = ?");
+                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitychair` WHERE `facilitiyName` = ?");
                 soundExistCheck.setString(1, itemName);
-                soundExistCheck.setString(2, kUType);
                 
                 ResultSet alreadyExist = soundExistCheck.executeQuery();
                 
@@ -336,18 +331,18 @@ public class KitchenUtensils extends Facility {
                 else                
                 {
                 
-                addKitchen = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`,`kUType`)"
+                addTents = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`,`chairMaterial`)"
                         + " VALUES (?,?,?,?,?,?,?)");
                 
-                addKitchen.setString(1, id);
-                addKitchen.setString(2, itemName);
-                addKitchen.setString(3, "kitchen");
-                addKitchen.setInt   (4, quantity);
-                addKitchen.setInt   (5, quantity);
-                addKitchen.setString(6, condition);
-                addKitchen.setString(7, kUType);
+                addTents.setString(1, id);
+                addTents.setString(2, itemName);
+                addTents.setString(3, "chair");
+                addTents.setInt   (4, quantity);
+                addTents.setInt   (5, quantity);
+                addTents.setString(6, condition);
+                addTents.setString(7, material);
                 
-                res = addKitchen.executeUpdate();
+                res = addTents.executeUpdate();
                 }
                  
             }          
@@ -371,7 +366,6 @@ public class KitchenUtensils extends Facility {
 
     @Override
     public boolean remove_Facility(String f_ID) {
-        
         PreparedStatement deleteQ = null;
         
         int deleted = 0;
@@ -417,7 +411,7 @@ public class KitchenUtensils extends Facility {
             
             if(dbcon.isConnected()){
                 Connection connect = dbcon.getCon();
-                fetch = connect.prepareStatement("SELECT * FROM `facilitykitchen`");
+                fetch = connect.prepareStatement("SELECT * FROM `facilitychair`");
                 details = fetch.executeQuery();
             }
             
@@ -429,6 +423,5 @@ public class KitchenUtensils extends Facility {
         
             return details;
     }
-    
-}
+    }
 
