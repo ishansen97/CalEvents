@@ -3,21 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facility/servelets/admin.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facilities/Chairs.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/web/Facility/Layouts/Styles.jsp</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facilities/KitchenUtensils.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facilities/Tents.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facility/servelets/addfacilityservelet.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facilities/Lights.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/web/Facility/Layouts/Navigation.jsp</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/web/Facility/newjsp.jsp</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facilities/Tables.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/web/Facility/addFacility.jsp</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/web/Facility/facility_admin.jsp</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/supporting/Fetch.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facilities/Sounds.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/EventManagement/123/CalEvents/src/java/event/facilities/Facility.java</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/add.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/deleteFacility.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/src/java/event/facility/servelets/addfacilityservelet.java</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/update.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/facility_admin.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/addFacility.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/viewFacility.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/view.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/src/java/event/facilities/Sounds.java</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/web/Facility/delete.jsp</file>
+            <file>file:/C:/Users/User/Desktop/redcolored/CalEvents/src/java/event/facility/servelets/delete.java</file>
         </group>
     </open-files>
 </project-private>

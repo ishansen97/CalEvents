@@ -24,8 +24,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
-        <style>
-            .button {
+<style>     .button {
                 background-color: #4CAF50; /* Green */
                 border: none;
                 color: white;
@@ -48,34 +47,8 @@
             .button5:hover {
                 background-color: #555555;
                 color: white;
-            }
-            select {
-                background-repeat:no-repeat;
-                background-position:300px;
-                width:353px;
-                padding:5px;
-                margin-top:8px;
-                border-radius:5px;
-                background-color:white;
-                color:#555555;
-                font-size:15px;
-            }
-            
-            select:hover {
-                color:white;
-                background-color:#555555;
-            }
-            
-            input[type=text], select {
-                width: 20%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                display: inline-block;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                box-sizing: border-box;
-            }
-        </style>
+            }</style>
+
 </head>
 <body>
         
@@ -105,30 +78,23 @@
       </tr>
     </thead>
     <tbody>
-        <%  Facility tents1 = new Tents();
-            ResultSet tentsV1 = tents1.fetch();
-            ResultSet tentsV2 = tents1.fetch();
+        <%  Facility tentsD = new Tents();
+            ResultSet tentsVD = tentsD.fetch();
         %>
-    
-      <tr><%while(tentsV1.next()){%>
-          <td><%= tentsV1.getString("facilitiyName") %></td>
-          <td><%= tentsV1.getString("availableQuantity") %></td>
-          <td><%= tentsV1.getString("totalQuantity") %></td>
-          <td><%= tentsV1.getString("facilityCondition") %></td>
-          <td><%= tentsV1.getString("tentColor") %></td>
-          <td><%= tentsV1.getString("tentSize") %></td>
+      <tr><%while(tentsVD.next()){%>
+          <td><%= tentsVD.getString("facilitiyName") %></td>
+          <td><%= tentsVD.getString("availableQuantity") %></td>
+          <td><%= tentsVD.getString("totalQuantity") %></td>
+          <td><%= tentsVD.getString("facilityCondition") %></td>
+          <td><%= tentsVD.getString("tentColor") %></td>
+          <td><%= tentsVD.getString("tentSize") %></td>
+          <td><a href="deleteFacility.jsp?event_id=<%=tentsVD.getString("facilityID") %>" class="button button5">Delete</a></td>
       </tr><%}%>
+      
     </tbody>
   </table>
-
-    <form action="../delete" method="POST">
-    <select name="idT"><%while(tentsV2.next()){%>
-        <option><%= tentsV2.getString("facilitiyName") %></option><%}%>
-    </select>
-    <input type="hidden" value="facilitytent" name="view">
-    <input type="submit" value="Remove This" class="button button5" />
-    </form>
-      </div>      
+    
+</div>        
         
         
 <div id="soundsTable" class="w3-container tableName"  style="display: none;">
@@ -145,29 +111,21 @@
         <th>Brand</th>
     </thead>
     <tbody>
-        <%  Facility sounds1 = new Sounds();
-            ResultSet soundsV1 = sounds1.fetch();
-            ResultSet soundsV2 = sounds1.fetch();
+        <%  Facility soundsD = new Sounds();
+            ResultSet soundsVD = soundsD.fetch();
         %>
-      <tr><%while(soundsV1.next()){%>
-          <td><%= soundsV1.getString("facilitiyName") %></td>
-          <td><%= soundsV1.getString("availableQuantity") %></td>
-          <td><%= soundsV1.getString("totalQuantity") %></td>
-          <td><%= soundsV1.getString("facilityCondition") %></td>
-          <td><%= soundsV1.getString("soundsBrand") %></td>
+      <tr><%while(soundsVD.next()){%>
+          <td><%= soundsVD.getString("facilitiyName") %></td>
+          <td><%= soundsVD.getString("availableQuantity") %></td>
+          <td><%= soundsVD.getString("totalQuantity") %></td>
+          <td><%= soundsVD.getString("facilityCondition") %></td>
+          <td><%= soundsVD.getString("soundsBrand") %></td>
+          <td><a href="deleteFacility.jsp?event_id=<%=soundsVD.getString("facilityID") %>" class="button button5">Delete</a></td>
       </tr><%}%>
     </tbody>
   </table>
-
-    <form action="../delete" method="POST">
-    <select><%while(soundsV2.next()){%>
-        <option><%= soundsV2.getString("facilitiyName") %></option><%}%>
-    </select>
-    <input type="hidden" value="facilitysound" name="view">
-    <input type="submit" value="Remove This" class="button button5" />
-    </form>
 </div>
-    
+
 <div id="lightsTable" class="w3-container tableName"  style="display: none;">
     
   <h2>Lightning Equipment Information</h2>
@@ -181,27 +139,19 @@
         <th>Condition</th>
     </thead>
     <tbody>
-        <%  Facility lights1 = new Lights();
-            ResultSet lightsV1 = lights1.fetch();
-            ResultSet lightsV2 = lights1.fetch();
+        <%  Facility lightsD = new Lights();
+            ResultSet lightsVD = lightsD.fetch();
         %>
-      <tr><%while(lightsV1.next()){%>
-          <td><%= lightsV1.getString("facilitiyName") %></td>
-          <td><%= lightsV1.getString("availableQuantity") %></td>
-          <td><%= lightsV1.getString("totalQuantity") %></td>
-          <td><%= lightsV1.getString("facilityCondition") %></td>
+      <tr><%while(lightsVD.next()){%>
+          <td><%= lightsVD.getString("facilitiyName") %></td>
+          <td><%= lightsVD.getString("availableQuantity") %></td>
+          <td><%= lightsVD.getString("totalQuantity") %></td>
+          <td><%= lightsVD.getString("facilityCondition") %></td>
+          <td><a href="deleteFacility.jsp?event_id=<%=lightsVD.getString("facilityID") %>" class="button button5">Delete</a></td>
       </tr><%}%>
     </tbody>
   </table>
-
-    <form action="../delete" method="POST">
-    <select><%while(lightsV2.next()){%>
-        <option><%= lightsV2.getString("facilitiyName") %></option><%}%>
-    </select>
-    <input type="hidden" value="facilitylight" name="view">
-    <input type="submit" value="Remove This" class="button button5" />
-    </form>
-      </div> 
+</div>
 
 <div id="kitchenTable" class="w3-container tableName"  style="display: none;">
     
@@ -218,29 +168,21 @@
       </tr>
     </thead>
     <tbody>
-        <%  Facility kitchen1 = new KitchenUtensils();
-            ResultSet kitchenV1 = kitchen1.fetch();
-            ResultSet kitchenV2 = kitchen1.fetch();
+        <%  Facility kitchenD = new KitchenUtensils();
+            ResultSet kitchenVD = kitchenD.fetch();
         %>
-      <tr><%while(kitchenV1.next()){%>
-          <td><%= kitchenV1.getString("facilitiyName") %></td>
-          <td><%= kitchenV1.getString("availableQuantity") %></td>
-          <td><%= kitchenV1.getString("totalQuantity") %></td>
-          <td><%= kitchenV1.getString("facilityCondition") %></td>
-          <td><%= kitchenV1.getString("kUType") %></td>
+      <tr><%while(kitchenVD.next()){%>
+          <td><%= kitchenVD.getString("facilitiyName") %></td>
+          <td><%= kitchenVD.getString("availableQuantity") %></td>
+          <td><%= kitchenVD.getString("totalQuantity") %></td>
+          <td><%= kitchenVD.getString("facilityCondition") %></td>
+          <td><%= kitchenVD.getString("kUType") %></td>
+          <td><a href="deleteFacility.jsp?event_id=<%=kitchenVD.getString("facilityID") %>" class="button button5">Delete</a></td>
       </tr><%}%>
     </tbody>
   </table>
-
-    <form action="../delete" method="POST">
-    <select><%while(kitchenV2.next()){%>
-        <option><%= kitchenV2.getString("facilitiyName") %></option><%}%>
-    </select>
-    <input type="hidden" value="facilitykitchen" name="view">
-    <input type="submit" value="Remove This" class="button button5" />
-    </form>
-      </div> 
-
+    
+</div> 
 
 <div id="tablesTable" class="w3-container tableName"  style="display: none;">
     
@@ -259,30 +201,23 @@
       </tr>
     </thead>
     <tbody>
-        <%  Facility tables1 = new Tables();
-            ResultSet tablesV1 = tables1.fetch();
-            ResultSet tablesV2 = tables1.fetch();
+        <%  Facility tablesD = new Tables();
+            ResultSet tablesVD = tablesD.fetch();
         %>
-      <tr><%while(tablesV1.next()){%>
-          <td><%= tablesV1.getString("facilitiyName") %></td>
-          <td><%= tablesV1.getString("availableQuantity") %></td>
-          <td><%= tablesV1.getString("totalQuantity") %></td>
-          <td><%= tablesV1.getString("facilityCondition") %></td>
-          <td><%= tablesV1.getString("tableSize") %></td>
-          <td><%= tablesV1.getString("nOfChairsPT") %></td>
-          <td><%= tablesV1.getString("tableShape") %></td>
+      <tr><%while(tablesVD.next()){%>
+          <td><%= tablesVD.getString("facilitiyName") %></td>
+          <td><%= tablesVD.getString("availableQuantity") %></td>
+          <td><%= tablesVD.getString("totalQuantity") %></td>
+          <td><%= tablesVD.getString("facilityCondition") %></td>
+          <td><%= tablesVD.getString("tableSize") %></td>
+          <td><%= tablesVD.getString("nOfChairsPT") %></td>
+          <td><%= tablesVD.getString("tableShape") %></td>
+          <td><a href="deleteFacility.jsp?event_id=<%=tablesVD.getString("facilityID") %>" class="button button5">Delete</a></td>
       </tr><%}%>
     </tbody>
   </table>
-
-    <form action="../delete" method="POST">
-    <select><%while(tablesV2.next()){%>
-        <option><%= tablesV2.getString("facilitiyName") %></option><%}%>
-    </select>
-    <input type="hidden" value="facilitytable" name="view">
-    <input type="submit" value="Remove This" class="button button5" />
-    </form>
-      </div>
+    
+</div>
 
 <div id="chairsTable" class="w3-container tableName"  style="display: none;">
     
@@ -298,28 +233,21 @@
         <th>Brand</th>
     </thead>
     <tbody>
-        <%  Facility chairs1 = new Chairs();
-            ResultSet chairsV1 = chairs1.fetch();
-            ResultSet chairsV2 = chairs1.fetch();
+        <%  Facility chairsD = new Chairs();
+            ResultSet chairsVD = chairsD.fetch();
         %>
-      <tr><%while(chairsV1.next()){%>
-          <td><%= chairsV1.getString("facilitiyName") %></td>
-          <td><%= chairsV1.getString("availableQuantity") %></td>
-          <td><%= chairsV1.getString("totalQuantity") %></td>
-          <td><%= chairsV1.getString("facilityCondition") %></td>
-          <td><%= chairsV1.getString("chairMaterial") %></td>
+      <tr><%while(chairsVD.next()){%>
+          <td><%= chairsVD.getString("facilitiyName") %></td>
+          <td><%= chairsVD.getString("availableQuantity") %></td>
+          <td><%= chairsVD.getString("totalQuantity") %></td>
+          <td><%= chairsVD.getString("facilityCondition") %></td>
+          <td><%= chairsVD.getString("chairMaterial") %></td>
+          <td><a href="deleteFacility.jsp?event_id=<%=chairsVD.getString("facilityID") %>" class="button button5">Delete</a></td>
       </tr><%}%>
     </tbody>
   </table>
 
-    <form action="../delete" method="POST">
-    <select><%while(chairsV2.next()){%>
-        <option><%= chairsV2.getString("facilitiyName") %></option><%}%>
-    </select>
-    <input type="hidden" value="facilitychair" name="view">
-    <input type="submit" value="Remove This" class="button button5" />
-    </form>
-      </div>
+</div>
 
 
         

@@ -174,7 +174,7 @@
 
             
             <div style="display: none" id="deleteM">
-            <%@include file="deleteFacility.jsp" %>
+            <%@include file="delete.jsp" %>
             </div>
             
             <div style="display: none" id="updateM">
