@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * @author Lini Eisha
  */
 public class fetch {
-    
+     
 DBConnect dbcon;
     
     public fetch(){

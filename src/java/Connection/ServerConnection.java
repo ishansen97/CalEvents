@@ -10,7 +10,7 @@ public class ServerConnection {
         private static String dbname = "testdb";
         private static String username = "root";
         private static String password = "";
-        
+         
 	
 	//Creating a private constructor(outside classes cannot access this)
 	public ServerConnection(){}

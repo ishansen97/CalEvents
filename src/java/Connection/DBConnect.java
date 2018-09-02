@@ -10,7 +10,7 @@ package Connection;
  * @author Lini Eisha
  */
 import java.sql.*;
-
+ 
 public class DBConnect {
     private static DBConnect connect;
     private Connection con;

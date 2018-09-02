@@ -4,7 +4,7 @@
   <span class="w3-bar-item w3-right">Logo</span>
 </div>
 <!--End of Top container -->
-
+ 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
