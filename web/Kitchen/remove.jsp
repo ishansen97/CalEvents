@@ -85,7 +85,7 @@
                     </table>              
           /</div>--%> 
             <div class="col-sm-6">
-                <form action="../rem" method="POST" onclick="submit">
+                <!--<form action="../rem" method="POST" onclick="submit">-->
                 <table class="table" border="5" width="90%" cellspacing="2" >
                      <thead class="thead-dark">
                         <tr>
@@ -110,14 +110,14 @@
                             <td><%=data1.getString("quantity")%></td>
                             <td><%=data1.getString("qType")%></td>
                             <td style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
-                            <td><a href="removeRaw.jsp?event_id=<%=data1.getString("name") %>" class="button button5">Delete</a></td>
+                            <td><a href="removeRaw.jsp?name=<%=data1.getString("name") %>" class="button button5">Delete</a></td>
                             <%}%>
                             
 
                         </tr>
                     </tbody>
                 </table>
-                </form>
+                <!--</form>-->
 
             </div>
             </div>

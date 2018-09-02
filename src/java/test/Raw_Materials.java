@@ -312,12 +312,13 @@ public class Raw_Materials {
 
 class test{
 public static void main(String[] args) throws ClassNotFoundException, SQLException{
-   /* ResultSet result = null;
-    String message = null;
-    Raw_Materials raw = new Raw_Materials("noodles",1300.00,"kg",7);
+   //ResultSet result = null;
+    //String message = null;
     
-    message = raw.insertRaw();
-    if(message.equals("raw material already exist")){
+    //Raw_Materials raw = new Raw_Materials("noodles",1300.00,"kg",7);
+    
+    //raw.insertRaw();
+    /*(message.equals("raw material already exist")){
         
     
         System.out.println(message);
@@ -334,10 +335,10 @@ public static void main(String[] args) throws ClassNotFoundException, SQLExcepti
         System.out.println(message);
 }*/
    
-      Raw_Materials raw = new Raw_Materials();
+    //  Raw_Materials raw = new Raw_Materials();
 //    System.out.println(raw.reduceQuantity("tomoto",12.0));
-    System.out.println(raw.getQuantity("tomoto"));
-    System.out.println(raw.incrementQuantity("tomoto", 12));
+   // System.out.println(raw.getQuantity("tomoto"));
+    //System.out.println(raw.incrementQuantity("tomoto", 12));
     
     //raw.removeRaw("tomoto");
    

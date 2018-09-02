@@ -85,13 +85,14 @@ public class ins extends HttpServlet {
         String type = request.getParameter("Utype");
         double price = Double.parseDouble(request.getParameter("Uprice"));
         double qty = Double.parseDouble(request.getParameter("qty"));
-        //out.println(name);
-        //out.println(type);
-        //out.println(price);
-        //out.println(qty);
+//        out.println(name);
+//        out.println(type);
+//        out.println(price);
+//        out.println(qty);
+        
+        try {
         Raw_Materials rawm = new Raw_Materials(name,price,type,qty);
        
-        try {
            String message = rawm.insertRaw();
            
         if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
