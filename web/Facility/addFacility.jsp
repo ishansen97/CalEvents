@@ -462,7 +462,7 @@
     <body style="background-color: #d6d6d6">
         <form class="form-inline" id="myForm" action="../addfacilityservelet" method="POST">
             
-            <div style="background-color: #d6d6d6; padding-left: 0%; margin:10%; color:#555555;">
+            <div style="background-color: #d6d6d6; padding-left: 0%; color:#555555;">
                     
             <input type="button" class="button button5" onclick="javascript:addTents();" value="Add Tents" name="tents"/>
             <input type="button" class="button button5" onclick="javascript:addSounds();" value="Add Sounds" name="sounds"/>
