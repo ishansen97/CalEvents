@@ -6,6 +6,8 @@
 package event.facility.servelets;
 
 import event.facilities.Facility;
+import event.facilities.KitchenUtensils;
+import event.facilities.Sounds;
 import event.facilities.Tents;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -94,8 +96,8 @@ public class addfacilityservelet extends HttpServlet {
             String color = request.getParameter("color").toString();
             String size = request.getParameter("size").toString();
                    
-                Facility facility = new Tents(name,quantity,condition,color,size);
-                String message = facility.add_Facility();
+                Facility tents = new Tents(name,quantity,condition,color,size);
+                String message = tents.add_Facility();
                 
                 HttpSession session = request.getSession();
                 session.setAttribute("FacilityErrorMessage", message);
@@ -106,12 +108,35 @@ public class addfacilityservelet extends HttpServlet {
                 
         }
         else if(buttonSounds!=null){
-            String type = "sounds";
-            out.println(type);
+            String name = request.getParameter("name").toString();
+            
+            String quantityStr = request.getParameter("quantity").toString();
+            int quantity = Integer.parseInt(quantityStr);
+            String condition = request.getParameter("condition").toString();
+            String brand = request.getParameter("brand").toString();
+            
+                Facility sounds = new Sounds(name,brand,quantity,condition);
+                String message = sounds.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facility_admin.jsp");
+            
         }
         else if(buttonKitchen!=null){
-            String type = "kitchen";
-            out.println(type);
+            String name = request.getParameter("name").toString();
+            
+            String quantityStr = request.getParameter("quantity").toString();
+            int quantity = Integer.parseInt(quantityStr);
+            String condition = request.getParameter("condition").toString();
+            String type = request.getParameter("type").toString();
+            
+                Facility kitchen = new KitchenUtensils(name,quantity,condition,type);
+                String message = kitchen.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facility_admin.jsp");
         }
         else if(buttonChairs!=null){
             String type = "chairs";

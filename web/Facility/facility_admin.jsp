@@ -155,7 +155,7 @@
     
     
             <div class="dropdown">
-            <button class="button button5">Dropdown</button>
+            <button class="button button5">Operations</button>
             <div class="dropdown-content">
                 <a href="update.jsp">Update</a>
                 <a href="delete.jsp">Delete</a>

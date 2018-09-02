@@ -53,7 +53,7 @@
 </head>
 <body>
         
-<div class="w3-bar w3-black">
+<div class="w3-bar w3-grey">
 <button class="button button5" onclick="openT('tentTable')">Tents</button>
 <button class="button button5" onclick="openT('soundsTable')">Sounds</button>
 <button class="button button5" onclick="openT('lightsTable')">Lights</button>
