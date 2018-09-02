@@ -43,8 +43,12 @@
                 color: white;
             }</style>
 
-</head>
-<body>
+</head><%@ include file="Layouts/Styles.jsp" %>
+<body style="background-color: #ededed">
+ 
+<%@ include file="Layouts/Navigation.jsp" %>
+
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
     
 <div class="w3-bar w3-gray">
 <button class="button button5" onclick="openT('tentTable')">Tents</button>
@@ -245,7 +249,7 @@
 
 
         
-        
+</div>
         
         
         

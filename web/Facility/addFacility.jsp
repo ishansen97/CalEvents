@@ -460,7 +460,7 @@
         </style>
     </head>
     <body style="background-color: #d6d6d6">
-        <form class="form-inline" id="myForm" action="../addfacilityservelet" method="POST">
+        <form class="form-inline" id="myForm" action="../addF" method="POST">
             
             <div style="background-color: #d6d6d6; padding-left: 0%; color:#555555;">
                     

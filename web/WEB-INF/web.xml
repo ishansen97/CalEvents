@@ -12,6 +12,10 @@
         <servlet-name>delete</servlet-name>
         <servlet-class>facility.servelets.delete</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addF</servlet-name>
+        <servlet-class>facility.servelets.addF</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>delete</servlet-name>
         <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addF</servlet-name>
+        <url-pattern>/addF</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
