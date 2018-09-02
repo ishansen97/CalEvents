@@ -159,7 +159,7 @@
             <div class="dropdown-content">
                 <a href="update.jsp">Update</a>
                 <a href="delete.jsp">Delete</a>
-                <a href="delete.jsp">Allocate</a>
+                <a href="allocate.jsp">Allocate</a>
             </div>
             </div>       
         <!--</div>-->
