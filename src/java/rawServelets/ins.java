@@ -85,23 +85,23 @@ public class ins extends HttpServlet {
         String type = request.getParameter("Utype");
         double price = Double.parseDouble(request.getParameter("Uprice"));
         double qty = Double.parseDouble(request.getParameter("qty"));
-        out.println(name);
-        out.println(type);
-        out.println(price);
-        out.println(qty);
+        //out.println(name);
+        //out.println(type);
+        //out.println(price);
+        //out.println(qty);
         Raw_Materials rawm = new Raw_Materials(name,price,type,qty);
        
         try {
            String message = rawm.insertRaw();
-            
+           
         if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
         else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
         else if(message.equalsIgnoreCase("raw material already exist"))response.sendRedirect("Kitchen/wrong.jsp");
      
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(insertRawM.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ins.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(insertRawM.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ins.class.getName()).log(Level.SEVERE, null, ex);
         }
           
     }

@@ -80,7 +80,7 @@
                             <td><input type="text" name="Uprice"  placeholder="Price" required="" /></td>
                         </tr>
                         <tr>
-                           
+                          
                         <td></td>
                             <td align="right"><button class="button">UPDATE</button>  </td>
                         </tr>

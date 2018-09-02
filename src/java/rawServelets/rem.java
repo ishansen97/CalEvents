@@ -81,26 +81,26 @@ public class rem extends HttpServlet {
         
         PrintWriter out = response.getWriter();
         
-        String name = request.getParameter("nidimathai").toString();
-        out.print(name);
+        String name = request.getParameter("name").toString();
+        //out.print(name);
         
-//        
-//        Raw_Materials raw = new Raw_Materials();
-//        try {
-//            String message = raw.removeRaw(name);
-//            
-//            if(message.equalsIgnoreCase("Record Removed"))response.sendRedirect("Kitchen/removed.jsp");
-//            else if(message.equalsIgnoreCase("Record does not exist"))response.sendRedirect("Kitchen/errorDeleting.jsp");
-//            
-//               
-//            
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(removeRaw.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        
+       
+        Raw_Materials raw = new Raw_Materials();
+        try {
+            String message = raw.removeRaw(name);
+            
+            if(message.equalsIgnoreCase("Record Removed"))response.sendRedirect("Kitchen/removed.jsp");
+            else if(message.equalsIgnoreCase("Record does not exist"))response.sendRedirect("Kitchen/errorDeleting.jsp");
+            
+               
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(rem.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(rem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         
         
     }

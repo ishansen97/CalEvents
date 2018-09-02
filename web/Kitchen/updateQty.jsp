@@ -74,7 +74,7 @@
                             <td>Raw material Name :</td>
                             <td><input type="text" name="name"  placeholder="Name" required="" /></td>
                         </tr>
-                    
+                   
                         <tr>
                             <td> Quantity :</td>
                             <td><input type="text" name="qty"  placeholder="Quantity" required="" /></td>

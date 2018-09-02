@@ -23,19 +23,19 @@
     
     
     <style>
-.button {
-    background-color:#009688;
-    border: none;
-    color: white;
-    padding: 5px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    margin: 3px 2px;
-    cursor: pointer;
-    align-items: right;
-}
+       .button {
+                    background-color:#009688;
+                    border: none;
+                    color: white;
+                    padding: 10px 25px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: px;
+                    margin: 5px 7px;
+                    cursor: pointer;
+                    align-items: right;
+                }
 </style>
     
     
