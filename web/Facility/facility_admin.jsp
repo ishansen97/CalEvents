@@ -157,8 +157,9 @@
             <div class="dropdown">
             <button class="button button5">Dropdown</button>
             <div class="dropdown-content">
-                <a href="updateFacility.jsp">Update</a>
+                <a href="update.jsp">Update</a>
                 <a href="delete.jsp">Delete</a>
+                <a href="delete.jsp">Allocate</a>
             </div>
             </div>       
         <!--</div>-->
@@ -178,8 +179,9 @@
             </div>
             
             <div style="display: none" id="updateM">
-            <%@include file="updateFacility.jsp" %>
-            </div></div>       
+            <%@include file="update.jsp" %>
+            </div>
+</div>     
             
             <% String message = (String)session.getAttribute("FacilityErrorMessage");%>
             <%if(message!=null){%>
@@ -192,7 +194,7 @@
                     }%>
             
         <%--<%@ include file="Layouts/Footer.jsp" %>--%>
-<!--</div>-->
+<!--</div>
     
 <%@ include file="Layouts/Scripts.jsp" %>
 

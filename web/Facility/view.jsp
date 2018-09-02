@@ -23,18 +23,43 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        
+        <style>
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+            
+            .button5 {
+                background-color: white;
+                color: black;
+                border: 2px solid #555555;
+            }
+            .button5:hover {
+                background-color: #555555;
+                color: white;
+            }
+</style>
 
 </head>
 <body>
         
 <div class="w3-bar w3-black">
-<button class="w3-bar-item w3-button" onclick="openT('tentTable')">Tents</button>
-<button class="w3-bar-item w3-button" onclick="openT('soundsTable')">Sounds</button>
-<button class="w3-bar-item w3-button" onclick="openT('lightsTable')">Lights</button>
-<button class="w3-bar-item w3-button" onclick="openT('kitchenTable')">Kitchen Utensils</button>
-<button class="w3-bar-item w3-button" onclick="openT('tablesTable')">Tables</button>
-<button class="w3-bar-item w3-button" onclick="openT('chairsTable')">Chairs</button>
+<button class="button button5" onclick="openT('tentTable')">Tents</button>
+<button class="button button5" onclick="openT('soundsTable')">Sounds</button>
+<button class="button button5" onclick="openT('lightsTable')">Lights</button>
+<button class="button button5" onclick="openT('kitchenTable')">Kitchen Utensils</button>
+<button class="button button5" onclick="openT('tablesTable')">Tables</button>
+<button class="button button5" onclick="openT('chairsTable')">Chairs</button>
 </div>
         
         

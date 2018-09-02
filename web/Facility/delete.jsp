@@ -51,14 +51,14 @@
 
 </head>
 <body>
-        
-<div class="w3-bar w3-black">
-<button class="w3-bar-item w3-button" onclick="openT('tentTable')">Tents</button>
-<button class="w3-bar-item w3-button" onclick="openT('soundsTable')">Sounds</button>
-<button class="w3-bar-item w3-button" onclick="openT('lightsTable')">Lights</button>
-<button class="w3-bar-item w3-button" onclick="openT('kitchenTable')">Kitchen Utensils</button>
-<button class="w3-bar-item w3-button" onclick="openT('tablesTable')">Tables</button>
-<button class="w3-bar-item w3-button" onclick="openT('chairsTable')">Chairs</button>
+    
+<div class="w3-bar w3-gray">
+<button class="button button5" onclick="openT('tentTable')">Tents</button>
+<button class="button button5" onclick="openT('soundsTable')">Sounds</button>
+<button class="button button5" onclick="openT('lightsTable')">Lights</button>
+<button class="button button5" onclick="openT('kitchenTable')">Kitchen Utensils</button>
+<button class="button button5" onclick="openT('tablesTable')">Tables</button>
+<button class="button button5" onclick="openT('chairsTable')">Chairs</button>
 </div>
         
         

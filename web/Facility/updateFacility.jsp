@@ -4,13 +4,19 @@
     Author     : Lini Eisha
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="event.facilities.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Update Facilities</title>
-<style>
+<html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
             .button {
                 background-color: #4CAF50; /* Green */
                 border: none;
@@ -35,41 +41,45 @@
                 background-color: #555555;
                 color: white;
             }
-#tentsTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    margin-left: 30%;
-    margin-top: 10%
-}
-
-#tentsTable td, #tentsTable th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-#tentsTable tr:nth-child(even){background-color: #f2f2f2;}
-
-#tentsTable tr:hover {background-color: #ddd;}
-
-#tentsTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #555555;
-    color: white;
-}
 </style>
-    </head>
+        
+
+</head>
     <body>
         
-        <input type="submit" class="button button5"  value="Update Tents" name="Tents" id="tents" onclick="javascript:tents();" />
-        <input type="submit" class="button button5"  value="Update sounds" name="Tents" id="tents" onclick="javascript:sounds();" />
-        <input type="submit" class="button button5"  value="Update lights" name="Tents" id="tents" onclick="javascript:lights();" />
-        <input type="submit" class="button button5"  value="Update kitchen utensils" name="Tents" id="tents" onclick="javascript:kitchen();" />
-        <input type="submit" class="button button5"  value="Update tables" name="Tents" id="tents" onclick="javascript:tables();" />
-        <input type="submit" class="button button5"  value="Update chairs" name="Tents" id="tents" onclick="javascript:chairs();" />
-        <!--facility class-->
-    </body>
+<div id="tentTable" class="w3-container tableName" style="margin-left: 0%; margin-top: 0%;">       
+        <form>
+            
+<table class="table">
+    <thead>
+      <tr>
+        <th>Tent</th>
+        <th>Available Quantity</th>
+        <th>Total Quantity</th>
+        <th>Condition</th>
+        <th>Color</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody>
+              <%  String f_ID = request.getParameter("event_id");
+                  Facility tent = new Tents();
+                  
+                  ResultSet uTent = tent.findFacility(f_ID);
+              %>
+      <tr><%while(uTent.next()){%>
+          <td><%= uTent.getString("facilitiyName") %></td>
+          <td><%= uTent.getString("availableQuantity") %></td>
+          <td><%= uTent.getString("totalQuantity") %></td>
+          <td><input type="text" name="name" value="<%= uTent.getString("facilityCondition") %>" /></td>
+          <td><%= uTent.getString("tentColor") %></td>
+          <td><%= uTent.getString("tentSize") %></td>
+          <td><a href="deleteFacility.jsp?event_id=<%=uTent.getString("facilityID") %>" class="button button5">Update Changes</a></td>
+      </tr><%}%>
+      
+    </tbody>
+  </table>
+      
+        </form>             
+</div>          
 </html>
