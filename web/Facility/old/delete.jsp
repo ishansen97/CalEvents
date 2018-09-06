@@ -23,6 +23,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         
 <style>     .button {
                 background-color: #4CAF50; /* Green */
@@ -49,8 +51,12 @@
                 color: white;
             }</style>
 
-</head>
-<body>
+</head><%@ include file="Layouts/Styles.jsp" %>
+<body style="background-color: #ededed">
+ 
+<%@ include file="Layouts/Navigation.jsp" %>
+
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
     
 <div class="w3-bar w3-gray">
 <button class="button button5" onclick="openT('tentTable')">Tents</button>
@@ -249,7 +255,7 @@
 
 </div>
 
-
+</div>
         
         
         
