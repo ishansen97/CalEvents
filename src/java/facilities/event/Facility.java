@@ -142,15 +142,311 @@ public abstract class Facility {
             return id;
         }
         
-        public abstract int getAvailableQuantity(String Key);
-        public abstract int getTotalQuantity(String Key);
-        public abstract boolean updateCondition(String Key,String condition);
-        public abstract boolean reduceAvailableQuantity(int quantity, String Key);        
-        public abstract boolean incrementAvailableQuantity(int quantity, String Key);
-        public abstract boolean reduceTotalQuantity(int quantity, String Key);
-        public abstract boolean incrementTotalQuantity(int quantity, String Key);
+        public int getAvailableQuantity(String Key){
+        
+        PreparedStatement getA = null;
+    
+        ResultSet quantity = null ;
+        
+        int availableQuantity = 0 ;
+        
+        try {                   
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                
+                getA = connect.prepareStatement("SELECT * FROM `facilities` WHERE `facilityID` = ?");
+                getA.setString(1,Key);
+                
+                quantity = getA.executeQuery();
+                
+                while(quantity.next()){
+                
+                    availableQuantity = quantity.getInt("availableQuantity");
+                    
+                }
+                
+            }
+            
+            else return -99;
+        
+        } catch (ClassNotFoundException ex) {
+                
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        return availableQuantity;
+    }
+        public int getTotalQuantity(String Key){
+        
+        PreparedStatement getT = null;
+        ResultSet quantity = null ;
+        int totalQuantity = 0 ;
+        
+        try {                   
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                
+                getT = connect.prepareStatement("SELECT * FROM `facilities` WHERE `facilityID` = ?");
+                getT.setString(1,Key);
+                
+                quantity = getT.executeQuery();
+                
+                while(quantity.next()){
+                
+                    totalQuantity = quantity.getInt("totalQuantity");
+                    
+                }
+                
+            }
+            
+            else return -99;
+        
+        } catch (ClassNotFoundException ex) {
+                
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        return totalQuantity;
+    }
+        public boolean updateCondition(String Key,String condition){
+           
+        PreparedStatement updateConditionQ = null;
+        
+        int updated = 0;
+        
+        try {
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                
+                updateConditionQ = connect.prepareStatement("UPDATE `facilities` SET `facilityCondition` = ? WHERE `facilityID` = ?");
+                
+                updateConditionQ.setString(1, condition);
+                
+                updateConditionQ.setString(2, Key);
+                
+                
+                updated = updateConditionQ.executeUpdate();
+                
+                
+            }
+            
+            else return false;
+            
+        } catch (ClassNotFoundException ex) {
+            
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        if(updated == 1) return true;
+        
+        else return false;
+    }
+        public boolean reduceAvailableQuantity(int quantity, String Key){
+        
+        PreparedStatement reduceAvailable = null;
+        
+        int availableQuantity = getAvailableQuantity(Key);
+        
+        availableQuantity = availableQuantity - quantity;
+        
+        int reduced = 0 ;
+        
+        try {
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                 
+                reduceAvailable = connect.prepareStatement("UPDATE `facilities` SET `availableQuantity` = ? WHERE `facilityID` = ?");
+                
+                reduceAvailable.setInt(1, availableQuantity);
+                
+                reduceAvailable.setString(2, Key);
+                
+                reduced = reduceAvailable.executeUpdate();
+                
+            }
+            
+            else return false;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(reduced == 1) return true;
+        
+        else return false;
+    }        
+        public boolean incrementAvailableQuantity(int quantity, String Key){
+        
+        PreparedStatement incrementAvailable = null;
+        
+        int availableQuantity = getAvailableQuantity(Key);
+        
+        availableQuantity = availableQuantity + quantity;
+        
+        int incremented = 0 ;
+        
+        try {
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                 
+                incrementAvailable = connect.prepareStatement("UPDATE `facilities` SET `availableQuantity` = ? WHERE `facilityID` = ?");
+                
+                incrementAvailable.setInt(1, availableQuantity);
+                
+                incrementAvailable.setString(2, Key);
+                
+                incremented = incrementAvailable.executeUpdate();
+                
+            }
+            
+            else return false;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(incremented == 1) return true;
+        
+        else return false;
+    }
+        public boolean reduceTotalQuantity(int quantity, String Key){
+        
+        PreparedStatement reduceTotal = null;
+        
+        int totalQuantity = getTotalQuantity(Key);
+        
+        totalQuantity = totalQuantity - quantity;
+        
+        int reduced = 0 ;
+        
+        try {
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                 
+                reduceTotal = connect.prepareStatement("UPDATE `facilities` SET `totalQuantity` = ? WHERE `facilityID` = ?");
+                
+                reduceTotal.setInt(1, totalQuantity);
+                
+                reduceTotal.setString(2, Key);
+                
+                reduced = reduceTotal.executeUpdate();
+                
+            }
+            
+            else return false;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(reduced == 1) return true;
+        
+        else return false;
+    }
+        public boolean incrementTotalQuantity(int quantity, String Key) {
+        
+        PreparedStatement incrementTotal = null;
+        
+        int totalQuantity = getTotalQuantity(Key);
+        
+        totalQuantity = totalQuantity + quantity;
+        
+        int incremented = 0 ;
+        
+        try {
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                 
+                incrementTotal = connect.prepareStatement("UPDATE `facilities` SET `totalQuantity` = ? WHERE `facilityID` = ?");
+                
+                incrementTotal.setInt(1, totalQuantity);
+                
+                incrementTotal.setString(2, Key);
+                
+                incremented = incrementTotal.executeUpdate();
+                
+            }
+            
+            else return false;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(incremented == 1) return true;
+        
+        else return false;
+    }
+        public boolean remove_Facility(String f_ID){
+        
+        PreparedStatement deleteQ = null;
+        
+        int deleted = 0;
+        
+        try {
+            if (dbcon.isConnected())
+            {
+                Connection connect = dbcon.getCon();
+                
+                deleteQ = connect.prepareStatement("DELETE FROM `facilities` WHERE `facilityID` = ?");
+                
+                deleteQ.setString(1, f_ID);
+                
+                
+                deleted = deleteQ.executeUpdate();
+                
+                
+            }
+            
+            else return false;
+            
+        } catch (ClassNotFoundException ex) {
+            
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Sounds.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+        if(deleted == 1) return true;
+        
+        else return false;
+    }
+        
+        
         public abstract String add_Facility();
-        public abstract boolean remove_Facility(String f_ID);
         public abstract ResultSet fetch();
     
 }

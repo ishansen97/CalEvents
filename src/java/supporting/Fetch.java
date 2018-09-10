@@ -15,29 +15,48 @@ import java.sql.SQLException;
  *
  * @author User
  */
-public class Fetch {   
+public class Fetch {
+
     DBConnect dbcon;
-    
-    public Fetch(){
+
+    public Fetch() {
         dbcon = DBConnect.getInstance();
     }
-    
-    public ResultSet fetchTypes() throws SQLException, ClassNotFoundException{
-            
-    ResultSet result = null;        
-    PreparedStatement statement = null;
-    
-     if (dbcon.isConnected()) 
-    {
-    Connection connect = dbcon.getCon();
-    
-    statement = connect.prepareStatement("SELECT * FROM `types`");
-    
-    result = statement.executeQuery();
-  
+
+    public ResultSet fetchEvents() throws SQLException, ClassNotFoundException {
+
+        ResultSet result = null;
+        PreparedStatement statement = null;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            statement = connect.prepareStatement("SELECT * FROM private_events");
+
+            result = statement.executeQuery();
+
+        }
+
+        return result;
+
     }
-    
-    return result;
-    
+
+    public ResultSet fetch_FPackages_forE(String id) throws ClassNotFoundException, SQLException {
+
+        ResultSet result = null;
+        PreparedStatement statement = null;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            statement = connect.prepareStatement("SELECT * FROM privaterequired where eventID = ?");
+            statement.setString(1, id);
+
+            result = statement.executeQuery();
+
+        }
+
+        return result;
+
     }
 }

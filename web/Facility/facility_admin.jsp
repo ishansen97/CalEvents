@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="supporting.Fetch"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,9 +21,29 @@
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+            <%
+                Fetch privateEvents = new Fetch();
+                ResultSet privateUpcomings = privateEvents.fetchEvents();
 
-            <div class="container-fluid">
+            %>
+            <div class="container-fluid ">
+                <%while (privateUpcomings.next()) {%>
+                <h2 class="alert-dark"><%= privateUpcomings.getString("event_Name")%></h2>
+                <h2 class="alert-danger"><%= privateUpcomings.getString("Date")%></h2>
+                <h2><%= privateUpcomings.getString("start_time")%></h2>
+                <h2><%= privateUpcomings.getString("end_time")%></h2>
+                <h2><%= privateUpcomings.getString("location_ID")%></h2>
+                <%
+                    Fetch fetchPackages = new Fetch();
+                    ResultSet pacakges = fetchPackages.fetch_FPackages_forE(privateUpcomings.getString("event_ID"));
+                %>
+                <%while (pacakges.next()) {%>
+                <h2 class="alert-primary"><%= pacakges.getString("required")%></h2>
+                <button id="chkAval">check availability</button>
+                <%}%>
                 
+                <br><br>
+                <%}%>
             </div>
 
 
