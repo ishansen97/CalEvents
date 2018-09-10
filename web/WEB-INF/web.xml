@@ -2,15 +2,19 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>admin</servlet-name>
-        <servlet-class>event.facility.servelets.admin</servlet-class>
+        <servlet-class>facility.servelets.admin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>addfacilityservelet</servlet-name>
-        <servlet-class>event.facility.servelets.addfacilityservelet</servlet-class>
+        <servlet-class>facility.servelets.addfacilityservelet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>delete</servlet-name>
-        <servlet-class>event.facility.servelets.delete</servlet-class>
+        <servlet-class>facility.servelets.delete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addF</servlet-name>
+        <servlet-class>facility.servelets.addF</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>delete</servlet-name>
         <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addF</servlet-name>
+        <url-pattern>/addF</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

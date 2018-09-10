@@ -460,9 +460,9 @@
         </style>
     </head>
     <body style="background-color: #d6d6d6">
-        <form class="form-inline" id="myForm" action="../addfacilityservelet" method="POST">
+        <form class="form-inline" id="myForm" action="../addF" method="POST">
             
-            <div style="background-color: #d6d6d6; padding-left: 0%; margin:10%; color:#555555;">
+            <div style="background-color: #d6d6d6; padding-left: 0%; color:#555555;">
                     
             <input type="button" class="button button5" onclick="javascript:addTents();" value="Add Tents" name="tents"/>
             <input type="button" class="button button5" onclick="javascript:addSounds();" value="Add Sounds" name="sounds"/>
@@ -514,27 +514,27 @@
                 <tr>
                     <td id="typeText1" style="display: none" >Type </td>
                     <td id="typeText2" style="display: none" >:</td>          
-                    <td id="typet" style="display: none" ><input type="text" name="brand" id="type" />
+                    <td id="typet" style="display: none" ><input type="text" name="type" id="type" />
                 </tr>                    
                 <tr>
                     <td id="mText1" style="display: none" >Material </td>
                     <td id="mText2" style="display: none" >:</td>          
-                    <td id="mt" style="display: none" ><input type="text" name="brand" id="material" />
+                    <td id="mt" style="display: none" ><input type="text" name="material" id="material" />
                 </tr>                  
                 <tr>
                     <td id="tbSizeText1" style="display: none" >Table Size </td>
                     <td id="tbSizeText2" style="display: none" >:</td>          
-                    <td id="tbSizet" style="display: none" ><input type="text" name="brand" id="tbSize" />
+                    <td id="tbSizet" style="display: none" ><input type="text" name="tcSize" id="tbSize" />
                 </tr>                   
                 <tr>
                     <td id="noText1" style="display: none" >No Of Chairs </td>
                     <td id="noText2" style="display: none" >:</td>          
-                    <td id="not" style="display: none" ><input type="text" name="brand" id="no" />
+                    <td id="not" style="display: none" ><input type="text" name="no" id="no" />
                 </tr>                  
                 <tr>
                     <td id="shapeText1" style="display: none" >Shape </td>
                     <td id="shapeText2" style="display: none" >:</td>          
-                    <td id="shapet" style="display: none" ><input type="text" name="brand" id="brand" />
+                    <td id="shapet" style="display: none" ><input type="text" name="shape" id="shape" />
                 </tr>                
             </table>
 

@@ -23,25 +23,25 @@
     <h5>Dashboard</h5>
   </div>
   <div class="w3-bar-block">
-      <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-<!--      <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; </a>
-      <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a>-->
-      <div class="w3-dropdown-hover">
-          <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Facility <i class="fa fa-caret-down"></i></button>
-          <div class="w3-dropdown-content w3-bar-block">
-              <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Activity</a>
-              <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Allocate</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
+    <!--<a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>-->
+    <!--<a href="#" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; </a>-->
+<!--    <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a>
+-->    <div class="w3-dropdown-hover">
+    <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Facility <i class="fa fa-caret-down"></i></button>
+    <div class="w3-dropdown-content w3-bar-block">
+      <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Activity</a>
+      <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Allocate</a>
     </div>
-<!--    </div>
-    <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Traffic</a>
+    </div>
+<!--    <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Traffic</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bullseye fa-fw"></i>&nbsp; Geo</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-truck fa-fw"></i>&nbsp; Orders</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bell fa-fw"></i>&nbsp; News</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bank fa-fw"></i>&nbsp; General</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-history fa-fw"></i>&nbsp; History</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a><br><br>-->
-  <!--</div>-->
+  </div>
 </nav>
 <!-- End of Sidebar/menu -->
 

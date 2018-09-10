@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package event.facilities;
+package facilities.event;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,19 +16,21 @@ import java.util.logging.Logger;
  *
  * @author User
  */
-public class Chairs extends Facility{
+public class Tents extends Facility {
     
-    private String material;
+    private String color;
+    private String size;
     
-    public Chairs(){}
+    public Tents(){}
     
-    public Chairs(String name, int quantity, String condition, String material){
+    public Tents(String name, int quantity, String condition, String color, String size){
         super(name,quantity,condition);
-        this.material = material; 
+        this.color = color;
+        this.size = size;
     }
+    
     @Override
-    public int getAvailableQuantity(String chairKey) {
-        
+    public int getAvailableQuantity(String tentKey) {
         PreparedStatement getA = null;
     
         ResultSet quantity = null ;
@@ -40,8 +42,8 @@ public class Chairs extends Facility{
             {
                 Connection connect = dbcon.getCon();
                 
-                getA = connect.prepareStatement("SELECT * FROM `facilitychair` WHERE `facilityID` = ?");
-                getA.setString(1,chairKey);
+                getA = connect.prepareStatement("SELECT * FROM `facilitytent` WHERE `facilityID` = ?");
+                getA.setString(1,tentKey);
                 
                 quantity = getA.executeQuery();
                 
@@ -69,7 +71,7 @@ public class Chairs extends Facility{
     }
 
     @Override
-    public int getTotalQuantity(String chairKey) {
+    public int getTotalQuantity(String tentKey) {
         
         PreparedStatement getT = null;
         ResultSet quantity = null ;
@@ -80,8 +82,8 @@ public class Chairs extends Facility{
             {
                 Connection connect = dbcon.getCon();
                 
-                getT = connect.prepareStatement("SELECT * FROM `facilitychair` WHERE `facilityID` = ?");
-                getT.setString(1,chairKey);
+                getT = connect.prepareStatement("SELECT * FROM `facilitytent` WHERE `facilityID` = ?");
+                getT.setString(1,tentKey);
                 
                 quantity = getT.executeQuery();
                 
@@ -109,8 +111,7 @@ public class Chairs extends Facility{
     }
 
     @Override
-    public boolean updateCondition(String chairKey, String condition) {
-        
+    public boolean updateCondition(String tentKey, String condition) {
             
         PreparedStatement updateConditionQ = null;
         
@@ -125,7 +126,7 @@ public class Chairs extends Facility{
                 
                 updateConditionQ.setString(1, condition);
                 
-                updateConditionQ.setString(2, chairKey);
+                updateConditionQ.setString(2, tentKey);
                 
                 
                 updated = updateConditionQ.executeUpdate();
@@ -151,10 +152,10 @@ public class Chairs extends Facility{
     }
 
     @Override
-    public boolean reduceAvailableQuantity(int quantity, String chairKey) {
+    public boolean reduceAvailableQuantity(int quantity, String tentKey) {
         PreparedStatement reduceAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(chairKey);
+        int availableQuantity = getAvailableQuantity(tentKey);
         
         availableQuantity = availableQuantity - quantity;
         
@@ -169,7 +170,7 @@ public class Chairs extends Facility{
                 
                 reduceAvailable.setInt(1, availableQuantity);
                 
-                reduceAvailable.setString(2, chairKey);
+                reduceAvailable.setString(2, tentKey);
                 
                 reduced = reduceAvailable.executeUpdate();
                 
@@ -189,11 +190,11 @@ public class Chairs extends Facility{
     }
 
     @Override
-    public boolean incrementAvailableQuantity(int quantity, String chairKey) {
+    public boolean incrementAvailableQuantity(int quantity, String tentKey) {
         
         PreparedStatement incrementAvailable = null;
         
-        int availableQuantity = getAvailableQuantity(chairKey);
+        int availableQuantity = getAvailableQuantity(tentKey);
         
         availableQuantity = availableQuantity + quantity;
         
@@ -208,7 +209,7 @@ public class Chairs extends Facility{
                 
                 incrementAvailable.setInt(1, availableQuantity);
                 
-                incrementAvailable.setString(2, chairKey);
+                incrementAvailable.setString(2, tentKey);
                 
                 incremented = incrementAvailable.executeUpdate();
                 
@@ -228,10 +229,11 @@ public class Chairs extends Facility{
     }
 
     @Override
-    public boolean reduceTotalQuantity(int quantity, String chairKey) {
+    public boolean reduceTotalQuantity(int quantity, String tentKey) {
+        
         PreparedStatement reduceTotal = null;
         
-        int totalQuantity = getTotalQuantity(chairKey);
+        int totalQuantity = getTotalQuantity(tentKey);
         
         totalQuantity = totalQuantity - quantity;
         
@@ -246,7 +248,7 @@ public class Chairs extends Facility{
                 
                 reduceTotal.setInt(1, totalQuantity);
                 
-                reduceTotal.setString(2, chairKey);
+                reduceTotal.setString(2, tentKey);
                 
                 reduced = reduceTotal.executeUpdate();
                 
@@ -266,10 +268,10 @@ public class Chairs extends Facility{
     }
 
     @Override
-    public boolean incrementTotalQuantity(int quantity, String chairKey) {
+    public boolean incrementTotalQuantity(int quantity, String tentKey) {
         PreparedStatement incrementTotal = null;
         
-        int totalQuantity = getTotalQuantity(chairKey);
+        int totalQuantity = getTotalQuantity(tentKey);
         
         totalQuantity = totalQuantity + quantity;
         
@@ -284,7 +286,7 @@ public class Chairs extends Facility{
                 
                 incrementTotal.setInt(1, totalQuantity);
                 
-                incrementTotal.setString(2, chairKey);
+                incrementTotal.setString(2, tentKey);
                 
                 incremented = incrementTotal.executeUpdate();
                 
@@ -315,13 +317,13 @@ public class Chairs extends Facility{
             
             
             
-            String id = generate_Facility_Id("chairs");
+            String id = generate_Facility_Id("tents");
                 
             if (dbcon.isConnected())
             {
                 Connection connect = dbcon.getCon();
             
-                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitychair` WHERE `facilitiyName` = ?");
+                PreparedStatement soundExistCheck = connect.prepareStatement("SELECT * FROM `facilitytent` WHERE `facilitiyName` = ?");
                 soundExistCheck.setString(1, itemName);
                 
                 ResultSet alreadyExist = soundExistCheck.executeQuery();
@@ -331,16 +333,17 @@ public class Chairs extends Facility{
                 else                
                 {
                 
-                addTents = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`,`chairMaterial`)"
-                        + " VALUES (?,?,?,?,?,?,?)");
+                addTents = connect.prepareStatement("INSERT INTO `facilities` (`facilityID`, `facilitiyName`, `facilityType`, `availableQuantity`, `totalQuantity`, `facilityCondition`, `tentColor`, `tentSize`)"
+                        + " VALUES (?,?,?,?,?,?,?,?)");
                 
                 addTents.setString(1, id);
                 addTents.setString(2, itemName);
-                addTents.setString(3, "chair");
+                addTents.setString(3, "tent");
                 addTents.setInt   (4, quantity);
                 addTents.setInt   (5, quantity);
                 addTents.setString(6, condition);
-                addTents.setString(7, material);
+                addTents.setString(7, color);
+                addTents.setString(8, size);
                 
                 res = addTents.executeUpdate();
                 }
@@ -411,7 +414,7 @@ public class Chairs extends Facility{
             
             if(dbcon.isConnected()){
                 Connection connect = dbcon.getCon();
-                fetch = connect.prepareStatement("SELECT * FROM `facilitychair`");
+                fetch = connect.prepareStatement("SELECT * FROM `facilitytent`");
                 details = fetch.executeQuery();
             }
             
@@ -423,5 +426,16 @@ public class Chairs extends Facility{
         
             return details;
     }
-    }
+    
+}
 
+class demo {
+public static void main(String[] args) throws ClassNotFoundException, SQLException{
+
+    Facility n = new Tents();
+    while(n.fetch().next()){
+        System.out.println(n.fetch().getString("facilitiyName"));
+    }
+}
+
+}
