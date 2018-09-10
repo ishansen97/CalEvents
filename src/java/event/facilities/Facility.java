@@ -142,6 +142,22 @@ public abstract class Facility {
             return id;
         }
         
+        public ResultSet findFacility(String Key) throws ClassNotFoundException, SQLException{
+            PreparedStatement findQ = null;
+            ResultSet result = null;
+            
+            if(dbcon.isConnected()){
+                
+                Connection connect = dbcon.getCon();
+                findQ = connect.prepareStatement("SELECT * FROM facilities WHERE `facilityID` = ? ");
+                findQ.setString(1, Key);
+                
+                result = findQ.executeQuery();
+        }
+            
+            return result;
+        }
+        
         public abstract int getAvailableQuantity(String Key);
         public abstract int getTotalQuantity(String Key);
         public abstract boolean updateCondition(String Key,String condition);

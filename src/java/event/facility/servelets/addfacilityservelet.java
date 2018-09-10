@@ -5,7 +5,10 @@
  */
 package event.facility.servelets;
 
+import event.facilities.Chairs;
 import event.facilities.Facility;
+import event.facilities.KitchenUtensils;
+import event.facilities.Sounds;
 import event.facilities.Tents;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -84,46 +87,88 @@ public class addfacilityservelet extends HttpServlet {
         String buttonLights = request.getParameter("lights");
         String buttonTables = request.getParameter("tables");
         
-        if(buttonTents!=null){
-            String type = "tents";
+        
             String name = request.getParameter("name").toString();
             
             String quantityStr = request.getParameter("quantity").toString();
             int quantity = Integer.parseInt(quantityStr);
             String condition = request.getParameter("condition").toString();
-            String color = request.getParameter("color").toString();
-            String size = request.getParameter("size").toString();
-                   
-                Facility facility = new Tents(name,quantity,condition,color,size);
-                String message = facility.add_Facility();
-                
-                HttpSession session = request.getSession();
-                session.setAttribute("FacilityErrorMessage", message);
-                response.sendRedirect("Facility/facility_admin.jsp");
+        
+        if(buttonTents!=null){
+            out.print("tents");
+//            String type = "tents";
+//            String color = request.getParameter("color").toString();
+//            String size = request.getParameter("size").toString();
+//                   
+//                Facility facility = new Tents(name,quantity,condition,color,size);
+//                String addMessage = facility.add_Facility();
+//                
+//                HttpSession session = request.getSession();
+//                session.setAttribute("FacilityErrorMessage", addMessage);
+//                response.sendRedirect("Facility/facility_admin.jsp");
 //                request.setAttribute("errorMessage", message);
 //                RequestDispatcher rd = request.getRequestDispatcher("Facility/facility_admin.jsp");
 //                rd.forward(request, response);       
                 
         }
-        else if(buttonSounds!=null){
-            String type = "sounds";
-            out.println(type);
+        if(buttonSounds!=null){
+            
+            String brand = request.getParameter("brand").toString();
+            Facility sounds = new Sounds(name,brand,quantity,condition);
+            
+            String addMessage = sounds.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", addMessage);
+                response.sendRedirect("Facility/facility_admin.jsp");
         }
         else if(buttonKitchen!=null){
-            String type = "kitchen";
-            out.println(type);
+            
+            String type = request.getParameter("type").toString();
+            
+            Facility kitchen = new KitchenUtensils(name,quantity,condition,type);
+            
+            String addMessage = kitchen.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", addMessage);
+                response.sendRedirect("Facility/facility_admin.jsp");
         }
         else if(buttonChairs!=null){
-            String type = "chairs";
-            out.println(type);
+            
+            String material = request.getParameter("material").toString();
+            
+            Facility chairs = new Chairs(name,quantity,condition,material);
+            
+            String addMessage = chairs.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", addMessage);
+                response.sendRedirect("Facility/facility_admin.jsp");
         }
         else if(buttonLights!=null){
-            String type = "lights";
-            out.println(type);
+            
+            String type = request.getParameter("type").toString();
+            
+            Facility kitchen = new KitchenUtensils(name,quantity,condition,type);
+            
+            String addMessage = kitchen.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", addMessage);
+                response.sendRedirect("Facility/facility_admin.jsp");
         }
         else if(buttonTables!=null){
-            String type = "tables";
-            out.println(type);
+            
+            String type = request.getParameter("type").toString();
+            
+            Facility kitchen = new KitchenUtensils(name,quantity,condition,type);
+            
+            String addMessage = kitchen.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", addMessage);
+                response.sendRedirect("Facility/facility_admin.jsp");   out.println(type);
         }
         else{
             String error = "error";
