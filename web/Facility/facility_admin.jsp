@@ -24,29 +24,46 @@
             <%
                 Fetch privateEvents = new Fetch();
                 ResultSet privateUpcomings = privateEvents.fetchEvents();
-
+                String name = "";
             %>
-            <div class="container-fluid ">
-                <%while (privateUpcomings.next()) {%>
-                <h2 class="alert-dark"><%= privateUpcomings.getString("event_Name")%></h2>
-                <h2 class="alert-danger"><%= privateUpcomings.getString("Date")%></h2>
-                <h2><%= privateUpcomings.getString("start_time")%></h2>
-                <h2><%= privateUpcomings.getString("end_time")%></h2>
-                <h2><%= privateUpcomings.getString("location_ID")%></h2>
-                <%
-                    Fetch fetchPackages = new Fetch();
-                    ResultSet pacakges = fetchPackages.fetch_FPackages_forE(privateUpcomings.getString("event_ID"));
-                %>
-                <%while (pacakges.next()) {%>
-                <h2 class="alert-primary"><%= pacakges.getString("required")%></h2>
-                <button id="chkAval">check availability</button>
-                <%}%>
-                
-                <br><br>
-                <%}%>
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <%while (privateUpcomings.next()) {%>
+                        <h2 class="alert-dark"><%= privateUpcomings.getString("event_Name")%></h2>
+                        <h2 class="alert-danger"><%= privateUpcomings.getString("Date")%></h2>
+                        <h2><%= privateUpcomings.getString("start_time")%></h2>
+                        <h2><%= privateUpcomings.getString("end_time")%></h2>
+                        <h2><%= privateUpcomings.getString("location_ID")%></h2>
+                        <%
+                            Fetch fetchPackages = new Fetch();
+                            ResultSet pacakges = fetchPackages.fetch_FPackages_forE(privateUpcomings.getString("event_ID"));
+                        %>
+                        <%while (pacakges.next()) {%>
+                        <h2 class="alert-primary"><%= pacakges.getString("required")%></h2>
+                        <%  name = pacakges.getString("required"); %>
+                        <p class="btn btn-success">check availability</p>
+                        <%}%>
+
+                        <br><br>
+                        <%}%>
+                        <div class="card">
+                            <div id="content" class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
+            <script>
+                $(document).ready(function () {
+                    $("p").click(function () {
+                        $("#content").text("fuck");
+                    });
+                });
+            </script>
 
 
             <%@ include file="Layouts/Footer.jsp" %>
