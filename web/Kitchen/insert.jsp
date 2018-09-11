@@ -54,18 +54,8 @@
             <hr><hr>
 
 
-            <div width="100%" height="20%">
-                <a href="insert.jsp"> <button class="button" name="addremove" value='insert'>Insert Raw Materials</button></a>
-                <a href="remove.jsp"> <button class="button" name='addremove' value="remove">Remove Raw Materials</button></a>
-                <a href="updatePrice.jsp"> <button class="button" name='addremove' value="updatePrice">Update Price</button></a>
-                <a href="updateQty.jsp"> <button class="button" name='addremove' value="updateQty">Update Quantity</button></a>
-                <a href="allocate.jsp"> <button class="button" name='addremove' value="allocate">Allocate Raw Materials</button> </a>
-                <a href="determine.jsp"> <button class="button" name='addremove' value="determine">Determine Menu</button></a>
-            </div>
-            <hr><hr>
             <div class="container" style="align:    ">
-            <h1>I
-                Insert Raw Materials</h1>
+            <h1>Insert Raw Materials</h1>
             <hr>
             <div class="row">
             <div class="col-6">

@@ -7,7 +7,7 @@ public class ServerConnection {
 	private static ServerConnection instance;
         static public Connection con = null;
         private static String url = "jdbc:mysql://localhost:3306/";
-        private static String dbname = "testdb";
+        private static String dbname = "calevents";
         private static String username = "root";
         private static String password = "";
          

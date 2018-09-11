@@ -4,7 +4,7 @@
   <span class="w3-bar-item w3-right">Logo</span>
 </div>
 <!--End of Top container -->
- 
+
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
@@ -23,25 +23,35 @@
     <h5>Dashboard</h5>
   </div>
   <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-    <%--<a href="#" class="w3-bar-item w3-button w3-padding " style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>--%>
-    <a href="adminPanal.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Kitchen Management</a>
-    <%--<a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a>
-    <div class="w3-dropdown-hover">
-    <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees <i class="fa fa-caret-down"></i></button>
-    <div class="w3-dropdown-content w3-bar-block">
-      <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Managers</a>
-      <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Workers</a>
+    
+      <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
+    
+      <!--<a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>-->
+    
+      <a href="adminPanal.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Kitchen Management</a>
+
+     <%-- <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a> --%>
+    
+      <div class="w3-dropdown-hover">
+      <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Admin Options <i class="fa fa-caret-down"></i></button>
+      
+      <div class="w3-dropdown-content w3-bar-block">
+      <a href="insert.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Insert Raw Materials</a>
+      <a href="remove.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Remove Raw Materials</a>
+      <a href="determine.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Determine Raw Materials</a>
+      <a href="allocate.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Allocate Raw Materials</a>
+      <a href="update.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Update Stock</a>
+      
     </div>
-    </div>
+<!--    </div>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Traffic</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bullseye fa-fw"></i>&nbsp; Geo</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-truck fa-fw"></i>&nbsp; Orders</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bell fa-fw"></i>&nbsp; News</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bank fa-fw"></i>&nbsp; General</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-history fa-fw"></i>&nbsp; History</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a><br><br>
-  </div>--%>
+    <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a><br><br>-->
+  <!--</div>-->
 </nav>
 <!-- End of Sidebar/menu -->
 

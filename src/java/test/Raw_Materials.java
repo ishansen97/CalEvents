@@ -49,6 +49,16 @@ public class Raw_Materials {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+        public String insertRaw(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String insertRaw(String name, double price, String type, double qty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
     
     public String generate_Raw_Id() throws ClassNotFoundException, SQLException{
         String query = null;
@@ -62,10 +72,16 @@ public class Raw_Materials {
 
             if (rs.next()) {
                 String ID = rs.getString("rawID");
-                String[] parts = ID.split("R00", 2);
+                String[] parts = ID.split("R", 2);
                 int integerid = Integer.parseInt(parts[1]);
                 integerid++;
-                id = "R00" + integerid;
+                
+                if (integerid > 1 && integerid < 10)
+                    id = "R00" + integerid;
+                else if(integerid >=10 && integerid < 100)
+                    id = "R0" + integerid;
+                else 
+                    id = "R" + integerid;
             }
             else
                 id = "R001";
@@ -300,16 +316,10 @@ public class Raw_Materials {
     
     
 }*/
+    
+    
 
-    public String insertRaw(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public String insertRaw(String name, double price, String type, double qty) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    }
-
+}
 class test{
 public static void main(String[] args) throws ClassNotFoundException, SQLException{
    //ResultSet result = null;
@@ -342,6 +352,8 @@ public static void main(String[] args) throws ClassNotFoundException, SQLExcepti
     
     //raw.removeRaw("tomoto");
    
+        Raw_Materials r = new Raw_Materials();
+        System.out.println(r.generate_Raw_Id());
     
-    
-}   }
+}
+}

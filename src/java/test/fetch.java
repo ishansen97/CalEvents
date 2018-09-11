@@ -43,17 +43,16 @@ DBConnect dbcon;
     }
     
     
-    public ResultSet fetchName() throws ClassNotFoundException, SQLException{
-        
-        ResultSet result = null;
-        PreparedStatement statement = null;
-        
-        
+    public ResultSet fetchAppetizers() throws SQLException, ClassNotFoundException{
+            
+    ResultSet result = null;        
+    PreparedStatement statement = null;
+    
      if (dbcon.isConnected()) 
     {
     Connection connect = dbcon.getCon();
     
-    statement = connect.prepareStatement("SELECT name FROM `raw_materials`");
+    statement = connect.prepareStatement("SELECT * FROM `menuappetizer`");
     
     result = statement.executeQuery();
   
@@ -61,5 +60,92 @@ DBConnect dbcon;
     
     return result;
     
-    } 
+    }
+    
+    
+    
+    public ResultSet fetchMainDishes() throws SQLException, ClassNotFoundException{
+            
+    ResultSet result = null;        
+    PreparedStatement statement = null;
+    
+     if (dbcon.isConnected()) 
+    {
+    Connection connect = dbcon.getCon();
+    
+    statement = connect.prepareStatement("SELECT * FROM `menumaindish`");
+    
+    result = statement.executeQuery();
+  
+    }
+    
+    return result;
+    
+    }
+        
+    
+    
+    
+    public ResultSet fetchDesserts() throws SQLException, ClassNotFoundException{
+            
+    ResultSet result = null;        
+    PreparedStatement statement = null;
+    
+     if (dbcon.isConnected()) 
+    {
+    Connection connect = dbcon.getCon();
+    
+    statement = connect.prepareStatement("SELECT * FROM `menudessert`");
+    
+    result = statement.executeQuery();
+  
+    }
+    
+    return result;
+    
+    }
+   
+    
+    
+    
+    public ResultSet fetchRefreshments() throws SQLException, ClassNotFoundException{
+            
+    ResultSet result = null;        
+    PreparedStatement statement = null;
+    
+     if (dbcon.isConnected()) 
+    {
+    Connection connect = dbcon.getCon();
+    
+    statement = connect.prepareStatement("SELECT * FROM `menurefreshment`");
+    
+    result = statement.executeQuery();
+  
+    }
+    
+    return result;
+    
+    }
+            
+            
+}
+
+
+
+class d {
+public static void main(String[] args) throws SQLException, ClassNotFoundException{
+
+
+
+    fetch f = new fetch();
+    ResultSet r = f.fetchAppetizers();
+    
+    while(r.next()){
+    System.out.println(r.getString("name")+"  :  ");    
+    String in = r.getString("ingredients");
+    String[] raws = in.split(",");
+    for(int i=0;i<raws.length;i++){
+        System.out.println(raws[i].trim());}
+    }
+}
 }
