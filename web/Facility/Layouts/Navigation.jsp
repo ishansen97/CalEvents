@@ -32,6 +32,14 @@
     <div class="w3-dropdown-content w3-bar-block">
       <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Activity</a>
       <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Allocate</a>
+      <a id ="pack" href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Packages</a>
+            <script>
+                $(document).ready(function () {
+                    $("#pack").click(function () {
+                        $("#packages").load("packages.jsp");
+                    });
+                });
+            </script>
     </div>
     </div>
 <!--    <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Traffic</a>
