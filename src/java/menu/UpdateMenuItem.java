@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sohan
  */
-@WebServlet(name = "UpdateDeserts", urlPatterns = {"/UpdateDeserts"})
-public class UpdateDeserts extends HttpServlet {
+@WebServlet(name = "UpdateMenuItem", urlPatterns = {"/UpdateMenuItem"})
+public class UpdateMenuItem extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,43 +40,34 @@ public class UpdateDeserts extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateDeserts</title>");            
+            out.println("<title>Servlet UpdateAppetizer</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateDeserts at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateAppetizer at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
             
+            String item_id = request.getParameter("item_id");
+            String name = request.getParameter("item_name");
+            String category = request.getParameter("item_category");
+            String ingredients = request.getParameter("item_ingredients");
+            double price = Double.parseDouble(request.getParameter("item_price"));
             
-            String des_id = request.getParameter("des_id");
-            String name = request.getParameter("des_name");
-            String ingredients = request.getParameter("ingredients");
-            double price = Double.parseDouble(request.getParameter("price"));
-            
-            out.println("name: " + name);
-            out.println("ing: " + ingredients);
-            
-            if (Deserts.isUpdated(des_id, name, ingredients, price)) {
-                response.sendRedirect(request.getContextPath() + "/Menu/UpdateDeserts.jsp");
-                out.println("success");
+            if (MenuItems.isUpdated(item_id, name, category, ingredients, price)) {
+                response.sendRedirect(request.getContextPath() + "/Menu/menu.jsp");
             }
             else {
                 out.println("failure");
             }
             
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(UpdateDeserts.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdateMenuItem.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
-            out.println("inside class/sql exception");
+            out.println("inside class/sql exception " + ex);
         } catch (Exception ex) {
-            Logger.getLogger(UpdateDeserts.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdateMenuItem.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
             out.println("inside class/sql exception");
-
-            
-            
-            
-            
         }
     }
 

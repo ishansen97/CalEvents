@@ -7,9 +7,6 @@ package menu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sohan
  */
-@WebServlet(name = "Create_Menu", urlPatterns = {"/Create_Menu"})
-public class Create_MenuServlet extends HttpServlet {
+@WebServlet(name = "CreateMenu", urlPatterns = {"/CreateMenu"})
+public class CreateMenu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,44 +34,27 @@ public class Create_MenuServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Create_Menu</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet Create_Menu at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CreateMenu</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CreateMenu at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            String menuName = request.getParameter("menu_name");
+            String menuItems = request.getParameter("menu_items");
+            String[] items = menuItems.split(", ");
             
-            String appertizers = request.getParameter("appertizers");
-            String main_dishes = request.getParameter("main_dishes");
-            String deserts = request.getParameter("deserts");
-            String refreshments = request.getParameter("refreshments");
-            
-//            out.println("Appertizers : " + appertizers + "\n");
-//            out.println("main dishes : " + main_dishes + "\n");
-//            out.println("deserts : " + deserts + "\n");
-//            out.println("refreshments : " + refreshments + "\n");
+            Menu menu = new Menu(menuName, items);
 
-            EventMenu eventMenu = new EventMenu(appertizers, main_dishes, deserts, refreshments);
-            
-            if (eventMenu.isInserted()) {
-                
-                out.println("Inserted");
-                //response.sendRedirect(request.getContextPath() + "Menu/success.jsp");
-                
-                
+            if (menu.createMenu()) {
+                out.println("Menu created!");
+                response.sendRedirect(request.getContextPath() + "/Menu/createdMenus.jsp");
+            } else {
+                out.println("Menu creation failed!");
             }
-            else {
-                out.println("not inserted");
-            }
-            
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Create_MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Create_MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

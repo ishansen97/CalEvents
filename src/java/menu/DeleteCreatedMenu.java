@@ -7,9 +7,6 @@ package menu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sohan
  */
-@WebServlet(name = "RefreshmentsServlet", urlPatterns = {"/RefreshmentsServlet"})
-public class RefreshmentsServlet extends HttpServlet {
+@WebServlet(name = "DeleteCreatedMenu", urlPatterns = {"/DeleteCreatedMenu"})
+public class DeleteCreatedMenu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,35 +37,21 @@ public class RefreshmentsServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RefreshmentsServlet</title>");            
+            out.println("<title>Servlet DeleteCreatedMenu</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RefreshmentsServlet at " + request.getContextPath() + "</h1>");
+            
+            String menuId = request.getParameter("menuId");
+            
+            if (Menu.isDeleted(menuId)) {
+                out.println("Deleted");
+                response.sendRedirect(request.getContextPath() + "/Menu/createdMenus.jsp");
+            } else {
+                out.println("Error!");
+            }
+
             out.println("</body>");
             out.println("</html>");
-            
-          String ref = request.getParameter("refresh_name");
-          String ingredients = request.getParameter("refresh_Ingredients_name");
-          double price = Double.parseDouble(request.getParameter("deserts_Price"));
-          out.println("After geting the name");
-            
-          Refreshments refresh = new Refreshments(ref, ingredients, price);
-          out.println("After creating the object");
-          
-          if(refresh.isInserted()) {
-          
-              response.sendRedirect(request.getContextPath()+ "/Menu/index.jsp");
-          }
-          else
-              out.println("not Inserted ");
-              
-              
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(RefreshmentsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            PrintWriter out = response.getWriter();
-            out.println(ex.getMessage());
-            Logger.getLogger(RefreshmentsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

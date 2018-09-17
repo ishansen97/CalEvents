@@ -7,9 +7,6 @@ package menu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sohan
  */
-@WebServlet(name = "AppertizerServlet", urlPatterns = {"/AppertizerServlet"})
-public class AppertizerServlet extends HttpServlet {
+@WebServlet(name = "CustomerMenuCreate", urlPatterns = {"/CustomerMenuCreate"})
+public class CustomerMenuCreate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,39 +32,29 @@ public class AppertizerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try  {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            PrintWriter out = response.getWriter();
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AppertizerServlet</title>");            
+            out.println("<title>Servlet CustomerMenuCreate</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AppertizerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CustomerMenuCreate at " + request.getContextPath() + "</h1>");
+            String[] items = request.getParameterValues("menuItem");
+            for (String s: items) {
+                out.println(s + "<br>");
+            }
+            
+            PrivateMenu pvtMenu = new PrivateMenu("E0001", items);
+            if (pvtMenu.isInserted()) {
+                out.println("Success!");
+            } else {
+                out.println("Failed");
+            }
+            
             out.println("</body>");
             out.println("</html>");
-            
-            String app_name = request.getParameter("app_name");
-            String ingredients = request.getParameter("appertizer_Ingredients_name");
-            double price = Double.parseDouble(request.getParameter("appertizer_Price"));
-            out.println("Affter getting the name");
-            
-            Appertizer app = new Appertizer(app_name, ingredients, price);
-            out.println("After creating the object");
-            
-            if (app.isInserted()) {
-                //out.println("Successfully inserted");
-                response.sendRedirect(request.getContextPath()+ "/Menu/index.jsp");
-            }
-            else
-                out.println("not inserted");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AppertizerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            PrintWriter out = response.getWriter();
-            out.println(ex.getMessage());
-            Logger.getLogger(AppertizerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sohan
  */
-@WebServlet(name = "MainDishServlet", urlPatterns = {"/MainDishServlet"})
-public class MainDishServlet extends HttpServlet {
+@WebServlet(name = "AddMenuItem", urlPatterns = {"/AddMenuItem"})
+public class AddMenuItem extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,40 +35,40 @@ public class MainDishServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try  {
             /* TODO output your page here. You may use following sample code. */
+            PrintWriter out = response.getWriter();
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MainDishServlet</title>");            
+            out.println("<title>Servlet AddMenuItem</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MainDishServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddMenuItem at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
             
-           String mdish_name = request.getParameter("main_name");
-           String ingredients = request.getParameter("main_Ingredients_name");
-           double price = Double.parseDouble(request.getParameter("main_Price"));
-	   out.println("After getting the name");
+            String itemName = request.getParameter("item_name");
+            String category = request.getParameter("item_category");
+            String ingredients = request.getParameter("item_ingredients");
+            double price = Double.parseDouble(request.getParameter("item_price"));
+            out.println("Affter getting the name");
             
-            MainDish mdish = new MainDish(mdish_name, ingredients, price);
-	    out.println("After creating the object");
+            MenuItems item = new MenuItems(itemName, category, ingredients, price);
+            out.println("After creating the object");
             
-            if (mdish.isInserted()) {
+            if (item.isInserted()) {
                 //out.println("Successfully inserted");
-                response.sendRedirect(request.getContextPath()+ "/Menu/index.jsp");
+                response.sendRedirect(request.getContextPath()+ "/Menu/menu.jsp");
             }
             else
                 out.println("not inserted");
-        } catch (ClassNotFoundException | SQLException ex) {
-	    PrintWriter out = response.getWriter();
-        //   out.println(ex.getMessage());
-            Logger.getLogger(MainDishServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AddMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             PrintWriter out = response.getWriter();
             out.println(ex.getMessage());
-            Logger.getLogger(MainDishServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddMenuItem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -12,16 +12,20 @@ import java.sql.*;
  *
  * @author Sohan
  */
-public class Appertizer extends Menu{
+public class MenuItems {
+    private String name;
+    private String category;
     private String ingredients;
     private double price;
 
-    public Appertizer(String name, String ingredients, double price) {
-        super(name);
+    public MenuItems(String name, String category, String ingredients, double price) {
+        this.name = name;
+        this.category = category;
         this.ingredients = ingredients;
         this.price = price;
     }
-        
+       
+    /*
     public String generateMenuId() throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
         String query = null;
@@ -50,22 +54,24 @@ public class Appertizer extends Menu{
         }
         return menu_Id;
     }
+*/
     
     public boolean isInserted() throws ClassNotFoundException, SQLException {
-        String app = generateMenuId();
+//        String app = generateMenuId();
         ServerConnection.setConnection();
         String query = null;
         
         if (ServerConnection.getConnectionStatus()) {
             Connection con = ServerConnection.getConnection();
             
-            query = "INSERT INTO appetizer values(?,?,?,?)";
+            query = "INSERT INTO `Menu_items` (`category`, `name`, `price`, `ingredients`) "
+                    + "VALUES (?, ?, ?, ?)";
             
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, app);
+            ps.setString(1, category);
             ps.setString(2, name);
-            ps.setString(3, ingredients);
-            ps.setDouble(4, price);
+            ps.setDouble(3, price);
+            ps.setString(4, ingredients);
             int result = ps.executeUpdate();
             
             if (result > 0)
@@ -77,7 +83,7 @@ public class Appertizer extends Menu{
             return false;
     }
     
-    public static ResultSet getApperizer() throws ClassNotFoundException, SQLException {
+    public static ResultSet getItems() throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
         String query = null;
         ResultSet res = null;
@@ -86,7 +92,7 @@ public class Appertizer extends Menu{
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
             
-            query = "SELECT * from appetizer";
+            query = "SELECT * FROM `Menu_items` ORDER BY category";
             
             res = st.executeQuery(query);
             
@@ -95,7 +101,31 @@ public class Appertizer extends Menu{
         
     }
     
-    public static ResultSet displayApp(String id) throws ClassNotFoundException, SQLException {
+    public static ResultSet getAllCategories() throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        ResultSet res = null;
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+            String query = "SELECT category from Menu_items GROUP BY category";
+            res = st.executeQuery(query);
+        }
+        return res;
+    }
+    
+    public static ResultSet getItemsByCategory(String cat) throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        ResultSet res = null;
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+            String query = "SELECT * FROM Menu_items WHERE category = '" + cat + "'";            
+            res = st.executeQuery(query);
+        }
+        return res;
+    }
+    
+    public static ResultSet displayItem(String id) throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
         String query = null;
         ResultSet res = null;
@@ -104,7 +134,7 @@ public class Appertizer extends Menu{
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
             
-            query = "SELECT * from appetizer where A_id = '" +id+ "'";
+            query = "SELECT * from Menu_items where item_id = '" +id+ "'";
             
             res = st.executeQuery(query);
             
@@ -112,19 +142,20 @@ public class Appertizer extends Menu{
         return res;
     }
     
-    public static boolean isUpdated(String id, String name, String ingredients, double price) throws ClassNotFoundException, SQLException {
+    public static boolean isUpdated(String id, String name, String category, String ingredients, double price) throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
         String query = null;
         
         if (ServerConnection.getConnectionStatus()) {
             Connection con = ServerConnection.getConnection();
-            query = "UPDATE appetizer SET A_name = ?, ingredient = ?, Price = ? where A_id = ?";
+            query = "UPDATE Menu_items SET name = ?, ingredients = ?, price = ?, category = ? where item_id = ?";
             
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, name);
             pst.setString(2, ingredients);
             pst.setDouble(3, price);
-            pst.setString(4, id);
+            pst.setString(4, category);
+            pst.setString(5, id);
             
             int result = pst.executeUpdate();
             
@@ -137,26 +168,32 @@ public class Appertizer extends Menu{
             return false;
     }
     
-    public static boolean isDeleted(String id) throws ClassNotFoundException, SQLException {
+    public static boolean isDeleted(int id) throws ClassNotFoundException, SQLException {
         ServerConnection.setConnection();
-        String query = null;
+        String query = "DELETE from Menu_items where item_id = ?";
         
-        if (ServerConnection.getConnectionStatus()) {
-            Connection con = ServerConnection.getConnection();
-            Statement st = con.createStatement();
-            
-            query = "DELETE from appetizer where A_id = '" +id+ "'";
-            
-            int result = st.executeUpdate(query);
-            
-            if (result > 0)
-                return true;
-            else
-                return false;
-            
-        }
-        else
+        try {
+            if (ServerConnection.getConnectionStatus()) {
+                Connection con = ServerConnection.getConnection();
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setInt(1, id);
+                
+                int result = pst.executeUpdate();
+                
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            else {
+                return false;            
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+            System.out.println(e);
             return false;
+        }
     }
  
 }
