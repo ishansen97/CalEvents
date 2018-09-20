@@ -41,6 +41,7 @@ public class Process_Profile extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
+            String empImgPath = request.getSession(false).getAttribute("empImgPath").toString();
             InputStream inputStream = null;
             Employee employee = new Employee();
 
@@ -84,7 +85,7 @@ public class Process_Profile extends HttpServlet {
                         inputStream = filePart.getInputStream();
 
                         // Change the output path accordingly
-                        OutputStream output = new FileOutputStream("C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Images/" + id + ".png");
+                        OutputStream output = new FileOutputStream(empImgPath+id+".png");
                         byte[] buffer = new byte[1024];
                         while (inputStream.read(buffer) > 0) {
                             output.write(buffer);

@@ -5,8 +5,12 @@
  */
 package Security;
 
+import Employee.Attendance;
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -36,16 +40,54 @@ public class test extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            String date = request.getParameter("bday");
-            out.print(date);
+
+//            String date = request.getParameter("bday");
+//            out.print(date);
 //            HashPassword hashPassword = new HashPassword("960563506V");
-            
 //            try {
 //              /  out.print(hashPassword.generatePassword());
 //            } catch (Exception ex) {
 //                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
 //            }
+//                     try{
+//                    Date date = new Date();
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy:MM:dd");
+//                    SimpleDateFormat timeFormat = new SimpleDateFormat ("H:m:s");
+//                    
+//                    String currentDate = dateFormat.format(date);
+//                    String currentTime = timeFormat.format(date);
+//
+//                    Attendance attendence = new Attendance("1000", currentDate);
+//                    
+//                    int sql = attendence.recordArrivalTime(currentTime);
+//                    if (sql > 0) {out.print("Inserted");}
+//
+//                    }catch(Exception e){}
+                    
+//                    Attendance attendence = new Attendance("1000", currentDate);
+//            try {
+//                int sql = attendence.recordArrivalTime(currentTime);
+////            out.print("");
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//                    request.getRequestDispatcher("../User/test.jsp").include(request, response);
+//                    response.sendRedirect("/CalEvents/Home.jsp"); 
+
+                Attendance att = new Attendance("1000", "2018-09-17");
+                try{
+                    String leave = att.checkForLeaves();
+                out.print(leave);
+                if(leave.equals(null)){
+                out.print("Hello");}
+                }catch(Exception e){
+                    out.print(e);
+                }
+                
+                
+
         }
     }
 

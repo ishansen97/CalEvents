@@ -1,4 +1,4 @@
-<%@page import="java.sql.*,Employee.Employee" %>
+<%@page import="java.sql.*,Employee.Assignment" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,67 +40,15 @@
                     </div>
                     </div>
                 </div>
+                    
+                <div>
+                        
+                </div>
                 
               </div>
               
               <div class="col-lg-6 pr-lg-5">
-                  
-                <div class='form-row mb-2 mt-4'>
-                    <div class='form-group col-lg-4'>
-                    <div class='input-group'>
-                      <div class='input-group-prepend'>
-                          <div class='input-group-text rounded-0'><i class='fa fa-calendar-alt border border-right-0'></i>&nbsp;&nbsp;&nbsp; Event</div>
-                      </div>
-                        <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg' readonly>
-                    </div>
-                    </div>
-                    <div class='form-group col-lg-8'>
-                    <div class='input-group'>
-                      <select class="form-control form-control-lg rounded-0" name="department">
-                        <option>Choose a Department</option>
-                      </select>
-                    </div>
-                    </div>
-                </div>
-                  
-                <div class='form-row mb-2 mt-4'>
-                    <div class='form-group col-lg-4'>
-                    <div class='input-group'>
-                      <div class='input-group-prepend'>
-                          <div class='input-group-text rounded-0'><i class='fa fa-cocktail border border-right-0'></i>&nbsp;&nbsp;&nbsp; Menu</div>
-                      </div>
-                        <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg' readonly>
-                    </div>
-                    </div>
-                    <div class='form-group col-lg-8'>
-                    <div class='input-group'>
-                      <select class="form-control form-control-lg rounded-0" name="department">
-                        <option>Choose a Department</option>
-                      </select>
-                    </div>
-                    </div>
-                </div>
-                  
-                  
-                <div class='form-row mb-2 mt-4'>
-                    <div class='form-group col-lg-4'>
-                    <div class='input-group'>
-                      <div class='input-group-prepend'>
-                          <div class='input-group-text rounded-0'><i class='fa fa-credit-card border border-right-0'></i>&nbsp;&nbsp;&nbsp; Payment</div>
-                      </div>
-                        <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg' readonly>
-                    </div>
-                    </div>
-                    <div class='form-group col-lg-8'>
-                    <div class='input-group'>
-                      <select class="form-control form-control-lg rounded-0" name="department">
-                        <option>Choose a Department</option>
-                      </select>
-                    </div>
-                    </div>
-                </div>
-                  
-                
+
                 <div class='form-row mb-2 mt-4'>
                     <div class='form-group col-lg-4'>
                     <div class='input-group'>
@@ -113,7 +61,10 @@
                     <div class='form-group col-lg-8'>
                     <div class='input-group'>
                       <select class="form-control form-control-lg rounded-0" name="department">
-                        <option>Choose a Department</option>
+                      <% ResultSet res =  Assignment.viewAssignee("Event"); %>
+                         <%while (res.next()) { %>
+                         <option><%=res.getString("id") %> -  <%=res.getString("first_name") %> <%=res.getString("last_name") %></option>
+                      <% } %>
                       </select>
                     </div>
                     </div>
@@ -123,7 +74,7 @@
                 <div class='form-row mb-2 mt-4'>
                     <div class='form-group col-lg-4'>
                     <div class='input-group'>
-                      <div class='input-group-prepend'>
+                      <div class='input-group-prepend border border-right-0 '>
                           <div class='input-group-text rounded-0'><i class='fa fa-utensils border border-right-0'></i>&nbsp;&nbsp;&nbsp; Kitchen</div>
                       </div>
                         <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg' readonly>
@@ -132,45 +83,10 @@
                     <div class='form-group col-lg-8'>
                     <div class='input-group'>
                       <select class="form-control form-control-lg rounded-0" name="department">
-                        <option>Choose a Department</option>
-                      </select>
-                    </div>
-                    </div>
-                </div>
-                  
-                  
-                <div class='form-row mb-2 mt-4'>
-                    <div class='form-group col-lg-4'>
-                    <div class='input-group'>
-                      <div class='input-group-prepend'>
-                          <div class='input-group-text rounded-0'><i class='fa fa-camera border border-right-0'></i>&nbsp;&nbsp;&nbsp; Gallery</div>
-                      </div>
-                        <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg' readonly>
-                    </div>
-                    </div>
-                    <div class='form-group col-lg-8'>
-                    <div class='input-group'>
-                      <select class="form-control form-control-lg rounded-0" name="department">
-                        <option>Choose a Department</option>
-                      </select>
-                    </div>
-                    </div>
-                </div>
-                  
-                  
-                <div class='form-row mb-2 mt-4'>
-                    <div class='form-group col-lg-4'>
-                    <div class='input-group'>
-                      <div class='input-group-prepend'>
-                          <div class='input-group-text rounded-0'><i class='fa fa-user-tie border border-right-0'></i>&nbsp;&nbsp;&nbsp; Customer</div>
-                      </div>
-                        <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg' readonly>
-                    </div>
-                    </div>
-                    <div class='form-group col-lg-8'>
-                    <div class='input-group'>
-                      <select class="form-control form-control-lg rounded-0" name="department">
-                        <option>Choose a Department</option>
+                      <% ResultSet res01 =  Assignment.viewAssignee("Kitchen"); %>
+                         <%while (res01.next()) { %>
+                         <option><%=res01.getString("id") %> -  <%=res01.getString("first_name") %> <%=res01.getString("last_name") %></option>
+                      <% } %>
                       </select>
                     </div>
                     </div>

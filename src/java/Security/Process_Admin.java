@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package Security;
+
 import Employee.Employee;
+import Employee.Attendance;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -38,72 +42,107 @@ public class Process_Admin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
+
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
-            try{
+            try {
                 HashPassword hashPassword = new HashPassword(password);
                 String encrypt_password = hashPassword.generatePassword();
-                
+
                 Authenticate authenticate = new Authenticate(username, encrypt_password);
                 String result = authenticate.validateAdmin();
-                
+
                 Integer rowCount = Integer.parseInt(result);
-                
-                if(rowCount == 1){
-                    
+
+                if (rowCount == 1) {
+
+                    Date date = new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("H:m:s");
+
+                    String currentDate = dateFormat.format(date);
+                    String currentTime = timeFormat.format(date);
+
                     String privilege_mode = authenticate.getPrivilegeMode();
-                    
-                    request.getSession().setAttribute("privilege_mode", privilege_mode);
-                    request.getSession().setAttribute("authenticated", "user_authenticated");
-                    
+
                     String department = authenticate.getDepartment();
-                    
+
                     ResultSet res = Employee.readEmployeeProfile(username);
                     while (res.next()) {
 
-                       // Read table fields and set to session variables
-                       request.getSession().setAttribute("p_id", res.getString("id"));
-                       request.getSession().setAttribute("p_username", res.getString("username"));
-                       request.getSession().setAttribute("p_nic", res.getString("nic"));
-                       request.getSession().setAttribute("p_first_name", res.getString("first_name"));
-                       request.getSession().setAttribute("p_last_name", res.getString("last_name"));
-                       request.getSession().setAttribute("p_id", res.getString("id"));
-                       request.getSession().setAttribute("p_address_line_1", res.getString("address_line_1"));
-                       request.getSession().setAttribute("p_address_line_2", res.getString("address_line_2"));
-                       request.getSession().setAttribute("p_city", res.getString("city"));
-                       request.getSession().setAttribute("p_zip", res.getString("zip"));
-                       request.getSession().setAttribute("p_country", res.getString("country"));
-                       request.getSession().setAttribute("p_contact_number", res.getString("contact_number"));
-                       request.getSession().setAttribute("p_avatar", res.getString("avatar"));
-                       request.getSession().setAttribute("p_gender", res.getString("gender"));
-                       request.getSession().setAttribute("p_department", res.getString("department"));
-                       request.getSession().setAttribute("p_privilege_mode", res.getString("privilege_mode"));
-                       
+                        // Read table fields and set to session variables
+                        request.getSession().setAttribute("p_id", res.getString("id"));
+
+                        Attendance attendance = new Attendance(res.getString("id"), currentDate);
+
+                        String leaveType = attendance.checkForLeaves();
+
+                        if (leaveType.equals("Short") || leaveType.equals("")) {
+
+                            request.getSession().setAttribute("privilege_mode", privilege_mode);
+                            request.getSession().setAttribute("authenticated", "user_authenticated");
+
+                            attendance.recordArrivalTime(currentTime);
+                            attendance.recordDepartureTime("14:00:00");
+                            request.getSession().setAttribute("leave", leaveType);
+
+                            request.getSession().setAttribute("p_username", res.getString("username"));
+                            request.getSession().setAttribute("p_nic", res.getString("nic"));
+                            request.getSession().setAttribute("p_first_name", res.getString("first_name"));
+                            request.getSession().setAttribute("p_last_name", res.getString("last_name"));
+                            request.getSession().setAttribute("p_id", res.getString("id"));
+                            request.getSession().setAttribute("p_address_line_1", res.getString("address_line_1"));
+                            request.getSession().setAttribute("p_address_line_2", res.getString("address_line_2"));
+                            request.getSession().setAttribute("p_city", res.getString("city"));
+                            request.getSession().setAttribute("p_zip", res.getString("zip"));
+                            request.getSession().setAttribute("p_country", res.getString("country"));
+                            request.getSession().setAttribute("p_contact_number", res.getString("contact_number"));
+                            request.getSession().setAttribute("p_avatar", res.getString("avatar"));
+                            request.getSession().setAttribute("p_gender", res.getString("gender"));
+                            request.getSession().setAttribute("p_department", res.getString("department"));
+                            request.getSession().setAttribute("p_privilege_mode", res.getString("privilege_mode"));
+
+                            switch (department) {
+
+                                case "Event Department":
+                                    response.sendRedirect("E-Management/Dashboard");
+                                    break;
+                                case "Menu Department":
+                                    response.sendRedirect("EManagement/Dashboard");
+                                    break;
+                                case "Gallery Department":
+                                    response.sendRedirect("Administrator/Dashboard");
+                                    break;
+                                case "Facility Department":
+                                    response.sendRedirect("Administrator/Dashboard");
+                                    break;
+                                case "Kitchen Department":
+                                    response.sendRedirect("Administrator/Dashboard");
+                                    break;
+                                case "Customer Department":
+                                    response.sendRedirect("Administrator/Dashboard");
+                                    break;
+                                case "Employee Department":
+                                    response.sendRedirect("E-Management/Dashboard");
+                                    break;
+                            }
+
+                        } else if (leaveType.equals("full")) {
+                            attendance.recordArrivalTime("00:00:00");
+                            attendance.recordDepartureTime("00:00:00");
+                            response.sendRedirect("Admin");
+                        }
                     }
-                    
-                    
-                    switch(department){
-                        
-                        case "Event Department" : response.sendRedirect("E-Management/Dashboard"); break;
-                        case "Menu Department" : response.sendRedirect("EManagement/Dashboard"); break;
-                        case "Gallery Department" : response.sendRedirect("Administrator/Dashboard"); break;
-                        case "Facility Department" : response.sendRedirect("Administrator/Dashboard"); break;
-                        case "Kitchen Department" : response.sendRedirect("Administrator/Dashboard"); break;
-                        case "Customer Department" : response.sendRedirect("Administrator/Dashboard"); break;
-                        case "Human Resource Department" : response.sendRedirect("Administrator/Dashboard"); break;
-                    }
-               
-                }else{
+
+                } else {
                     response.sendRedirect("Admin");
                 }
-                
-            }catch(Exception e){
+
+            } catch (Exception e) {
                 out.print(e);
             }
-            
-            
+
         }
     }
 

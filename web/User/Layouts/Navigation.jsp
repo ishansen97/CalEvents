@@ -1,53 +1,53 @@
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
-  <span class="w3-bar-item w3-right">Logo</span>
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
+    <span class="w3-bar-item w3-right">Logo</span>
 </div>
 <!--End of Top container -->
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  <div class="w3-container w3-row">
-    <div class="w3-col s4">
-        <a href="Profile"><img src="${p_avatar}" class="w3-circle w3-margin-right" style="width:46px"></a>
+    <div class="w3-container w3-row">
+        <div class="w3-col s4">
+            <a href="Profile"><img src="${p_avatar}" class="w3-circle w3-margin-right" style="width:46px"></a>
+        </div>
+        <div class="w3-col s8 w3-bar">
+            <span>Welcome, <strong>${p_first_name} ${p_last_name}</strong></span><br>
+            <div class='w3-dropdown-hover'>
+                <button class='w3-button'><i class='fa fa-cog'></i></button>
+                <div class='w3-dropdown-content w3-bar-block w3-border'>
+                    <a data-toggle="modal" data-target="#logout-modal" style='text-decoration: none;' class='w3-bar-item w3-button'>Logout</a>
+                    <a href='Profile' class='w3-bar-item w3-button' style='text-decoration: none;'>Update Profile</a>
+                </div>
+            </div>
+            <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+        </div>
     </div>
-    <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>${p_first_name} ${p_last_name}</strong></span><br>
-      <div class='w3-dropdown-hover'>
-        <button class='w3-button'><i class='fa fa-cog'></i></button>
-        <div class='w3-dropdown-content w3-bar-block w3-border'>
-        <a href='/CalEvents/Logout' class='w3-bar-item w3-button' style='text-decoration: none;'>Logout</a>
-	<a href='Profile' class='w3-bar-item w3-button' style='text-decoration: none;'>Update Profile</a>
-	</div>
-      </div>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+    <hr>
+    <div class="w3-container text-center py-3">
+        <h5><a href='Dashboard' style='text-decoration: none;' class="${nav00}">Dashboard</a></h5>
     </div>
-  </div>
-  <hr>
-  <div class="w3-container text-center py-3">
-      <h5><a href='Dashboard' style='text-decoration: none;' class="${nav00}">Dashboard</a></h5>
-  </div>
-  <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-    
-    <a href="New-Employee" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav01}" style="text-decoration: none"><i class="fa fa-user-tie fa-fw"></i>&nbsp; New Employee</a>
-    <a href="Employees" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav02}" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees</a>
-    <a href="Tasks" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav03}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Event Assignment</a>
-    <a href="Logs" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav04}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Activity Log</a>
-<!--    <div class="w3-dropdown-hover">
-    <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees <i class="fa fa-caret-down"></i></button>
-    <div class="w3-dropdown-content w3-bar-block">
-      <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Managers</a>
-      <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Workers</a>
-    </div>
-    </div>-->
+    <div class="w3-bar-block">
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
 
-<!--    <div class="d-none d-md-block" style="margin-top: 66vh">
-        <footer class="w3-container w3-light-grey text-center pt-4 pb-2">
-            <p>Copyright © CalEvents 2018</p>
-        </footer>
-    </div>-->
-  </div>
+        <a href="New-Employee" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav01}" style="text-decoration: none"><i class="fa fa-user-tie fa-fw"></i>&nbsp; New Employee</a>
+        <a href="Employees" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav02}" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees</a>
+        <a href="Tasks" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav03}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Event Assignment</a>
+        <a href="Logs" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav04}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Activity Log</a>
+        <!--    <div class="w3-dropdown-hover">
+            <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees <i class="fa fa-caret-down"></i></button>
+            <div class="w3-dropdown-content w3-bar-block">
+              <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Managers</a>
+              <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Workers</a>
+            </div>
+            </div>-->
+
+        <!--    <div class="d-none d-md-block" style="margin-top: 66vh">
+                <footer class="w3-container w3-light-grey text-center pt-4 pb-2">
+                    <p>Copyright © CalEvents 2018</p>
+                </footer>
+            </div>-->
+    </div>
 </nav>
 <!-- End of Sidebar/menu -->
 
@@ -57,3 +57,44 @@
 
 
 <div id="snackbar">${message}</div>
+
+
+<!-- Modal HTML -->
+<div id="logout-modal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-2 float-right">
+                    <div class="icon-box">
+                        <i class="fa fa-exclamation text-warning"></i>
+                    </div>
+                </div>
+                <div class="col-md-9 pl-5">
+                    <h4 class="modal-title"> Leaving Office?</h4>
+                </div>
+                <div class="col">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p>Once you select leave you wont be able to login back until tomorrow. Want a break? press temporary</p>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <form action="/CalEvents/Logout" method="POST">
+                            <div class="col-md-3 offset-md-5"> <button type="submit" value="Temporary" name="logout" class="btn btn-info p-3">Temporary</button></div>
+                        </form>
+                        <form action="/CalEvents/Logout" method="POST">
+                            <div class="col-md-3 offset-md-5">
+                                <button type="submit" name="logout" value="leave" class="btn btn-danger p-3">Leave</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+    </div>
+</div>

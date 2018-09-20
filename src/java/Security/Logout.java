@@ -5,8 +5,11 @@
  */
 package Security;
 
+import Employee.Attendance;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,11 +38,36 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-                response.sendRedirect("/CalEvents/Admin");
+
+            String logout = request.getParameter("logout");
+
+            String empployee_id = request.getSession().getAttribute("p_id").toString();
+
+            Date date = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("H:m:s");
+
+            String currentDate = dateFormat.format(date);
+            String currentTime = timeFormat.format(date);
+
+            Attendance attendance = new Attendance(empployee_id, currentDate);
+
+            try {
+                String leaveType = attendance.checkForLeaves();
+
+                if (logout.equals("leave")) {
+                    if (leaveType.equals("")) {
+                        attendance.recordDepartureTime(currentTime);
+                    }
+                }
+
+                HttpSession session = request.getSession(true);
+                if (session != null) {
+                    session.invalidate();
+                    response.sendRedirect("/CalEvents/Admin");
+                }
+            } catch (Exception e) {
+                out.print(e);
             }
         }
     }

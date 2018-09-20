@@ -1,4 +1,4 @@
-<%@page import="java.sql.*,Employee.Employee" %>
+<%@page import="java.sql.*,Employee.Assignment" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@ var request;
 function sendInfo()  
 {  
 var v=document.employees.search.value;  
-var url="/CalEvents/User/Search_Employee.jsp?val="+v;  
+var url="/CalEvents/User/Search_Event.jsp?val="+v;  
   
 if(window.XMLHttpRequest){  
 request=new XMLHttpRequest();  
@@ -57,7 +57,7 @@ document.getElementById('amit').innerHTML=val;
         <div class="row">
             <div class="col-md-3 offset-md-9 pt-md-4 pb-md-0">
             <form name="employees">
-                <input class="form-control mr-sm-2" type="number" placeholder="Search" name="search" onkeyup="sendInfo()">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" onkeyup="sendInfo()">
             </form>
             </div>
         </div>
@@ -76,26 +76,27 @@ document.getElementById('amit').innerHTML=val;
             <form action="Update-Employee" method="POST">
             <table class="w3-table w3-striped">
                 <tr class='w3-blue-gray'>
-                <td>EMPID</td>
-                <td>Department</td>
-                <td>Last Name</td>
+                <td>EID</td>
+                <td>Name</td>
+                <td>Location</td>
+                <td>Date</td>
                 <td></td>
               </tr>
               <input type="text" value="read_Employee" name="action" hidden>
               
              <% 
-             String logged_user = session.getAttribute("p_id").toString();
-             ResultSet res = Employee.readEmployees(logged_user); 
+             ResultSet res =  Assignment.viewEvents();
              %>
 
               <%while (res.next()) { %>
               
               <tr style="font-family: 'Quicksand', sans-serif; font-size: 17px; cursor: default" class="w3-hover-dark-gray">
-                <td><%=res.getString("id") %></td>
-                <td><%=res.getString("department") %></td>
-                <td><%=res.getString("last_name") %></td>
+                <td><%=res.getString("event_ID") %></td>
+                <td><%=res.getString("event_Name") %></td>
+                <td><%=res.getString("location_ID") %></td>
+                <td><%=res.getString("Date") %></td>
                 <td style='width:120px'>
-                    <button class='btn btn-warning btn-sm' type='submit' name='empId' value="<%=res.getString("id") %>"><i class='fa fa-edit'></i> Update</button>
+                    <button class='btn btn-warning btn-sm' type='submit' name='empId' value="<%=res.getString("event_ID") %>"><i class='fa fa-edit'></i> Update</button>
                 </td>
               </tr>
              

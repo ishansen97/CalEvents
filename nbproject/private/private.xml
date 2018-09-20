@@ -3,18 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Log.jsp</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Assing_Task.jsp</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/src/java/Connection/ServerConnection.java</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/src/java/Log/Activity.java</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Search_Employee.jsp</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/src/java/Security/Process_Admin.java</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Tasks.jsp</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Employees.jsp</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/src/java/Security/HashPassword.java</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/New_Employee.jsp</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/src/java/Security/test.java</file>
-            <file>file:/C:/Users/Uditha/Documents/GitHub/CalEvents/src/java/Security/Admin.java</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/web/User/Employees.jsp</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/src/java/Employee/Process_Employee.java</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/src/java/Employee/Employee.java</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/src/java/Security/Logout.java</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/src/java/Security/test.java</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/web/User/Layouts/Scripts.jsp</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/src/java/Security/Admin.java</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/web/User/Update_Employee.jsp</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/web/User/Layouts/Navigation.jsp</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/web/User/Tasks.jsp</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/web/User/test.jsp</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/src/java/Connection/ServerConnection.java</file>
+            <file>file:/C:/Users/RED%20HAWK/Documents/NetBeansProjects/CalEvents/src/java/Employee/New_Employee.java</file>
         </group>
     </open-files>
 </project-private>
