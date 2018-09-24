@@ -15,14 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Uditha
+ * @author RED HAWK
  */
-@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
-public class Logout extends HttpServlet {
+@WebServlet(name = "ForceLogOut", urlPatterns = {"/ForceLogOut"})
+public class ForceLogOut extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +36,8 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
 
-            String logout = request.getParameter("logout");
-            
+            String ForceSignOut = request.getSession().getAttribute("ForceSignOut").toString();
             String employee_id = request.getSession().getAttribute("p_id").toString();
 
             Date date = new Date();
@@ -54,12 +51,13 @@ public class Logout extends HttpServlet {
 
             try {
 
-                if(logout.equals("leave")){
+                if (ForceSignOut != null) {
                     attendance.recordDepartureTime(currentTime);
                 }
-   
+                
                 if (request.getSession() != null) {
                     request.getSession().invalidate();
+                    request.getSession().setAttribute("login_Message", ForceSignOut);
                     response.sendRedirect("/CalEvents/Admin");
                 }
             } catch (Exception e) {

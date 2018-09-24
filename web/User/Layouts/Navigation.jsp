@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
@@ -98,3 +100,32 @@
 
     </div>
 </div>
+<%@page import="Employee.Business, Employee.Attendance" %>
+<%
+    try {
+        Object authenticate = request.getSession(false).getAttribute("authenticated");
+        if (null != authenticate) {
+
+            Object leave = request.getSession(false).getAttribute("ShortLeave");
+
+            if (leave != null) {
+
+                boolean status = Attendance.isTimeForShortLeave();
+                if (status == true) {
+                    request.getSession().setAttribute("ForceSignOut", "Your session for today has expired !");
+                    response.sendRedirect("/CalEvents/ForceLogOut");
+                }
+            }
+
+            if (Business.forceSignOut() == true) {
+                request.getSession().setAttribute("ForceSignOut", "Operating hours are now closed !");
+                response.sendRedirect("/CalEvents/ForceLogOut");
+            }
+
+        } else {
+            response.sendRedirect("/CalEvents/Admin");
+        }
+    } catch (Exception e) {
+        out.println(e);
+    }
+%>

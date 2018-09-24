@@ -3,26 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Security;
+package Employee;
 
-import Employee.Attendance;
+import Connection.ServerConnection;
+import Employee.*;
+import static Employee.Business.openingHour;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Uditha
+ * @author RED HAWK
  */
-@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
-public class Logout extends HttpServlet {
+@WebServlet(name = "test01", urlPatterns = {"/test01"})
+public class test01 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,32 +44,31 @@ public class Logout extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            String logout = request.getParameter("logout");
-            
-            String employee_id = request.getSession().getAttribute("p_id").toString();
-
-            Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
-            String currentDate = dateFormat.format(date);
-            String currentTime = timeFormat.format(date);
-
-            Attendance attendance = new Attendance(employee_id, currentDate);
-
+//            Business business = new Business();
             try {
 
-                if(logout.equals("leave")){
-                    attendance.recordDepartureTime(currentTime);
-                }
-   
-                if (request.getSession() != null) {
-                    request.getSession().invalidate();
-                    response.sendRedirect("/CalEvents/Admin");
-                }
+//               Date date = new Date();
+//                SimpleDateFormat timeFormat = new SimpleDateFormat("HHmmss");
+//                int currentTime = Integer.parseInt(timeFormat.format(date));
+//
+//                int shortLeaveTime = 140000;;
+//                int loginTime = currentTime - shortLeaveTime;
+//                boolean status = loginTime < 0;
+//                
+//                if (status==true) {
+//                    out.print(loginTime);
+//                }else{
+//                    out.print("Hello");
+//                }
+
+                out.print(Attendance.isTimeForShortLeave());
+               
+                
+
             } catch (Exception e) {
-                out.print(e);
+                out.println(e);
             }
+
         }
     }
 

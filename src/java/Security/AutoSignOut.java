@@ -5,24 +5,20 @@
  */
 package Security;
 
-import Employee.Attendance;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Uditha
+ * @author RED HAWK
  */
-@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
-public class Logout extends HttpServlet {
+@WebServlet(name = "AutoSignOut", urlPatterns = {"/AutoSignOut"})
+public class AutoSignOut extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,35 +33,13 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
 
-            String logout = request.getParameter("logout");
-            
-            String employee_id = request.getSession().getAttribute("p_id").toString();
-
-            Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
-            String currentDate = dateFormat.format(date);
-            String currentTime = timeFormat.format(date);
-
-            Attendance attendance = new Attendance(employee_id, currentDate);
-
-            try {
-
-                if(logout.equals("leave")){
-                    attendance.recordDepartureTime(currentTime);
-                }
-   
-                if (request.getSession() != null) {
-                    request.getSession().invalidate();
-                    response.sendRedirect("/CalEvents/Admin");
-                }
-            } catch (Exception e) {
-                out.print(e);
+            Object ForceSignOut = request.getSession(false).getAttribute("ForceSignOut");
+            if (ForceSignOut != null) {
+                response.sendRedirect("/CalEvents/Admin");
             }
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

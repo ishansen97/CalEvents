@@ -26,10 +26,11 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
+                    
                     <div class="login100-pic js-tilt" data-tilt>
                         <img src="External/Login/images/img-01.png" alt="IMG">
                     </div>
-
+                    
                     <form class="login100-form validate-form" action="Process_Admin" method="POST">
                         <span class="login100-form-title">
                             Employee Login
@@ -59,12 +60,15 @@
 
                         <div class="text-center p-t-12">
                             <span class="txt1">
-                                Forgot
+                                <!--Forgot-->
                             </span>
                             <a class="txt2" href="#">
-                                Username / Password?
+                                <!--Username / Password?-->
+                                <p>${login_Message}</p>
                             </a>
                         </div>
+                        
+                        
 
                         <div class="text-center p-t-136">
                         </div>

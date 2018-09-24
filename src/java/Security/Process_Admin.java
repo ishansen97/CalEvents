@@ -5,6 +5,7 @@
  */
 package Security;
 
+import Employee.Business;
 import Employee.Employee;
 import Employee.Attendance;
 import java.io.IOException;
@@ -46,96 +47,130 @@ public class Process_Admin extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
+            //Creating a instance of Business class(which contains opening and closing hours of the business)
             try {
-                HashPassword hashPassword = new HashPassword(password);
-                String encrypt_password = hashPassword.generatePassword();
+                // Creating new date instance to add date and time to record login time and etc. 
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
-                Authenticate authenticate = new Authenticate(username, encrypt_password);
-                String result = authenticate.validateAdmin();
+                //Current date and time are stored in below variables
+                String currentDate = dateFormat.format(date);
+                String currentTime = timeFormat.format(date);
 
-                Integer rowCount = Integer.parseInt(result);
+                //Accessing Business class(which contains opening and closing hours of the business)
+                if (Business.isOpenForBusiness() == true) {
 
-                if (rowCount == 1) {
+                    //Hashing received password to check against database password
+                    HashPassword hashPassword = new HashPassword(password);
+                    String encrypt_password = hashPassword.generatePassword();
 
-                    Date date = new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat timeFormat = new SimpleDateFormat("H:m:s");
+                    //Checking username and passsword against database records to check for record existance, if true will return integer 1
+                    Authenticate authenticate = new Authenticate(username, encrypt_password);
+                    String result = authenticate.validateAdmin();
 
-                    String currentDate = dateFormat.format(date);
-                    String currentTime = timeFormat.format(date);
+                    Integer rowCount = Integer.parseInt(result);
 
-                    String privilege_mode = authenticate.getPrivilegeMode();
+                    if (rowCount == 1) {
 
-                    String department = authenticate.getDepartment();
+                        String privilege_mode = authenticate.getPrivilegeMode();
 
-                    ResultSet res = Employee.readEmployeeProfile(username);
-                    while (res.next()) {
+                        String department = authenticate.getDepartment();
 
-                        // Read table fields and set to session variables
-                        request.getSession().setAttribute("p_id", res.getString("id"));
+                        ResultSet res = Employee.readEmployeeProfile(username);
+                        while (res.next()) {
 
-                        Attendance attendance = new Attendance(res.getString("id"), currentDate);
-
-                        String leaveType = attendance.checkForLeaves();
-
-                        if (leaveType.equals("Short") || leaveType.equals("")) {
-
-                            request.getSession().setAttribute("privilege_mode", privilege_mode);
-                            request.getSession().setAttribute("authenticated", "user_authenticated");
-
-                            attendance.recordArrivalTime(currentTime);
-                            attendance.recordDepartureTime("14:00:00");
-                            request.getSession().setAttribute("leave", leaveType);
-
-                            request.getSession().setAttribute("p_username", res.getString("username"));
-                            request.getSession().setAttribute("p_nic", res.getString("nic"));
-                            request.getSession().setAttribute("p_first_name", res.getString("first_name"));
-                            request.getSession().setAttribute("p_last_name", res.getString("last_name"));
+                            // Read table fields and set to session variables
                             request.getSession().setAttribute("p_id", res.getString("id"));
-                            request.getSession().setAttribute("p_address_line_1", res.getString("address_line_1"));
-                            request.getSession().setAttribute("p_address_line_2", res.getString("address_line_2"));
-                            request.getSession().setAttribute("p_city", res.getString("city"));
-                            request.getSession().setAttribute("p_zip", res.getString("zip"));
-                            request.getSession().setAttribute("p_country", res.getString("country"));
-                            request.getSession().setAttribute("p_contact_number", res.getString("contact_number"));
-                            request.getSession().setAttribute("p_avatar", res.getString("avatar"));
-                            request.getSession().setAttribute("p_gender", res.getString("gender"));
-                            request.getSession().setAttribute("p_department", res.getString("department"));
-                            request.getSession().setAttribute("p_privilege_mode", res.getString("privilege_mode"));
 
-                            switch (department) {
+                            Attendance attendance = new Attendance(res.getString("id"), currentDate);
 
-                                case "Event Department":
-                                    response.sendRedirect("E-Management/Dashboard");
-                                    break;
-                                case "Menu Department":
-                                    response.sendRedirect("EManagement/Dashboard");
-                                    break;
-                                case "Gallery Department":
-                                    response.sendRedirect("Administrator/Dashboard");
-                                    break;
-                                case "Facility Department":
-                                    response.sendRedirect("Administrator/Dashboard");
-                                    break;
-                                case "Kitchen Department":
-                                    response.sendRedirect("Administrator/Dashboard");
-                                    break;
-                                case "Customer Department":
-                                    response.sendRedirect("Administrator/Dashboard");
-                                    break;
-                                case "Employee Department":
-                                    response.sendRedirect("E-Management/Dashboard");
-                                    break;
+                            boolean hasUserLoggedOut = attendance.isUserLoggedOut();
+
+                            if (hasUserLoggedOut != true) {
+
+                                String leaveStatus = attendance.checkForLeaves();
+
+                                //Checking whether the time is before 2PM to log in for short leavers
+                                String stringTime = currentTime.replace(":", "");
+                                //2PM is the depature time for employees on short leave
+                                int shortLeaveTime = 140000;
+                                int newCurrentTime = Integer.parseInt(stringTime);
+                                int loginTime = shortLeaveTime - newCurrentTime;
+
+                                if (leaveStatus.equals("short") && loginTime > 0 || leaveStatus.equals("")) {
+
+                                    if (leaveStatus.equals("short")) {
+                                        request.getSession().setAttribute("ShortLeave", "ShortLeave");
+                                    }
+
+                                    request.getSession().setAttribute("privilege_mode", privilege_mode);
+                                    request.getSession().setAttribute("authenticated", "user_authenticated");
+
+                                    attendance.recordArrivalTime(currentTime);
+                                    
+                                    request.getSession().setAttribute("p_username", res.getString("username"));
+                                    request.getSession().setAttribute("p_nic", res.getString("nic"));
+                                    request.getSession().setAttribute("p_first_name", res.getString("first_name"));
+                                    request.getSession().setAttribute("p_last_name", res.getString("last_name"));
+                                    request.getSession().setAttribute("p_id", res.getString("id"));
+                                    request.getSession().setAttribute("p_address_line_1", res.getString("address_line_1"));
+                                    request.getSession().setAttribute("p_address_line_2", res.getString("address_line_2"));
+                                    request.getSession().setAttribute("p_city", res.getString("city"));
+                                    request.getSession().setAttribute("p_zip", res.getString("zip"));
+                                    request.getSession().setAttribute("p_country", res.getString("country"));
+                                    request.getSession().setAttribute("p_contact_number", res.getString("contact_number"));
+                                    request.getSession().setAttribute("p_avatar", res.getString("avatar"));
+                                    request.getSession().setAttribute("p_gender", res.getString("gender"));
+                                    request.getSession().setAttribute("p_department", res.getString("department"));
+                                    request.getSession().setAttribute("p_privilege_mode", res.getString("privilege_mode"));
+
+                                    switch (department) {
+
+                                        case "Event Department":
+                                            response.sendRedirect("E-Management/Dashboard");
+                                            break;
+                                        case "Menu Department":
+                                            response.sendRedirect("EManagement/Dashboard");
+                                            break;
+                                        case "Gallery Department":
+                                            response.sendRedirect("Administrator/Dashboard");
+                                            break;
+                                        case "Facility Department":
+                                            response.sendRedirect("Administrator/Dashboard");
+                                            break;
+                                        case "Kitchen Department":
+                                            response.sendRedirect("Administrator/Dashboard");
+                                            break;
+                                        case "Customer Department":
+                                            response.sendRedirect("Administrator/Dashboard");
+                                            break;
+                                        case "Employee Department":
+                                            response.sendRedirect("E-Management/Dashboard");
+                                            break;
+                                    }
+
+                                } else if (leaveStatus.equals("full")) {
+                                    request.getSession().setAttribute("login_Message", "Your attendance has been confirmed as a full day leave");
+                                    response.sendRedirect("Admin");
+                                    //If the time has passed for employees on short leave to login, following will be displayed
+                                } else {
+                                    request.getSession().setAttribute("login_Message", "Your attendance has been confirmed as a short-day leave, login time has passed !");
+                                    response.sendRedirect("Admin");
+                                }
+                            } else {
+                                request.getSession().setAttribute("login_Message", "You have logged out of the system !");
+                                response.sendRedirect("Admin");
                             }
-
-                        } else if (leaveType.equals("full")) {
-                            attendance.recordArrivalTime("00:00:00");
-                            attendance.recordDepartureTime("00:00:00");
-                            response.sendRedirect("Admin");
                         }
+
+                    } else {
+                        request.getSession().setAttribute("login_Message", "Invalid credentials ! Please check your username and password");
+                        response.sendRedirect("Admin");
                     }
 
                 } else {
+                    request.getSession().setAttribute("login_Message", "Operating hours are now closed !");
                     response.sendRedirect("Admin");
                 }
 
@@ -146,7 +181,7 @@ public class Process_Admin extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

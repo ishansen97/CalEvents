@@ -8,7 +8,7 @@
 <!-- Page level plugin JavaScript-->
 <script src="../External/Datatables/jquery.dataTables.js"></script>
 <script src="../External/Datatables/dataTables.bootstrap4.js"></script>
-
+<script src="../External/Charts/Chart.min.js" type="text/javascript"></script>
 
 <% Object authenticate = request.getSession(false).getAttribute("message");
             if (null != authenticate) { %>
