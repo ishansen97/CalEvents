@@ -2,7 +2,7 @@
     Document   : updatePrice
     Created on : Aug 31, 2018, 11:16:49 PM
     Author     : Lini Eisha
---%>
+--%>  
 
 
 <%@page import="java.sql.ResultSet"%>

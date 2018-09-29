@@ -2,7 +2,7 @@
     Document   : insert
     Created on : Aug 31, 2018, 10:41:07 PM
     Author     : Lini Eisha
---%>
+--%> 
 
 <%@page import="java.sql.ResultSet"%>
 <%@page import="test.fetch"%>

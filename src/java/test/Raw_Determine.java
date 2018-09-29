@@ -83,7 +83,7 @@ public class Raw_Determine {
  public String getMenuID(String name) throws ClassNotFoundException, SQLException{
      
      ResultSet getID = null;
-     String id = "";
+     String id = ""; 
      PreparedStatement get = null;
      
        if (dbcon.isConnected())
