@@ -57,8 +57,6 @@
         <th>Available Quantity</th>
         <th>Total Quantity</th>
         <th>Condition</th>
-        <th>Color</th>
-        <th>Size</th>
       </tr>
     </thead>
     <tbody>
@@ -70,9 +68,16 @@
       <tr><%while(uTent.next()){%>
           <td><%= uTent.getString("facilitiyName") %></td>
           <td><%= uTent.getString("availableQuantity") %></td>
-          <td><%= uTent.getString("totalQuantity") %></td>
-          <td><input type="text" name="name" value="<%= uTent.getString("facilityCondition") %>" /></td>
-          <td><a href="deleteFacility.jsp?event_id=<%=uTent.getString("facilityID") %>" class="button button5">Update Changes</a></td>
+          <td><input type="text" name="condition" value="<%= uTent.getString("totalQuantity") %>"/></td>
+          <td style="width:10%"><input type="text" name="condition" value="<%= uTent.getString("facilityCondition") %>" disabled/>
+                                    <select name="condition" style="width:100%;" required>
+                                        <option value="">select condition</option>                       
+                                        <option value="good">good</option>
+                                        <option value="very good">very good</option>
+                                        <option value="bad">bad</option>
+                                        <option value="very bad">very bad</option>            
+                                    </select></td>
+                                    <td><button class="button button5">Update Changes</button></td>
       </tr><%}%>
       
     </tbody>

@@ -5,9 +5,12 @@
  */
 package facility.servelets;
 
+import facilities.event.Chairs;
 import facilities.event.Facility;
 import facilities.event.KitchenUtensils;
+import facilities.event.Lights;
 import facilities.event.Sounds;
+import facilities.event.Tables;
 import facilities.event.Tents;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -87,11 +90,12 @@ public class addfacilityservelet extends HttpServlet {
         String buttonTables = request.getParameter("tables");
         
         if(buttonTents!=null){
-            String type = "tents";
+                String type = "tents";
             String name = request.getParameter("name").toString();
             
             String quantityStr = request.getParameter("quantity").toString();
             int quantity = Integer.parseInt(quantityStr);
+            
             String condition = request.getParameter("condition").toString();
             String color = request.getParameter("color").toString();
             String size = request.getParameter("size").toString();
@@ -101,7 +105,7 @@ public class addfacilityservelet extends HttpServlet {
                 
                 HttpSession session = request.getSession();
                 session.setAttribute("FacilityErrorMessage", message);
-                response.sendRedirect("Facility/facility_admin.jsp");
+                response.sendRedirect("Facility/facilityActivities.jsp");
 //                request.setAttribute("errorMessage", message);
 //                RequestDispatcher rd = request.getRequestDispatcher("Facility/facility_admin.jsp");
 //                rd.forward(request, response);       
@@ -112,6 +116,7 @@ public class addfacilityservelet extends HttpServlet {
             
             String quantityStr = request.getParameter("quantity").toString();
             int quantity = Integer.parseInt(quantityStr);
+            
             String condition = request.getParameter("condition").toString();
             String brand = request.getParameter("brand").toString();
             
@@ -120,7 +125,7 @@ public class addfacilityservelet extends HttpServlet {
                 
                 HttpSession session = request.getSession();
                 session.setAttribute("FacilityErrorMessage", message);
-                response.sendRedirect("Facility/facility_admin.jsp");
+                response.sendRedirect("Facility/facilityActivities.jsp");
             
         }
         else if(buttonKitchen!=null){
@@ -128,6 +133,7 @@ public class addfacilityservelet extends HttpServlet {
             
             String quantityStr = request.getParameter("quantity").toString();
             int quantity = Integer.parseInt(quantityStr);
+            
             String condition = request.getParameter("condition").toString();
             String type = request.getParameter("type").toString();
             
@@ -136,19 +142,63 @@ public class addfacilityservelet extends HttpServlet {
                 
                 HttpSession session = request.getSession();
                 session.setAttribute("FacilityErrorMessage", message);
-                response.sendRedirect("Facility/facility_admin.jsp");
+                response.sendRedirect("Facility/facilityActivities.jsp");
         }
         else if(buttonChairs!=null){
-            String type = "chairs";
-            out.println(type);
+            
+            String name = request.getParameter("name").toString();
+            
+            String quantityStr = request.getParameter("quantity").toString();
+            int quantity = Integer.parseInt(quantityStr);
+            
+            String condition = request.getParameter("condition").toString();
+            String material = request.getParameter("material").toString();
+            
+                Facility chairs = new Chairs(name,quantity,condition,material);
+                String message = chairs.add_Facility();
+                
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facilityActivities.jsp");                  
         }
         else if(buttonLights!=null){
-            String type = "lights";
-            out.println(type);
+            
+            String name = request.getParameter("name").toString();
+            
+            String quantityStr = request.getParameter("quantity").toString();
+            int quantity = Integer.parseInt(quantityStr);
+            
+            String condition = request.getParameter("condition").toString();
+            
+                Facility lights = new Lights(name,quantity,condition);
+                String message = lights.add_Facility();
+                
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facilityActivities.jsp");    
+            
+            
         }
         else if(buttonTables!=null){
-            String type = "tables";
-            out.println(type);
+            String type = "tents";
+            String name = request.getParameter("name").toString();
+            
+            String quantityStr = request.getParameter("quantity").toString();
+            int quantity = Integer.parseInt(quantityStr);
+            
+            String condition = request.getParameter("condition").toString();
+            String size = request.getParameter("tSize").toString();
+            String noOfC = request.getParameter("chairs").toString();
+            String shape = request.getParameter("shapet").toString();
+                   
+                Facility tables = new Tables(name,quantity,condition,size,noOfC,shape);
+                String message = tables.add_Facility();
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facilityActivities.jsp");
         }
         else{
             String error = "error";

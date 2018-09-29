@@ -60,7 +60,7 @@ public class Fetch {
 
     }
 
-    public ResultSet fetch_Facilities_By_Name(String name) throws SQLException, ClassNotFoundException {
+    public ResultSet fetch_Facilities_By_Name(String view_Name) throws SQLException, ClassNotFoundException {
 
         ResultSet result = null;
         PreparedStatement statement = null;
@@ -68,8 +68,8 @@ public class Fetch {
         if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
 
-            statement = connect.prepareStatement("SELECT * FROM facility_packages where packageName = ?");
-            statement.setString(1, name);
+            statement = connect.prepareStatement("SELECT * FROM "+view_Name);
+//            statement.setString(1, view_Name);
 
             result = statement.executeQuery();
 
@@ -79,3 +79,5 @@ public class Fetch {
 
     }
 }
+
+

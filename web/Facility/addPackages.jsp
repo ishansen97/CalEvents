@@ -4,6 +4,7 @@
     Author     : User
 --%>
 
+<%@page import="supporting.Fetch"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="faciliyPackages.operations.Facility_Packages"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -32,39 +33,33 @@
         </style>
     </head>
     <body>
-        <br>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-4 "><button type="button" class="btn btn-outline-dark">Add Packages</button></div>
-            
-                <div class="col-sm-4 "><button type="button" class="btn btn-outline-dark">Remove Packages</button></div>
-            
-                <div class="col-sm-4"><button type="button" class="btn btn-outline-dark">Update Price/Facilities</button>
-              </div>
-            </div>
-            <br>
-
-        </div>
-        <div class="container-fluid"> <h1>Available Packages</h1></div>
-       
 
         <div class="container-fluid">
-            <table class="table table-hover">
-                <thead class="thead-dark">
+            <h4>Tents Details</h4>
+            <table border="1">
+                <thead>
                     <tr>
-                        <th>Package Name</th>
-                        <th>Facilities</th>
-                        <th>Price($)</th>
+                        <th>Facility Name</th>
+                        <th>Tent Color</th>
+                        <th>Tent Size</th>
+                        <th>Available Quantity</th>
+                        <th>Total Quantity</th>
                     </tr>
                 </thead>
-                <tbody><%  Facility_Packages fetch = new Facility_Packages();
-                    ResultSet packages = fetch.fetch_Packages();
-                    %>
-                    <%while (packages.next()) {%>
+
+                <%
+                    Fetch available_Facilities = new Fetch();
+                    ResultSet avalFac = available_Facilities.fetch_Facilities_By_Name("facilitytent");
+
+                %>
+                <tbody>
                     <tr>
-                        <td><%=packages.getString("packageName")%></td>
-                        <td><%=packages.getString("facilities")%></td>
-                        <td><%=packages.getString("price")%></td>
+                    <%while (avalFac.next()) {%>
+                        <td><%=avalFac.getString("facilitiyName")%></td>
+                        <td><%=avalFac.getString("tentColor")%></td>
+                        <td><%=avalFac.getString("tentSize")%></td>
+                        <td><%=avalFac.getString("availableQuantity")%></td>
+                        <td><%=avalFac.getString("totalQuantity")%></td>
                     </tr><%}%>
                 </tbody>
             </table>

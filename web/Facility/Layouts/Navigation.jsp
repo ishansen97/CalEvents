@@ -30,7 +30,7 @@
 -->    <div class="w3-dropdown-hover">
     <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Facility <i class="fa fa-caret-down"></i></button>
     <div class="w3-dropdown-content w3-bar-block">
-      <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Activity</a>
+      <a href="facilityActivities.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Activity</a>
       <a href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Allocate</a>
       <a id ="pack" href="#" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Packages</a>
             <script>

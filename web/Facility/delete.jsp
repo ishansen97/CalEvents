@@ -4,14 +4,9 @@
     Author     : User
 --%>
 
-<%@page import="event.facilities.Chairs"%>
-<%@page import="event.facilities.Tables"%>
-<%@page import="event.facilities.KitchenUtensils"%>
-<%@page import="event.facilities.Lights"%>
-<%@page import="event.facilities.Sounds"%>
+<%@page import="facilities.event.Facility"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="event.facilities.Tents"%>
-<%@page import="event.facilities.Facility"%>
+<%@page import="facilities.event.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -50,25 +45,28 @@
                 background-color: #555555;
                 color: white;
             }</style>
+
+</head>
 <body style="background-color: #ededed">
  
 
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+<div class="w3-main">
     
 <div class="w3-bar w3-gray">
-<button class="button button5" onclick="openT('tentTable')">Tents</button>
-<button class="button button5" onclick="openT('soundsTable')">Sounds</button>
-<button class="button button5" onclick="openT('lightsTable')">Lights</button>
-<button class="button button5" onclick="openT('kitchenTable')">Kitchen Utensils</button>
-<button class="button button5" onclick="openT('tablesTable')">Tables</button>
-<button class="button button5" onclick="openT('chairsTable')">Chairs</button>
+<button class="button button5" onclick="openTd('tentTabled')">Tents</button>
+<button class="button button5" onclick="openTd('soundsTabled')">Sounds</button>
+<button class="button button5" onclick="openTd('lightsTabled')">Lights</button>
+<button class="button button5" onclick="openTd('kitchenTabled')">Kitchen Utensils</button>
+<button class="button button5" onclick="openTd('tablesTabled')">Tables</button>
+<button class="button button5" onclick="openTd('chairsTabled')">Chairs</button>
 </div>
         
         
-<div id="tentTable" class="w3-container tableName" style="margin-left: 0%; margin-top: 0%;">
+<div id="tentTabled" class="w3-container tableName" style="margin-left: 0%; margin-top: 0%;">
     
   <h2>Tent Information</h2>
-  <p>bellow table contains all the currently available facilities regarding TENTS.</p>            
+  <p>bellow table contains all the currently available facilities regarding TENTS.</p>       
+  
   <table class="table">
     <thead>
       <tr>
@@ -100,7 +98,7 @@
 </div>        
         
         
-<div id="soundsTable" class="w3-container tableName"  style="display: none;">
+<div id="soundsTabled" class="w3-container tableName"  style="display: none;">
     
   <h2>Sound Equipment Information</h2>
   <p>bellow table contains all the currently available facilities regarding SOUND EQUIPMENTS.</p>            
@@ -129,7 +127,7 @@
   </table>
 </div>
 
-<div id="lightsTable" class="w3-container tableName"  style="display: none;">
+<div id="lightsTabled" class="w3-container tableName"  style="display: none;">
     
   <h2>Lightning Equipment Information</h2>
   <p>bellow table contains all the currently available facilities regarding LIGHTNING EQUIPMENTS.</p>            
@@ -156,7 +154,7 @@
   </table>
 </div>
 
-<div id="kitchenTable" class="w3-container tableName"  style="display: none;">
+<div id="kitchenTabled" class="w3-container tableName"  style="display: none;">
     
   <h2>Kitchen Utensils Information</h2>
   <p>bellow table contains all the currently available facilities regarding KITCHEN UTENSILS.</p>            
@@ -187,7 +185,7 @@
     
 </div> 
 
-<div id="tablesTable" class="w3-container tableName"  style="display: none;">
+<div id="tablesTabled" class="w3-container tableName"  style="display: none;">
     
   <h2>Table Information</h2>
   <p>bellow table contains all the currently available facilities regarding TABLES.</p>            
@@ -222,7 +220,7 @@
     
 </div>
 
-<div id="chairsTable" class="w3-container tableName"  style="display: none;">
+<div id="chairsTabled" class="w3-container tableName"  style="display: none;">
     
   <h2>Chair Information</h2>
   <p>bellow table contains all the currently available facilities regarding CHAIRS.</p>            
@@ -262,7 +260,7 @@
         
         
 <script>
-function openT(table_name) {
+function openTd(table_name) {
     var i;
     var x = document.getElementsByClassName("tableName");
     for (i = 0; i < x.length; i++) {

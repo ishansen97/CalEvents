@@ -111,3 +111,14 @@ public class Lights extends Facility{
     
 }
 
+class te{
+
+    public static void main(String[] args){
+    
+        Lights l = new Lights("is it?",12,"dada");
+        l.add_Facility();
+        
+        
+    }
+}
+

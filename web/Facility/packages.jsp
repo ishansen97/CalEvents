@@ -71,3 +71,13 @@
         </div>
     </body>
 </html>
+        <script>
+            $(document).ready(function () {
+                $("button").click(function () {
+                    $("[id='packName']").each(function () {
+                        var names = new Array($(this).text());
+                    });
+
+                });
+            });
+        </script>

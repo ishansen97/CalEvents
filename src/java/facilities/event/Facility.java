@@ -121,7 +121,26 @@ public abstract class Facility {
         }
 
     }
+    
+    public ResultSet findFacility(String Key) throws ClassNotFoundException, SQLException{
+     PreparedStatement getA = null;
 
+        ResultSet itemRes = null;
+
+        int availableQuantity = 0;
+
+            if (dbcon.isConnected()) {
+                Connection connect = dbcon.getCon();
+
+                getA = connect.prepareStatement("SELECT * FROM `facilities` WHERE `facilityID` = ?");
+                getA.setString(1, Key);
+
+                itemRes = getA.executeQuery();
+                
+            }
+            return itemRes;
+    
+    }
     public String getItemID(String view, String name) throws ClassNotFoundException, SQLException {
 
         PreparedStatement ps = null;
