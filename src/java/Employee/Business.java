@@ -16,6 +16,8 @@ public class Business {
     private static String OHR;
     private static String CHR;
     private static String UCHR;
+    static Date OT = null;
+    Date CT = null;
 
     public static String openingHour() throws ClassNotFoundException, SQLException {
 
@@ -31,6 +33,7 @@ public class Business {
             rs = st.executeQuery(sql);
             while (rs.next()) {
                 OHR = rs.getString("time");
+		OT = rs.getTime("time");
             }
             return OHR;
         }

@@ -25,8 +25,7 @@ import javax.servlet.http.HttpSession;
 public class Update_Employee extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -34,78 +33,104 @@ public class Update_Employee extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+	    throws ServletException, IOException {
+	response.setContentType("text/html;charset=UTF-8");
 
-        try (PrintWriter out = response.getWriter()) {
+	try (PrintWriter out = response.getWriter()) {
 
-            Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if (null != authenticate) {
+	    Object authenticate = request.getSession(false).getAttribute("authenticated");
+	    if (null != authenticate) {
 
-                // Getting process type from employees.jsp
-                String process = request.getParameter("action");
-                
-                // Getting logged in employee's id
-                HttpSession session = request.getSession();
-                String logged_id = session.getAttribute("p_id").toString();
+		// Getting process type from employees.jsp
+		String process = request.getParameter("action");
+		String redirectPath = request.getParameter("redirectPath");
 
-                try {
-                    // if (process == read_employee) following will trigger else will be redirected back to Employees servelet
-                    if ("read_Employee".equals(process)) {
-                        
-                        if(logged_id.equals(request.getParameter("empId"))){
-                            
-                            request.getSession().setAttribute("message", "Cannot view your own profile");
-                            response.sendRedirect("Logs");
-                        }
-                        
+		// Getting logged in employee's id
+		HttpSession session = request.getSession();
+		String logged_id = session.getAttribute("p_id").toString();
 
-                        // Read all the necessary fields specific to received employee id 
-                        ResultSet res = Employee.readEmployee(request.getParameter("empId"), logged_id);
-                        while (res.next()) {
+		try {
+		    // if (process == read_employee) following will trigger else will be redirected back to Employees servelet
+		    if ("read_Employee".equals(process)) {
 
-                            // Read table fields and set to session variables
-                            request.getSession().setAttribute("id", res.getString("id"));
-                            request.getSession().setAttribute("username", res.getString("username"));
-                            request.getSession().setAttribute("nic", res.getString("nic"));
-                            request.getSession().setAttribute("first_name", res.getString("first_name"));
-                            request.getSession().setAttribute("last_name", res.getString("last_name"));
-                            request.getSession().setAttribute("gender", res.getString("gender"));
-                            request.getSession().setAttribute("address_line_01", res.getString("address_line_1"));
-                            request.getSession().setAttribute("address_line_02", res.getString("address_line_2"));
-                            request.getSession().setAttribute("city", res.getString("city"));
-                            request.getSession().setAttribute("zip", res.getString("zip"));
-                            request.getSession().setAttribute("country", res.getString("country"));
-                            request.getSession().setAttribute("avatar", res.getString("avatar"));
-                            request.getSession().setAttribute("privilege_mode", res.getString("privilege_mode"));
-                            request.getSession().setAttribute("contact_number", res.getString("contact_number"));
+			if (logged_id.equals(request.getParameter("empId"))) {
 
-                        }
+			    request.getSession().setAttribute("message", "Cannot view your own profile");
+			    response.sendRedirect("Logs");
+			}
 
-                        // Setting active nav links
-                        request.getSession().setAttribute("nav00", "w3-text-gray");
-                        request.getSession().setAttribute("nav01", "");
-                        request.getSession().setAttribute("nav02", "");
-                        request.getSession().setAttribute("nav03", "");
+			// Read all the necessary fields specific to received employee id 
+			ResultSet res = Employee.readEmployee(request.getParameter("empId"), logged_id);
+			while (res.next()) {
 
-                        request.getRequestDispatcher("/User/Update_Employee.jsp").forward(request, response);
+			    // Read table fields and set to session variables
+			    request.getSession().setAttribute("id", res.getString("id"));
+			    request.getSession().setAttribute("username", res.getString("username"));
+			    request.getSession().setAttribute("nic", res.getString("nic"));
+			    request.getSession().setAttribute("first_name", res.getString("first_name"));
+			    request.getSession().setAttribute("last_name", res.getString("last_name"));
+			    request.getSession().setAttribute("gender", res.getString("gender"));
+			    request.getSession().setAttribute("address_line_01", res.getString("address_line_1"));
+			    request.getSession().setAttribute("address_line_02", res.getString("address_line_2"));
+			    request.getSession().setAttribute("city", res.getString("city"));
+			    request.getSession().setAttribute("zip", res.getString("zip"));
+			    request.getSession().setAttribute("country", res.getString("country"));
+			    request.getSession().setAttribute("department", res.getString("department"));
+			    request.getSession().setAttribute("doe", res.getString("doe"));
+			    request.getSession().setAttribute("avatar", res.getString("avatar"));
+			    request.getSession().setAttribute("privilege_mode", res.getString("privilege_mode"));
+			    request.getSession().setAttribute("contact_number", res.getString("contact_number"));
 
-                    } else {
-                        // Clearing cache to avoid old avatar shown as the new avatar
-                        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-                        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-                        response.setDateHeader("Expires", 0); // Proxies.
-                        response.sendRedirect("Employees");
-                    }
+			}
 
-                } catch (Exception ex) {
-                    Logger.getLogger(Process_Employee.class.getName()).log(Level.SEVERE, null, ex);
-                }
+			// Setting active nav links
+			request.getSession().setAttribute("nav00", "w3-text-gray");
+			request.getSession().setAttribute("nav01", "");
+			request.getSession().setAttribute("nav02", "");
+			request.getSession().setAttribute("nav03", "");
 
-            } else {
-                response.sendRedirect("/CalEvents/Admin");
-            }
-        }
+			if (redirectPath.equals("mini_Profile")) {
+			    response.sendRedirect("Employees");
+			} else if (redirectPath.equals("updateProfile")) {
+			    request.getRequestDispatcher("/User/Update_Employee.jsp").forward(request, response);
+			} else if (redirectPath.equals("resetMiniProfile")) {
+			    
+			    request.getSession().removeAttribute("id");
+			    request.getSession().removeAttribute("username");
+			    request.getSession().removeAttribute("nic");
+			    request.getSession().removeAttribute("first_name");
+			    request.getSession().removeAttribute("last_name");
+			    request.getSession().removeAttribute("gender");
+			    request.getSession().removeAttribute("address_line_01");
+			    request.getSession().removeAttribute("address_line_02");
+			    request.getSession().removeAttribute("city");
+			    request.getSession().removeAttribute("zip");
+			    request.getSession().removeAttribute("country");
+			    request.getSession().removeAttribute("department");
+			    request.getSession().removeAttribute("doe");
+			    request.getSession().removeAttribute("avatar");
+			    request.getSession().removeAttribute("privilege_mode");
+			    request.getSession().removeAttribute("contact_number");
+
+			    response.sendRedirect("Employees");
+			}
+
+		    } else {
+			// Clearing cache to avoid old avatar shown as the new avatar
+			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+			response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+			response.setDateHeader("Expires", 0); // Proxies.
+			response.sendRedirect("Employees");
+		    }
+
+		} catch (Exception ex) {
+		    Logger.getLogger(Process_Employee.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+	    } else {
+		response.sendRedirect("/CalEvents/Admin");
+	    }
+	}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -119,8 +144,8 @@ public class Update_Employee extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+	    throws ServletException, IOException {
+	processRequest(request, response);
     }
 
     /**
@@ -133,8 +158,8 @@ public class Update_Employee extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+	    throws ServletException, IOException {
+	processRequest(request, response);
     }
 
     /**
@@ -144,7 +169,7 @@ public class Update_Employee extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+	return "Short description";
     }// </editor-fold>
 
 }

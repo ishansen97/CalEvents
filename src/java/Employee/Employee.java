@@ -13,7 +13,7 @@ public class Employee {
     ResultSet resultSet = null;
 
     // Add employee
-    public Integer addEmployee(String id, String username, String nic, String first_name, String last_name, String gender, String address_line_1, String address_line_2, String city, String zip, String country, String contact_number, String avatar, String department, String privilege_mode, String password) throws ClassNotFoundException, SQLException {
+    public Integer addEmployee(String id, String username, String nic, String first_name, String last_name, String gender, String address_line_1, String address_line_2, String city, String zip, String country, String contact_number, String avatar, String department, String doe, String privilege_mode, String password) throws ClassNotFoundException, SQLException {
 
         
         // Setting server connection
@@ -24,7 +24,7 @@ public class Employee {
 
             // If connection successfully established
             Connection con = ServerConnection.getConnection();
-            sql = "INSERT INTO employees (id, username, nic, first_name, last_name, gender, address_line_1, address_line_2, city, zip, country, contact_number, avatar, department, privilege_mode, password)values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            sql = "INSERT INTO employees (id, username, nic, first_name, last_name, gender, address_line_1, address_line_2, city, zip, country, contact_number, avatar, department, doe, privilege_mode, password)values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, id);
             ps.setString(2, username);
@@ -40,8 +40,9 @@ public class Employee {
             ps.setString(12, contact_number);
             ps.setString(13, avatar);
             ps.setString(14, department);
-            ps.setString(15, privilege_mode);
-            ps.setString(16, password);
+	    ps.setString(15, doe);
+            ps.setString(16, privilege_mode);
+            ps.setString(17, password);
             int querry = ps.executeUpdate();
             return querry;
         }
@@ -195,7 +196,7 @@ public class Employee {
     
     
     
-        // View specific employee
+    // View specific employee
     public static ResultSet readEmployeeProfile(String username) throws ClassNotFoundException, SQLException {
 
         ServerConnection.setConnection();

@@ -8,7 +8,7 @@
 var request;  
 function sendInfo()  
 {  
-var v=document.employees.search.value;  
+var v=document.log.search.value;  
 var url="/CalEvents/User/Search_Log.jsp?val="+v;  
   
 if(window.XMLHttpRequest){  
@@ -53,13 +53,18 @@ document.getElementById('amit').innerHTML=val;
 
       <div class="container-fluid mb-3 bg-white">
           
-        <div class="row">
-            <div class="col-md-3 offset-md-9 pt-md-4 pb-md-0">
-            <form name="employees">
-                <input class="form-control mr-sm-2" type="date" placeholder="Search" name="search" onkeyup="sendInfo()">
-            </form>
-            </div>
-        </div>
+          <form name="log">
+          <div class="row pr-3 pt-4">
+              <div class="col-md-2 offset-md-9 pr-0">
+                  <input class="form-control rounded-0" type="date" placeholder="Search" name="search">
+              </div>
+              <div class="col-md-1 pr-1 pl-0">
+                  <button class="btn btn-primary btn-block rounded-0" type="button" onclick="sendInfo();">Search</button>
+              </div>
+          </div>
+          </form>
+          
+          
           
         <div class="row pt-4">
             

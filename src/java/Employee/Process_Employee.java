@@ -76,6 +76,7 @@ public class Process_Employee extends HttpServlet {
                     String country = request.getParameter("country");
                     String contact_number = request.getParameter("contact_number");
                     String department = request.getParameter("department");
+		    String doe = request.getParameter("doe");
                     String privilege_mode = request.getParameter("privilege_mode");
                     avatar = "../User/Images/" + id + ".png";
 
@@ -95,7 +96,7 @@ public class Process_Employee extends HttpServlet {
                         output.write(buffer);
                     }
 
-                    Integer addEmployee = employee.addEmployee(id, username, nic, first_name, last_name, gender, address_line_01, address_line_02, city, zip, country, contact_number, avatar, department, privilege_mode, password);
+                    Integer addEmployee = employee.addEmployee(id, username, nic, first_name, last_name, gender, address_line_01, address_line_02, city, zip, country, contact_number, avatar, department, doe, privilege_mode, password);
 
                     if (addEmployee > 0) {
                         request.getSession().setAttribute("message", "Employee successfully added");
