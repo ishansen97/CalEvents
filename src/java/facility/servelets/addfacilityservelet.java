@@ -82,12 +82,12 @@ public class addfacilityservelet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("Inside");
-        String buttonTents = request.getParameter("tents");
-        String buttonSounds = request.getParameter("sounds");
-        String buttonKitchen = request.getParameter("kitchen");
-        String buttonChairs = request.getParameter("chairs");
-        String buttonLights = request.getParameter("lights");
-        String buttonTables = request.getParameter("tables");
+        String buttonTents = request.getParameter("tentss");
+        String buttonSounds = request.getParameter("soundss");
+        String buttonKitchen = request.getParameter("kitchens");
+        String buttonChairs = request.getParameter("chairss");
+        String buttonLights = request.getParameter("lightss");
+        String buttonTables = request.getParameter("tabless");
         
         if(buttonTents!=null){
                 String type = "tents";
@@ -182,7 +182,6 @@ public class addfacilityservelet extends HttpServlet {
             
         }
         else if(buttonTables!=null){
-            String type = "tents";
             String name = request.getParameter("name").toString();
             
             String quantityStr = request.getParameter("quantity").toString();
@@ -191,7 +190,7 @@ public class addfacilityservelet extends HttpServlet {
             String condition = request.getParameter("condition").toString();
             String size = request.getParameter("tSize").toString();
             String noOfC = request.getParameter("chairs").toString();
-            String shape = request.getParameter("shapet").toString();
+            String shape = request.getParameter("shape").toString();
                    
                 Facility tables = new Tables(name,quantity,condition,size,noOfC,shape);
                 String message = tables.add_Facility();

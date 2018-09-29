@@ -753,28 +753,28 @@
                             <tr>
                                 <td id="tbSizeText1" style="display: none" >Table Size </td>
                                 <td id="tbSizeText2" style="display: none" >:</td>          
-                                <td id="tbSizet" style="display: none" ><input type="text" name="tSize" id="tbSize" />
+                                <td id="tbSizet" style="display: none" ><input type="text" name="tSize" id="tSize" />
                             </tr>                   
                             <tr>
                                 <td id="noText1" style="display: none" >No Of Chairs </td>
                                 <td id="noText2" style="display: none" >:</td>          
-                                <td id="not" style="display: none" ><input type="text" name="chairs" id="no" />
+                                <td id="not" style="display: none" ><input type="text" name="no" id="no" />
                             </tr>                  
                             <tr>
                                 <td id="shapeText1" style="display: none" >Shape </td>
                                 <td id="shapeText2" style="display: none" >:</td>          
-                                <td id="shapet" style="display: none" ><input type="text" name="shape" id="brand" />
+                                <td id="shapet" style="display: none" ><input type="text" name="shape" id="shape" />
                             </tr>                
                         </table>
 
                         <br>
                         <br>
-                        <button type="submit" class="button button5" style="display: none;" name="tents" id="button1">Add to Tents</button>
-                        <button type="submit" class="button button5" style="display: none;" name="sounds" id="button2">Add to Sounds</button>
-                        <button type="submit" class="button button5" style="display: none;" name="kitchen" id="button3">Add to Kitchen Utensils</button>
-                        <button type="submit" class="button button5" style="display: none;" name="chairs" id="button4">Add to Chairs</button>
-                        <button type="submit" class="button button5" style="display: none;" name="lights" id="button5">Add to Lights</button>
-                        <button type="submit" class="button button5" style="display: none;" name="tables" id="button6">Add to Tables</button>
+                        <button type="submit" class="button button5" style="display: none;" name="tentss" id="button1">Add to Tents</button>
+                        <button type="submit" class="button button5" style="display: none;" name="soundss" id="button2">Add to Sounds</button>
+                        <button type="submit" class="button button5" style="display: none;" name="kitchens" id="button3">Add to Kitchen Utensils</button>
+                        <button type="submit" class="button button5" style="display: none;" name="chairss" id="button4">Add to Chairs</button>
+                        <button type="submit" class="button button5" style="display: none;" name="lightss" id="button5">Add to Lights</button>
+                        <button type="submit" class="button button5" style="display: none;" name="tabless" id="button6">Add to Tables</button>
 
                     </div>
                 </form>
