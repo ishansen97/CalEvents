@@ -50,7 +50,7 @@
                                 <td align="right"><input type="radio" name="djlive" value="dj" /></td>
                                 <td><h4 class="alert-info">Live</h4></td>
                             </tr>
-                            <tr>
+                            <tr id="lightsOpt" style="display:none;">
                                 <td><input type="checkbox" name="lighting" id="lighting"  value="ON" /></td>
                                 <td><h4 class="alert-danger">Lighting</h4></td>
                             </tr>
@@ -93,6 +93,7 @@
             $(document).ready(function () {
                 $("#sounds").click(function () {
                     $("#soundsOpt").toggle();
+                    $("#lightsOpt").toggle();
                 });
             });
             $(document).ready(function () {

@@ -45,3 +45,14 @@
         </script>
     </body>
 </html>
+            <%
+                Allocation all = new Allocation("dj");
+                all.find_facility_view();
+                ResultSet test = all.fetch_available_facilities();
+            %>
+            <%while (test.next()) {%>
+            <h3><%=test.getString("facilitiyName")%></h3>
+            <h3><%=test.getString("availableQuantity")%></h3>
+            <h3><%=test.getString("facilityCondition")%></h3>
+
+            <%}%>
