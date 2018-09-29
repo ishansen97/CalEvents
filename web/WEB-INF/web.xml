@@ -16,6 +16,10 @@
         <servlet-name>addF</servlet-name>
         <servlet-class>facility.servelets.addF</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updatefacilitiesSevelet</servlet-name>
+        <servlet-class>facility.servelets.updatefacilitiesSevelet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>addF</servlet-name>
         <url-pattern>/addF</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updatefacilitiesSevelet</servlet-name>
+        <url-pattern>/updatefacilitiesSevelet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

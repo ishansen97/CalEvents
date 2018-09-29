@@ -389,7 +389,7 @@
                 border-radius: 4px;
                 box-sizing: border-box;
             }
-            
+
             .container-fluid{
                 padding-left: 10%;
                 padding-top: 5%;
@@ -404,7 +404,7 @@
                 padding-left: 0;
 
             }
- 
+
         </style>
     </head>
     <body class="w3-light-grey">
@@ -431,7 +431,7 @@
                         <div class="alert alert-warning">
                             <h4>Tents Details</h4>
                         </div>
-                        
+
                         <table class="table table-hover">
                             <thead class="thead-dark">
                                 <tr>
@@ -638,12 +638,12 @@
                 <div class="alert alert-success">
                     <h1>Facility Operations</h1>
                 </div>
-                <button class="btn btn-danger" id="addf">Add Facilities</button>
-                <button class="btn btn-danger" id="removef">Remove Facilities</button>
-                <button class="btn btn-danger" id="updatef">Update Facilities</button>
+                <button class="btn btn-danger" onclick="openTab('facilityactivitiesADD')" id="addf">Add Facilities</button>
+                <button class="btn btn-danger" onclick="openTab('facilityactivitiesREMOVE')"  id="removef">Remove Facilities</button>
+                <button class="btn btn-danger" onclick="openTab('facilityactivitiesUPDATE')"  id="updatef">Update Facilities</button>
             </div>
 
-            <script>
+<!--            <script>
                 $("#addf").click(function () {
                     $("#facilityactivitiesADD").toggle();
                     $(document).scrollTop($(document).height());
@@ -662,6 +662,17 @@
                     $(document).scrollTop($(document).height());
                 });
 
+            </script>-->
+
+            <script>
+                function openTab(table_name) {
+                    var i;
+                    var x = document.getElementsByClassName("add");
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";
+                    }
+                    document.getElementById(table_name).style.display = "block";
+                }
             </script>
 
             <div style="display:none;" class="container-fluid add" id="facilityactivitiesREMOVE">
@@ -674,6 +685,10 @@
 
             </div>
             <div style="display:none;" class="container-fluid add" id="facilityactivitiesADD">
+
+                <div class="alert alert-danger">
+                    <h1>Add Facilities</h1>
+                </div>
                 <form class="form-group" id="myForm" action="../addfacilityservelet" method="POST">
 
                     <div>

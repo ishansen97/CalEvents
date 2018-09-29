@@ -47,7 +47,11 @@
 </head>
 <body>
         
-<div class="w3-bar w3-gray">
+                
+                <div class="alert alert-danger">
+                    <h1>Update Facilities</h1>
+                </div>
+                <div class="alert-danger">
 <button class="button button5" onclick="openTu('tentTableu')">Tents</button>
 <button class="button button5" onclick="openTu('soundsTableu')">Sounds</button>
 <button class="button button5" onclick="openTu('lightsTableu')">Lights</button>

@@ -32,52 +32,16 @@
         </style>
     </head>
     <body>
-        <br>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-4 "><button type="button" class="btn btn-outline-dark">Add Packages</button></div>
-            
-                <div class="col-sm-4 "><button type="button" class="btn btn-outline-dark">Remove Packages</button></div>
-            
-                <div class="col-sm-4"><button type="button" class="btn btn-outline-dark">Update Price/Facilities</button>
-              </div>
-            </div>
-            <br>
 
-        </div>
-        <div class="container-fluid"> <h1>Available Packages</h1></div>
-       
-
-        <div class="container-fluid">
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Package Name</th>
-                        <th>Facilities</th>
-                        <th>Price($)</th>
-                    </tr>
-                </thead>
-                <tbody><%  Facility_Packages fetch = new Facility_Packages();
-                    ResultSet packages = fetch.fetch_Packages();
-                    %>
-                    <%while (packages.next()) {%>
-                    <tr>
-                        <td><%=packages.getString("packageName")%></td>
-                        <td><%=packages.getString("facilities")%></td>
-                        <td><%=packages.getString("price")%></td>
-                    </tr><%}%>
-                </tbody>
-            </table>
-        </div>
-    </body>
-</html>
-        <script>
+        <button id="btn">click</button>
+                        <script>
             $(document).ready(function () {
-                $("button").click(function () {
-                    $("[id='packName']").each(function () {
-                        var names = new Array($(this).text());
-                    });
-
+                $("#btn").click(function () {
+                   
+                   window.open("facilityActivities.jsp");
+                    
                 });
             });
         </script>
+    </body>
+</html>

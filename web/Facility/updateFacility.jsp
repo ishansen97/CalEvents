@@ -48,7 +48,7 @@
     <body>
         
 <div id="tentTable" class="w3-container tableName" style="margin-left: 0%; margin-top: 0%;">       
-        <form>
+    <form action="../supdatefacilitiesSevelet" method="POST">
             
 <table class="table">
     <thead>

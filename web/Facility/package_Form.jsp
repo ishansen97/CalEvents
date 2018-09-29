@@ -18,6 +18,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+
+
+
+        </style>
         <title>Facility Form</title>
     </head>
     <body>
@@ -26,59 +31,39 @@
         Indoor : <input type="radio" name="inout" value="indoor" id='in'/>
         Outdoor :<input type="radio" name="inout" value="outdoor" id='out'/> 
 
-        <h2>We recommend you these facility packages</h2>
-        <hr>
+        <h2>Select packages</h2>
 
-        <table border='1'>
-            <thead>
-                <tr>
-                    <th>Package Name</th>
-                    <th>Facilities</th>
-                    <th>Price($)</th>
-                </tr>
-            </thead>
-            <tbody><%  Facility_Packages fetch = new Facility_Packages();
-                ResultSet packages = fetch.fetch_Packages();
-                %>
-                <%while (packages.next()) {%>
-                <tr>
-                    <td id="packName"><%=packages.getString("packageName")%></td>
-                    <td><%=packages.getString("facilities")%></td>
-                    <td><%=packages.getString("price")%></td>
-                    <td></td>
-                </tr><%}%>
-            </tbody>
-        </table>
 
-        <h2>Have found the package from above packages ?</h2>
-        yes : <input type="radio" name="packyesno" value="packyes" id='packyes'/>
-        no :<input type="radio" name="packyesno" value="packno" id='packno' onclick="showtents()"/> 
+        <hr><div class="container-fluid">
 
-        <div id='tentsyesnodiv' style="display: none;">
-            <h2>Do you require tents ? : </h2> 
-            yes : <input type="radio" name="tentsyesno" value="tentsyes" id='tentsyes' onclick="showsounds()"/>
-            no :<input type="radio" name="tentsyesno" value="tentsno" id='tentsno' onclick="showsounds()"/> 
+            <table>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="sounds" value="ON" /></td>
+                        <td><h4 class="alert-danger">Sounds</h4></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="lighting" value="ON" /></td>
+                        <td><h4 class="alert-danger">Lighting</h4></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="Mics" value="ON" /></td>
+                        <td><h4 class="alert-danger">Microphones</h4></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="chairs" value="ON" /></td>
+                        <td><h4 class="alert-danger">Chairs</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
-
-        <select name="tentspackages">
-            <option></option>
-        </select>
-        
-        <div id='soundsyesnodiv' style="display: none;">
-            <h2>Do you require sounds ? : </h2> 
-            yes : <input type="radio" name="soundsyesno" value="soundsyes" id='soundsyes'/>
-            No :<input type="radio" name="soundsyesno" value="soundsno" id='soundsno'/> 
-        </div>
-
         <script>
-
-            function showtents() {
-                document.getElementById('tentsyesnodiv').style.display = '';
-            }
-            
-            function showsounds() {
-                document.getElementById('soundsyesnodiv').style.display = '';
-            }
+            $(document).ready(function () {
+                $("p").click(function () {
+                    $(this).hide();
+                });
+            });
         </script>
 
     </body>
