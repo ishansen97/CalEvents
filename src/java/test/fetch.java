@@ -126,6 +126,27 @@ DBConnect dbcon;
     return result;
     
     }
+    
+    
+    public ResultSet fetchMenuItems() throws SQLException, ClassNotFoundException{
+            
+    ResultSet result = null;        
+    PreparedStatement statement = null;
+    
+     if (dbcon.isConnected()) 
+    {
+    Connection connect = dbcon.getCon();
+    
+    statement = connect.prepareStatement("SELECT * FROM `menu_items`");
+    
+    result = statement.executeQuery();
+  
+    }
+    
+    return result;
+    
+    }
+    
             
             
 }

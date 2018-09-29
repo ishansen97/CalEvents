@@ -12,6 +12,10 @@
         <servlet-name>rem</servlet-name>
         <servlet-class>rawServelets.rem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>detIns</servlet-name>
+        <servlet-class>rawServelets.detIns</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>rem</servlet-name>
         <url-pattern>/rem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>detIns</servlet-name>
+        <url-pattern>/detIns</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

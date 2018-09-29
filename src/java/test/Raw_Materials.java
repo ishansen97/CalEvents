@@ -15,21 +15,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * 
+ *
  * @author Lini Eisha
  */
 public class Raw_Materials {
+
     private String id;
     private String name;
     private double price;
     private String qType;
     private double quantity;
-    private DBConnect dbcon;  
-    
-    public Raw_Materials(){
-        this.dbcon = DBConnect.getInstance();}
-    
-    public Raw_Materials(String name,double price,String type,double quantity){
+    private DBConnect dbcon;
+
+    public Raw_Materials() {
+        this.dbcon = DBConnect.getInstance();
+    }
+
+    public Raw_Materials(String name, double price, String type, double quantity) {
         this.name = name;
         this.price = price;
         this.qType = type;
@@ -48,19 +50,16 @@ public class Raw_Materials {
     public Raw_Materials(String name, String type, double price, double qty) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-        public String insertRaw(String name) {
+
+    public String insertRaw(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String insertRaw(String name, double price, String type, double qty) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
-    
-    public String generate_Raw_Id() throws ClassNotFoundException, SQLException{
+
+    public String generate_Raw_Id() throws ClassNotFoundException, SQLException {
         String query = null;
 
         if (dbcon.isConnected()) {
@@ -75,39 +74,40 @@ public class Raw_Materials {
                 String[] parts = ID.split("R", 2);
                 int integerid = Integer.parseInt(parts[1]);
                 integerid++;
-                
-                if (integerid > 1 && integerid < 10)
+
+                if (integerid > 1 && integerid < 10) {
                     id = "R00" + integerid;
-                else if(integerid >=10 && integerid < 100)
+                } else if (integerid >= 10 && integerid < 100) {
                     id = "R0" + integerid;
-                else 
+                } else {
                     id = "R" + integerid;
-            }
-            else
+                }
+            } else {
                 id = "R001";
+            }
 
         }
         return id;
-            
+
     }
-    
-    public String insertRaw() throws ClassNotFoundException, SQLException{
-        PreparedStatement addF,exist = null;
-        int res=0;
+
+    public String insertRaw() throws ClassNotFoundException, SQLException {
+        PreparedStatement addF, exist = null;
+        int res = 0;
         ResultSet resultName;
         String rawName;
-        
+
         if (dbcon.isConnected()) {
-        Connection connect = dbcon.getCon();                               
-        id = generate_Raw_Id();
-                
+            Connection connect = dbcon.getCon();
+            id = generate_Raw_Id();
+
             exist = connect.prepareStatement("SELECT name from raw_materials where name = ?");
             exist.setString(1, name);
             resultName = exist.executeQuery();
-                
-                if(resultName.next()){ return "raw material already exist"; }
-                
-                else{
+
+            if (resultName.next()) {
+                return "raw material already exist";
+            } else {
                 addF = connect.prepareStatement("INSERT INTO `raw_materials`(`rawID`, `name`, `qType`, `quantity`, `unit_Price`) VALUES (?,?,?,?,?)");
                 addF.setString(1, id);
                 addF.setString(2, name);
@@ -115,78 +115,73 @@ public class Raw_Materials {
                 addF.setDouble(4, quantity);
                 addF.setDouble(5, price);
                 res = addF.executeUpdate();
-                
-                if(res==1)return "new record inserted";
-                
-                else return "new record not inserted";                    
-                    
+
+                if (res == 1) {
+                    return "new record inserted";
+                } else {
+                    return "new record not inserted";
                 }
+
             }
-        
+        }
+
         return "Connection error!!";
     }
-    
-    public ResultSet fetch_Raw(String namer) throws ClassNotFoundException, SQLException{
-    
-    PreparedStatement fetch_Raw = null;
-    
-               Connection connect = dbcon.getCon();
-               fetch_Raw = connect.prepareStatement("SELECT * FROM `raw_materials` WHERE `name`=?");
-               fetch_Raw.setString(1, namer);
-               
-               ResultSet raw = fetch_Raw.executeQuery();
 
-               return raw;
-}
+    public ResultSet fetch_Raw(String namer) throws ClassNotFoundException, SQLException {
 
-    
-    public String removeRaw(String name) throws ClassNotFoundException, SQLException{
-        PreparedStatement removeF,exist = null;
-        int res=0;
+        PreparedStatement fetch_Raw = null;
+
+        Connection connect = dbcon.getCon();
+        fetch_Raw = connect.prepareStatement("SELECT * FROM `raw_materials` WHERE `name`=?");
+        fetch_Raw.setString(1, namer);
+
+        ResultSet raw = fetch_Raw.executeQuery();
+
+        return raw;
+    }
+
+    public String removeRaw(String name) throws ClassNotFoundException, SQLException {
+        PreparedStatement removeF, exist = null;
+        int res = 0;
         ResultSet resultName;
-        
+
         if (dbcon.isConnected()) {
-        Connection connect = dbcon.getCon();                               
+            Connection connect = dbcon.getCon();
 //                
 //            exist = connect.prepareStatement("SELECT name from raw_materials where rawID = ?");
 //            exist.setString(1, name);
 //            resultName = exist.executeQuery();
-                
+
 //                if(resultName.next()){
-                
-        
-                removeF = connect.prepareStatement("DELETE FROM `raw_materials` WHERE name = ?");
-                removeF.setString(1, name);
-                res = removeF.executeUpdate(); 
-                                  
-                    
+            removeF = connect.prepareStatement("DELETE FROM `raw_materials` WHERE name = ?");
+            removeF.setString(1, name);
+            res = removeF.executeUpdate();
+
 //                }
 //                else{
 //                    return "Raw Material doesn't exist";
-                }
-        
-        else 
-                return "Connection error!";
-        
-        
-                if(res==1)return "Record Removed";
-                
-                else return "Record does not exist";  
-            
-                        
-                        
+        } else {
+            return "Connection error!";
+        }
+
+        if (res == 1) {
+            return "Record Removed";
+        } else {
+            return "Record does not exist";
+        }
+
     }
 
-    
-       public String updatePrice(String name , double price) throws ClassNotFoundException, SQLException{
-        PreparedStatement updateF,exist = null;
-        int res=0;
+    public String updatePrice(String name, double price) throws ClassNotFoundException, SQLException {
+        PreparedStatement updateF, exist = null;
+        int res = 0;
         ResultSet resultName;
         String rawName;
-        
+
         if (dbcon.isConnected()) {
-        Connection connect = dbcon.getCon();                               
-    
+            Connection connect = dbcon.getCon();
+
             /*exist = connect.prepareStatement("SELECT quantity from raw_materials where name = ?");
             exist.setString(1, name);
             resultName = exist.executeQuery();
@@ -194,108 +189,105 @@ public class Raw_Materials {
                 
                 
                 if(resultName.next()){*/
-                updateF = connect.prepareStatement("UPDATE `raw_materials` SET  `unit_Price`=? WHERE name = ?");
-                updateF.setDouble(1, price);
-                updateF.setString(2,name);
-                res = updateF.executeUpdate();
-        }
-                
-         else
+            updateF = connect.prepareStatement("UPDATE `raw_materials` SET  `unit_Price`=? WHERE name = ?");
+            updateF.setDouble(1, price);
+            updateF.setString(2, name);
+            res = updateF.executeUpdate();
+        } else {
             return "Connection error!!";
-        
-                        if(res==1)return "Record Updated";
-                        
-                        else{ return "raw material doesn't exist"; }
-        
-    } 
-       
-    public double getQuantity(String name) throws ClassNotFoundException, SQLException{
+        }
+
+        if (res == 1) {
+            return "Record Updated";
+        } else {
+            return "raw material doesn't exist";
+        }
+
+    }
+
+    public double getQuantity(String name) throws ClassNotFoundException, SQLException {
         ResultSet resultQuantityQ;
-        PreparedStatement sq= null;
+        PreparedStatement sq = null;
         double quantity = 0.0;
-        
-        if(dbcon.isConnected()){
+
+        if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
-       
-            
+
             sq = connect.prepareStatement("SELECT * from raw_materials where name = ?");
-            sq.setString(1,name);
+            sq.setString(1, name);
             resultQuantityQ = sq.executeQuery();
-            while(resultQuantityQ.next()){
-                
+            while (resultQuantityQ.next()) {
+
                 quantity = resultQuantityQ.getDouble("quantity");
-                
+
             }
         }
-        
+
         return quantity;
-        
+
     }
-    
-    public String reduceQuantity(String name , double quantity) throws ClassNotFoundException, SQLException{
-        
-        PreparedStatement reduce= null;
+
+    public String reduceQuantity(String name, double quantity) throws ClassNotFoundException, SQLException {
+
+        PreparedStatement reduce = null;
         double reduced = 0;
-        
+
         double getNewQuantity = getQuantity(name);
-        getNewQuantity =  getNewQuantity - quantity  ;
-        
-        
-        if (dbcon.isConnected())
-            {
-                Connection connect = dbcon.getCon();
-                 
-                reduce = connect.prepareStatement("UPDATE `raw_materials` SET `quantity` = ? WHERE `name` = ?");
-                
-                reduce.setDouble(1, getNewQuantity);
-                
-                reduce.setString(2, name);
-                
-                reduced = reduce.executeUpdate();
-                
-            }
-        
-        else
-        return "connection error!";
-        
-        if(reduced==1)return "record added!";
-        
-        else return "record not added";
-        
+        getNewQuantity = getNewQuantity - quantity;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            reduce = connect.prepareStatement("UPDATE `raw_materials` SET `quantity` = ? WHERE `name` = ?");
+
+            reduce.setDouble(1, getNewQuantity);
+
+            reduce.setString(2, name);
+
+            reduced = reduce.executeUpdate();
+
+        } else {
+            return "connection error!";
+        }
+
+        if (reduced == 1) {
+            return "record added!";
+        } else {
+            return "record not added";
+        }
+
     }
-    
-    public String incrementQuantity(String name , double quantity) throws ClassNotFoundException, SQLException{
-        PreparedStatement increment= null;
+
+    public String incrementQuantity(String name, double quantity) throws ClassNotFoundException, SQLException {
+        PreparedStatement increment = null;
         double incremented = 0;
-        
+
         double getNewQuantity = getQuantity(name);
         getNewQuantity = getNewQuantity + quantity;
-        
-        
-        if (dbcon.isConnected())
-            {
-                Connection connect = dbcon.getCon();
-                 
-                increment = connect.prepareStatement("UPDATE `raw_materials` SET `quantity` = ? WHERE `name` = ?");
-                
-                increment.setDouble(1, getNewQuantity);
-                
-                increment.setString(2, name);
-                
-                incremented = increment.executeUpdate();
-                
-            }
-        
-        else
-        return "connection error!";
-        
-        if(incremented==1)return "record added!";
-        
-        else return "record not added";
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            increment = connect.prepareStatement("UPDATE `raw_materials` SET `quantity` = ? WHERE `name` = ?");
+
+            increment.setDouble(1, getNewQuantity);
+
+            increment.setString(2, name);
+
+            incremented = increment.executeUpdate();
+
+        } else {
+            return "connection error!";
+        }
+
+        if (incremented == 1) {
+            return "record added!";
+        } else {
+            return "record not added";
+        }
     }
-    
-    
-  /* public ResultSet fetchTypes() throws SQLException, ClassNotFoundException{
+
+    /* public ResultSet fetchTypes() throws SQLException, ClassNotFoundException{
             
     ResultSet result = null;        
     PreparedStatement statement = null;
@@ -316,19 +308,17 @@ public class Raw_Materials {
     
     
 }*/
-    
-    
-
 }
-class test{
-public static void main(String[] args) throws ClassNotFoundException, SQLException{
-   //ResultSet result = null;
-    //String message = null;
-    
-    //Raw_Materials raw = new Raw_Materials("noodles",1300.00,"kg",7);
-    
-    //raw.insertRaw();
-    /*(message.equals("raw material already exist")){
+
+class test {
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        //ResultSet result = null;
+        //String message = null;
+
+        //Raw_Materials raw = new Raw_Materials("noodles",1300.00,"kg",7);
+        //raw.insertRaw();
+        /*(message.equals("raw material already exist")){
         
     
         System.out.println(message);
@@ -344,16 +334,13 @@ public static void main(String[] args) throws ClassNotFoundException, SQLExcepti
     else{
         System.out.println(message);
 }*/
-   
-    //  Raw_Materials raw = new Raw_Materials();
+        //  Raw_Materials raw = new Raw_Materials();
 //    System.out.println(raw.reduceQuantity("tomoto",12.0));
-   // System.out.println(raw.getQuantity("tomoto"));
-    //System.out.println(raw.incrementQuantity("tomoto", 12));
-    
-    //raw.removeRaw("tomoto");
-   
+        // System.out.println(raw.getQuantity("tomoto"));
+        //System.out.println(raw.incrementQuantity("tomoto", 12));
+        //raw.removeRaw("tomoto");
         Raw_Materials r = new Raw_Materials();
         System.out.println(r.generate_Raw_Id());
-    
-}
+
+    }
 }
