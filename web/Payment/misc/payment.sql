@@ -27,7 +27,7 @@ SELECT
     p.pay_method,
     p.date_time AS pay_date,
     r.date AS res_date,
-    e.date AS event_date
+    e.date AS event_date,
     e.event_name
 FROM
     (payment p

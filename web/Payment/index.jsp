@@ -17,15 +17,11 @@
     <%@ include file="Layouts/Navigation.jsp" %>
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+      <br>
       <div class="container">
-        <br>
-        <div class="row">
-          <div class="col-12">
+        <div>
             <h2>Overview</h2>
             <hr>
-            <br>
-
-          </div>
         </div>
         <div class="row" style="padding: 0">
           <%
