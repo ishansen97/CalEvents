@@ -76,11 +76,10 @@
                         <%-- Appetizers --%>
                         <div id="home" class="tab-pane fade in active"><br>      
                             <h3>Appetizers</h3>
-
-                            <%
+<%--       <%
                                 fetch app = new fetch();
                                 ResultSet name1 = app.fetchAppetizers();
-                            %>
+                            %> --%>
 
                             <form action="../" method="POST" onclick="submit">
                                 <div class="col-sm-6">
@@ -97,7 +96,7 @@
 
 
                                         <tbody>
-                                            <%while (name1.next()) {%>
+                                   <%--         <%while (name1.next()) {%>
                                             <tr>
                                                 <td><%= name1.getString("name")%></td>
                                                 <%String in1 = name1.getString("ingredients");
@@ -106,7 +105,7 @@
                                                     <%for (int i = 0; i < raws.length; i++) {
                                                     %> 
                                                     <p><%=raws[i].trim()%></p>
-                                                    <% } %>
+                                                    <% } %> --%>
                                                 </td>
                                                 <td>
                                                     <button type="button"  class="btn btn-outline-info" value="Show Div" onclick="showDiv()">Insert Raw Materials</button>
@@ -129,11 +128,11 @@
                         <div id="menu1" class="tab-pane fade"><br>
                             <h3>Main Dishes</h3>
 
-                            <%
+                 <%--          <%
                                 fetch md = new fetch();
                                 ResultSet name2 = md.fetchMainDishes();
                             %>
-
+--%>
                             <form action="../" method="POST" onclick="submit">
                                 <div class="col-sm-6">
                                     <table class="table" border="5" width="35%" cellspacing="2">
@@ -149,7 +148,7 @@
 
 
                                         <tbody>
-                                            <%while (name2.next()) {%>
+                                   <%--         <%while (name2.next()) {%>
                                             <tr>
                                                 <td><%= name2.getString("name")%></td>
                                                 <%String in2 = name2.getString("ingredients");
@@ -158,7 +157,7 @@
                                                     <%for (int i = 0; i < raws.length; i++) {
                                                     %> 
                                                     <p><%=raws[i].trim()%></p>
-                                                    <% } %>
+                                                    <% } %>  --%>
                                                 </td>
                                                 <td>
                                                     <button type="button"  class="btn btn-outline-info" value="Show Div" onclick="showDiv()">Insert Raw Materials</button>
@@ -180,10 +179,10 @@
                         <div id="menu2" class="tab-pane fade"><br>
                             <h3>Desserts</h3>
 
-                            <%
+                        <%--    <%
                                 fetch fD = new fetch();
                                 ResultSet name = fD.fetchDesserts();
-                            %>
+                            %> %-->
 
                             <form action="../" method="POST" onclick="submit">
                                 <div class="col-sm-6">
@@ -240,10 +239,10 @@
                         <div id="menu3" class="tab-pane fade"><br>
 
                             <h3>Refreshments</h3>
-                            <%
+                           <%-- <%
                                 fetch ref = new fetch();
                                 ResultSet name4 = ref.fetchRefreshments();
-                            %>
+                            %> --%>
 
                             <form>
                                 <div class="col-sm-6">
@@ -260,7 +259,7 @@
 
 
                                         <tbody>
-                                            <%while (name4.next()) {%>
+                                        <%--    <%while (name4.next()) {%>
                                             <tr>
                                                 <td><%= name4.getString("name")%></td>
                                                 <%String in4 = name4.getString("ingredients");
@@ -269,7 +268,7 @@
                                                     <%for (int i = 0; i < raws.length; i++) {
                                                     %> 
                                                     <p><%=raws[i].trim()%></p>
-                                                    <% } %>
+                                                    <% } %> --%>
                                                 </td>
                                                 <td>
                                                     <button type="button"  class="btn btn-outline-info" value="Show Div" onclick="showDiv()">Insert Raw Materials</button>
@@ -277,7 +276,7 @@
 
                                             </tr>
 
-                                            <%}%>
+                                        <%--    <%}%> --%>
 
                                         </tbody>
                                     </table>
@@ -307,7 +306,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <%
+                      <%--      <%
 
                                 fetch raw = new fetch();
                                 ResultSet names = raw.fetchData();
@@ -318,7 +317,7 @@
                                         <option>Raw Material Name</option>
                                         <%while (names.next()) {%>
                                         <option><%=names.getString("name")%></option>
-                                        <%}%>
+                                        <%}%>  --%>
                                     </select> </td>
                                 <td> Raw ID </td> 
                                 <td><input class="form-control form-control-lg" type="text" name="rawID" placeholder="rawID"> </td>
@@ -331,9 +330,9 @@
                                 <td> Raw Material name  </td>
                                 <td><select name="name">
                                         <option>Raw Material Name</option>
-                                        <%while (names.next()) {%>
+                                     <%--   <%while (names.next()) {%>
                                         <option><%=names.getString("name")%></option>
-                                        <%}%>
+                                        <%}%>  --%>
                                     </select> </td>
                                 <td> Raw ID </td> 
                                 <td><input class="form-control form-control-lg" type="text" name="rawID" placeholder="rawID"> </td>
@@ -346,9 +345,9 @@
                                 <td> Raw Material name  </td>
                                 <td><select name="name">
                                         <option>Raw Material Name</option>
-                                        <%while (names.next()) {%>
+                                 <%--       <%while (names.next()) {%>
                                         <option><%=names.getString("name")%></option>
-                                        <%}%>
+                                        <%}%> --%>
                                     </select> </td>
                                 <td> Raw ID </td> 
                                 <td><input class="form-control form-control-lg" type="text" name="rawID" placeholder="rawID"> </td>
@@ -361,9 +360,9 @@
                                 <td> Raw Material name  </td>
                                 <td><select name="name">
                                         <option>Raw Material Name</option>
-                                        <%while (names.next()) {%>
+                                   <%--     <%while (names.next()) {%>
                                         <option><%=names.getString("name")%></option>
-                                        <%}%>
+                                        <%}%> --%>
                                     </select> </td>
                                 <td> Raw ID </td> 
                                 <td><input class="form-control form-control-lg" type="text" name="rawID" placeholder="rawID"> </td>
@@ -401,18 +400,18 @@
             <div id="moreRaw"  style="display:none;" class="addMore">
                 <table  class="table table-hover" >
 
-                    <%
+              <%--      <%
 
                         fetch raw2 = new fetch();
                         ResultSet name02 = raw2.fetchData();
-                    %>
+                    %>  --%>
                     <tr>
                         <td> Raw Material name  </td>
                         <td><select name="name">
                                 <option>Raw Material Name</option>
-                                <%while (names.next()) {%>
+                             <%--    <%while (names.next()) {%>
                                 <option><%=names.getString("name")%></option>
-                                <%}%>
+                                <%}%> --%>
                             </select> </td>
                         <td> Raw ID </td> 
                         <td><input class="form-control form-control-lg" type="text" name="rawID" placeholder="rawID"> </td>

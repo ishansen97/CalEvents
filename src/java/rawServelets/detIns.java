@@ -90,7 +90,7 @@ public class detIns extends HttpServlet {
         Raw_Determine raw = new Raw_Determine(item_id,rawID,name ,qty);
        
            String message = null;
-           message = raw.determineRaw();
+//           message = raw.determineRaw();
            
            if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/**");
         else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/***");

@@ -95,7 +95,7 @@ public class ins extends HttpServlet {
        
            String message = rawm.insertRaw();
            
-        if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/inserted.jsp");
+        if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/adminOperations.jsp");
         else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
         else if(message.equalsIgnoreCase("raw material already exist"))response.sendRedirect("Kitchen/wrong.jsp");
      

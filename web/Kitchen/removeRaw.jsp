@@ -17,7 +17,7 @@
                   Raw_Materials raw = new Raw_Materials();
                   
                   if(raw.removeRaw(name).toString().equals("Record Removed")) {
-                      response.sendRedirect("remove.jsp");
+                      response.sendRedirect("adminOperations.jsp");
                   }
                   else {
                       out.println("Error");
