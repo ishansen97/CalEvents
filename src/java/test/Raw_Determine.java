@@ -92,6 +92,16 @@ public class Raw_Determine {
         }
         return null;
     }
+    
+    
+////    allocate
+//CREATE VIEW getOrderaw AS
+//SELECT mp.private_Id, mp.item_id , pe.crowd_expected , mi.ingredients , mi.name, pe.event_Name
+//FROM private_events pe, menu_private mp , menu_items mi
+//WHERE pe.event_ID = mp.private_Id AND mi.item_id = mp.item_id
+    
+    
+    
 }
 
 class main {
