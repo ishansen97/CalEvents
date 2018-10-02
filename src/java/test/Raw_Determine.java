@@ -8,6 +8,7 @@ man ahanne anthimata mona huththak karalada meh wagey adaradayak kara gatte? eka
  */
 package test;
 
+
 import Connection.DBConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -102,18 +103,99 @@ public class Raw_Determine {
             } else {
                 return "new record not inserted";
             }
-            ]
-            else 
-                
-        return "Connection error!!";
-
-        
+            
+   
 ////    allocate
 //CREATE VIEW getOrderaw AS
 //SELECT mp.private_Id, mp.item_id , pe.crowd_expected , mi.ingredients , mi.name, pe.event_Name
 //FROM private_events pe, menu_private mp , menu_items mi
 //WHERE pe.event_ID = mp.private_Id AND mi.item_id = mp.item_id
         }
+        else
+            return "Connection error!!";
+    }
+    
+    public int getCrowd(String event_name) throws ClassNotFoundException, SQLException{
+        ResultSet resultcrowd;
+        PreparedStatement sq = null;
+        int crowd = 0;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            sq = connect.prepareStatement("SELECT `crowd_expected` FROM `private_events` WHERE `event_Name` = ?");
+            sq.setString(1, event_name);
+            resultcrowd = sq.executeQuery();
+            while (resultcrowd.next()) {
+
+                crowd = resultcrowd.getInt("crowd");
+
+            }
+        }
+
+        return crowd;
+    }
+    
+        public double getQuantity(String name) throws ClassNotFoundException, SQLException {
+        ResultSet resultQuantityQ;
+        PreparedStatement sq = null;
+        double availableQuantity = 0.0;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            sq = connect.prepareStatement("SELECT * from raw_materials where name = ?");
+            sq.setString(1, name);
+            resultQuantityQ = sq.executeQuery();
+            while (resultQuantityQ.next()) {
+
+                quantity = resultQuantityQ.getDouble("availableQuantity");
+
+            }
+        }
+
+        return quantity;
+
+    }
+    
+    
+    
+    
+    public String getTotal(int crowd, double quantity, String name, double availableQuantity) throws ClassNotFoundException, SQLException{
+        PreparedStatement tot = null;
+        double total= 0.0;
+
+        double getTotal = getTotal(name);
+        getTotal = crowd * quantity;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            tot = connect.prepareStatement("UPDATE `raw_allocate` SET `needed_raw` = ? WHERE `event_name` = ?");
+
+            tot.setDouble(1, getTotal);
+
+            tot.setString(2, name);
+
+            total = tot.executeUpdate();
+
+        } else {
+            return "Conncetion error";
+        }
+
+        if (total <availableQuantity ) {
+            return "record Added";
+        } else if(total > availableQuantity) {
+            return "Error";
+        }
+        
+    }  
+
+    private double getTotal(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}
+
 
         class main {
 

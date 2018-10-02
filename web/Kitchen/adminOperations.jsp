@@ -51,8 +51,7 @@
             }
 
             h4{
-                background-color: #b1dfbb;
-                color:white;
+                color:#0c5460;
                 width: 45%;
                 height:20%; 
             }
@@ -71,10 +70,7 @@
 
 
         <script>
-            function showDiv() {
-                document.getElementById('RawForm').style.display = "block";
-            }
-
+            
             function addRaw() {
                 document.getElementById('moreRaw').style.display = "block";
                 $(document).scrollTop($(document).height());
@@ -298,6 +294,7 @@
                             </table> 
                         </div>
                         <form action="../detIns" method="POST" onclick="submit">
+                            <h4>DETERMINE </h4>
                             <table  class="table table-hover" >
                                 <%
                                     fetch items = new fetch();
@@ -354,7 +351,8 @@
 
                         <hr>
 
-                        <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
+                        <div class="col-sm-8" style="overflow-y:scroll; height:200px;">
+                            
                             <table class="table" border="5" width="35%" cellspacing="2" >
                                 <thead class="thead-dark">
                                     <tr>
@@ -380,6 +378,50 @@
                                 </tbody>
                             </table> 
                         </div>
+                                <h4>ALLOCATE</h4>
+                                <table  class="table table-hover" >
+                                    <%
+                                    fetch event = new fetch();
+                                    ResultSet eventName = items.fetchItems();
+                                %>
+                                <tr>
+                                    <td><select name="eventList">
+                                            <option>Food Name</option>
+                                            <%while (eventName.next()) {%>
+                                            <option><%=eventName.getString("name")%></option>
+                                            <%}%>
+                                        </select>
+                                    </td>
+                                  
+                                    <td>
+                                         <input type="text" name="crowd"  placeholder="Expected crowd" required=""/>
+                                    </td>
+                                    <td>
+                                         <input type="text" name="ing"  placeholder="ingredients" required=""/>
+                                    </td>
+                                    <td>
+                                         <input type="text" name="qty"  placeholder="Quantity" required=""/>
+                                    </td>
+                                    <td>
+                                         <input type="text" name="tot"  placeholder="Total" required=""/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                       <Button type="button"  class="btn btn-outline-info" value="add" onclick="**">Allocate</button> 
+                                    </td>
+                                    
+                                </tr>
+                                    
+                                    
+                                </table>
+                                
+                                
 
 
 
