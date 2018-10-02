@@ -29,10 +29,11 @@
       <!--<a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>-->
     
       <a href="adminPanal.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Kitchen Management</a>
-
+      <a href="adminOperations.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Admin Operations</a>
+      
      <%-- <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a> --%>
     
-      <div class="w3-dropdown-hover">
+   <%--   <div class="w3-dropdown-hover">
       <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Admin Options <i class="fa fa-caret-down"></i></button>
       
       <div class="w3-dropdown-content w3-bar-block">
@@ -42,7 +43,8 @@
       <a href="allocate.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Allocate Raw Materials</a>
       <a href="update.jsp" class="w3-bar-item w3-button bg-light" style="text-decoration: none">Update Stock</a>
       
-    </div>
+    </div> --%>
+   
 <!--    </div>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Traffic</a>
     <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bullseye fa-fw"></i>&nbsp; Geo</a>

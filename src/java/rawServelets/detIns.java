@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import test.Raw_Determine;
+import test.Raw_Materials;
 
 /**
  *
@@ -74,26 +75,34 @@ public class detIns extends HttpServlet {
     @Override 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-        response.setContentType("text/html;charset=UTF-8");
-        
-        PrintWriter out = response.getWriter();
-        
-        
-        int  item_id = Integer.parseInt(request.getParameter("item_id"));
-        String rawID = request.getParameter("rawID");
-        String name = request.getParameter("name");
-        double qty = Double.parseDouble(request.getParameter("qty"));
-        
-        
-        Raw_Determine raw = new Raw_Determine(item_id,rawID,name ,qty);
-       
-           String message = null;
-//           message = raw.determineRaw();
-           
-           if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/**");
-        else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/***");
+        try {
+            processRequest(request, response);
+            
+            response.setContentType("text/html;charset=UTF-8");
+            
+            PrintWriter out = response.getWriter();
+            
+            
+            String foodID = getIDs("item_id" , "nameitems");
+            String rawID = getIDs("rawID" , "name");
+            double qty = Double.parseDouble(request.getParameter("qty"));
+            
+            
+            
+            Raw_Determine raw = new Raw_Determine(foodID,rawID,qty);
+            
+            String message;
+            
+            message = raw.detRaw();
+            if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/adminOperations.jsp");
+            else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
+            else if(message.equalsIgnoreCase("raw material already exist"))response.sendRedirect("Kitchen/wrong.jsp");
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(detIns.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(detIns.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -105,5 +114,9 @@ public class detIns extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String getIDs(String item_id, String nameitems) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

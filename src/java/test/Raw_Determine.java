@@ -41,6 +41,10 @@ public class Raw_Determine {
         this.dbcon = DBConnect.getInstance();
     }
 
+    public Raw_Determine(String foodID, String rawID, double qty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getIDs(String tablename, String name) throws SQLException, ClassNotFoundException {
         PreparedStatement Query, qu = null;
         ResultSet resultQ;
@@ -50,7 +54,7 @@ public class Raw_Determine {
             String id = "";
             String table = tablename;
 
-            if (table.equalsIgnoreCase("raw")) {
+            if (table.equalsIgnoreCase("rawID")) {
                 Query = connect.prepareStatement("SELECT `rawID` FROM `raw_materials` WHERE `name` = ? ");
                 Query.setString(1, name);
 
@@ -61,14 +65,14 @@ public class Raw_Determine {
 
                 }
                 return id;
-            } else if (table.equalsIgnoreCase("food")) {
+            } else if (table.equalsIgnoreCase("item_id")) {
                 Query = connect.prepareStatement("SELECT `item_id` FROM `menu_items` WHERE `name` = ? ");
                 Query.setString(1, name);
 
                 resultQ = qu.executeQuery();
 
                 while (resultQ.next()) {
-                    id = resultQ.getString("foodID");
+                    id = resultQ.getString("item_id");
                 }
             } else {
                 return "Error";
@@ -79,7 +83,7 @@ public class Raw_Determine {
     }
 
     public String detRaw() throws ClassNotFoundException, SQLException {
-        PreparedStatement addF, exist = null;
+        PreparedStatement addR, exist = null;
         int res = 0;
         ResultSet resultName;
         String rawName;
@@ -87,30 +91,37 @@ public class Raw_Determine {
         if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
 
-            String foodID = getIDs("food", "");
-            String rawID = getIDs("raw", "");
-        }
-        return null;
-    }
-    
-    
+            addR = connect.prepareStatement("INSERT INTO `raw_determine`(`item_id`, `rawID`, `quantity`) VALUES (? , ? , ?)");
+            addR.setInt(1, item_id);
+            addR.setString(2, rawID);
+            addR.setDouble(4, quantity);
+            res = addR.executeUpdate();
+
+            if (res == 1) {
+                return "new record inserted";
+            } else {
+                return "new record not inserted";
+            }
+            ]
+            else 
+                
+        return "Connection error!!";
+
+        
 ////    allocate
 //CREATE VIEW getOrderaw AS
 //SELECT mp.private_Id, mp.item_id , pe.crowd_expected , mi.ingredients , mi.name, pe.event_Name
 //FROM private_events pe, menu_private mp , menu_items mi
 //WHERE pe.event_ID = mp.private_Id AND mi.item_id = mp.item_id
-    
-    
-    
-}
+        }
 
-class main {
+        class main {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+            public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
 //        Raw_Determine raw = new Raw_Determine(5 , "R008" , "mutton" , 0.5);
 //        System.out.println(raw.getMenuID("Apple Salad"));
 //        
-    }
+            }
 
-}
+        }

@@ -81,15 +81,15 @@
             }
 
 
-       function displayModal(obj) {
-                        var rawID = obj;
-                        //alert(rawID);
+            function displayModal(obj) {
+                var rawID = obj;
+                //alert(rawID);
 
-                        $.post("updateRaw.jsp", {event_id: rawID }, function (data) {
-                            $("#updateModal .modal-body").html(data);
-                        });
-                        $("#updateModal").modal();
-                    }
+                $.post("updateRaw.jsp", {event_id: rawID}, function (data) {
+                    $("#updateModal .modal-body").html(data);
+                });
+                $("#updateModal").modal();
+            }
 
         </script>
     </head>
@@ -106,7 +106,7 @@
                 <center><h1>Raw Materials </h1></center>
             </div>
 
-            <hr><hr>
+           
 
             <!--<div class="container">-->
             <h1 style="padding-left:0%;">Raw Operations</h1>
@@ -130,7 +130,6 @@
                     <div id="ins" class="tab-pane fade in active"><br>      
                         <h3>Insert Raw Materials</h3>
 
-                        <hr><hr>
 
                         <div class="row">
                             <div class="col-6">
@@ -196,7 +195,7 @@
                     <div id="del" class="tab-pane fade in"><br>      
                         <h3>Delete Raw Materials</h3>
 
-                        <hr><hr><hr>
+                   
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
                             <table class="table" border="5" width="90%" cellspacing="5">
@@ -234,7 +233,6 @@
                     <div id="upd" class="tab-pane fade in"><br>      
                         <h3>Update Raw Materials</h3>
 
-                        <hr><hr><hr>
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;" >
                             <table class="table" border="5" width="90%" cellspacing="5" >
@@ -258,8 +256,8 @@
                                         <td style="text-align:center"><%=dataU.getString("quantity")%></td>
                                         <td style="text-align:center"><%=dataU.getString("qType")%></td>
                                         <td style="text-align:center;"><%=dataU.getDouble("unit_price")%></td>
-                                    <%--    <td style="text-align:center"><a href="updateRaw.jsp?nameU=<%=dataU.getString("name")%>" class="btn btn-warning">Update</a></td> --%>
-                                    <td><button class="button" type="button" id="<%=dataU.getString("name")%>" onclick="displayModel(this.name)"> Update </button></td>
+                                        <td style="text-align:center"><a href="updateRaw.jsp?nameU=<%=dataU.getString("name")%>" class="btn btn-warning">Update</a></td> 
+                                        <%--  <td><button class="button" type="button" id="<%=dataU.getString("name")%>" onclick="displayModel(this.name)"> Update </button></td>--%>
                                     </tr>
                                     <%}%>
                                 </tbody>
@@ -299,41 +297,43 @@
                                 </tbody>
                             </table> 
                         </div>
-
-                        <table  class="table table-hover" >
-                            <%
-                                fetch items = new fetch();
-                                ResultSet nameitems = items.fetchItems();
-                            %>
-                            <tr>
-                                <td><select name="nameitems">
-                                        <option>Food Name</option>
-                                        <%while (nameitems.next()) {%>
-                                        <option><%=nameitems.getString("name")%></option>
-                                        <%}%>
-                                    </select>
-                                </td>
+                        <form action="../detIns" method="POST" onclick="submit">
+                            <table  class="table table-hover" >
                                 <%
-
-                                    fetch raw = new fetch();
-                                    ResultSet names = raw.fetchData();
+                                    fetch items = new fetch();
+                                    ResultSet nameitems = items.fetchItems();
                                 %>
-                                <td>
-                                    <select name="name">
-                                        <option>Raw Material Name</option>
-                                        <%while (names.next()) {%>
-                                        <option><%=names.getString("name")%></option>
-                                        <%}%>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" name="qty"  placeholder="Quantity" width="20%" required="" />
-                                </td>
-                                <td>
-                                <td align="right"><button class="button">INSERT</button>  </td> 
-                                </td>
-                            </tr> 
-                        </table>
+                                <tr>
+                                    <td><select name="nameitems">
+                                            <option>Food Name</option>
+                                            <%while (nameitems.next()) {%>
+                                            <option><%=nameitems.getString("name")%></option>
+                                            <%}%>
+                                        </select>
+                                    </td>
+                                    <%
+
+                                        fetch raw = new fetch();
+                                        ResultSet names = raw.fetchData();
+                                    %>
+                                    <td>
+                                        <select name="name">
+                                            <option>Raw Material Name</option>
+                                            <%while (names.next()) {%>
+                                            <option><%=names.getString("name")%></option>
+                                            <%}%>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="qty"  placeholder="Quantity" width="20%" required="" />
+                                    </td>
+                                    <td>
+                                    <td align="right"><button class="button" onclick="submit">INSERT</button>  </td> 
+                                    </td>
+                                </tr> 
+                            </table>
+                        </form>
+
                         <table  class="table table-hover">
                             <tr>
                                 <td>
@@ -352,7 +352,7 @@
                     <div id="allo" class="tab-pane fade in"><br>      
                         <h3>Allocate Raw Materials</h3>
 
-                        <hr><hr><hr>
+                        <hr>
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
                             <table class="table" border="5" width="35%" cellspacing="2" >

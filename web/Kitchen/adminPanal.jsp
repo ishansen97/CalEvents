@@ -3,7 +3,7 @@
     Created on : Aug 31, 2018, 10:12:02 PM
     Author     : Lini Eisha
 --%>
-  
+
 
 <%@page import="java.sql.ResultSet"%>
 <%@page import="javax.persistence.criteria.Fetch"%>
@@ -13,6 +13,11 @@
     <title>Kitchen</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <%@ include file="Layouts/Styles.jsp" %>
 
@@ -51,44 +56,44 @@
                 <center><h1 style="color:#10707f" >Raw Materials </h1></center>
             </div>
 
+            <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
+                <div class="col-sm-8">
+                    <table class="table" border="5" width="35%" cellspacing="2" >
+                        <thead>
+                            <tr>
+                                <th class="table-dark">Raw Materials Name</th>
+                                <th class="table-dark">Quantity</th>
+                                <th class="table-dark">Quantity Type</th>
+                                <th class="table-dark">Unit Price</th>
 
-            <div class="col-sm-6">
-                <table class="table" border="5" width="35%" cellspacing="2" >
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Raw Materials Name</th>
-                            <th>Quantity</th>
-                            <th>Quantity Type</th>
-                            <th>Unit Price</th>
+                            </tr>
+                        </thead>
 
-                        </tr>
-                    </thead>
+                        <tbody>
 
-                    <tbody>
+                            <%
+                                fetch name = new fetch();
+                                ResultSet data1 = name.fetchData();
+                            %>
 
-                        <%
-                            fetch name = new fetch();
-                            ResultSet data1 = name.fetchData();
-                        %>
+                            <%while (data1.next()) {%>
+                            <tr>
+                                <td class="table-warning"><%=data1.getString("name")%></td>
+                                <td class="table-warning"><%=data1.getString("quantity")%></td>
+                                <td class="table-warning"><%=data1.getString("qType")%></td>
+                                <td class="table-warning" style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
+                                <%}%>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                        <%while (data1.next()) {%>
-                        <tr>
-                            <td><%=data1.getString("name")%></td>
-                            <td><%=data1.getString("quantity")%></td>
-                            <td><%=data1.getString("qType")%></td>
-                            <td style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
-                            <%}%>
-                        </tr>
-                    </tbody>
-                </table>
+
+
+
+
+
             </div>
-
-
-
-
-
-
-        </div>
 
     </body>
 </html>
