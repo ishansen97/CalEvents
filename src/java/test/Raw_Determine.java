@@ -179,16 +179,16 @@ public class Raw_Determine {
 
             total = tot.executeUpdate();
 
-        } else {
-            return "Conncetion error";
-        }
 
         if (total <availableQuantity ) {
             return "record Added";
         } else if(total > availableQuantity) {
             return "Error";
         }
-        
+        } else {
+            return "Conncetion error";
+        }
+        return "oK";
     }  
 
     private double getTotal(String name) {

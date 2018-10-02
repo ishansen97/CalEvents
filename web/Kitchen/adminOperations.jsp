@@ -70,7 +70,7 @@
 
 
         <script>
-            
+
             function addRaw() {
                 document.getElementById('moreRaw').style.display = "block";
                 $(document).scrollTop($(document).height());
@@ -96,13 +96,12 @@
 
         <!-- !PAGE CONTENT! -->
 
-
         <div class="w3-main" style="margin-left:300px;margin-top:43px;">
             <div>
                 <center><h1>Raw Materials </h1></center>
             </div>
 
-           
+
 
             <!--<div class="container">-->
             <h1 style="padding-left:0%;">Raw Operations</h1>
@@ -191,7 +190,7 @@
                     <div id="del" class="tab-pane fade in"><br>      
                         <h3>Delete Raw Materials</h3>
 
-                   
+
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
                             <table class="table" border="5" width="90%" cellspacing="5">
@@ -352,7 +351,7 @@
                         <hr>
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:200px;">
-                            
+
                             <table class="table" border="5" width="35%" cellspacing="2" >
                                 <thead class="thead-dark">
                                     <tr>
@@ -378,50 +377,50 @@
                                 </tbody>
                             </table> 
                         </div>
-                                <h4>ALLOCATE</h4>
-                                <table  class="table table-hover" >
-                                    <%
-                                    fetch event = new fetch();
-                                    ResultSet eventName = items.fetchItems();
-                                %>
-                                <tr>
-                                    <td><select name="eventList">
-                                            <option>Food Name</option>
-                                            <%while (eventName.next()) {%>
-                                            <option><%=eventName.getString("name")%></option>
-                                            <%}%>
-                                        </select>
-                                    </td>
-                                  
-                                    <td>
-                                         <input type="text" name="crowd"  placeholder="Expected crowd" required=""/>
-                                    </td>
-                                    <td>
-                                         <input type="text" name="ing"  placeholder="ingredients" required=""/>
-                                    </td>
-                                    <td>
-                                         <input type="text" name="qty"  placeholder="Quantity" required=""/>
-                                    </td>
-                                    <td>
-                                         <input type="text" name="tot"  placeholder="Total" required=""/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                       <Button type="button"  class="btn btn-outline-info" value="add" onclick="**">Allocate</button> 
-                                    </td>
-                                    
-                                </tr>
-                                    
-                                    
-                                </table>
-                                
-                                
+                        <h4>ALLOCATE</h4>
+                        <table  class="table table-hover" >
+                            <%
+                                fetch event = new fetch();
+                                ResultSet eventName = items.fetchItems();
+                            %>
+                            <tr>
+                                <td><select name="eventList">
+                                        <option>Food Name</option>
+                                        <%while (eventName.next()) {%>
+                                        <option><%=eventName.getString("name")%></option>
+                                        <%}%>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input type="text" name="crowd"  placeholder="Expected crowd" required=""/>
+                                </td>
+                                <td>
+                                    <input type="text" name="ing"  placeholder="ingredients" required=""/>
+                                </td>
+                                <td>
+                                    <input type="text" name="qty"  placeholder="Quantity" required=""/>
+                                </td>
+                                <td>
+                                    <input type="text" name="tot"  placeholder="Total" required=""/>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <Button type="button"  class="btn btn-outline-info" value="add" onclick="**">Allocate</button> 
+                                </td>
+
+                            </tr>
+
+
+                        </table>
+
+
 
 
 
@@ -478,7 +477,12 @@
                             %>
                         </div>
                     </div>
+                        
+                        
+                        
                 </div>
             </div>
+                </div>
+        
     </body>
 </html>

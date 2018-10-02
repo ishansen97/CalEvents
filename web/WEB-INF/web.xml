@@ -16,6 +16,10 @@
         <servlet-name>detIns</servlet-name>
         <servlet-class>rawServelets.detIns</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>rawAllocate</servlet-name>
+        <servlet-class>rawServelets.rawAllocate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>detIns</servlet-name>
         <url-pattern>/detIns</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>rawAllocate</servlet-name>
+        <url-pattern>/rawAllocate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
