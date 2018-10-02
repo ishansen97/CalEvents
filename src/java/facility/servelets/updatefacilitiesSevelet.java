@@ -5,12 +5,17 @@
  */
 package facility.servelets;
 
+import facilities.event.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,18 +35,18 @@ public class updatefacilitiesSevelet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+//        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet updatefacilitiesSevelet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet updatefacilitiesSevelet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet updatefacilitiesSevelet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet updatefacilitiesSevelet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,6 +76,33 @@ public class updatefacilitiesSevelet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        String name = request.getParameter("name").toString();
+        String id = request.getParameter("id").toString();
+        int quantity = Integer.parseInt(request.getParameter("totalQ").toString());
+        String condition = request.getParameter("condition").toString();
+        String condition1 = request.getParameter("condition1").toString();
+        if(condition1.equals("")) condition1=condition;
+        out.println(id);
+        out.println(name);
+        out.println(quantity);
+//        out.println(condition);
+        out.println(condition1);
+        
+        Facility facility = new Sounds();
+        try {
+            
+                String message = facility.updateInfo(name, quantity, condition1, id);
+            
+                HttpSession session = request.getSession();
+                session.setAttribute("FacilityErrorMessage", message);
+                response.sendRedirect("Facility/facilityActivities.jsp");
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(updatefacilitiesSevelet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(updatefacilitiesSevelet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

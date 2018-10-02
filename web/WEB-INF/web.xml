@@ -20,6 +20,14 @@
         <servlet-name>updatefacilitiesSevelet</servlet-name>
         <servlet-class>facility.servelets.updatefacilitiesSevelet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreatePackage</servlet-name>
+        <servlet-class>facilities.allocation.CreatePackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>determinefacilities</servlet-name>
+        <servlet-class>facilities.allocation.determinefacilities</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>updatefacilitiesSevelet</servlet-name>
         <url-pattern>/updatefacilitiesSevelet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePackage</servlet-name>
+        <url-pattern>/CreatePackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>determinefacilities</servlet-name>
+        <url-pattern>/determinefacilities</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/web/Facility/package_Form.jsp</file>
-            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/web/Facility/old/addF.jsp</file>
+            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/web/Facility/_test.jsp</file>
+            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/web/Facility/allocate.jsp</file>
+            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/web/Facility/newjsp.jsp</file>
+            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/src/java/facilities/allocation/determinefacilities.java</file>
             <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/web/Facility/facilityActivities.jsp</file>
+            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/src/java/facilities/allocation/Packages.java</file>
+            <file>file:/C:/Users/User/Desktop/All/redcolored/CalEvents/web/Facility/requiredfacilities.jsp</file>
         </group>
     </open-files>
 </project-private>

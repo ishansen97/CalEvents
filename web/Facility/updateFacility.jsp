@@ -48,17 +48,10 @@
     <body>
         
 <div id="tentTable" class="w3-container tableName" style="margin-left: 0%; margin-top: 0%;">       
-    <form action="../supdatefacilitiesSevelet" method="POST">
+    <form action="../updatefacilitiesSevelet" method="POST">
             
 <table class="table">
-    <thead>
-      <tr>
-        <th>Tent</th>
-        <th>Available Quantity</th>
-        <th>Total Quantity</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
+
     <tbody>
               <%  String f_ID = request.getParameter("event_id");
                   Facility tent = new Tents();
@@ -66,19 +59,37 @@
                   ResultSet uTent = tent.findFacility(f_ID);
               %>
       <tr><%while(uTent.next()){%>
-          <td><%= uTent.getString("facilitiyName") %></td>
-          <td><%= uTent.getString("availableQuantity") %></td>
-          <td><input type="text" name="condition" value="<%= uTent.getString("totalQuantity") %>"/></td>
-          <td style="width:10%"><input type="text" name="condition" value="<%= uTent.getString("facilityCondition") %>" disabled/>
-                                    <select name="condition" style="width:100%;" required>
+          
+          <td style="width:30%; text-align:center;">Facility Name</td>
+          <td style="width:30%; text-align:center;"><input type="text" name="name" id="name" value="<%= uTent.getString("facilitiyName") %>"/>
+      </td>
+      <tr>
+          <td><input type="hidden" name="id" id="key" value="<%= f_ID %>"/></td>
+      </tr>
+      <tr>
+          <td style="width:30%">Available Quantity</td>
+          <td style="width:30%; text-align:center;"><input type="text" name="avalQ" value="<%= uTent.getString("availableQuantity") %>" disabled/></td>
+      </tr>
+      <tr>
+          <td style="width:30%; text-align:center;">Total Quantity</td>
+          <td style="width:30%; text-align:center;"><input type="text" name="totalQ" id="totalQ" value="<%= uTent.getString("totalQuantity") %>"/></td>
+      </tr>
+      <tr>
+          <td style="width:30%; text-align:center;">Facility Condition</td>
+          <td style="width:30%; text-align:center;"><input type="text" name="condition" value="<%= uTent.getString("facilityCondition") %>" />
+              <select name="condition1" style="width:100%;" id="condition">
                                         <option value="">select condition</option>                       
                                         <option value="good">good</option>
                                         <option value="very good">very good</option>
                                         <option value="bad">bad</option>
                                         <option value="very bad">very bad</option>            
                                     </select></td>
-                                    <td><button class="button button5">Update Changes</button></td>
-      </tr><%}%>
+                                    <!--<td><button type="buton" class="btn btn-success">Update Changes</button></td>-->
+      </tr>
+      <tr>
+          <td><button type="submit" class="btn btn-success">Update Changes</button></td>
+      </tr>
+      <%}%>
       
     </tbody>
   </table>

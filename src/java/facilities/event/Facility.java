@@ -122,8 +122,37 @@ public abstract class Facility {
 
     }
     
+    public String updateInfo(String name,int totalQuantity,String condition,String key) throws ClassNotFoundException, SQLException{
+    
+        String message="";
+        PreparedStatement queryUpdate = null;
+        
+         if (dbcon.isConnected()) {
+                Connection connect = dbcon.getCon();
+                
+                queryUpdate = connect.prepareStatement("UPDATE `facilities` SET `facilitiyName`= ?, `totalQuantity`= ?,`facilityCondition`= ? WHERE `facilityID`= ?");
+                queryUpdate.setString(1, name);
+                queryUpdate.setInt(2, totalQuantity);
+                queryUpdate.setString(3, condition);
+                queryUpdate.setString(4, key);
+                
+                int result = queryUpdate.executeUpdate();
+                
+                if(result == 1){
+                    message = "Record Updated";
+                }
+                else{
+                    message = "Record Update Failed! Please try again!";
+                }
+         }
+        
+        
+        
+        return message;
+    }
+    
     public ResultSet findFacility(String Key) throws ClassNotFoundException, SQLException{
-     PreparedStatement getA = null;
+        PreparedStatement getA = null;
 
         ResultSet itemRes = null;
 
@@ -478,5 +507,20 @@ public abstract class Facility {
     public abstract String add_Facility();
 
     public abstract ResultSet fetch();
+
+}
+
+
+
+class maintest{
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException{
+        
+        Facility l = new Tents();
+        System.out.println(l.updateInfo("FM Mic", 50, "very good", "S005"));
+    
+        
+        
+    }
 
 }

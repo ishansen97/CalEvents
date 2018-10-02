@@ -4,7 +4,10 @@
     Author     : User
 --%>
 
-<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="facilities.event.DBConnect"%>
+<%@page import="java.sql.ResultSet"%>   
 <%@page import="faciliyPackages.operations.Facility_Packages"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,33 +44,27 @@
                         <tbody>
                             <tr>
                                 <td><input type="checkbox" name="sounds" id="sounds" value="ON" /></td>
-                                <td><h4 class="alert-danger">Music</h4></td>
+                                <td><h4 class="alert-danger">Entertainment</h4></td>
+                                <%
+
+                                    DBConnect db = DBConnect.getInstance();
+                                    ResultSet fetchPackagesforCustomer = null;
+                                    PreparedStatement queryFetchPackages = null;
+
+                                        try{
+                                    if(db.isConnected()){
+                                        Connection con = db.getCon();
+                                        queryFetchPackages = con.prepareStatement("SELECT * FROM `facility_packages`");
+                                        fetchPackagesforCustomer = queryFetchPackages.executeQuery();
+                                        while(fetchPackagesforCustomer.next()){
+                                    
+                                    
+                                %>
+                                <td><input type="radio" name="packageselected" id="fetchPackagesforCustomer.getString("packageID")%>"/><%=fetchPackagesforCustomer.getString("packageName")%></td><%}%>
+                             
+                            <%}}catch(Exception e){ out.print(e);}%>
                             </tr>
-                            <tr id="soundsOpt" style="display:none;">
-                                <td><h4 class="alert-info">what kind of Music:</h4></td>
-                                <td align="right"><input type="radio" name="djlive" value="dj" /></td>
-                                <td><h4 class="alert-info">DJ</h4></td>
-                                <td align="right"><input type="radio" name="djlive" value="dj" /></td>
-                                <td><h4 class="alert-info">Live</h4></td>
-                            </tr>
-                            <tr id="lightsOpt" style="display:none;">
-                                <td><input type="checkbox" name="lighting" id="lighting"  value="ON" /></td>
-                                <td><h4 class="alert-danger">Lighting</h4></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="mics" id="mics"  value="ON" /></td>
-                                <td><h4 class="alert-danger">Microphones</h4></td>
-                            </tr>
-                            <tr id="micOpt" style="display:none;">
-                                <td><h4 class="alert-info">How many :</h4></td>
-                                <td><select name="microphones">
-                                        <option>1 Mic</option>
-                                        <option>2 Mic</option>
-                                        <option>3 Mic</option>
-                                        <option>4 Mic</option>
-                                        <option>5 Mic</option>
-                                    </select></td>
-                            </tr>
+
                             <tr>
                                 <td><input type="checkbox" name="chairs" id="chairs"  value="ON" /></td>
                                 <td><h4 class="alert-danger">Chairs</h4></td>
@@ -84,7 +81,7 @@
                     </table>
 
                 </div>
-                
+
                 <button>Confirm</button>
                 <button>Cancel</button>
             </div>

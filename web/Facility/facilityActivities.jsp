@@ -56,6 +56,9 @@
                 document.getElementById('shapeText2').style.display = 'none';
                 document.getElementById('shapet').style.display = 'none';
                 //show
+                document.getElementById('pricefac1').style.display = '';
+                document.getElementById('pricefac2').style.display = '';
+                document.getElementById('pricefac3').style.display = '';
                 document.getElementById('nameText1').style.display = '';
                 document.getElementById('nameText2').style.display = '';
                 document.getElementById('name').style.display = '';
@@ -404,6 +407,30 @@
                 padding-left: 0;
 
             }
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+
+            .button5 {
+                background-color: white;
+                color: black;
+                border: 2px solid #555555;
+            }
+            .button5:hover {
+                background-color: #555555;
+                color: white;
+            }
 
         </style>
     </head>
@@ -418,16 +445,25 @@
 
 
         <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+        <div class="w3-main" style="margin-left:350px;margin-top:43px;">
 
             <!--<div id="a" style="overflow:scroll; height:400px;">-->
-
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                    <input type="text" name="search" id="search" placeholder="Search for facilities"/>
+                    </div>
+                    <div class="col-sm-4">
+                        <button style="padding:3%; margin-top: 2.2%;" class="btn-success">SEARCH</button>
+                    </div>
+                </div>
+            </div>
             <div class="alert alert-success">
                 <h1>All Facilities</h1>
             </div>
-            <div class="container-fluid" style="overflow:scroll; height:400px;">
+            <div class="container-" style="overflow:scroll; height:400px;">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-4" style="smargin-left: 60px;">
                         <div class="alert alert-warning">
                             <h4>Tents Details</h4>
                         </div>
@@ -462,7 +498,7 @@
                     </div>
 
 
-                    <div class="col-sm-4">
+                    <div class="col-4" style="margin-left: 60px;">
                         <div class="alert alert-warning">
                             <h4>Sounds Details</h4>
                         </div>
@@ -496,7 +532,12 @@
                     </div>
 
 
-                    <div class="col-sm-4">
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-sm-4" style="smargin-left: 60px;">
                         <div class="alert alert-warning">
                             <h4>Tables Details</h4>
                         </div>
@@ -528,10 +569,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-4" style="margin-left: 60px;">
                         <div class="alert alert-warning">
                             <h4>Lights Details</h4>
                         </div>
@@ -561,9 +600,14 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
 
 
-                    <div class="col-sm-4">
+                <div class="row">
+
+
+
+                    <div class="col-sm-4" style="smargin-left: 60px;">
                         <div class="alert alert-warning">
                             <h4>Kitchen Utensils Details</h4>
                         </div>
@@ -597,7 +641,7 @@
                     </div>
 
 
-                    <div class="col-sm-4">
+                    <div class="col-4" style="margin-left: 60px;">
                         <div class="alert alert-warning">
                             <h4>Chairs Details</h4>
                         </div>
@@ -643,26 +687,26 @@
                 <button class="btn btn-danger" onclick="openTab('facilityactivitiesUPDATE')"  id="updatef">Update Facilities</button>
             </div>
 
-<!--            <script>
-                $("#addf").click(function () {
-                    $("#facilityactivitiesADD").toggle();
-                    $(document).scrollTop($(document).height());
-                });
-                $("#removef").click(function () { // when #showhidecomment is clicked
-                    $("#facilityactivitiesREMOVE").load("delete.jsp"); // load the sample.jsp page in the #chkcomments element
-                });
-
-                $("#removef").click(function () {
-                    $("#facilityactivitiesREMOVE").toggle();
-                    $(document).scrollTop($(document).height());
-                });
-
-                $("#updatef").click(function () {
-                    $("#facilityactivitiesUPDATE").toggle();
-                    $(document).scrollTop($(document).height());
-                });
-
-            </script>-->
+            <!--            <script>
+                            $("#addf").click(function () {
+                                $("#facilityactivitiesADD").toggle();
+                                $(document).scrollTop($(document).height());
+                            });
+                            $("#removef").click(function () { // when #showhidecomment is clicked
+                                $("#facilityactivitiesREMOVE").load("delete.jsp"); // load the sample.jsp page in the #chkcomments element
+                            });
+            
+                            $("#removef").click(function () {
+                                $("#facilityactivitiesREMOVE").toggle();
+                                $(document).scrollTop($(document).height());
+                            });
+            
+                            $("#updatef").click(function () {
+                                $("#facilityactivitiesUPDATE").toggle();
+                                $(document).scrollTop($(document).height());
+                            });
+            
+                        </script>-->
 
             <script>
                 function openTab(table_name) {
@@ -672,6 +716,7 @@
                         x[i].style.display = "none";
                     }
                     document.getElementById(table_name).style.display = "block";
+                    $(document).scrollTop($(document).height());
                 }
             </script>
 
@@ -681,7 +726,257 @@
             </div>
 
             <div style="display:none;" class="container-fluid add" id="facilityactivitiesUPDATE">
-                <%@include file="update.jsp" %>
+                <script>
+                    function displayModal(obj) {
+                        var item_id = obj;
+                        //alert(item_id);
+
+                        $.post("updateFacility.jsp", {event_id: item_id}, function (data) {
+                            $("#updateModal .modal-body").html(data);
+                        });
+                        $("#updateModal").modal();
+                    }
+                </script>
+
+
+                <div class="alert alert-danger">
+                    <h1>Update Facilities</h1>
+                </div>
+                <div class="alert-danger">
+                    <button class="button button5" onclick="openTu('tentTableu')">Tents</button>
+                    <button class="button button5" onclick="openTu('soundsTableu')">Sounds</button>
+                    <button class="button button5" onclick="openTu('lightsTableu')">Lights</button>
+                    <button class="button button5" onclick="openTu('kitchenTableu')">Kitchen Utensils</button>
+                    <button class="button button5" onclick="openTu('tablesTableu')">Tables</button>
+                    <button class="button button5" onclick="openTu('chairsTableu')">Chairs</button>
+                </div>
+
+
+                <div id="tentTableu" class="w3-container tableName" style="margin-left: 0%; margin-top: 0%;">
+
+                    <h2>Tent Information</h2>
+                    <p>bellow table contains all the currently available facilities regarding TENTS.</p>            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tent</th>
+                                <th>Available Quantity</th>
+                                <th>Total Quantity</th>
+                                <th>Condition</th>
+                                <th>Color</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%  Facility tentsU = new Tents();
+                                ResultSet tentsVU = tentsU.fetch();
+                            %>
+                            <tr><%while (tentsVU.next()) {%>
+                                <td><%= tentsVU.getString("facilitiyName")%></td>
+                                <td><%= tentsVU.getString("availableQuantity")%></td>
+                                <td><%= tentsVU.getString("totalQuantity")%></td>
+                                <td><%= tentsVU.getString("facilityCondition")%></td>
+                                <td><%= tentsVU.getString("tentColor")%></td>
+                                <td><%= tentsVU.getString("tentSize")%></td>
+                                <!--<td><a href="updateFacility.jsp?event_id=<%=tentsVU.getString("facilityID")%>" class="button button5">Update</a></td>-->
+                                <td><button class="button button5" type="button" id="<%=tentsVU.getString("facilityID")%>" onclick="displayModal(this.id)">Update</button></td>
+                            </tr><%}%>
+
+                        </tbody>
+                    </table>
+
+                </div>        
+
+
+                <div id="soundsTableu" class="w3-container tableName"  style="display: none;">
+
+                    <h2>Sound Equipment Information</h2>
+                    <p>bellow table contains all the currently available facilities regarding SOUND EQUIPMENTS.</p>            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sound Equipment</th>
+                                <th>Available Quantity</th>
+                                <th>Total Quantity</th>
+                                <th>Condition</th>
+                                <th>Brand</th>
+                        </thead>
+                        <tbody>
+                            <%  Facility soundsU = new Sounds();
+                                ResultSet soundsVU = soundsU.fetch();
+                            %>
+                            <tr><%while (soundsVU.next()) {%>
+                                <td><%= soundsVU.getString("facilitiyName")%></td>
+                                <td><%= soundsVU.getString("availableQuantity")%></td>
+                                <td><%= soundsVU.getString("totalQuantity")%></td>
+                                <td><%= soundsVU.getString("facilityCondition")%></td>
+                                <td><%= soundsVU.getString("soundsBrand")%></td>
+                                <!--<td><a href="updateFacility.jsp?event_id=<%=soundsVU.getString("facilityID")%>" class="button button5">Update</a></td>-->
+                                <td><button class="button button5" type="button" id="<%=soundsVU.getString("facilityID")%>" onclick="displayModal(this.id)">Update</button></td>
+                            </tr><%}%>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="lightsTableu" class="w3-container tableName"  style="display: none;">
+
+                    <h2>Lightning Equipment Information</h2>
+                    <p>bellow table contains all the currently available facilities regarding LIGHTNING EQUIPMENTS.</p>            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Light Equipment</th>
+                                <th>Available Quantity</th>
+                                <th>Total Quantity</th>
+                                <th>Condition</th>
+                        </thead>
+                        <tbody>
+                            <%  Facility lightsU = new Lights();
+                                ResultSet lightsVU = lightsU.fetch();
+                            %>
+                            <tr><%while (lightsVU.next()) {%>
+                                <td><%= lightsVU.getString("facilitiyName")%></td>
+                                <td><%= lightsVU.getString("availableQuantity")%></td>
+                                <td><%= lightsVU.getString("totalQuantity")%></td>
+                                <td><%= lightsVU.getString("facilityCondition")%></td>
+                                <!--<td><a href="updateFacility.jsp?event_id=<%=lightsVU.getString("facilityID")%>" class="button button5">Update</a></td>-->
+                                <td><button class="button button5" type="button" id="<%=lightsVU.getString("facilityID")%>" onclick="displayModal(this.id)">Update</button></td>
+                            </tr><%}%>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="kitchenTableu" class="w3-container tableName"  style="display: none;">
+
+                    <h2>Kitchen Utensils Information</h2>
+                    <p>bellow table contains all the currently available facilities regarding KITCHEN UTENSILS.</p>            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Available Quantity</th>
+                                <th>Total Quantity</th>
+                                <th>Condition</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%  Facility kitchenU = new KitchenUtensils();
+                                ResultSet kitchenVU = kitchenU.fetch();
+                            %>
+                            <tr><%while (kitchenVU.next()) {%>
+                                <td><%= kitchenVU.getString("facilitiyName")%></td>
+                                <td><%= kitchenVU.getString("availableQuantity")%></td>
+                                <td><%= kitchenVU.getString("totalQuantity")%></td>
+                                <td><%= kitchenVU.getString("facilityCondition")%></td>
+                                <td><%= kitchenVU.getString("kUType")%></td>
+                                <!--<td><a href="updateFacility.jsp?event_id=<%=kitchenVU.getString("facilityID")%>" class="button button5">Update</a></td>-->
+                                <td><button class="button button5" type="button" id="<%=kitchenVU.getString("facilityID")%>" onclick="displayModal(this.id)">Update</button></td>
+                            </tr><%}%>
+                        </tbody>
+                    </table>
+
+                </div> 
+
+                <div id="tablesTableu" class="w3-container tableName"  style="display: none;">
+
+                    <h2>Table Information</h2>
+                    <p>bellow table contains all the currently available facilities regarding TABLES.</p>            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Table Type</th>
+                                <th>Available Quantity</th>
+                                <th>Total Quantity</th>
+                                <th>Condition</th>
+                                <th>Table Size</th>
+                                <th>No Of Chairs</th>
+                                <th>Shape</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%  Facility tablesU = new Tables();
+                                ResultSet tablesVU = tablesU.fetch();
+                            %>
+                            <tr><%while (tablesVU.next()) {%>
+                                <td><%= tablesVU.getString("facilitiyName")%></td>
+                                <td><%= tablesVU.getString("availableQuantity")%></td>
+                                <td><%= tablesVU.getString("totalQuantity")%></td>
+                                <td><%= tablesVU.getString("facilityCondition")%></td>
+                                <td><%= tablesVU.getString("tableSize")%></td>
+                                <td><%= tablesVU.getString("nOfChairsPT")%></td>
+                                <td><%= tablesVU.getString("tableShape")%></td>
+                                <!--<td><a href="updateFacility.jsp?event_id=<%=tablesVU.getString("facilityID")%>" class="button button5">Update</a></td>-->
+                                <td><button class="button button5" type="button" id="<%=tablesVU.getString("facilityID")%>" onclick="displayModal(this.id)">Update</button></td>
+                            </tr><%}%>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div id="chairsTableu" class="w3-container tableName"  style="display: none;">
+
+                    <h2>Chair Information</h2>
+                    <p>bellow table contains all the currently available facilities regarding CHAIRS.</p>            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Available Quantity</th>
+                                <th>Total Quantity</th>
+                                <th>Condition</th>
+                                <th>Material</th>
+                        </thead>
+                        <tbody>
+                            <%  Facility chairsU = new Chairs();
+                                ResultSet chairsVU = chairsU.fetch();
+                            %>
+                            <tr><%while (chairsVU.next()) {%>
+                                <td><%= chairsVU.getString("facilitiyName")%></td>
+                                <td><%= chairsVU.getString("availableQuantity")%></td>
+                                <td><%= chairsVU.getString("totalQuantity")%></td>
+                                <td><%= chairsVU.getString("facilityCondition")%></td>
+                                <td><%= chairsVU.getString("chairMaterial")%></td>
+                                <!--<td><a href="updateFacility.jsp?event_id=<%=chairsVU.getString("facilityID")%>" class="button button5">Update</a></td>-->
+                                <td><button class="button button5" type="button" id="<%=chairsVU.getString("facilityID")%>" onclick="displayModal(this.id)">Update</button></td>
+                            </tr><%}%>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="modal fade" id="updateModal">
+                    <div class="modal-dialog" style="width: 1200px">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Update</h1>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <script>
+                    function openTu(table_name) {
+                        var i;
+                        var x = document.getElementsByClassName("tableName");
+                        for (i = 0; i < x.length; i++) {
+                            x[i].style.display = "none";
+                        }
+                        document.getElementById(table_name).style.display = "block";
+                    }
+                </script>
 
             </div>
             <div style="display:none;" class="container-fluid add" id="facilityactivitiesADD">
@@ -693,24 +988,24 @@
 
                     <div>
 
-                        <input type="button" class="btn btn-success" onclick="javascript:addTents();" value="Add Tents" name="tents" id="addt"/>
-                        <input type="button" class="btn btn-success" onclick="javascript:addSounds();" value="Add Sounds" name="sounds"/>
-                        <input type="button" class="btn btn-success" onclick="javascript:addKitchen();" value="Add Kitchen Utensils" name="kitchen"/>
-                        <input type="button" class="btn btn-success" onclick="javascript:addChairs();" value="Add Chairs" name="chairs"/>
-                        <input type="button" class="btn btn-success" onclick="javascript:addLights();" value="Add Lights" name="lights"/>
-                        <input type="button" class="btn btn-success" onclick="javascript:addTables();" value="Add Tables" name="tables"/>
+                        <input type="button" class="button button5" onclick="javascript:addTents();" value="Add Tents" name="tents" id="addt"/>
+                        <input type="button" class="button button5"  onclick="javascript:addSounds();" value="Add Sounds" name="sounds"/>
+                        <input type="button" class="button button5"  onclick="javascript:addKitchen();" value="Add Kitchen Utensils" name="kitchen"/>
+                        <input type="button" class="button button5" onclick="javascript:addChairs();" value="Add Chairs" name="chairs"/>
+                        <input type="button" class="button button5" onclick="javascript:addLights();" value="Add Lights" name="lights"/>
+                        <input type="button" class="button button5" onclick="javascript:addTables();" value="Add Tables" name="tables"/>
 
                         <table>           
 
                             <tr>
                                 <td id="nameText1" style="display: none" >Name </td>
                                 <td id="nameText2" style="display: none" >:</td>                    
-                                <td id="name" style="display: none" ><input type="text" name="name" id="name" required="" />
+                                <td id="name" style="display: none" ><input type="text" name="name" id="name" required="" /></td>
                             </tr>
                             <tr>
                                 <td id="quantityText1" style="display: none" >Quantity </td>
                                 <td id="quantityText2" style="display: none" >:</td>                  
-                                <td id="quantity" style="display: none" ><input type="text" name="quantity" id="quantity" required=""/>
+                                <td id="quantity" style="display: none" ><input type="text" name="quantity" id="quantity" required=""/></td>
                             </tr>  
                             <tr>
                                 <td id="conditionText1" style="display: none" > Condition  </td>  
@@ -728,43 +1023,50 @@
                             <tr>
                                 <td id="colorText1" style="display: none" >Color </td>
                                 <td id="colorText2" style="display: none" >:</td>
-                                <td id="colort" style="display: none" ><input type="text" name="color" id="color" />
+                                <td id="colort" style="display: none" ><input type="text" name="color" id="color" /></td>
                             </tr>
                             <tr>
                                 <td id="sizeText1" style="display: none" >Size </td>
                                 <td id="sizeText2" style="display: none" >:</td>          
-                                <td id="sizet" style="display: none" ><input type="text" name="size" id="size" />
+                                <td id="sizet" style="display: none" ><input type="text" name="size" id="size" /></td>
                             </tr>                 
                             <tr>
                                 <td id="brandText1" style="display: none" >Brand </td>
                                 <td id="brandText2" style="display: none" >:</td>          
-                                <td id="brandt" style="display: none" ><input type="text" name="brand" id="brand" />
+                                <td id="brandt" style="display: none" ><input type="text" name="brand" id="brand" /></td>
                             </tr>                
                             <tr>
                                 <td id="typeText1" style="display: none" >Type </td>
                                 <td id="typeText2" style="display: none" >:</td>          
-                                <td id="typet" style="display: none" ><input type="text" name="type" id="type" />
+                                <td id="typet" style="display: none" ><input type="text" name="type" id="type" /></td>
                             </tr>                    
                             <tr>
                                 <td id="mText1" style="display: none" >Material </td>
                                 <td id="mText2" style="display: none" >:</td>          
-                                <td id="mt" style="display: none" ><input type="text" name="material" id="material" />
+                                <td id="mt" style="display: none" ><input type="text" name="material" id="material" /></td>
                             </tr>                  
                             <tr>
                                 <td id="tbSizeText1" style="display: none" >Table Size </td>
                                 <td id="tbSizeText2" style="display: none" >:</td>          
-                                <td id="tbSizet" style="display: none" ><input type="text" name="tSize" id="tSize" />
+                                <td id="tbSizet" style="display: none" ><input type="text" name="tSize" id="tSize" /></td>
                             </tr>                   
                             <tr>
                                 <td id="noText1" style="display: none" >No Of Chairs </td>
                                 <td id="noText2" style="display: none" >:</td>          
-                                <td id="not" style="display: none" ><input type="text" name="no" id="no" />
+                                <td id="not" style="display: none" ><input type="text" name="no" id="no" /></td>
                             </tr>                  
                             <tr>
                                 <td id="shapeText1" style="display: none" >Shape </td>
                                 <td id="shapeText2" style="display: none" >:</td>          
-                                <td id="shapet" style="display: none" ><input type="text" name="shape" id="shape" />
-                            </tr>                
+                                <td id="shapet" style="display: none" ><input type="text" name="shape" id="shape" /></td>
+                            </tr> 
+                            <tr>
+                                <td id="pricefac1" style="display:none">Unit Price</td>
+                                <td id="pricefac2" style="display:none">:</td>
+                                <td id="pricefac3" style="display:none"><input type="text" name="price" id="price" /></td>
+
+
+                            </tr>
                         </table>
 
                         <br>
