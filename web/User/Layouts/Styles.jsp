@@ -11,7 +11,7 @@
 <link href="../External/Font-awesome/css/all.css" rel="stylesheet" type="text/css">
 <!-- Page level plugin CSS-->
 <link href="../External/Datatables/dataTables.bootstrap4.css" rel="stylesheet">
-
+<script src="DepartmentStatistics.js" type="text/javascript"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
 <style>

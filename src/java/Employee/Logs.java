@@ -43,6 +43,7 @@ public class Logs extends HttpServlet {
                 request.getSession().setAttribute("nav02", "");
                 request.getSession().setAttribute("nav03", "");
                 request.getSession().setAttribute("nav04", "w3-blue");
+		request.getSession().setAttribute("nav05", "");
 
                 request.getRequestDispatcher("/User/Log.jsp").forward(request, response);
 

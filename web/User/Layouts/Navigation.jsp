@@ -3,7 +3,7 @@
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
-    <span class="w3-bar-item w3-right">Logo</span>
+    <span class="w3-bar-item w3-right"><span style="background-image: linear-gradient(to bottom, red, transparent); padding: 0 5px">S</span>IMCOE <span style="background-image: linear-gradient(to bottom, darkcyan, transparent); padding: 0 5px">B</span>LUE & JAZZ</span>
 </div>
 <!--End of Top container -->
 
@@ -36,6 +36,7 @@
         <a href="Employees" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav02}" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees</a>
         <a href="Tasks" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav03}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Event Assignment</a>
         <a href="Logs" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav04}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Activity Log</a>
+        <a href="Statistics" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav05}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Statistics</a>
         <!--    <div class="w3-dropdown-hover">
             <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees <i class="fa fa-caret-down"></i></button>
             <div class="w3-dropdown-content w3-bar-block">
@@ -48,7 +49,7 @@
                 <footer class="w3-container w3-light-grey text-center pt-4 pb-2">
                     <p>Copyright © CalEvents 2018</p>
                 </footer>
-            </div>-->
+            </div>--> 
     </div>
 </nav>
 <!-- End of Sidebar/menu -->
@@ -117,7 +118,7 @@
                 }
             }
 
-            if (Business.forceSignOut() == true) {
+            if (Business.setAutoLogOut() == true) {
                 request.getSession().setAttribute("ForceSignOut", "Operating hours are now closed !");
                 response.sendRedirect("/CalEvents/ForceLogOut");
             }

@@ -1,3 +1,4 @@
+<%@page import="Employee.Time"%>
 <%@page import="Employee.Business"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -37,7 +38,7 @@
         <!-- Header with image -->
         <header class="bgimg w3-display-container" id="home">
             <div class="w3-display-bottomleft w3-padding">
-                <span class="w3-tag w3-xlarge">Open from <% out.print(Business.getBusinessHours()); %></span>
+                <span class="w3-tag w3-xlarge">Open from <% out.print(Business.getBusinessHours()); %> </span>
             </div>
             <div class="w3-display-middle w3-center">
                 <span class="w3-text-white w3-hide-small" style="font-size:100px">thin<br>CRUST PIZZA</span>

@@ -96,7 +96,7 @@
 
                             <div class="row">
 
-                                <div class="col-md-12 text-center py-md-3">
+                                <div class="col-md-12 text-center py-3">
                                     <form action="Update-Employee" method="POST">
                                         <table class="w3-table w3-striped" id="amit">
                                         </table>
@@ -123,7 +123,7 @@
 
                                             <%while (res.next()) {%>
 
-                                            <tr style="font-family: 'Quicksand', sans-serif; font-size: 17px; cursor: default" class="w3-hover-dark-gray">
+                                            <tr style="font-family: 'Quicksand', sans-serif; font-size: 19px; cursor: default" class="w3-hover-dark-gray">
                                                 <td><%=res.getString("id")%></td>
                                                 <td><%=res.getString("department")%></td>
                                                 <td><%=res.getString("first_name")%></td>
@@ -184,7 +184,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12 pl-3 pb-2" style="font-size: 16px">
+                                        <div class="col-md-12 pl-3 pb-2" style="font-size: 17px">
                                             <table class="mt-3 w3-table">
                                                 <tr class="w3-light-grey">
                                                     <td class="pl-3 py-2">Full name </td>

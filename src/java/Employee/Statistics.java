@@ -15,14 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Uditha
+ * @author RED HAWK
  */
-@WebServlet(name = "Tasks", urlPatterns = {"/E-Management/Tasks"})
-public class Tasks extends HttpServlet {
+@WebServlet(name = "Statistics", urlPatterns = {"/E-Management/Statistics"})
+public class Statistics extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -30,27 +29,19 @@ public class Tasks extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-           
-             Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
-                
-            // Setting active nav links
-            request.getSession().setAttribute("nav00", "w3-text-gray");
-            request.getSession().setAttribute("nav01", "");
-            request.getSession().setAttribute("nav02", "");
-            request.getSession().setAttribute("nav03", "w3-blue");
-            request.getSession().setAttribute("nav04", "");
-	    request.getSession().setAttribute("nav05", "");
-            
-            request.getRequestDispatcher("/User/Tasks.jsp").forward(request, response);
-            
-            }else{
-                    response.sendRedirect("/CalEvents/Admin");
-                }
-        }
+	    throws ServletException, IOException {
+	response.setContentType("text/html;charset=UTF-8");
+	try (PrintWriter out = response.getWriter()) {
+
+	    request.getSession().setAttribute("nav00", "");
+	    request.getSession().setAttribute("nav01", "");
+	    request.getSession().setAttribute("nav02", "");
+	    request.getSession().setAttribute("nav03", "");
+	    request.getSession().setAttribute("nav04", "");
+	    request.getSession().setAttribute("nav05", "w3-blue");
+	    
+	    request.getRequestDispatcher("/User/Statistics.jsp").forward(request, response);
+	}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,8 +55,8 @@ public class Tasks extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+	    throws ServletException, IOException {
+	processRequest(request, response);
     }
 
     /**
@@ -78,8 +69,8 @@ public class Tasks extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+	    throws ServletException, IOException {
+	processRequest(request, response);
     }
 
     /**
@@ -89,7 +80,7 @@ public class Tasks extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+	return "Short description";
     }// </editor-fold>
 
 }

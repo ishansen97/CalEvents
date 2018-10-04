@@ -1,125 +1,71 @@
 package Employee;
 
-import Connection.ServerConnection;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-public class Business {
+public class Business extends Time {
 
-    private static String sql;
-    private static ResultSet rs;
-    private static String OHR;
-    private static String CHR;
-    private static String UCHR;
-    static Date OT = null;
-    Date CT = null;
-
-    public static String openingHour() throws ClassNotFoundException, SQLException {
-
-        // Setting server connection
-        ServerConnection.setConnection();
-
-        if (ServerConnection.getConnectionStatus()) {
-            Connection con = ServerConnection.getConnection();
-
-            Statement st = con.createStatement();
-
-            sql = "SELECT time FROM business_hours WHERE business_hours.type = 'OHR'";
-            rs = st.executeQuery(sql);
-            while (rs.next()) {
-                OHR = rs.getString("time");
-		OT = rs.getTime("time");
-            }
-            return OHR;
-        }
-        return "Error in retrieving opening business hours";
-
+    public Business() {
+	super();
     }
 
-    public static String closingHour() throws ClassNotFoundException, SQLException {
+    // Function is called to display operating business hours (index.jsp)
+    public static String getBusinessHours() throws ClassNotFoundException, SQLException {
 
-        // Setting server connection
-        ServerConnection.setConnection();
+	//Creating a new Time object
+	Time time = new Time();
+	time.getOpeningTime();
+	time.getClosingTime();
 
-        if (ServerConnection.getConnectionStatus()) {
-            Connection con = ServerConnection.getConnection();
+	// Setting date format to be displayed as operating hours
+	SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
 
-            Statement st = con.createStatement();
+	// Getting values form time class(Parent) and formatting format accordingly
+	String businessOpensAt = timeFormat.format(openingTime);
+	String businessClosesAt = timeFormat.format(closingTime);
 
-            sql = "SELECT time FROM business_hours WHERE business_hours.type = 'CHR'";
-            rs = st.executeQuery(sql);
-            while (rs.next()) {
-                CHR = rs.getString("time");
-            }
+	String operatingHours = businessOpensAt + " to " + businessClosesAt;
 
-            try {
-                // 15minutes will be added from the time of closing time
-                SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-                Date d = df.parse(CHR);
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(d);
-                cal.add(Calendar.MINUTE, 15);
-                UCHR = df.format(cal.getTime());
-
-            } catch (Exception e) {
-                System.out.print(e);
-            }
-
-            return UCHR;
-        }
-        return "Error in retrieving closing business hours";
+	return operatingHours;
 
     }
+    
+    // Function will execute after operating business hours are over. This is to logout any user from using the system after operating hours.
+    public static boolean setAutoLogOut() throws ClassNotFoundException, SQLException {
 
-    public static boolean forceSignOut() throws ClassNotFoundException, SQLException {
+	Time time = new Time();
+	String newClosingTime = time.getClosingTime().replace(":", "");
 
-        String NCHR = closingHour().replace(":", "");
+	Date date = new Date();
+	SimpleDateFormat timeFormat = new SimpleDateFormat("HHmmss");
 
-        Date date = new Date();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HHmmss");
-        String currentTime = timeFormat.format(date);
+	int newClosingTimeInteger = Integer.parseInt(newClosingTime);
+	int currentTime = Integer.parseInt(timeFormat.format(date));
 
-        int CLOT = Integer.parseInt(NCHR);
-        int CURT = Integer.parseInt(currentTime);
+	int signOutTime = newClosingTimeInteger - currentTime;
 
-        int signOutTime = CLOT - CURT;
-
-        if (signOutTime > 0) {
-            return false;
-        } else {
-            return true;
-        }
-//        return false;
+	return signOutTime <= 0;
     }
 
+    // Function is called at login to see if operating hours are in tact. This function checks whether the current time is before or after the operating business hours.  
     public static boolean isOpenForBusiness() throws ClassNotFoundException, SQLException {
 
-        String NOHR = openingHour().replace(":", "");
-        String NCHR = closingHour().replace(":", "");
+	Time time = new Time();
+	String businessOpeningTime = time.getOpeningTime().replace(":", "");
+	String businessClosingTime = time.getClosingTime().replace(":", "");
 
-        Date date = new Date();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HHmmss");
-        String currentTime = timeFormat.format(date);
+	Date date = new Date();
+	SimpleDateFormat timeFormat = new SimpleDateFormat("HHmmss");
 
-        int OPNT = Integer.parseInt(NOHR);
-        int CLOT = Integer.parseInt(NCHR);
-        int CURT = Integer.parseInt(currentTime);
+	int openingTimeTnteger = Integer.parseInt(businessOpeningTime);
+	int openingTimeInteger = Integer.parseInt(businessClosingTime);
+	int currentTime = Integer.parseInt(timeFormat.format(date));
 
-        int openingTime = OPNT - CURT;
-        int closingTime = CLOT - CURT;
+	int businessOpens = openingTimeTnteger - currentTime;
+	int businessCloses = openingTimeInteger - currentTime;
 
-//        return true;
-        if (openingTime < 0 && closingTime > 0) {
-            return true;
-        } else {
-            return false;
-        }
-
+	return businessOpens < 0 && businessCloses > 0;
     }
 
 }

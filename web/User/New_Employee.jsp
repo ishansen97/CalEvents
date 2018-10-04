@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="font-size: 19px">
 
                             <div class="col-md-5 px-5 pb-5">
 
@@ -250,12 +250,12 @@
                                 <div class="card bg-light">
                                     <div class="card-body">
                                         <p class="text-success pb-3">How to create a new employee profile..</p>
-                                        <p><span class="fa fa-angle-right"></span> &nbsp All fields marked with <span class="fa fa-asterisk fa-1x text-danger" ></span> are compulsory to be filled &nbsp &nbsp &nbspto complete employee profile.</p>
-                                        <p><span class="fa fa-angle-right"></span> &nbsp Employee identification number will automatically <br>&nbsp &nbsp &nbspbe generated.</p>
-                                        <p><span class="fa fa-angle-right"></span> &nbsp Privilege mode is to give different access levels.<br> &nbsp &nbsp &nbspselect 1 for departments other than <span style="font-weight: 600">Event, Kitchen, <br>&nbsp &nbsp &nbspFacility. </span> </p>
-                                        <p><span class="fa fa-angle-right"></span> &nbsp Fill <span style="font-weight: 600">contact details</span> with updated and frequently <br>&nbsp &nbsp &nbspused details.</p>
+                                        <p><span class="fa fa-angle-right"></span> &nbsp All fields marked with <span class="fa fa-asterisk fa-1x text-danger" ></span> are compulsory to be filled to complete employee profile.</p>
+                                        <p><span class="fa fa-angle-right"></span> &nbsp Employee identification number will automatically be generated.</p>
+                                        <p><span class="fa fa-angle-right"></span> &nbsp Privilege mode is to give different access levels. Select 1 for departments other than <span style="font-weight: 600">Event, Kitchen, Facility. </span> </p>
+                                        <p><span class="fa fa-angle-right"></span> &nbsp Fill <span style="font-weight: 600">contact details</span> with updated and frequently used details.</p>
                                         <p><span class="fa fa-angle-right"></span> &nbsp Select a <span style="font-weight: 600">recently</span> taken photo of the employee.</p>
-                                        <p><span class="fa fa-angle-right"></span> &nbsp Once the profile has being created, employee login <br>&nbsp &nbsp &nbspwill be<span style="font-weight: 600"> Email for username, NIC/Passport for <br>&nbsp &nbsp &nbsppassword</span></p>
+                                        <p><span class="fa fa-angle-right"></span> &nbsp Once the profile has being created, employee loginwill be<span style="font-weight: 600"> Email for username, NIC/Passport for password</span></p>
                                     </div>
                                 </div>
                             </div>

@@ -19,7 +19,7 @@
             String logged_user = session.getAttribute("p_id").toString();
             ResultSet res = Employee.readEmployee(s, logged_user);
             while (res.next()) {
-                out.print("<tr style='font-family: 'Quicksand', sans-serif; font-size: 17px; cursor: default' class='w3-hover-dark-gray'>"
+                out.print("<tr style='font-family: 'Quicksand', sans-serif; font-size: 19px; cursor: default' class='w3-hover-dark-gray'>"
                         + "<td>" + res.getString("id") + "</td>"
                         + "<td>" + res.getString("department") + "</td>"
                         + "<td>" + res.getString("first_name") + "</td>"

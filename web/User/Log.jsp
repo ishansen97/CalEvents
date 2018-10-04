@@ -4,6 +4,34 @@
 <head>
 <title>Activity Log</title>
 <%@ include file="Layouts/Styles.jsp" %>
+<style>
+    .custom-text a{
+        color: black !important;
+    }
+
+            /* width */
+            div::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            /* Track */
+            div::-webkit-scrollbar-track {
+                background: rgb(241,241,241); 
+            }
+
+            /* Handle */
+            div::-webkit-scrollbar-thumb {
+                background: rgb(168,168,168);
+            }
+
+            /* Handle on hover */
+            div::-webkit-scrollbar-thumb:hover {
+                background: #888; 
+            }
+            ::-webkit-scrollbar-button {
+                background: #888;
+            }
+        </style>
 <script>  
 var request;  
 function sendInfo()  
@@ -66,21 +94,21 @@ document.getElementById('amit').innerHTML=val;
           
           
           
-        <div class="row pt-4">
+        <div class="row pt-4 pb-5">
             
             <div class="col-md-12 text-center py-md-3">
             <form action="Update-Employee" method="POST">
-                <table class="w3-table w3-striped" id="amit">
+                <table class="w3-table" id="amit">
                 </table>
             </form>
             </div>
   
-            <div class="col-md-12 text-center pb-5 py-2">
+            <div class="col-md-12 text-center pb-5 py-2" style="height: 71vh; overflow: scroll; overflow-x: hidden">
             <form action="Update-Employee" method="POST">
             <input type="text" value="read_Employee" name="action" hidden>
             
-            <table class="w3-table w3-bordered w3-hoverable">
-                <tr class='w3-blue-gray'>
+            <table class="w3-table">
+              <tr class='w3-blue-gray'>
                 <td>Actor</td>
                 <td>Activity</td>
                 <td>Date</td>
@@ -92,11 +120,19 @@ document.getElementById('amit').innerHTML=val;
 
               <%while (res.next()) { %>
               
-              <tr style="font-family: 'Quicksand', sans-serif; font-size: 17px" class="w3-hover-light-gray">
+              <tr style="font-family: 'Quicksand', sans-serif; font-size: 19px" class="w3-hover-light-gray custom-text">
                 <td style="width: 150px"><button class="btn btn-link" type="submit" name='empId' value="<%=res.getString("actor") %>"><%= res.getString("actor") %></button></td>
-                <td><%= res.getString("activity") %></td>
+                <td><a data-toggle="collapse" style="text-decoration: none" href="#<%= res.getString("id") %>" role="button" aria-expanded="false" aria-controls="collapseExample"><%= res.getString("activity") %></a></td>
                 <td style="width: 150px"><%= res.getDate("occurred_on") %></td>
                 <td style="width: 120px"><%= res.getTime("occurred_on") %></td>
+              </tr>
+              <tr style="font-family: 'Quicksand', sans-serif; font-size: 19px;" class="w3-light-gray">
+                  <td></td>
+                  <td colspan="3">
+                    <div class="collapse" id="<%= res.getString("id") %>"><br>
+                        <p><%= res.getString("descripition")%></p>
+                    </div>
+                  </td>
               </tr>
              
               <% } %>

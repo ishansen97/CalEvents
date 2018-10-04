@@ -48,6 +48,7 @@ public class Dashboard extends HttpServlet {
                 request.getSession().setAttribute("nav02", "");
                 request.getSession().setAttribute("nav03", "");
                 request.getSession().setAttribute("nav04", "");
+		request.getSession().setAttribute("nav05", "");
                 
                 //Setting default employee profile image path
                 request.getSession().setAttribute("empImgPath", "C:/Users/RED HAWK/Documents/NetBeansProjects/CalEvents/web/User/Images/");
