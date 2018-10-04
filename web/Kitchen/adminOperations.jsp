@@ -3,7 +3,7 @@
     Created on : Sep 30, 2018, 10:26:27 PM
     Author     : Lini Eisha
 --%>
-<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.ResultSet, java.util.ArrayList"%>
 <%@page import="test.fetch"%>
 <!DOCTYPE html>
 <html>
@@ -86,6 +86,28 @@
                 });
                 $("#updateModal").modal();
             }
+
+            $(document).ready(function () {
+                $("#food_item_name").change(function () {
+                    var food_item = $(this).val();
+                    alert(food_item);
+//                   var test = food_items.toString(); what if you use a servelet?mmmm i have no idea :3
+//                   var array = test.split(',');
+//                   alert(test);
+                    $("#ingredient_list").attr("value", food_item);
+//                   $("tbody #menu_details").each(function() {
+//                      var menu_food = $(this).attr("foodName");
+//                      alert(menu_food);
+//                      
+//                      if (menu_food === food_item) {
+//                          alert("found";);
+//                      }
+//                      else {
+//                          alert("not found";);
+//                      }
+//                   });
+                });
+            });
 
         </script>
     </head>
@@ -263,6 +285,8 @@
 
 
                     <%-- determine raw --%>
+                    <% String[] ingredients = null;
+                        ArrayList<String> ingredients_list = new ArrayList<String>(); %>
                     <div id="det" class="tab-pane fade in">
                         <br>      
                         <h3>Determine Raw Materials</h3>
@@ -283,14 +307,39 @@
                                         ResultSet foodI = food.getFood();
                                     %>
                                     <%while (foodI.next()) {%>
-                                    <tr>
+                                    <tr id="menu_details" foodName="<%=foodI.getString("name")%>">
                                         <td class="table-info"><%=foodI.getString("category")%></td>
                                         <td class="table-info"><%=foodI.getString("name")%></td>
                                         <td class="table-info"><%=foodI.getString("ingredients")%></td>
+                                        <td><button id="<%=foodI.getString("item_id")%>" name="insertRawQuantity" value="<%=foodI.getString("item_id")%>" onclick="displayModal(this.id)">Insert</button></td>
+                                        <% ingredients_list.add(foodI.getString("ingredients")); %>
                                     </tr>
                                     <%}%>
                                 </tbody>
                             </table> 
+                            <script>
+                                function displayModal(obj) {
+                                    var item_id = obj;
+                                    //alert(item_id);
+
+                                    $.post("insertIngQuantity.jsp", {menue_ID: item_id}, function (data) {
+                                        $("#insertIngModal .modal-body").html(data);
+                                    });
+                                    $("#insertIngModal").modal();
+                                }
+                            </script>
+                            <div class="modal fade" id="insertIngModal">
+                                <div class="modal-dialog" style="width: 1200px">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+<!--                                            <h1 class="modal-title">Insert Quantity</h1>-->
+                                        </div>
+                                        <div class="modal-body">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <form action="../detIns" method="POST" onclick="submit">
                             <h4>DETERMINE </h4>
@@ -300,10 +349,10 @@
                                     ResultSet nameitems = items.fetchItems();
                                 %>
                                 <tr>
-                                    <td><select name="nameitems">
-                                            <option>Food Name</option>
+                                    <td><select name="nameitems" id="food_item_name">
+                                            <option value="Food Name" data-value="">Food Name</option>
                                             <%while (nameitems.next()) {%>
-                                            <option><%=nameitems.getString("name")%></option>
+                                            <option value="<%=nameitems.getString("ingredients")%>"><%=nameitems.getString("name")%></option>
                                             <%}%>
                                         </select>
                                     </td>
@@ -313,12 +362,7 @@
                                         ResultSet names = raw.fetchData();
                                     %>
                                     <td>
-                                        <select name="name">
-                                            <option>Raw Material Name</option>
-                                            <%while (names.next()) {%>
-                                            <option><%=names.getString("name")%></option>
-                                            <%}%>
-                                        </select>
+                                        <input type="text" id="ingredient_list" value="">
                                     </td>
                                     <td>
                                         <input type="text" name="qty"  placeholder="Quantity" width="20%" required="" />
@@ -342,6 +386,7 @@
                         </table>  
 
                     </div>
+
 
 
                     <%-- Allocate raw  --%>
@@ -376,21 +421,22 @@
                                     <%}%>
                                 </tbody>
                             </table> 
+
                         </div>
                         <h4>ALLOCATE</h4>
-                        <table  class="table table-hover" >
-                            <%
-                                fetch event = new fetch();
-                                ResultSet eventName = items.fetchItems();
-                            %>
-                            <tr>
-                                <td><select name="eventList">
-                                        <option>Food Name</option>
-                                        <%while (eventName.next()) {%>
-                                        <option><%=eventName.getString("name")%></option>
-                                        <%}%>
-                                    </select>
-                                </td>
+                        <%--  <table  class="table table-hover" >
+                              <% 
+                                  fetch event = new fetch();
+                                  ResultSet eventName = items.fetchItems();
+                              %>
+                              <tr>
+                                  <td><select name="eventList">
+                                          <option>Food Name</option>
+                                          <%while (eventName.next()) {%>
+                                          <option><%=eventName.getString("name")%></option>
+                                          <%}%>
+                                      </select>
+                                  </td>
 
                                 <td>
                                     <input type="text" name="crowd"  placeholder="Expected crowd" required=""/>
@@ -418,21 +464,50 @@
                             </tr>
 
 
-                        </table>
+                        </table> --%>
 
+                        <div class="container">
+                            <div class="col-sm-8">
+                                <h4>Choose the Menu</h4>
+
+                                <select class="form-control" name="SelMenu">
+                                    <option value="0">Select Event</option>
+                                    <%
+                                        fetch event = new fetch();
+                                        ResultSet eventName = event.getOderRaw();
+                                    %>
+                                    <%while (eventName.next()) {%>
+                                    <option><%=eventName.getString("event_Name")%></option>
+                                    <%}%> 
+                                </select> 
+
+                            </div>
+
+                            <br> <br>
+
+
+                            <table class="table table-hover">
+
+                                <tr>
+                                    <th>Raw material</th>
+                                    <th>Expected crowd</th>
+                                    <th>Quantity</th>
+                                    <th>Total Quantity</th>
+                                    <th></th>
+                                </tr>
+
+                                <%
+
+                                %>
+
+                            </table>
+
+                        </div>
 
 
 
 
                     </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -477,12 +552,12 @@
                             %>
                         </div>
                     </div>
-                        
-                        
-                        
+
+
+
                 </div>
             </div>
-                </div>
-        
+        </div>
+
     </body>
 </html>

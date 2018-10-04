@@ -8,8 +8,8 @@ man ahanne anthimata mona huththak karalada meh wagey adaradayak kara gatte? eka
  */
 package test;
 
-
 import Connection.DBConnect;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,7 +46,7 @@ public class Raw_Determine {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getIDs(String tablename, String name) throws SQLException, ClassNotFoundException {
+  /*  public String getIDs(String tablename, String name) throws SQLException, ClassNotFoundException {
         PreparedStatement Query, qu = null;
         ResultSet resultQ;
 
@@ -81,7 +81,7 @@ public class Raw_Determine {
         }
         return "error";
 
-    }
+    }*/
 
     public String detRaw() throws ClassNotFoundException, SQLException {
         PreparedStatement addR, exist = null;
@@ -103,19 +103,13 @@ public class Raw_Determine {
             } else {
                 return "new record not inserted";
             }
-            
-   
-////    allocate
-//CREATE VIEW getOrderaw AS
-//SELECT mp.private_Id, mp.item_id , pe.crowd_expected , mi.ingredients , mi.name, pe.event_Name
-//FROM private_events pe, menu_private mp , menu_items mi
-//WHERE pe.event_ID = mp.private_Id AND mi.item_id = mp.item_id
-        }
-        else
+
+        } else {
             return "Connection error!!";
+        }
     }
-    
-    public int getCrowd(String event_name) throws ClassNotFoundException, SQLException{
+
+    public int getCrowd(String event_name) throws ClassNotFoundException, SQLException {
         ResultSet resultcrowd;
         PreparedStatement sq = null;
         int crowd = 0;
@@ -135,8 +129,8 @@ public class Raw_Determine {
 
         return crowd;
     }
-    
-        public double getQuantity(String name) throws ClassNotFoundException, SQLException {
+
+    public double getQuantity(String name) throws ClassNotFoundException, SQLException {
         ResultSet resultQuantityQ;
         PreparedStatement sq = null;
         double availableQuantity = 0.0;
@@ -157,13 +151,10 @@ public class Raw_Determine {
         return quantity;
 
     }
-    
-    
-    
-    
-    public String getTotal(int crowd, double quantity, String name, double availableQuantity) throws ClassNotFoundException, SQLException{
+
+    public double getTotal(int crowd, double quantity, String name, double availableQuantity) throws ClassNotFoundException, SQLException {
         PreparedStatement tot = null;
-        double total= 0.0;
+        double total = 0.0;
 
         double getTotal = getTotal(name);
         getTotal = crowd * quantity;
@@ -179,31 +170,69 @@ public class Raw_Determine {
 
             total = tot.executeUpdate();
 
-
-        if (total <availableQuantity ) {
-            return "record Added";
-        } else if(total > availableQuantity) {
-            return "Error";
-        }
+            if (total < availableQuantity) {
+                System.out.println("record Added");
+            } else if (total > availableQuantity) {
+                System.out.println("Not Enough raw materials");
+            }
         } else {
-            return "Conncetion error";
+            System.out.println("Conncetion error");
         }
-        return "oK";
-    }  
+
+        return total;
+    }
 
     private double getTotal(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public String reduceQuantity(String name, double total, double quantity) throws ClassNotFoundException, SQLException {
+
+        PreparedStatement reduce = null;
+        double reduced = 0;
+
+        double getNewQuantity = getQuantity(name);
+        getNewQuantity = quantity - total;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            reduce = connect.prepareStatement("UPDATE `raw_materials` SET `quantity` = ? WHERE `name` = ?");
+
+            reduce.setDouble(1, getNewQuantity);
+
+            reduce.setString(2, name);
+
+            reduced = reduce.executeUpdate();
+
+        } else {
+            return "connection error!";
+        }
+
+        if (reduced == 1) {
+            return "record added!";
+        } else {
+            return "record not added";
+        }
+
+    }
+                ////    allocate
+            //CREATE VIEW getOrderaw AS
+            //SELECT mp.private_Id, mp.item_id , pe.crowd_expected , mi.ingredients , mi.name, pe.event_Name
+            //FROM private_events pe, menu_private mp , menu_items mi
+            //WHERE pe.event_ID = mp.private_Id AND mi.item_id = mp.item_id
+    
+    
+    
 }
 
+class main {
 
-        class main {
-
-            public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
 //        Raw_Determine raw = new Raw_Determine(5 , "R008" , "mutton" , 0.5);
 //        System.out.println(raw.getMenuID("Apple Salad"));
 //        
-            }
+    }
 
-        }
+}

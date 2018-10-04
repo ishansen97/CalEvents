@@ -20,6 +20,10 @@
         <servlet-name>rawAllocate</servlet-name>
         <servlet-class>rawServelets.rawAllocate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QInsert</servlet-name>
+        <servlet-class>rawServelets.QInsert</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>rawAllocate</servlet-name>
         <url-pattern>/rawAllocate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QInsert</servlet-name>
+        <url-pattern>/QInsert</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

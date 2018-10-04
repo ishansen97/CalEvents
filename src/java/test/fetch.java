@@ -6,6 +6,7 @@
 package test;
 
 import Connection.DBConnect;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +50,7 @@ public class fetch {
         if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
 
-            statement = connect.prepareStatement("SELECT `name` FROM `menu_items`");
+            statement = connect.prepareStatement("SELECT * FROM `menu_items`");
 
             result = statement.executeQuery();
 
@@ -99,6 +100,25 @@ public class fetch {
 
     }
 
+    public ResultSet getFoodbyID(String id) throws SQLException, ClassNotFoundException {
+
+        ResultSet result = null;
+        PreparedStatement statement = null;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            statement = connect.prepareStatement("SELECT * FROM `menu_items` WHERE `item_id` = ? ");
+            statement.setString(1, id);
+
+            result = statement.executeQuery();
+
+        }
+
+        return result;
+
+    }
+
     public ResultSet getOderRaw() throws SQLException, ClassNotFoundException {
 
         ResultSet result = null;
@@ -114,9 +134,26 @@ public class fetch {
         }
 
         return result;
-
     }
+    //do you have a method to fetch menu item by item id?mmm check mekada kiyala
+    
+    
+        public ResultSet getAllocate() throws SQLException, ClassNotFoundException {
 
+        ResultSet result = null;
+        PreparedStatement statement = null;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            statement = connect.prepareStatement("SELECT * FROM `raw_allocate=" + request.getParameter("SelMenu") );
+
+            result = statement.executeQuery();
+
+        }
+
+        return result;
+        }
 }
 
 class d {

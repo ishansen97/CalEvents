@@ -146,7 +146,6 @@
                                             </tr>
                                         </thead>
 
-
                                         <tbody>
                                    <%--         <%while (name2.next()) {%>
                                             <tr>
