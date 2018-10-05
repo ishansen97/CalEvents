@@ -28,6 +28,10 @@
         <servlet-name>determinefacilities</servlet-name>
         <servlet-class>facilities.allocation.determinefacilities</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>aaaaaa</servlet-name>
+        <servlet-class>facilities.allocation.aaaaaa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>determinefacilities</servlet-name>
         <url-pattern>/determinefacilities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>aaaaaa</servlet-name>
+        <url-pattern>/aaaaaa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

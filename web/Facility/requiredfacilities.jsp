@@ -84,7 +84,7 @@
                     }
                 </script>
     <center>
-        <form action="../determinefacilities" method ="POST">
+        <!--<form action="../determinefacilities" method ="POST">-->
         <div class="container" style="overflow-y:scroll; height: 20%;">
             <div class="row">
                 <div class="col-md-8">
@@ -106,7 +106,7 @@
             
             if(dball.isConnected()){
                 Connection con = dball.getCon();
-                queryPrivateRequired = con.prepareStatement("SELECT * FROM `event_details`");
+                queryPrivateRequired = con.prepareStatement("SELECT * FROM `event_details` where status = 0");
                 privateRequired = queryPrivateRequired.executeQuery();
                 
                 while(privateRequired.next()){
@@ -153,7 +153,7 @@
             </div>
         </div>
             
-        </form>
+        <!--</form>-->
         
         </center>
         

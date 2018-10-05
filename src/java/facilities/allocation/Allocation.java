@@ -39,29 +39,23 @@ public class Allocation {
         
     }
 
-    public void find_facility_view() {
+    public void find_facility_view(String type) {
 
-        String type = this.facilityType.toLowerCase();
+        
 
-        if (type.equalsIgnoreCase("d")) {
-            System.out.println("sounds");
-            this.table = new Sounds();
-        } else if (type.equalsIgnoreCase("l")) {
+        if (type.equalsIgnoreCase("s")) {
             System.out.println("Sounds");
             this.table = new Sounds();
-        } else if (type.equalsIgnoreCase("li")) {
+        }else if (type.equalsIgnoreCase("l")) {
             System.out.println("Lights");
             this.table = new Lights();
-        } else if (type.equalsIgnoreCase("m")) {
-            System.out.println("Sounds");
-            this.table = new Sounds();
         } else if (type.equalsIgnoreCase("c")) {
             System.out.println("Chairs");
             this.table = new Chairs();
-        } else if (type.equalsIgnoreCase("t")) {
+        } else if (type.equalsIgnoreCase("h")) {
             System.out.println("Tents");
             this.table = new Tents();
-        } else if (type.equalsIgnoreCase("ta")) {
+        } else if (type.equalsIgnoreCase("t")) {
             System.out.println("Tables");
             this.table = new Tables();  
         } else if (type.equalsIgnoreCase("k")) {
@@ -80,6 +74,27 @@ public class Allocation {
 
     }
 
+    public boolean inserttoAllocation(String facility,int quantity,String eventID) throws ClassNotFoundException, SQLException{
+        PreparedStatement ps = null;
+        
+        if(dbcon.isConnected()){
+        
+            Connection con = dbcon.getCon();
+            ps = con.prepareStatement("INSERT INTO `allocation`(`facility`, `quantity`, `allocated`, `eventid`) VALUES (?,?,?,?)");
+            ps.setString(1, facility);
+            ps.setInt(2, quantity);
+            ps.setInt(3, 0);
+            ps.setString(4, eventID);
+            
+            int res = ps.executeUpdate();
+            if(res>0) return true;
+                
+            
+        }
+        
+    
+        return false;
+    }
     public ResultSet fetch_requested_facility_details() throws ClassNotFoundException, SQLException {
 
         ResultSet list = null;

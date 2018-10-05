@@ -24,6 +24,9 @@
         </style>
     </head>
     <body>
+        
+        <form action="../determinefacilities">
+            
 
         <%  String packageName = request.getParameter("event_id");
 
@@ -65,18 +68,19 @@
                         tentchecker = getrequiredchairsandstuff.getInt("tent");
                         eventID = getrequiredchairsandstuff.getString("eventID");
 
-        %>
+        %>  
         <table>
             <tr>
                 <td><h3>Chairs Required : </h3></td>
-                <td><h3><input type="text" id="quantityforallocation" name="quantityforallocation" placeholder="Enter Quantity" value="<%=getrequiredchairsandstuff.getString("chairs")%>"/></h3></td>
+                <td><h3><input type="text" id="quantityforallocation" name="quantityforallocat" placeholder="Enter Quantity" value="<%=getrequiredchairsandstuff.getString("chairs")%>"/></h3></td>
             </tr><%}%>
 
 
 
             <tr><% for (int i = 0; i < facilitiestoallocate.size(); i++) {%>
                 <td><h3><%=facilitiestoallocate.get(i)%></h3></td>
-                <td><input type="text" id="quantityforallocation" name="quantityforallocation" placeholder="Enter Quantity"/></td>
+                <td><input type="hidden" value="<%=facilitiestoallocate.get(i)%>" name="packageFacility"/></td>
+                <td><input type="text" id="quantityforallocation" name="Facquantityforallocation" placeholder="Enter Quantity"/></td>
             </tr><%}%>
             <tr>
                 <td></td>
@@ -104,7 +108,7 @@
             <option style="text-size:50px;"><%=tentstoallocate.getString("facilitiyName")%>(<%=tentstoallocate.getString("tentSize")%>)</option>
             <%}%>
         </select>
-
+        <input type="hidden" name="eventsID" value="<%=eventID%>" />
 
 
         <%
@@ -117,9 +121,10 @@
         %>
 
         <div style="margin-top:20px;">
-            <center><button class="btn btn-success">Allocate</button></center>
+            <center><button class="btn btn-success">Next</button></center>
         </div>
 
+        </form>
 
 
     </body>

@@ -6,6 +6,7 @@
 package facilities.allocation;
 
 import facilities.event.DBConnect;
+import facilities.event.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -47,39 +48,102 @@ public class determinefacilities extends HttpServlet {
             out.println("<title>Servlet determinefacilities</title>");
             out.println("</head>");
             out.println("<body>");
-            String packageName = request.getParameter("privatePackageName");
-
-            PreparedStatement getfacilitiesforpackage = null;
-            DBConnect dbconnect = DBConnect.getInstance();
-            ResultSet facilitiesforpackage = null;
-            ArrayList<String> facilitiestoallocate = new ArrayList();
-
+            out.println("<center>");
+            
+            //initializing
+            Facility t;
+            Facility c;
+            Facility s;
+            String tentID = "";
+            String[] tentname;
+            int packIQ = 0;
+            int available = 0;
+            int allocatedTentQ = 0;
+            int allocatedChairsQ = 0;
+            
+            String availableChairQuantity = "";
+            String availableTentQuantity = "";
+            String tname= "";
+            ArrayList<String> itemIds = new ArrayList();
+            ArrayList<Integer> availableitemQ = new ArrayList();
+            int chairFMessage = 0;
+            int tentSMessage = 0;
+            int tentFMessage = 0;
+            String[] itemSMessage ;
+            String[] itemFSMessage ; 
+            String eventsId = request.getParameter("eventsID");
+            
+            //chairs
+            String chair_quantity = request.getParameter("quantityforallocat");
+            c = new Chairs();
+            int caq = c.getAvailableQuantity("C005");
+            availableChairQuantity = Integer.toString(caq);
+            
+            //tents
+            String tentwithsize = request.getParameter("tents");
+            tentname = tentwithsize.split("\\(",2);
+            tname = tentname[0];
             try {
-                if (dbconnect.isConnected()) {
-                    Connection con = dbconnect.getCon();
-                    getfacilitiesforpackage = con.prepareStatement("SELECT `facilitiyName` FROM `packagesview` WHERE `packageName` = ?");
-                    getfacilitiesforpackage.setString(1, packageName);
-
-                    facilitiesforpackage = getfacilitiesforpackage.executeQuery();
-
-                    while (facilitiesforpackage.next()) {
-
-                        facilitiestoallocate.add(facilitiesforpackage.getString("facilitiyName"));
-
-                    }
-
-                    HttpSession session = request.getSession();
-                    session.setAttribute("requirede", facilitiestoallocate);
-                    response.sendRedirect("Facility/requiredfacilities.jsp");
-
-                    out.println("</body>");
-                    out.println("</html>");
+            t = new Tents();
+                
+                tentID = t.getItemID(tentname[0]);
+                availableTentQuantity = Integer.toString(t.getAvailableQuantity(tentID));
+                
+            } catch (Exception ex) {
+                Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            
+            //package
+            String[] package_items_quantities = request.getParameterValues("Facquantityforallocation");
+            String[] package_item_names = request.getParameterValues("packageFacility");
+            s = new Sounds();
+            for(int i = 0 ; i < package_item_names.length; i++){
+                try {
+                    
+                    itemIds.add(s.getItemID(package_item_names[i]));
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            String[] ids = itemIds.toArray(new String[itemIds.size()]);
+            
+            for(int j=0; j<ids.length;j++){
+                availableitemQ.add(s.getAvailableQuantity(ids[j]));
+            }
+            
+            Integer[] itaq = availableitemQ.toArray(new Integer[availableitemQ.size()]);
+            String[] itemQuantity = new String[itaq.length];
+            
+            for(int k=0;k<itaq.length;k++)
+                itemQuantity[k] = String.valueOf(itaq[k]);
+            
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("requestedChairQuantity",chair_quantity);
+            session.setAttribute("availableChairQuantity",availableChairQuantity);
+            session.setAttribute("tentwithsize",tentwithsize);
+            session.setAttribute("eventsId",eventsId);
+            session.setAttribute("availableTentQuantity",availableTentQuantity);
+            session.setAttribute("tentID",tentID);
+            session.setAttribute("package_item_names",package_item_names);
+            session.setAttribute("package_items_quantities",package_items_quantities);
+            session.setAttribute("ids",itemQuantity);
+            session.setAttribute("itemids",ids);
+            response.sendRedirect("Facility/allocated.jsp");
+            
+            
+            
+            
+            
+           
+
+            out.println("</center>");
+            out.println("</body>");
+            out.println("</html>");
+               
         }
     }
 

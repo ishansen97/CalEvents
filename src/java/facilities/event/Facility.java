@@ -130,11 +130,12 @@ public abstract class Facility {
          if (dbcon.isConnected()) {
                 Connection connect = dbcon.getCon();
                 
-                queryUpdate = connect.prepareStatement("UPDATE `facilities` SET `facilitiyName`= ?, `totalQuantity`= ?,`facilityCondition`= ? WHERE `facilityID`= ?");
+                queryUpdate = connect.prepareStatement("UPDATE `facilities` SET `facilitiyName`= ?, `totalQuantity`= ?,`facilityCondition`= ?,`availableQuantity`= ? WHERE `facilityID`= ?");
                 queryUpdate.setString(1, name);
                 queryUpdate.setInt(2, totalQuantity);
                 queryUpdate.setString(3, condition);
-                queryUpdate.setString(4, key);
+                queryUpdate.setInt(4, totalQuantity);
+                queryUpdate.setString(5, key);
                 
                 int result = queryUpdate.executeUpdate();
                 
@@ -170,7 +171,7 @@ public abstract class Facility {
             return itemRes;
     
     }
-    public String getItemID(String view, String name) throws ClassNotFoundException, SQLException {
+    public String getItemID(String name) throws ClassNotFoundException, SQLException {
 
         PreparedStatement ps = null;
         ResultSet result = null;
@@ -179,7 +180,7 @@ public abstract class Facility {
         if (dbcon.isConnected()) {
 
             Connection connect = dbcon.getCon();
-            ps = connect.prepareStatement("SELECT * FROM " + view + " WHERE `facilitiyName` = ? ");
+            ps = connect.prepareStatement("SELECT * FROM facilities WHERE `facilitiyName` = ? ");
             ps.setString(1, name);
 
             result = ps.executeQuery();
@@ -516,9 +517,10 @@ class maintest{
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException{
         
-        Facility l = new Tents();
-        System.out.println(l.updateInfo("FM Mic", 50, "very good", "S005"));
-    
+        String f = "solid(150 person)";
+        String[] p =f.split("\\(",2);
+        
+        System.out.println(p[0]);
         
         
     }

@@ -1,3 +1,5 @@
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="supporting.Fetch"%>
 <!DOCTYPE html>
 <html>
@@ -443,18 +445,117 @@
 
 
 
-
         <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:350px;margin-top:43px;">
+        <div id="bodyonme" class="w3-main" style="margin-left:350px;margin-top:43px;">
 
             <!--<div id="a" style="overflow:scroll; height:400px;">-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-8">
-                    <input type="text" name="search" id="search" placeholder="Search for facilities"/>
+                    <div class="col-sm-8" id="searchdiv">
+                        <form action="" method="get">
+                            <input class="form-control" type="text" name="search" id="search" placeholder="  just press ENTER to Search facilities "/>
+                        </form>
                     </div>
                     <div class="col-sm-4">
-                        <button style="padding:3%; margin-top: 2.2%;" class="btn-success">SEARCH</button>
+                        <!--<button style="padding:3%; margin-top: 2.2%;" class="btn-success">SEARCH</button>-->
+                        <button id="closesearch" style="margin-top: 2.2%;" class="btn btn-group-sm btn-info"><bold>minimize ^</bold></button>
+                        <script>
+
+
+
+                            var hoverOrClick = function () {
+                                $("#searchresult").show();
+                            }
+                            var bodyclick = function () {
+                                $("#searchresult").hide();
+                            }
+                            $('#search').click(hoverOrClick);
+                            $('#closesearch').click(bodyclick);
+//                                $(document).ready(function () {
+//                                    $("#search").hover(function () {
+//                                        $("#searchresult").show();
+//                                    },
+//                                            function () {
+//                                                $("#searchresult").hide();
+//                                            });
+//                                $("#search").click(function () {
+//                                   $("#searchresult").show(); 
+//                                });
+//                                $("#closesearch").click(function () {
+//                                   $("#searchresult").hide(); 
+//                                });
+//                                });
+                        </script>
+                    </div>
+
+                </div>
+                <div class="row" id="searchresult" style="overflow-y:scroll; height:200px;">
+                    <div class="col-sm-8">
+                        <h3 class="alert alert-success">Search Results</h3>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Facility Name</th>
+                                    <th>Category</th>
+                                    <th>Available Quantity</th>
+                                    <th>Total Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    Statement stat = null;
+                                    ResultSet res = null;
+                                    DBConnect dbcon = DBConnect.getInstance();
+                                    if (dbcon.isConnected()) {
+                                        Connection conn = dbcon.getCon();
+                                        stat = conn.createStatement();
+                                        String query = request.getParameter("search");
+                                        String data;
+                                        if (query != null) {
+                                            data = "SELECT * FROM `facilities` WHERE `facilityType` like '%" + query + "%' or `facilitiyName` like '%" + query + "%'";
+                                        } else {
+                                            data = "SELECT * FROM `facilities`";
+                                        }
+                                        res = stat.executeQuery(data);
+
+                                    }
+                                    while (res.next()) {
+                                %>
+                                <tr>
+                                    <td><h4><%=res.getString("facilitiyName")%></h4></td>
+                                    <td><h4><%=res.getString("facilityType")%></h4></td>
+                                    <td><h4><%=res.getString("availableQuantity")%></h4></td>
+                                    <td><h4><%=res.getString("totalQuantity")%></h4></td>
+                                    <td><td><button class="btn btn-info" type="button" id="<%=res.getString("facilityID")%>" onclick="displayModal(this.id)">Update</button></td>
+                                    <td><a href="deleteFacility.jsp?event_id=<%=res.getString("facilityID")%>" class="btn btn-danger">Delete</a></td>
+                                </tr><%}%>
+                            </tbody>
+                        </table>
+                        <script>
+                            function displayModal(obj) {
+                                var item_id = obj;
+                                //alert(item_id);
+
+                                $.post("updateFacility.jsp", {event_id: item_id}, function (data) {
+                                    $("#updateModal .modal-body").html(data);
+                                });
+                                $("#updateModal").modal();
+                            }
+                        </script>
+
+                        <div class="modal fade" id="updateModal">
+                            <div class="modal-dialog" style="width: 1200px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title">Update</h1>
+                                    </div>
+                                    <div class="modal-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -726,17 +827,6 @@
             </div>
 
             <div style="display:none;" class="container-fluid add" id="facilityactivitiesUPDATE">
-                <script>
-                    function displayModal(obj) {
-                        var item_id = obj;
-                        //alert(item_id);
-
-                        $.post("updateFacility.jsp", {event_id: item_id}, function (data) {
-                            $("#updateModal .modal-body").html(data);
-                        });
-                        $("#updateModal").modal();
-                    }
-                </script>
 
 
                 <div class="alert alert-danger">
@@ -945,18 +1035,6 @@
 
                 </div>
 
-                <div class="modal fade" id="updateModal">
-                    <div class="modal-dialog" style="width: 1200px">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title">Update</h1>
-                            </div>
-                            <div class="modal-body">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
 
