@@ -20,8 +20,8 @@
       <br>
       <div class="container">
         <div>
-            <h2>Overview</h2>
-            <hr>
+          <h2>Overview</h2>
+          <hr>
         </div>
         <div class="row" style="padding: 0">
           <%

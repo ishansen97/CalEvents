@@ -1,10 +1,10 @@
-function validateInput(input, match) {
+function validateInput(input, match, keepContent) {
   if (match === true || input.value.match(match)) {
     input.classList.remove('is-invalid');
     return true;
   }
-  input.classList.add('is-invalid');
   input.value = '';
+  input.classList.add('is-invalid');
   return false;
 }
 
@@ -25,4 +25,19 @@ function validatePayment() {
   var validExYY = validateInput(expYY, (dateYY >= new Date().getFullYear() % 100));
 
   return validCCNo && validCCV && validExMM && validExYY;
+}
+
+function validateExpense() {
+  var form = document.forms["expenses"];
+  var dept = form["dept"];
+  var desc = form["desc"];
+  var method = form["desc"];
+  var amount = form["amount"];
+
+  var validDept = validateInput(dept, dept.value !== "");
+  var validDesc = validateInput(desc, true);
+  var validMethod = validateInput(method, method.value !== "");
+  var validAmount = validateInput(amount, /^\d+(\.\d+)?$/);
+
+  return validDept && validDesc && validMethod && validAmount;
 }

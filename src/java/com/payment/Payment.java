@@ -5,6 +5,7 @@
  */
 package com.payment;
 
+import com.payment.utils.PaymentDB;
 import Connection.ServerConnection;
 import java.sql.Connection;
 import java.util.Date;
@@ -23,11 +24,12 @@ public class Payment {
 
     /**
      * Create new payment
+     *
      * @param resId Reservation ID
      * @param amount Payment amount
      * @param method Payment method
      */
-    Payment(String resId, String amount, String method) {
+    public Payment(String resId, String amount, String method) {
         this.resId = resId;
         this.amount = amount;
         this.method = method;
@@ -35,6 +37,7 @@ public class Payment {
 
     /**
      * Insert new payment to table
+     *
      * @return
      * @throws ClassNotFoundException
      * @throws SQLException
@@ -53,12 +56,12 @@ public class Payment {
             return true;
         }
 
-
         return false;
     }
 
     /**
      * Get all entries in the payment table
+     *
      * @return
      * @throws ClassNotFoundException
      * @throws SQLException

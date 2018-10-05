@@ -25,8 +25,9 @@
   <div class="w3-bar-block" id="w3-nav-buttons">
     <a href="./" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bar-chart-o fa-fw"></i>&nbsp; Overview</a>
     <a href="./events.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Events</a>
-    <a href="./payments.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; All Payments</a>
-    <a href="./payment_test.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users-cog fa-fw"></i>&nbsp; All Expenses</a>
+    <a href="./payments.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Payments</a>
+    <a href="./expenses.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users-cog fa-fw"></i>&nbsp; Expenses</a>
+    <a href="./make_expense.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users-cog fa-fw"></i>&nbsp; Add Expenses</a>
   </div>
 </nav>
 <!-- End of Sidebar/menu -->

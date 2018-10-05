@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.payment;
+package com.payment.servlets;
 
+import com.payment.utils.CreditCardValidator;
+import com.payment.Payment;
 import com.payment.exception.CreditCardExpiredException;
 import com.payment.exception.CreditCardNumberInvalidException;
 import java.io.IOException;

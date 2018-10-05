@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.payment;
+package com.payment.utils;
 
 import com.payment.exception.CreditCardNumberInvalidException;
 import com.payment.exception.CreditCardExpiredException;
