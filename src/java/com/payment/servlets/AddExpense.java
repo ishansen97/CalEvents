@@ -53,26 +53,14 @@ public class AddExpense extends HttpServlet {
             String method = request.getParameter("method");
             double amount = Double.parseDouble(request.getParameter("amount"));
 
-            out.println(dept);
-            out.println("<br>");
-            out.println(desc);
-            out.println("<br>");
-            out.println(method);
-            out.println("<br>");
-            out.println(amount);
-
             Expense expense = new Expense(dept, desc, method, amount);
             try {
-                ExpenseDao.createExpense(expense);
-                response.sendRedirect("expenses.jsp");
-            } catch (SQLException e) {
-                out.println(e);
+                if (ExpenseDao.createExpense(expense)) {
+                    response.sendRedirect("expenses.jsp");
+                }
             } catch (Exception e) {
-                out.println(e);
+                out.println("Error! " + e);
             }
-
-            out.println("ID: " + expense.getId());
-            out.println("<br>DATE" + expense.getDate().toString());
 
             out.println("</body>");
             out.println("</html>");

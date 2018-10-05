@@ -21,6 +21,7 @@ public class Fmt {
     private static SimpleDateFormat longDate;
     private static SimpleDateFormat detailedDate;
 
+    public final static String SHORT_ISO_FMT = "yyyy-MM-dd";
     public final static String SHORT_DATE_FMT = "dd/MM/yyyy";
     public final static String LONG_DATE_FMT = "MMMM dd, yyyy";
     public final static String DETAILED_DATE_FMT = "YYYY-MM-dd, hh:mm:ss";
@@ -29,6 +30,10 @@ public class Fmt {
         SimpleDateFormat fmt = new SimpleDateFormat(format, Locale.getDefault());
         fmt.setTimeZone(TimeZone.getDefault());
         return fmt;
+    }
+
+    private static SimpleDateFormat getShortISOFmt() {
+        return shortDate == null ? getDateFormat(SHORT_ISO_FMT) : shortDate;
     }
 
     private static SimpleDateFormat getShortDateFmt() {
@@ -43,8 +48,12 @@ public class Fmt {
         return detailedDate == null ? getDateFormat(DETAILED_DATE_FMT) : detailedDate;
     }
 
+    public static String toISODate(Date date) {
+        return (date == null) ? "" : getShortISOFmt().format(date);
+    }
+
     public static String toShortDate(Date date) {
-        return (date == null) ? "--/--/----" : getShortDateFmt().format(date);
+        return (date == null) ? "" : getShortDateFmt().format(date);
     }
 
     public static String toLongDate(Date date) {

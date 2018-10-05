@@ -1,3 +1,8 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="com.payment.utils.Graphs"%>
+<%@page import="com.payment.utils.Fmt"%>
+<%@page import="com.payment.PaymentDao"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.math.RoundingMode"%>
@@ -12,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="scripts/Chart.bundle.min.js" type="text/javascript"></script>
     <script src="scripts/palette.js" type="text/javascript"></script>
+    <script src="scripts/charts.js" type="text/javascript"></script>
     <%@ include file="Layouts/Styles.jsp" %>
     <%
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM");
@@ -48,35 +54,10 @@
         <hr>
         <br>
         <%
-            SimpleDateFormat datefmt = new SimpleDateFormat("dd/MM/yy");
             try {
-                ResultSet rs = Payment.getPaymentsForMonth(reqDate);
-                if (rs.next()) {
-                    rs.previous();
-                    ResultSet paymentSummary = Payment.getPaymentSummaryForMonth(reqDate);
-                    String paymentData = "";
-                    double paymentTotal = 0;
-                    double paymentSum;
-                    while (paymentSummary.next()) {
-                        paymentSum = paymentSummary.getDouble("sum(amount)");
-                        paymentTotal += paymentSum;
-                        paymentData += "{ "
-                                + "x: '" + paymentSummary.getString("date(date_time)") + "', "
-                                + "y: " + paymentSum + ", "
-                                + "},";
-                    }
-
-                    ResultSet eventsSummary = Payment.getEventsSummary(reqDate);
-                    String eventsLabels = "";
-                    String eventsData = "";
-                    int eventsTotal = 0;
-                    int eventsCount;
-                    while (eventsSummary.next()) {
-                        eventsCount = eventsSummary.getInt("count(event_id)");
-                        eventsTotal += eventsCount;
-                        eventsLabels += "'" + eventsSummary.getString("event_id") + "', ";
-                        eventsData += eventsCount + ", ";
-                    }
+                ArrayList<Payment> rs = PaymentDao.getPaymentsForMonth(reqDate);
+                if (!rs.isEmpty()) {
+                    HashMap<Integer, String> summary = Graphs.getPaymentSummary(reqDate);
         %>
         <div class="row" style="padding: 0">
           <div class="col-12">
@@ -91,82 +72,16 @@
                 <div class="row">
                   <div class="col-12">
                     <span class="text-secondary">
-                      Total Income: <b>$<%= String.format("%.2f", paymentTotal)%></b> <small>(from a total of <%= eventsTotal%> payments)</small>
+                      Total Income: <b>$<%= summary.get(Graphs.PAYMENT_TOTAL)%></b> <small>(from a total of <%= summary.get(Graphs.PAYMENT_EVENT_TOTAL)%> payments)</small>
                     </span>
                   </div>
                 </div>
 
                 <script>
-                  var paymentsGraph = document.getElementById("paymentsGraph").getContext("2d");
-                  var paymentData = [<%= paymentData%>];
-                  var paymentsLineGraph = new Chart(paymentsGraph, {
-                    type: 'line',
-                    data: {
-                      datasets: [
-                        {
-                          data: paymentData,
-                          borderColor: "rgb(120, 200, 40)",
-                          backgroundColor: "rgba(120, 200, 40, 0.2)",
-                        },
-                      ],
-                    },
-                    options: {
-
-                      title: {
-                        display: true,
-                        text: 'Income',
-                      },
-                      legend: {
-                        display: false,
-                      },
-                      scales: {
-                        barValueSpacing: 2,
-                        xAxes: [{
-                            type: "time",
-                            time: {
-                              unit: 'day',
-                              format: "YYYY-MM-DD",
-                              tooltipFormat: 'll',
-                            },
-                          }],
-                      },
-                      elements: {
-                        line: {
-                          tension: 0, // disables bezier curves
-                        }
-                      }
-                    }
-                  });
-
-                  var eventsPie = document.getElementById("eventsPie").getContext("2d");
-                  var eventsData = [<%= eventsData%>];
-                  var eventsLabel = [<%= eventsLabels%>];
-                  var eventsPieChart = new Chart(eventsPie, {
-                    type: 'doughnut',
-                    data: {
-                      labels: eventsLabel,
-                      datasets: [{
-                          label: "Most popular events",
-                          data: eventsData,
-                          backgroundColor: palette('cb-Pastel2', eventsData.length).map(function (hex) {
-                            return '#' + hex;
-                          }),
-                        }],
-                    },
-                    options: {
-                      title: {
-                        display: true,
-                        text: 'Most popular events',
-                      },
-                      legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                          boxWidth: 20
-                        },
-                      },
-                    }
-                  });
+                  window.addEventListener("DOMContentLoaded", function () {
+                    initPaymentsGraph("paymentsGraph", [<%= summary.get(Graphs.PAYMENT_SUMMARY)%>]);
+                    initEventsPie("eventsPie", [<%= summary.get(Graphs.PAYMENT_PIE_LABEL)%>], [<%= summary.get(Graphs.PAYMENT_PIE_DATA)%>]);
+                  })
                 </script></div>
             </div>
           </div>
@@ -191,20 +106,18 @@
                   </thead>
                   <tbody>
                     <%
-                        while (rs.next()) {
-                            double amount = rs.getDouble("amount");
-                            Date date = rs.getDate("pay_date");
+                        for (Payment p : rs) {
                     %>
                     <tr>
-                      <th><%= String.format("%05d", rs.getInt("pay_id"))%></th>
+                      <th><%= Fmt.toDec(p.getAmount())%></th>
                       <td>Customer Name</td>
-                      <td><%= rs.getString("event_name")%> (<a href="#"><%= rs.getString("event_id")%></a>)</td>
+                      <td><%= p.getEvent().getEventName()%> (<a href="#"><%= p.getEvent().getEventId()%></a>)</td>
                       <td class="text-right">
-                        <a class="btn btn-sm btn-outline-secondary" href="invoice.jsp?id=<%= String.format("%05d", rs.getInt("pay_id"))%>">View</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="invoice.jsp?id=<%= String.format("%05d", p.getId())%>">View</a>
                       </td>
-                      <td class="text-center"><%= datefmt.format(date)%></td>
-                      <td class="text-center"><%= rs.getString("pay_method")%></td>
-                      <td class="text-center">$<%= String.format("%.2f", amount)%></td>
+                      <td class="text-center"><%= Fmt.toShortDate(p.getDate())%></td>
+                      <td class="text-center"><%= p.getMethod()%></td>
+                      <td class="text-center">$<%= Fmt.toDec(p.getAmount())%></td>
                     </tr>
                     <% }%>
                   </tbody>

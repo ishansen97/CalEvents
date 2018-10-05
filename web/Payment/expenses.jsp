@@ -52,14 +52,6 @@
                   <div class="row">
                     <div class="col-9"><canvas id="expensesGraph" height="150" width="500"></canvas></div>
                     <div class="col-3"><canvas id="expensesPie" height="100" width="100"></canvas></div>
-                    <script>
-
-                      window.addEventListener('DOMContentLoaded', function () {
-                        console.log("wtf");
-                        initExpensesAllGraph("expensesGraph", [<%= summary.get(Graphs.SUMMARY_GRAPH)%>]);
-                        initExpensesPie("expensesPie", [<%= summary.get(Graphs.SUMMARY_PIE_DATA)%>], [<%= summary.get(Graphs.SUMMARY_PIE_LABELS)%>]);
-                      });
-                    </script>
                   </div>
                 </div>
               </div>
@@ -103,6 +95,12 @@
               </div>
             </div>
           </div>
+          <script>
+            window.addEventListener('DOMContentLoaded', function () {
+              initExpensesAllGraph("expensesGraph", [<%= summary.get(Graphs.SUMMARY_GRAPH)%>]);
+              initExpensesPie("expensesPie", [<%= summary.get(Graphs.SUMMARY_PIE_DATA)%>], [<%= summary.get(Graphs.SUMMARY_PIE_LABELS)%>]);
+            });
+          </script>
           <% } else {%>
           <div class="row">
             <div class="col-12 alert alert-info" role="alert">

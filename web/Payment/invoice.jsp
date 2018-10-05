@@ -1,3 +1,5 @@
+<%@page import="com.payment.utils.Fmt"%>
+<%@page import="com.payment.PaymentDao"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.NumberFormat"%>
@@ -19,19 +21,16 @@
     <%
         String id = request.getParameter("id");
         try {
-            ResultSet rs = Payment.getPaymentById(id);
+            Payment rs = PaymentDao.getPaymentById(id);
             SimpleDateFormat datefmt = new SimpleDateFormat("MMMM dd, yyyy");
-            while (rs.next()) {
-                NumberFormat decimal = new DecimalFormat("#0.00");
-                double amount_paid = rs.getDouble("amount");
-                String amountPaidStr = String.format("%.2f", amount_paid);
-                Date dateRes = rs.getDate("res_date");
-                Date datePay = rs.getDate("pay_date");
+            if (rs != null) {
+                double amount_paid = rs.getAmount();
+                String amountPaidStr = Fmt.toDec(rs.getAmount());
     %>
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
-        <h3>Invoice #<%= String.format("%05d", rs.getInt("pay_id"))%></h3>
-        <date><%= rs.getString("pay_date")%></date>
+        <h3>Invoice #<%= String.format("%05d", rs.getId())%></h3>
+        <date><%= Fmt.toDetailedDate(rs.getDate())%></date>
       </div>
       <hr>
       <br>
@@ -70,19 +69,19 @@
         <table class="table-sm" style="width: 300px">
           <tr>
             <th class="text-right pr-2">Reservation ID</th>
-            <th class="pl-3"><%= rs.getString("res_id")%></th>
+            <th class="pl-3"><%= rs.getId()%></th>
           </tr>
           <tr>
             <th class="text-right pr-2">Booked Date</th>
-            <td class="pl-3"><%= datefmt.format(dateRes)%></td>
+            <td class="pl-3"><%= Fmt.toLongDate(rs.getEvent().getResDate())%></td>
           </tr>
           <tr>
             <th class="text-right pr-2">Paid Date</th>
-            <td class="pl-3"><%= datefmt.format(datePay)%></td>
+            <td class="pl-3"><%= Fmt.toLongDate(rs.getDate())%></td>
           </tr>
           <tr>
             <th class="text-right pr-2">Payment Method</th>
-            <td class="pl-3"><%= rs.getString("pay_method")%></td>
+            <td class="pl-3"><%= rs.getMethod()%></td>
           </tr>
           <tr>
             <th class="text-right pr-2">Amount Paid</th>
@@ -101,9 +100,9 @@
         </thead>
         <tr>
           <td class="border-right-0">
-            <b><%=rs.getString("event_name")%></b>
+            <b><%=rs.getEvent().getEventName()%></b>
             <small class="text-small">
-              -- <%= rs.getString("event_id")%>
+              -- <%= rs.getEvent().getEventId()%>
             </small>
           </td>
           <td class="border-left-0"></td>
@@ -137,7 +136,7 @@
         <div class="d-flex justify-content-end">
           <a class="btn btn-sm btn-primary mr-2" href="#" onclick="window.print()">Print</a>
           <!-- ADMIN ONLY -->
-          <a class="btn btn-sm btn-danger" href="#" onclick="confirmDelete('<%= rs.getInt("pay_id")%>')">Delete</a>
+          <a class="btn btn-sm btn-danger" href="#" onclick="confirmDelete('<%= rs.getId()%>')">Delete</a>
         </div>
       </footer>
     </div>

@@ -31,30 +31,35 @@ public class ExpenseDao {
     private static String AMOUNT = "amount";
     private static String DATE = "date_time";
 
-    public static void createExpense(Expense expense) throws SQLException {
-        String generatedColumns[] = {ID};
-        String query
-                = "INSERT into expenses (dept, description, method, amount) "
-                + "VALUES (?, ?, ?, ?)";
+    public static boolean createExpense(Expense expense) {
+        try {
+            //        String generatedColumns[] = {ID};
+            String query
+                    = "INSERT into expenses (dept, description, method, amount) "
+                    + "VALUES (?, ?, ?, ?)";
 
-        Connection con = PaymentDB.getConnection();
-        PreparedStatement ps = con.prepareStatement(query, generatedColumns);
+            Connection con = PaymentDB.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
 
-        Date dateNow = new Date();
-        ps.setString(1, expense.getDept());
-        ps.setString(2, expense.getDesc());
-        ps.setString(3, expense.getMethod());
-        ps.setDouble(4, expense.getAmount());
+            Date dateNow = new Date();
+            ps.setString(1, expense.getDept());
+            ps.setString(2, expense.getDesc());
+            ps.setString(3, expense.getMethod());
+            ps.setDouble(4, expense.getAmount());
 
-        if (ps.executeUpdate() == 0) {
-            throw new SQLException("Creating expense failed, no rows affected.");
-        }
-
-        try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-            if (generatedKeys.next()) {
-                expense.setId(generatedKeys.getInt(1));
+            if (ps.executeUpdate() > 0) {
+                return true;
             }
+//
+//        try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+//            if (generatedKeys.next()) {
+//                expense.setId(generatedKeys.getInt(1));
+//            }
+//        }
+        } catch (SQLException ex) {
+            Logger.getLogger(ExpenseDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
 
     private static Expense getExpense(ResultSet rs) throws SQLException {
