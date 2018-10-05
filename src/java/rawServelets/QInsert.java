@@ -7,10 +7,15 @@ package rawServelets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import test.Raw_Determine;
+import test.fetch;
 
 /**
  *
@@ -40,8 +45,16 @@ public class QInsert extends HttpServlet {
             out.println("<body>");
             String[] rawName = request.getParameterValues("rawName");
             String[] rawQuantity = request.getParameterValues("ingQuantity");
+            String menuItemName = request.getParameter("menu_ID");
+            String rawID = "";
+            out.print("<br>"+menuItemName);
+            
             for(int i = 0 ; i < rawName.length ; i++){
             out.println("<h1>" + rawName[i] + "</h1>");
+            
+                
+                out.print("<br>"+rawID);
+           
             out.println("<h1>" + rawQuantity[i] + "</h1>");
             }
             out.println("</body>");
@@ -76,6 +89,21 @@ public class QInsert extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        PrintWriter out = response.getWriter();
+        
+//        int item_id = Integer.parseInt(request.getParameter("item_id"));
+//        String rawID = request.getParameter("rawID");
+//        double ingQuantity = Double.parseDouble(request.getParameter("ingQuantity"));
+//        
+//        
+//        Raw_Determine rawd = new Raw_Determine(item_id ,rawID , ingQuantity);
+//        String message = rawd.detRaw();
+//        
+//        if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/adminOperations.jsp");
+//        else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
+//        else if(message.equalsIgnoreCase("raw material already exist"))response.sendRedirect("Kitchen/wrong.jsp");
+        
     }
 
     /**

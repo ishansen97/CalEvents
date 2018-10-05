@@ -119,6 +119,31 @@ public class fetch {
 
     }
 
+    public String getItemID(String name) throws SQLException, ClassNotFoundException {
+
+        ResultSet result = null;
+        PreparedStatement statement = null;
+        String id = "";
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            statement = connect.prepareStatement("SELECT `rawID` FROM `raw_materials` WHERE `name` = ? ");
+            statement.setString(1, name);
+
+            result = statement.executeQuery();
+            while(result.next()){
+                
+                id = result.getString("rawID");
+            
+            }
+
+        }
+
+        return id;
+
+    }
+
     public ResultSet getOderRaw() throws SQLException, ClassNotFoundException {
 
         ResultSet result = null;
@@ -138,22 +163,22 @@ public class fetch {
     //do you have a method to fetch menu item by item id?mmm check mekada kiyala
     
     
-        public ResultSet getAllocate() throws SQLException, ClassNotFoundException {
-
-        ResultSet result = null;
-        PreparedStatement statement = null;
-
-        if (dbcon.isConnected()) {
-            Connection connect = dbcon.getCon();
-
-            statement = connect.prepareStatement("SELECT * FROM `raw_allocate=" + request.getParameter("SelMenu") );
-
-            result = statement.executeQuery();
-
-        }
-
-        return result;
-        }
+//        public ResultSet getAllocate() throws SQLException, ClassNotFoundException {
+//
+//        ResultSet result = null;
+//        PreparedStatement statement = null;
+//
+//        if (dbcon.isConnected()) {
+//            Connection connect = dbcon.getCon();
+//
+//            statement = connect.prepareStatement("SELECT * FROM `raw_allocate=" + request.getParameter("SelMenu") );
+//
+//            result = statement.executeQuery();
+//
+//        }
+//
+//        return result;
+//        }
 }
 
 class d {

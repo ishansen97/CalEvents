@@ -71,21 +71,36 @@
 
         <script>
 
-            function addRaw() {
-                document.getElementById('moreRaw').style.display = "block";
-                $(document).scrollTop($(document).height());
-            }
+//            function addRaw() {
+//                document.getElementById('moreRaw').style.display = "block";
+//                $(document).scrollTop($(document).height());
+//            }
 
+            $(document).ready(function() {
+               $("#nameList").change(function() {
+                   var name = $(this).val();
+                   var food_item = $(this).find(":selected").attr("fItem");
+                   var raw = $(this).find(":selected").attr("raw");
+                   var crowd = $(this).find(":selected").attr("crowd");
+                   
+                   $("#fItem").attr("value",food_item);
+                   $("#rawMaterial").attr("value",raw);
+                   $("#crowd").attr("value",crowd);
+                   
+               }); 
+            });
 
             function displayModal(obj) {
                 var rawID = obj;
-                //alert(rawID);
+                //alert(item_id);
 
-                $.post("updateRaw.jsp", {event_id: rawID}, function (data) {
+                $.post("updateRaw.jsp", {rawID: rawID}, function (data) {
                     $("#updateModal .modal-body").html(data);
                 });
                 $("#updateModal").modal();
             }
+
+
 
             $(document).ready(function () {
                 $("#food_item_name").change(function () {
@@ -139,14 +154,20 @@
                     <li><a data-toggle="tab" href="#allo">Allocate Raw</a></li>
                 </ul>
 
-                <% try { %>
+
                 <div class="tab-content">
 
 
                     <%-- insert raw --%>
                     <div id="ins" class="tab-pane fade in active"><br>      
                         <h3>Insert Raw Materials</h3>
-
+                        <hr>
+                        <form class="form-inline my-2 my-lg-0" action="..//SearchInsert ">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button>
+                        </form>
+                        
+                        <hr>
 
                         <div class="row">
                             <div class="col-6">
@@ -177,7 +198,7 @@
                             </div>
                             <div class="col-sm-6-" style="overflow-y:scroll; height:400px;">
                                 <div class="">
-                                    <table class="table" border="5" width="35%" cellspacing="2" >
+                                    <table class="table" border="3" width="35%" cellspacing="2" >
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>Raw Materials Name</th>
@@ -193,10 +214,10 @@
                                             %>
                                             <%while (data1.next()) {%>
                                             <tr>
-                                                <td class="table-info"><%=data1.getString("name")%></td>
-                                                <td class="table-info"><%=data1.getString("quantity")%></td>
-                                                <td class="table-info"><%=data1.getString("qType")%></td>
-                                                <td class="table-info" style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
+                                                <td><%=data1.getString("name")%></td>
+                                                <td><%=data1.getString("quantity")%></td>
+                                                <td><%=data1.getString("qType")%></td>
+                                                <td style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
                                             </tr>
                                             <%}%>
                                         </tbody>
@@ -211,11 +232,11 @@
                     <%-- delete raw --%>
                     <div id="del" class="tab-pane fade in"><br>      
                         <h3>Delete Raw Materials</h3>
-
-
-
+                        <hr>
+                       
+                        <hr>
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
-                            <table class="table" border="5" width="90%" cellspacing="5">
+                            <table class="table" border="3" width="90%" cellspacing="5">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>Raw Materials Name</th>
@@ -249,10 +270,12 @@
                     <%-- update raw --%>
                     <div id="upd" class="tab-pane fade in"><br>      
                         <h3>Update Raw Materials</h3>
-
+                        <hr>
+                       
+                        <hr>
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;" >
-                            <table class="table" border="5" width="90%" cellspacing="5" >
+                            <table class="table" border="3" width="90%" cellspacing="5" >
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>Raw Materials Name</th>
@@ -293,12 +316,13 @@
 
                         <hr><hr>
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
-                            <table class="table" border="5" width="35%" cellspacing="2" >
+                            <table class="table" border="3" width="35%" cellspacing="2" >
                                 <thead class="thead-dark">
                                     <tr>
                                         <th class="table-info">Menu Name</th>
                                         <th class="table-info">Food Name</th>
                                         <th class="table-info">Ingredients </th>
+                                        <th class="table-info"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -311,12 +335,13 @@
                                         <td class="table-info"><%=foodI.getString("category")%></td>
                                         <td class="table-info"><%=foodI.getString("name")%></td>
                                         <td class="table-info"><%=foodI.getString("ingredients")%></td>
-                                        <td><button id="<%=foodI.getString("item_id")%>" name="insertRawQuantity" value="<%=foodI.getString("item_id")%>" onclick="displayModal(this.id)">Insert</button></td>
+                                        <td><button class="btn btn-outline-info" id="<%=foodI.getString("item_id")%>" name="insertRawQuantity" value="<%=foodI.getString("item_id")%>" onclick="displayModal(this.id)">Insert</button></td>
                                         <% ingredients_list.add(foodI.getString("ingredients")); %>
                                     </tr>
                                     <%}%>
                                 </tbody>
-                            </table> 
+                            </table>
+
                             <script>
                                 function displayModal(obj) {
                                     var item_id = obj;
@@ -328,11 +353,12 @@
                                     $("#insertIngModal").modal();
                                 }
                             </script>
+
                             <div class="modal fade" id="insertIngModal">
                                 <div class="modal-dialog" style="width: 1200px">
                                     <div class="modal-content">
                                         <div class="modal-header">
-<!--                                            <h1 class="modal-title">Insert Quantity</h1>-->
+                                            <!--                                            <h1 class="modal-title">Insert Quantity</h1>-->
                                         </div>
                                         <div class="modal-body">
 
@@ -341,49 +367,17 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="../detIns" method="POST" onclick="submit">
-                            <h4>DETERMINE </h4>
-                            <table  class="table table-hover" >
-                                <%
-                                    fetch items = new fetch();
-                                    ResultSet nameitems = items.fetchItems();
-                                %>
-                                <tr>
-                                    <td><select name="nameitems" id="food_item_name">
-                                            <option value="Food Name" data-value="">Food Name</option>
-                                            <%while (nameitems.next()) {%>
-                                            <option value="<%=nameitems.getString("ingredients")%>"><%=nameitems.getString("name")%></option>
-                                            <%}%>
-                                        </select>
-                                    </td>
-                                    <%
 
-                                        fetch raw = new fetch();
-                                        ResultSet names = raw.fetchData();
-                                    %>
-                                    <td>
-                                        <input type="text" id="ingredient_list" value="">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="qty"  placeholder="Quantity" width="20%" required="" />
-                                    </td>
-                                    <td>
-                                    <td align="right"><button class="button" onclick="submit">INSERT</button>  </td> 
-                                    </td>
-                                </tr> 
-                            </table>
-                        </form>
-
-                        <table  class="table table-hover">
-                            <tr>
-                                <td>
-                                    <h4>  New Raw Material? </h4>
-                                </td>
-                                <td> 
-                                    <Button type="button"  class="btn btn-outline-info" value="add" onclick="addRaw()">Add Raw Material</button> 
-                                </td>
-                            </tr>
-                        </table>  
+                        <%--      <table  class="table table-hover">
+                                  <tr>
+                                      <td>
+                                          <h4>  New Raw Material? </h4>
+                                      </td>
+                                      <td> 
+                                          <Button type="button"  class="btn btn-outline-info" value="add" onclick="addRaw()">Add Raw Material</button> 
+                                      </td>
+                                  </tr>
+                              </table>  --%>
 
                     </div>
 
@@ -397,7 +391,7 @@
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:200px;">
 
-                            <table class="table" border="5" width="35%" cellspacing="2" >
+                            <table class="table" border="3" width="35%" cellspacing="2" >
                                 <thead class="thead-dark">
                                     <tr>
                                         <th class="table-info">Order Name</th>
@@ -470,14 +464,14 @@
                             <div class="col-sm-8">
                                 <h4>Choose the Menu</h4>
 
-                                <select class="form-control" name="SelMenu">
+                                <select class="form-control" name="SelMenu" id="nameList">
                                     <option value="0">Select Event</option>
                                     <%
                                         fetch event = new fetch();
                                         ResultSet eventName = event.getOderRaw();
                                     %>
                                     <%while (eventName.next()) {%>
-                                    <option><%=eventName.getString("event_Name")%></option>
+                                    <option value="<%=eventName.getString("event_Name")%>" fItem="<%=eventName.getString("item_id") %>" raw="<%=eventName.getString("ingredients") %>" crowd="<%=eventName.getString("crowd_expected") %>"><%=eventName.getString("event_Name")%></option>
                                     <%}%> 
                                 </select> 
 
@@ -489,18 +483,35 @@
                             <table class="table table-hover">
 
                                 <tr>
+                                    <th>Food Item</th>
                                     <th>Raw material</th>
                                     <th>Expected crowd</th>
                                     <th>Quantity</th>
                                     <th>Total Quantity</th>
                                     <th></th>
                                 </tr>
+                                <tr>
+                                    <td><input type="text" id="fItem"></td>
+                                    <td><p><input type="text" id="rawMaterial"></td>
+                                    <td><input type="text" id="crowd"></td>
+                                    <td><input type="text" id="quantity"></td>
+                                    <td><input type="text" id="total_quantity"></td>
+                                </tr>
 
-                                <%
-
-                                %>
+                               
 
                             </table>
+                            
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Food Item</th>
+                                    <th>Raw material</th>
+                                </tr></tr>
+                                    
+                            </table>
+                            
+                            
+                            
 
                         </div>
 
@@ -512,9 +523,9 @@
 
 
                     <%-- More Raw Materials --%>
-                    <div id="moreRaw"  style="display:none;" class="addMore">
-                        <div id="ins" class="tab-pane fade in active"><br>      
-                            <h3>Insert Raw Materials</h3>
+                    <%--  <div id="moreRaw"  style="display:none;" class="addMore">
+                         <div id="ins" class="tab-pane fade in active"><br>      
+                             <h3>Insert Raw Materials</h3>
 
 
                             <hr>
@@ -551,7 +562,7 @@
                                 }
                             %>
                         </div>
-                    </div>
+                    </div> --%>
 
 
 

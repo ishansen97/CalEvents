@@ -37,12 +37,16 @@ public class Raw_Determine {
     public Raw_Determine(int item_id, String rawID, String name, double quantity) {
         this.item_id = item_id;
         this.rawID = rawID;
-        this.name = name;
+        //this.name = name;
         this.quantity = quantity;
         this.dbcon = DBConnect.getInstance();
     }
 
     public Raw_Determine(String foodID, String rawID, double qty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Raw_Determine(int item_id, String rawID, double ingQuantity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -95,7 +99,7 @@ public class Raw_Determine {
             addR = connect.prepareStatement("INSERT INTO `raw_determine`(`item_id`, `rawID`, `quantity`) VALUES (? , ? , ?)");
             addR.setInt(1, item_id);
             addR.setString(2, rawID);
-            addR.setDouble(4, quantity);
+            addR.setDouble(3, quantity);
             res = addR.executeUpdate();
 
             if (res == 1) {
@@ -107,6 +111,22 @@ public class Raw_Determine {
         } else {
             return "Connection error!!";
         }
+    }
+    
+    public void insert(String[] name,String[] quantity) throws ClassNotFoundException, SQLException{
+        
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        
+        if(dbcon.isConnected()){
+            Connection con = dbcon.getCon();
+            ps = con.prepareStatement("");
+        }
+        
+        for(int i = 0 ; i < name.length ; i++){
+            System.out.println(name[i]);
+        }
+    
     }
 
     public int getCrowd(String event_name) throws ClassNotFoundException, SQLException {
@@ -230,7 +250,10 @@ class main {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-//        Raw_Determine raw = new Raw_Determine(5 , "R008" , "mutton" , 0.5);
+        Raw_Determine raw = new Raw_Determine();
+        String[] t = new String[]{"d","g"};
+        String[] r = new String[]{"d","g"};
+        raw.insert(t,r);
 //        System.out.println(raw.getMenuID("Apple Salad"));
 //        
     }

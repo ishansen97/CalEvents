@@ -32,6 +32,7 @@
         <%for(int i = 0 ; i  < arr.length ; i++){%>
         <h3><%=arr[i]%></h3><input type="text" name="ingQuantity" id="ingQ" placeholder="Quantity"/>
         <input type="hidden" name="rawName" id="rawName" value="<%=arr[i]%>"/>
+        <input type="hidden" name="menu_ID" id="menu_ID" value="<%=itemIns.getString("name")%>"/>
         <%}}%>
         <center><button class="btn btn-success" type="submit">Insert</button></center>
         </form>

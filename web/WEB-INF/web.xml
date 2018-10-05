@@ -24,6 +24,10 @@
         <servlet-name>QInsert</servlet-name>
         <servlet-class>rawServelets.QInsert</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchInsert</servlet-name>
+        <servlet-class>rawServelets.SearchInsert</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>QInsert</servlet-name>
         <url-pattern>/QInsert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchInsert</servlet-name>
+        <url-pattern>/SearchInsert</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
