@@ -49,7 +49,7 @@ public class addfacilityservelet extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet addfacilityservelet</title>");            
+//            out.println("<title>Servlet addfacilityservelet</title>");
 //            out.println("</head>");
 //            out.println("<body>");
 //            out.println("<h1>Servlet addfacilityservelet at " + request.getContextPath() + "</h1>");
@@ -93,10 +93,10 @@ public class addfacilityservelet extends HttpServlet {
         String buttonChairs = request.getParameter("chairss");
         String buttonLights = request.getParameter("lightss");
         String buttonTables = request.getParameter("tabless");
-        
+
         boolean error = false;
         String message;
-        
+
         String facilityType = null;
         String name = request.getParameter("name");
         String quantityStr = request.getParameter("quantity");
@@ -104,31 +104,31 @@ public class addfacilityservelet extends HttpServlet {
         String unitPrice = request.getParameter("price");
         double price = Double.parseDouble(unitPrice);
         int quantity = Integer.parseInt(quantityStr);
-        
+
         HashMap<String, String> extra = new HashMap<String, String>();
 
         if (buttonTents != null) {
             facilityType = "Tents";
             String color = request.getParameter("color").toString();
             String size = request.getParameter("size").toString();
-            
+
             extra.put("Color", color);
             extra.put("Size", size);
-            
+
             Facility tents = new Tents(name, quantity, condition, color, size);
-            message = tents.add_Facility();    
-            
+            message = tents.add_Facility();
+
         } else if (buttonSounds != null) {
             facilityType = "Sounds";
             String brand = request.getParameter("brand").toString();
 
             Facility sounds = new Sounds(name, brand, quantity, condition);
             message = sounds.add_Facility();
-            
+
         } else if (buttonKitchen != null) {
             facilityType = "Kitchen";
             String type = request.getParameter("type").toString();
-            
+
             extra.put("Utensil Type", type);
 
             Facility kitchen = new KitchenUtensils(name, quantity, condition, type);
@@ -136,31 +136,23 @@ public class addfacilityservelet extends HttpServlet {
         } else if (buttonChairs != null) {
             facilityType = "Chair";
             String material = request.getParameter("material").toString();
-            
+
             extra.put("Material", material);
 
             Facility chairs = new Chairs(name, quantity, condition, material);
             message = chairs.add_Facility();
-
-//            HttpSession session = request.getSession();
-//            session.setAttribute("FacilityErrorMessage", message);
-//            response.sendRedirect("Facility/facilityActivities.jsp");
         } else if (buttonLights != null) {
             facilityType = "Lights";
 
             Facility lights = new Lights(name, quantity, condition);
             message = lights.add_Facility();
-//
-//            HttpSession session = request.getSession();
-//            session.setAttribute("FacilityErrorMessage", message);
-//            response.sendRedirect("Facility/facilityActivities.jsp");
 
         } else if (buttonTables != null) {
             facilityType = "Tables";
             String size = request.getParameter("tSize").toString();
-            String noOfC = request.getParameter("chairs").toString();
+            String noOfC = request.getParameter("no").toString();
             String shape = request.getParameter("shape").toString();
-            
+
             extra.put("Tent Size", size);
             extra.put("Number of chairs", noOfC);
             extra.put("Shape", shape);
@@ -172,37 +164,26 @@ public class addfacilityservelet extends HttpServlet {
             error = true;
             out.println(message);
         }
-        
+
         if (!error) {
             out.println("<pre>");
-            
-//            String facilityType = null;
-//        String name = request.getParameter("name");
-//        String quantityStr = request.getParameter("quantity");
-//        String condition = request.getParameter("condition");
-//        String unitPrice = request.getParameter("price");
-//        double price = Double.parseDouble(unitPrice);
-//        int quantity = Integer.parseInt(quantityStr);
 
             FacilityExpense expense = new FacilityExpense(facilityType, name, condition, quantity, price, extra);
-            
+
             out.println("category: " + expense.getType());
             out.println("desc: " + expense.getDescription());
             out.println("notes: " + expense.getExtra());
             out.println("amount: " + expense.getTotalAmount());
             out.println("</pre>");
-            
+
             request.setAttribute("type", expense.getType());
             request.setAttribute("desc", expense.getDescription());
             request.setAttribute("notes", expense.getExtra());
             request.setAttribute("amount", expense.getTotalAmount());
-            
+
             RequestDispatcher rd = request.getRequestDispatcher("/Facility/facility_payment.jsp");
             rd.forward(request, response);
-            
-//            HttpSession session = request.getSession();
-//            session.setAttribute("FacilityErrorMessage", message);
-//            response.sendRedirect("Facility/facilityActivities.jsp");
+
         }
     }
 

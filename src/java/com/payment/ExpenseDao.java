@@ -32,33 +32,41 @@ public class ExpenseDao {
     private static String DATE = "date_time";
 
     public static boolean createExpense(Expense expense) throws SQLException {
-//        try {
-            //        String generatedColumns[] = {ID};
-            String query
-                    = "INSERT into expenses (dept, description, method, amount) "
-                    + "VALUES (?, ?, ?, ?)";
+        String query =
+                "INSERT into expenses (dept, description, method, amount) "
+                + "VALUES (?, ?, ?, ?)";
 
-            Connection con = PaymentDB.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
+        Connection con = PaymentDB.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
 
-//            Date dateNow = new Date();
-            ps.setString(1, expense.getDept());
-            ps.setString(2, expense.getDesc());
-            ps.setString(3, expense.getMethod());
-            ps.setDouble(4, expense.getAmount());
+        ps.setString(1, expense.getDept());
+        ps.setString(2, expense.getDesc());
+        ps.setString(3, expense.getMethod());
+        ps.setDouble(4, expense.getAmount());
 
-            if (ps.executeUpdate() > 0) {
-                return true;
-            }
-//
-//        try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-//            if (generatedKeys.next()) {
-//                expense.setId(generatedKeys.getInt(1));
-//            }
-//        }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ExpenseDao.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        if (ps.executeUpdate() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean addFacilityExpense(Expense expense) throws SQLException {
+        String query =
+                "INSERT INTO expenses (dept, description, method, amount, category, notes) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        Connection con = PaymentDB.getConnection();
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, expense.getDept());
+        ps.setString(2, expense.getDesc());
+        ps.setString(3, expense.getMethod());
+        ps.setDouble(4, expense.getAmount());
+        ps.setString(5, expense.getCategory());
+        ps.setString(6, expense.getNotes());
+
+        if(ps.executeUpdate() > 0) {
+            return true;
+        }
         return false;
     }
 

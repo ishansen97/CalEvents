@@ -13,13 +13,13 @@ import java.util.Map;
  * @author Lini Eisha
  */
 public class FacilityExpense {
-    
+
     private String type, name, condition;
     private int quantity;
 
     private double unitPrice, totalPrice;
     private Map<String, String> extraDetails;
-    
+
     public FacilityExpense(String type, String name, String condition, int quantity, double unitPrice, Map<String, String> extraDetails) {
         this.type = type;
         this.name = name;
@@ -28,36 +28,37 @@ public class FacilityExpense {
         this.unitPrice = unitPrice;
         this.extraDetails = extraDetails;
     }
-    
+
     public String getType() {
         return type;
     }
-    
+
     public String getDescription() {
         StringBuilder builder = new StringBuilder();
-        
+
         builder.append(type).append(": ");
         builder.append("Name: ").append(name).append(" ");
         builder.append("x ").append(quantity).append(" ");
         builder.append(String.format("($%.2f per item)", unitPrice));
-        
+
         return builder.toString();
     }
-    
+
     public String getExtra() {
         StringBuilder builder = new StringBuilder();
-        
-        builder.append("Condition: ").append(condition).append(", ");
+
+        builder.append("Condition: ").append(condition);
         for (Map.Entry<String, String> val : extraDetails.entrySet()) {
-            builder.append(val.getKey()).append(": ")
-                    .append(val.getValue()).append(", ");
+            builder.append(", ")
+                    .append(val.getKey()).append(": ")
+                    .append(val.getValue());
         }
-        
+
         return builder.toString();
     }
-    
+
     public double getTotalAmount() {
         return unitPrice * quantity;
     }
-    
+
 }
