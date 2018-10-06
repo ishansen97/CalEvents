@@ -37,7 +37,7 @@ var request;
 function sendInfo()  
 {  
 var v=document.log.search.value;  
-var url="/CalEvents/User/Search_Log.jsp?val="+v;  
+var url="/${p_nam}/User/Search_Log.jsp?val="+v;  
   
 if(window.XMLHttpRequest){  
 request=new XMLHttpRequest();  

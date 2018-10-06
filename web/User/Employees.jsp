@@ -33,7 +33,7 @@
             function sendInfo()
             {
                 var v = document.employees.search.value;
-                var url = "/CalEvents/User/Search_Employee.jsp?val=" + v;
+                var url = "/${p_nam}/User/Search_Employee.jsp?val=" + v;
 
                 if (window.XMLHttpRequest) {
                     request = new XMLHttpRequest();
@@ -86,7 +86,7 @@
                             <form name="employees">
                                 <div class="row pr-3 pt-4">
                                     <div class="col-md-2 offset-md-9 pr-0">
-                                        <input class="form-control rounded-0" type="number" placeholder="Enter Employee ID" name="search" onkeyup="sendInfo();">
+                                        <input class="form-control rounded-0" type="text" placeholder="Enter Employee ID" name="search" onkeyup="sendInfo();">
                                     </div>
                                     <div class="col-md-1 pr-1 pl-0">
                                         <button class="btn btn-primary btn-block rounded-0" type="button" onclick="sendInfo();">Search</button>

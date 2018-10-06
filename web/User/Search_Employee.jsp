@@ -5,7 +5,6 @@
     if (s == null || s.trim().equals("")) {
         out.print("Please enter a valid employee id");
     } else {
-        int id = Integer.parseInt(s);
         out.print("<input type='text' value='read_Employee' name='action' hidden>"
                 + "<input type='text' value='mini_Profile' name='redirectPath' hidden>");
         out.print("<tr class='w3-blue-gray'>"

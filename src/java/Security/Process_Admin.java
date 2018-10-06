@@ -124,6 +124,10 @@ public class Process_Admin extends HttpServlet {
                                     request.getSession().setAttribute("p_gender", res.getString("gender"));
                                     request.getSession().setAttribute("p_department", res.getString("department"));
                                     request.getSession().setAttribute("p_privilege_mode", res.getString("privilege_mode"));
+                                    
+                                    // Setting project name to be used for search function 
+                                    request.getSession().setAttribute("p_nam", "CalEvents");
+                                    
 
                                     switch (department) {
 

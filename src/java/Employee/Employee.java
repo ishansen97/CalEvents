@@ -176,7 +176,7 @@ public class Employee {
     
     
     // View specific employee
-    public static ResultSet readEmployee(String id, String logged_id) throws ClassNotFoundException, SQLException {
+    public static ResultSet readEmployee(String search, String logged_id) throws ClassNotFoundException, SQLException {
 
         ServerConnection.setConnection();
         String query = null;
@@ -186,7 +186,7 @@ public class Employee {
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
 
-            query = "SELECT * FROM employees WHERE id LIKE '"+id+"%' AND id NOT LIKE '"+logged_id+"' ORDER BY employees.id ASC";
+            query = "SELECT * FROM employees WHERE id LIKE '"+search+"%' OR first_name LIKE '"+search+"%' OR last_name LIKE '"+search+"%' AND id NOT LIKE '"+logged_id+"' ORDER BY employees.id ASC";
 
             res = st.executeQuery(query);
         }
