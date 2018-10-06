@@ -31,6 +31,7 @@
             fac.reduceAvailableQuantity(required , item_ID);
                 HttpSession sessionallocated = request.getSession();
                 sessionallocated.setAttribute("result","done");
+                sessionallocated.setAttribute("allocated_id", item_ID.toString());
                 response.sendRedirect("allocated.jsp");
             }
             else{

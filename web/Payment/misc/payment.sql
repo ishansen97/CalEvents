@@ -43,7 +43,7 @@ JOIN customer c WHERE
 DROP TABLE IF EXISTS expenses;
 
 CREATE TABLE `expenses` (
-  `exp_id` int(8) UNSIGNED ZEROFILL NOT NULL PRIMARY KEY,
+  `exp_id` int(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `dept` varchar(16) NOT NULL,
   `description` text NOT NULL,
   `method` varchar(12) NOT NULL,

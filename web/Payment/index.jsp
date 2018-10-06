@@ -1,3 +1,4 @@
+<%@page import="com.payment.PaymentDao"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.math.RoundingMode"%>
@@ -33,7 +34,8 @@
               Date dobj = fmt.parse(reqDate);
 
               try {
-                  ResultSet rs = Payment.getPaymentSummary();
+//                  throw new Exception("sasdasdasfa");
+                  ResultSet rs = PaymentDao.getPaymentSummary();
                   double incomeSum = 0;
                   double expenseSum = 0;
                   String data1 = "";

@@ -59,19 +59,24 @@
                 String[] itemids = (String[]) session.getAttribute("itemids");
 
                 String message = (String) session.getAttribute("result");
+                String allocatedId = (String) session.getAttribute("allocated_id");
                 if (message != null) {
             %>
             <script type="text/javascript">
-                var msg = "<%=message%>";
-                if (msg.localeCompare("done")) {
-                    alert(msg);
-                } else {
-                    document.getElementById("tentAll").style.visibility = "hidden";
-                }
+                
+//                window.addEventListener("DOMContentLoaded", function() {
+//                    var msg = "<%=message%>";
+//                    if (msg == "done") {
+//                        document.getElementById("c_<%=allocatedId%>").style.display = "none";
+////                        alert(msg);
+//                    } else {
+////                        document.getElementById("tentAll").style.visibility = "hidden";
+//                    }
+//                });
 
             </script><%
-                    session.removeAttribute("result");
-                }%>
+//                    session.removeAttribute("result");
+//                }%>
             <center>
                 <div class="container-fluid">
                     <!--<button class="btn btn-danger" id="openAddPackages">Add Packages</button>-->
@@ -85,7 +90,7 @@
                                             <h1 class="alert alert-info">Allocation Confirmation</h1>
                                             <table class="table table-hover">
                                                 <tbody>
-                                                    <tr>
+                                                    <tr id="c_C005">
                                                         <td class="info"><h3>Chairs Requested </h3></td>
                                                         <td class="warning"><h3><%=requestedChairQuantity%></h3></td>
                                                         <td class="info"><h3>Available Chairs Quantity :</h3></td>
@@ -95,7 +100,7 @@
 
 
                                                     </tr>
-                                                    <tr>
+                                                    <tr id="c_<%=tentID%>">
                                                         <td class="info"><h3><%=tentwithsize%>  Tent</h3></td>
                                                         <td class="warning"><h3>1</h3></td>
                                                         <td class="info"><h3>Available Tents Quantity :</h3></td>
@@ -104,7 +109,7 @@
                                                         <td><button id="tentID" class="btn btn-danger"><h4>Request</h4></button></td>
                                                     </tr>
                                                     <%for (int i = 0; i < package_item_names.length; i++) {%>
-                                                    <tr>
+                                                    <tr id="c_<%=ids[i]%>">
                                                         <td class="info"><h3><%=package_item_names[i]%></h3></td>
                                                         <td class="warning"><h3><%=package_items_quantities[i]%></h3></td>
                                                         <td class="info"><h3>Available Quantity :</h3></td>
