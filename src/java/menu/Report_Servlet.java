@@ -100,7 +100,7 @@ public class Report_Servlet extends HttpServlet {
                 //JasperViewer.viewReport(jasperPrint);
                 JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\Sohan\\Desktop\\CalEvents\\web\\Menu\\menu_reports\\"+report_name+".pdf");
                 
-//                response.sendRedirect("/Menu/menu_reports/"+report_name+".pdf");
+                response.sendRedirect(request.getContextPath() + "/Menu/menuReport.jsp");
 
                 out.println("hello");
             }
