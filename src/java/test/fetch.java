@@ -179,6 +179,29 @@ public class fetch {
 //
 //        return result;
 //        }
+    
+    
+    
+    
+    public ResultSet getRawbyID(String id) throws SQLException, ClassNotFoundException {
+
+        ResultSet result = null;
+        PreparedStatement statement = null;
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            statement = connect.prepareStatement("SELECT * FROM `raw_materials` WHERE `rawID` = ? ");
+            statement.setString(1, id);
+
+            result = statement.executeQuery();
+
+        }
+
+        return result;
+
+    }
+
 }
 
 class d {

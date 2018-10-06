@@ -28,8 +28,9 @@
     
       <!--<a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>-->
     
-      <a href="adminPanal.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Kitchen Management</a>
-      <a href="adminOperations.jsp" class="w3-bar-item w3-button w3-padding w3-blue" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Admin Operations</a>
+      <a href="adminPanal.jsp" class="w3-bar-item w3-button w3-padding w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Kitchen Management</a>
+      <a href="adminOperations.jsp" class="w3-bar-item w3-button w3-padding w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Admin Operations</a>
+      <a href="reports.jsp" class="w3-bar-item w3-button w3-padding w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Reports</a>
       
      <%-- <a href="#" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a> --%>
     

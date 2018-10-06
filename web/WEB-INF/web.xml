@@ -28,6 +28,10 @@
         <servlet-name>SearchInsert</servlet-name>
         <servlet-class>rawServelets.SearchInsert</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>update</servlet-name>
+        <servlet-class>rawServelets.update</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>SearchInsert</servlet-name>
         <url-pattern>/SearchInsert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>update</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
