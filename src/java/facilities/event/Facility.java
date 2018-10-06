@@ -130,12 +130,11 @@ public abstract class Facility {
          if (dbcon.isConnected()) {
                 Connection connect = dbcon.getCon();
                 
-                queryUpdate = connect.prepareStatement("UPDATE `facilities` SET `facilitiyName`= ?, `totalQuantity`= ?,`facilityCondition`= ?,`availableQuantity`= ? WHERE `facilityID`= ?");
+                queryUpdate = connect.prepareStatement("UPDATE `facilities` SET `facilitiyName`= ?, `totalQuantity`= ?,`facilityCondition`= ? WHERE `facilityID`= ?");
                 queryUpdate.setString(1, name);
                 queryUpdate.setInt(2, totalQuantity);
                 queryUpdate.setString(3, condition);
-                queryUpdate.setInt(4, totalQuantity);
-                queryUpdate.setString(5, key);
+                queryUpdate.setString(4, key);
                 
                 int result = queryUpdate.executeUpdate();
                 

@@ -49,7 +49,7 @@ public class determinefacilities extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<center>");
-            
+
             //initializing
             Facility t;
             Facility c;
@@ -60,46 +60,69 @@ public class determinefacilities extends HttpServlet {
             int available = 0;
             int allocatedTentQ = 0;
             int allocatedChairsQ = 0;
-            
+
             String availableChairQuantity = "";
-            String availableTentQuantity = "";
-            String tname= "";
+            int availableTentQuantity = 0;
+            String tname = "";
             ArrayList<String> itemIds = new ArrayList();
             ArrayList<Integer> availableitemQ = new ArrayList();
             int chairFMessage = 0;
             int tentSMessage = 0;
             int tentFMessage = 0;
-            String[] itemSMessage ;
-            String[] itemFSMessage ; 
+            String[] itemSMessage;
+            String[] itemFSMessage;
             String eventsId = request.getParameter("eventsID");
-            
+            Allocation all = new Allocation();
+
             //chairs
             String chair_quantity = request.getParameter("quantityforallocat");
             c = new Chairs();
             int caq = c.getAvailableQuantity("C005");
             availableChairQuantity = Integer.toString(caq);
-            
+            try {
+
+                if (all.toAllocate("Event Chairs", Integer.parseInt(chair_quantity), caq, eventsId,"C005")) {
+                    out.println("done");
+                }
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             //tents
             String tentwithsize = request.getParameter("tents");
-            tentname = tentwithsize.split("\\(",2);
+            tentname = tentwithsize.split("\\(", 2);
             tname = tentname[0];
             try {
-            t = new Tents();
-                
+                t = new Tents();
+
                 tentID = t.getItemID(tentname[0]);
-                availableTentQuantity = Integer.toString(t.getAvailableQuantity(tentID));
-                
+                availableTentQuantity = t.getAvailableQuantity(tentID);
+
+//                
+                if (all.toAllocate(tname, 1,availableTentQuantity, eventsId,tentID)) {
+                    out.println("done");
+                }
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
             } catch (Exception ex) {
                 Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-            
+            }
+            s = new Sounds();
+
             //package
             String[] package_items_quantities = request.getParameterValues("Facquantityforallocation");
             String[] package_item_names = request.getParameterValues("packageFacility");
-            s = new Sounds();
-            for(int i = 0 ; i < package_item_names.length; i++){
+            for (int i = 0; i < package_item_names.length; i++) {
                 try {
-                    
+
                     itemIds.add(s.getItemID(package_item_names[i]));
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,43 +130,48 @@ public class determinefacilities extends HttpServlet {
                     Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
             String[] ids = itemIds.toArray(new String[itemIds.size()]);
-            
-            for(int j=0; j<ids.length;j++){
+
+            for (int j = 0; j < ids.length; j++) {
                 availableitemQ.add(s.getAvailableQuantity(ids[j]));
             }
-            
+
             Integer[] itaq = availableitemQ.toArray(new Integer[availableitemQ.size()]);
             String[] itemQuantity = new String[itaq.length];
-            
-            for(int k=0;k<itaq.length;k++)
+
+            for (int k = 0; k < itaq.length; k++) {
                 itemQuantity[k] = String.valueOf(itaq[k]);
-            
-            
+                try {
+                    if (all.toAllocate(package_item_names[k], Integer.parseInt(package_items_quantities[k]),itaq[k], eventsId,ids[k])) {
+                        out.println("done");
+                    } else {
+                        out.println("failed");
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(determinefacilities.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
             HttpSession session = request.getSession();
-            session.setAttribute("requestedChairQuantity",chair_quantity);
-            session.setAttribute("availableChairQuantity",availableChairQuantity);
-            session.setAttribute("tentwithsize",tentwithsize);
-            session.setAttribute("eventsId",eventsId);
-            session.setAttribute("availableTentQuantity",availableTentQuantity);
-            session.setAttribute("tentID",tentID);
-            session.setAttribute("package_item_names",package_item_names);
-            session.setAttribute("package_items_quantities",package_items_quantities);
-            session.setAttribute("ids",itemQuantity);
-            session.setAttribute("itemids",ids);
-            response.sendRedirect("Facility/allocated.jsp");
-            
-            
-            
-            
-            
-           
+            session.setAttribute("eventsId", eventsId);
+            response.sendRedirect("Facility/toAllocate.jsp");
+//            session.setAttribute("requestedChairQuantity",chair_quantity);
+//            session.setAttribute("availableChairQuantity",availableChairQuantity);
+//            session.setAttribute("tentwithsize",tentwithsize);
+//            session.setAttribute("availableTentQuantity",availableTentQuantity);
+//            session.setAttribute("tentID",tentID);
+//            session.setAttribute("package_item_names",package_item_names);
+//            session.setAttribute("package_items_quantities",package_items_quantities);
+//            session.setAttribute("ids",itemQuantity);
+//            session.setAttribute("itemids",ids);
 
             out.println("</center>");
             out.println("</body>");
             out.println("</html>");
-               
+
         }
     }
 

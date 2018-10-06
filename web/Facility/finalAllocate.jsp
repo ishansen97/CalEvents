@@ -15,38 +15,44 @@
     </head>
     <body>
         <%
-            String eventID = request.getParameter("eventID");
-            String item_ID = request.getParameter("item_ID");
-            String item_Name = request.getParameter("itemName");
+//            String eventID = request.getParameter("eventID");
+            String item_ID = request.getParameter("ID");
+            String idStr = request.getParameter("ids");
+//            String item_Name = request.getParameter("itemName");
             String rq = request.getParameter("rq");
             String aq = request.getParameter("aq");
             int required = Integer.parseInt(rq);
             int available = Integer.parseInt(aq);
-            Allocation all = new Allocation();
-            
-            all.inserttoAllocation(item_Name, required, eventID);
-            
-            if(required<=available){
-            Facility fac = new Sounds();
-            fac.reduceAvailableQuantity(required , item_ID);
-                HttpSession sessionallocated = request.getSession();
-                sessionallocated.setAttribute("result","done");
-                response.sendRedirect("allocated.jsp");
+            int id = Integer.parseInt(idStr);
+//            
+            try {
+                Allocation all = new Allocation();
+                Facility fac = new Sounds();
+//            
+                if (required <= available) {
+                    fac.reduceAvailableQuantity(required, item_ID);
+                    Allocation allted = new Allocation();
+                    if (allted.setAllocated(id)) {
+
+                        HttpSession sessionallocated = request.getSession();
+                        sessionallocated.setAttribute("result", "done");
+                        response.sendRedirect("toAllocate.jsp");
+
+                }
+                    } else {
+                        HttpSession sessionallocatedE = request.getSession();
+                        sessionallocatedE.setAttribute("result", "Not Enough Quantity to Allocate. Try to Request!");
+                        response.sendRedirect("toAllocate.jsp");
+                    }
+            } catch (Exception e) {
+                   out.print("Exception");
             }
-            else{
-                HttpSession sessionallocated = request.getSession();
-                sessionallocated.setAttribute("result","Not Enough Quantity to Allocate.");
-                response.sendRedirect("allocated.jsp");
-            }
-            
-                
-        
+
+
         %>
-        <h1><%=eventID%></h1>
-        <h1><%=item_ID%></h1>
-        <h1><%=item_Name%></h1>
+<!--        <h1><%=item_ID%></h1>
         <h1>Required : <%=rq%></h1>
-        <h1>Available : <%=aq%></h1>
-        
+        <h1>Available : <%=aq%></h1>-->
+
     </body>
 </html>
