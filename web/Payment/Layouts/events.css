@@ -1,0 +1,77 @@
+.event-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.40em;
+  font-size: 0.80em;
+}
+.event-text {
+  color: #007BFF;
+  font-weight: bold;
+}
+
+.event--on-sale .event-text,
+.event--on-sale .event-status {
+  color: #83CC34;
+}
+.event--on-sale .event-progress {
+  background: #83CC34;
+}
+
+.event--sales-closed .event-text,
+.event--sales-closed .event-status  {
+  color: #E04141;
+}
+.event--sales-closed .event-progress {
+  background: #E04141;
+}
+
+.event--sold-out .event-text,
+.event--sold-out .event-status,
+.event--sold-out .event-booked {
+  color: #007BFF;
+}
+.event--sold-out .event-progress {
+  background: #007BFF;
+}
+
+.event-expected, .event-expenses, .event-income, .event-profit {
+  text-align: right;
+  font-weight: bolder;
+}
+
+.event-statistics .progress {
+  height: 1em;
+}
+
+.event--on-sale .event-profit {
+  opacity: 0.5;
+}
+
+.event .event-income {
+  font-size: 1.2em;
+}
+
+
+@keyframes hideProgress {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes animateProgress {
+  0% {
+    opacity: 0.5;
+    width: 0;
+    transform: scaleX(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(100%);
+  }
+}
+
+.event-progress {
+  animation: linear 200ms hideProgress, ease-out 1s animateProgress 200ms;
+}
