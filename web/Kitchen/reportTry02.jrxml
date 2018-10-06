@@ -1,27 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportTry02" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="154276d8-c68e-490e-8fbe-e367eb77c449">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportTry02" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="445b7bb6-ca6e-47a5-88e4-9de19cced2a1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM `raw_materials`]]>
+	</queryString>
+	<field name="rawID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qType" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unit_Price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="263" y="31" width="120" height="27" uuid="7eafe397-8848-4318-80d1-c7fcb9bb6df5"/>
+				<textElement>
+					<font fontName="Bahnschrift" size="14"/>
+				</textElement>
+				<text><![CDATA[RAW MATERIALS]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="0" width="100" height="20" uuid="c700601f-139e-465d-976b-bdc518c9f28c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="2" width="100" height="20" uuid="6c5225fa-7a28-44c8-a53a-0374252a36dd"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="2" width="100" height="20" uuid="b7d607df-da69-43a9-9f7d-3edeefa54bc5"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="2" width="100" height="20" uuid="ac2b07ba-fa80-4c1d-930f-1901171e059f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="15" y="1" width="100" height="20" uuid="ffa38927-5c04-4ca6-9006-fbabbee9da2a"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="100" height="20" uuid="bc3dbbd8-3488-43bb-a26b-560fa5e8a41a"/>
+				<textFieldExpression><![CDATA[$F{qType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="1" width="100" height="20" uuid="638eea4e-d205-4dae-a314-e45f4a4aee97"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="1" width="100" height="20" uuid="4824fb88-6e62-48a0-ad38-dd2bd7296746"/>
+				<textFieldExpression><![CDATA[$F{unit_Price}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="48" splitType="Stretch"/>
 	</summary>
 </jasperReport>

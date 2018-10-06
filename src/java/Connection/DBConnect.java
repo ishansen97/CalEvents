@@ -47,7 +47,12 @@ public class DBConnect {
         }
     }
 
-    public Connection getCon() {
-        return con;
+    public Connection getCon() throws ClassNotFoundException, SQLException {
+        if (isConnected()) {
+            return con;
+        }
+        else {
+            return null;
+        }
     }
 }

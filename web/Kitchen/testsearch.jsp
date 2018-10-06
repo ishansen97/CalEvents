@@ -17,10 +17,11 @@
 
     </head>
     <body>
-     <%--  <form class="form-inline my-2 my-lg-0" action="" method="get">
-              <input class="form-control" type="text" name="search" placeholder="Search" aria-label="Search">
-        <%--  <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button> 
-    </form>
+      <form class="form-inline my-2 my-lg-0" action="" method="get">
+              <input class="form-control" type="text" name="se" placeholder="Search">
+                <%--  <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button>  --%>
+   
+      </form>
     <div class="col-sm-6-" style="overflow-y:scroll; height:400px;">
         <div class="">
             <table class="table" border="3" width="35%" cellspacing="2" >
@@ -40,8 +41,8 @@
                             Statement stat = null;
                             ResultSet data1 = null;
 
-                            String query = request.getParameter("search");
-
+                            String query = request.getParameter("se");
+//
                             stat = con.createStatement();
                             String data;
                             if (query != null) {
@@ -54,18 +55,18 @@
                         %>
                         <%while (data1.next()) {%>
                         <tr>
-                            <td><%=data1.getString("name")%></td>
-                            <td><%=data1.getString("quantity")%></td>
+                            <td><%=data1.getString("name") %></td>
                             <td><%=data1.getString("qType")%></td>
-                            <td style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
+                            <td><%=data1.getDouble("quantity")%></td>
+                            <td style="text-align:right;"><%=data1.getDouble("unit_Price")%></td>
                         </tr>
-                        <%}%>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
-        </div> --%>
+        </div> 
 
-        <%
+   <%--     <%
             String name = request.getParameter("");
             try {
                 DBConnect db = DBConnect.getInstance();
@@ -86,7 +87,7 @@
             }
 
 
-        %> 
+        %> --%>
 
 
 

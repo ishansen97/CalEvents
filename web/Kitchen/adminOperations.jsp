@@ -24,7 +24,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        //hari
 
         <style> 
             body h3{
@@ -160,9 +159,10 @@
                         <hr>
 
                         <form class="form-inline my-2 my-lg-0" action="" method="get">
-                            <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
-                            <%--  <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button> --%>
-                        </form>
+              <input class="form-control" type="text" name="se" placeholder="Search">
+                <%--  <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button>  --%>
+   
+      </form>
 
                         <hr>
 
@@ -184,7 +184,7 @@
                                         </tr>
                                         <tr>
                                             <td> Quantity :</td>
-                                            <td><input type="text" name="qty"  placeholder="Quantity" required="" /></td>
+                                            <td><input type="text" name="qty"  placeholder="Quantity" required="" pattern="[0-9]+" /></td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -208,32 +208,32 @@
                                         </thead>
 
 
-                                        <%  fetch nameI = new fetch();
-                                            ResultSet data1 = nameI.fetchData(); %>
-                                        <%--   <%
-                                               DBConnect db = DBConnect.getInstance();
-                                               Connection con = db.getCon();
-                                               Statement stat = null;
-                                               ResultSet data1 = null;
-                                               stat = con.createStatement();
-                                               String query = request.getParameter("search");
-                                               String data;
-                                               if (query != null) {
-                                                   data = "SELECT * FROM `raw_materials` WHERE `name` LIKE '%' + query + '%' ";
-                                               } else {
-                                                   data = "SELECT * FROM `raw_materials`";
-                                               } 
-                                               data1 = stat.executeQuery(data); --%>
+                                        <%
+                                            DBConnect db = DBConnect.getInstance();
+                                            Connection con = db.getCon();
+                                            Statement stat = null;
+                                            ResultSet data1 = null;
 
+                                            String query = request.getParameter("se");
+//
+                                            stat = con.createStatement();
+                                            String data;
+                                            if (query != null) {
+                                                data = "SELECT * FROM `raw_materials` WHERE `name` LIKE '%" + query + "%' ";
+                                            } else {
+                                                data = "SELECT * FROM `raw_materials`";
+                                            }
+                                            data1 = stat.executeQuery(data);
 
+                                        %>
                                         <%while (data1.next()) {%>
                                         <tr>
                                             <td><%=data1.getString("name")%></td>
-                                            <td><%=data1.getString("quantity")%></td>
                                             <td><%=data1.getString("qType")%></td>
-                                            <td style="text-align:right;"><%=data1.getDouble("unit_price")%></td>
+                                            <td><%=data1.getDouble("quantity")%></td>
+                                            <td style="text-align:right;"><%=data1.getDouble("unit_Price")%></td>
                                         </tr>
-                                        <%}%>
+                                        <% } %>
 
                                     </table>
                                 </div>
@@ -247,12 +247,6 @@
                     <div id="del" class="tab-pane fade in"><br>      
                         <h3>Delete Raw Materials</h3>
                         <hr>
-
-                        <form class="form-inline my-2 my-lg-0" action="" method="get">
-                            <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
-                            <%--  <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button> --%>
-                        </form>
-
                         <hr>
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
                             <table class="table" border="3" width="90%" cellspacing="5">
@@ -290,12 +284,6 @@
                     <div id="upd" class="tab-pane fade in"><br>      
                         <h3>Update Raw Materials</h3>
                         <hr>
-
-                        <form class="form-inline my-2 my-lg-0" action="" method="get">
-                            <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
-                            <%--  <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button> --%>
-                        </form>
-
                         <hr>
 
                         <div class="col-sm-8" style="overflow-y:scroll; height:400px;" >
@@ -424,10 +412,10 @@
 
 
                     <%-- Allocate raw  --%>
-                    
+
                     <% String[] ingred = null;
                         ArrayList<String> ingred_list = new ArrayList<String>(); %>
-                        
+
                     <div id="allo" class="tab-pane fade in"><br>      
                         <h3>Allocate Raw Materials</h3>
 
@@ -455,8 +443,8 @@
                                         <td class="table-info"><%=foodO.getString("name")%></td>
                                         <td class="table-info"><%=foodO.getInt("crowd_expected")%></td>
                                         <td class="table-info"><%=foodO.getString("ingredients")%></td>
-                                        
-                                        
+
+
                                     </tr>
                                     <%}%>
                                 </tbody>

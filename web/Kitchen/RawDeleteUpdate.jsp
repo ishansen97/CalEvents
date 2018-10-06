@@ -1,9 +1,9 @@
 <%-- 
-    Document   : determine
-    Created on : Sep 1, 2018, 12:20:52 AM
+    Document   : RawDeleteUpdate
+    Created on : Oct 6, 2018, 10:53:31 AM
     Author     : Lini Eisha
 --%>
- 
+
 <%@page import="java.sql.Connection"%>
 <%@page import="Connection.*"%>
 <%@page import="java.sql.Statement"%>
@@ -130,69 +130,61 @@
 
         <div class="w3-main" style="margin-left:300px;margin-top:43px;">
             <div>
-                <center><h1>Raw Materials </h1></center>
+                <center><h1>Raw Operations </h1></center>
             </div>
 
-            
-             <%-- determine raw --%>
-                    <% String[] ingredients = null;
-                        ArrayList<String> ingredients_list = new ArrayList<String>(); %>
-                    <div id="det" class="tab-pane fade in">
-                        <br>      
-                        <h3>Determine Raw Materials</h3>
 
-                        <hr><hr>
-                        <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
-                            <table class="table" border="3" width="35%" cellspacing="2" >
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th class="table-info">Menu Name</th>
-                                        <th class="table-info">Food Name</th>
-                                        <th class="table-info">Ingredients </th>
-                                        <th class="table-info"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
-                                        fetch food = new fetch();
-                                        ResultSet foodI = food.getFood();
-                                    %>
-                                    <%while (foodI.next()) {%>
-                                    <tr id="menu_details" foodName="<%=foodI.getString("name")%>">
-                                        <td class="table-info"><%=foodI.getString("category")%></td>
-                                        <td class="table-info"><%=foodI.getString("name")%></td>
-                                        <td class="table-info"><%=foodI.getString("ingredients")%></td>
-                                        <td><button class="btn btn-outline-info" id="<%=foodI.getString("item_id")%>" name="insertRawQuantity" value="<%=foodI.getString("item_id")%>" onclick="displayModal(this.id)">Insert</button></td>
-                                        <% ingredients_list.add(foodI.getString("ingredients")); %>
-                                    </tr>
-                                    <%}%>
-                                </tbody>
-                            </table>
+            <%-- delete raw --%>
+            <div id="del" class="tab-pane fade in"><br>      
+                <h3>Delete / Update Raw Materials</h3>
+                <hr>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="se" aria-label="Search">
+                    <%-- <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button> --%>
+                </form>
+                <hr>
+                <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
+                    <table class="table" border="3" width="90%" cellspacing="5">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Raw Materials Name</th>
+                                <th>Quantity</th>
+                                <th>Quantity Type</th>
+                                <th>Unit Price</th>
+                                <th> </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                DBConnect db = DBConnect.getInstance();
+                                Connection con = db.getCon();
+                                Statement stat = null;
+                                ResultSet data1 = null;
 
-                            <script>
-                                function displayModal(obj) {
-                                    var item_id = obj;
-                                    //alert(item_id);
-
-                                    $.post("insertIngQuantity.jsp", {menue_ID: item_id}, function (data) {
-                                        $("#insertIngModal .modal-body").html(data);
-                                    });
-                                    $("#insertIngModal").modal();
+                                String query = request.getParameter("se");
+                                stat = con.createStatement();
+                                String data;
+                                if (query != null) {
+                                    data = "SELECT * FROM `raw_materials` WHERE `name` LIKE '%" + query + "%' ";
+                                } else {
+                                    data = "SELECT * FROM `raw_materials`";
                                 }
-                            </script>
+                                data1 = stat.executeQuery(data);
 
-                            <div class="modal fade" id="insertIngModal">
-                                <div class="modal-dialog" style="width: 1200px">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <!--                                            <h1 class="modal-title">Insert Quantity</h1>-->
-                                        </div>
-                                        <div class="modal-body">
+                            %>
+                            <%while (data1.next()) {%>
+                            <tr>
+                                <td style="text-align:center"><%=data1.getString("name")%></td>
+                                <td style="text-align:center"><%=data1.getString("quantity")%></td>
+                                <td style="text-align:center"><%=data1.getString("qType")%></td>
+                                <td style="text-align:center;"><%=data1.getDouble("unit_price")%></td>
+                                <td style="text-align:center"><a href="removeRaw.jsp?name=<%=data1.getString("name")%>" class="btn btn-danger">Delete</a></td>
+                                <td style="text-align:center"><a href="updateRaw.jsp?nameU=<%=data1.getString("name")%>" class="btn btn-warning" value="<%=data1.getString("name")%>" >Update</a></td> 
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                </div>
+            </div>

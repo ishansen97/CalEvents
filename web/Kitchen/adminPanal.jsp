@@ -45,6 +45,12 @@
                     cursor: pointer;
                     align-items: right;
                 }
+                h4{
+                    color:#0c5460;
+                    width: 45%;
+                    height:20%; 
+                }
+
             </style>
 
             <div>
@@ -52,17 +58,21 @@
             </div>
             <hr><hr>
             <center><h1 style="color:#10707f" >Raw Materials </h1></center>
-
-            <form class="form-inline my-2 my-lg-0" action="..//SearchInsert ">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button>
-            </form>
-
             <hr>
+
+            <h4>Avaliable Raw Materials</h4>
+            <div 
+                >
+                <form class="form-inline my-2 my-lg-0" action="..//SearchInsert ">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-info my-2 my-sm-0" id="insertsearch" type="submit">Search</button>
+                </form>
+            </div>
+
 
 
             <div class="card-body text-primary">
-                <div class="col-lg-8" style="overflow-y:scroll; height:400px;">
+                <div class="col-sm-8" style="overflow-y:scroll; height:400px;">
                     <div class="">
                         <table class="table" border="5" width="35%" cellspacing="2" >
                             <thead>
