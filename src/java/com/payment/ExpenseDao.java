@@ -30,6 +30,8 @@ public class ExpenseDao {
     private static String METHOD = "method";
     private static String AMOUNT = "amount";
     private static String DATE = "date_time";
+    private static String CATEGORY = "category";
+    private static String NOTES = "notes";
 
     public static boolean createExpense(Expense expense) throws SQLException {
         String query =
@@ -78,6 +80,9 @@ public class ExpenseDao {
         ex.setMethod(rs.getString(METHOD));
         ex.setAmount(rs.getDouble(AMOUNT));
         ex.setSQLDate(rs.getDate(DATE));
+        ex.setCategory(rs.getString(CATEGORY));
+        ex.setNotes(rs.getString(NOTES));
+
         return ex;
     }
 

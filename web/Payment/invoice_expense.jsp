@@ -19,6 +19,7 @@
               Expense expense = ExpenseDao.getExpense(id);
 
               if (expense != null) {
+                  String notes = expense.getNotes() != null ? "<div class='text-muted'>" + expense.getNotes() + "</div>" : "";
       %>
 
       <div class="d-flex justify-content-between align-items-center">
@@ -28,26 +29,34 @@
       <hr>
       <br>
 
+      <table class="table" style="max-width: 300px">
+        <tr>
+          <th>Method</th>
+          <td><%= Fmt.toTitleCase(expense.getMethod())%></td>
+        </tr>
+        <tr>
+          <th>Date</th>
+          <td><%= Fmt.toShortDate(expense.getDate())%></td>
+        </tr>
+      </table>
+      <br>
       <table class="table">
         <thead>
           <tr>
+            <th class="text-center" style="width: 13%">Department</th>
             <th>Descripton</th>
-            <th style="width: 13%">Department</th>
-            <th style="width: 13%">Date</th>
-            <th class="text-right" style="width: 10%">Method</th>
             <th class="text-right" style="width: 10%">Amount</th>
+
           </tr>
         </thead>
         <tr>
-          <td class="text-left"><%= expense.getDesc()%></td>
-          <td><%= Fmt.toTitleCase(expense.getDept())%></td>
-          <td><%= Fmt.toLongDate(expense.getDate())%></td>
-          <td class="text-right"><%= Fmt.toTitleCase(expense.getMethod())%></td>
+          <th class="text-center"><%= Fmt.toTitleCase(expense.getDept())%></th>
+          <td class="text-left"><%= expense.getDesc()%> <%= notes%></td>
           <td class="text-right">$ <%= Fmt.toDec(expense.getAmount())%></td>
         </tr>
-        <tfoot class="text-right">
-          <tr>
-            <td colspan="3"></td>
+        <tfoot style="font-size:1.2em">
+          <tr class="text-right">
+            <td></td>
             <th>Total</th>
             <th style="font-size: 1.2em">$ <%= Fmt.toDec(expense.getAmount())%></th>
           </tr>

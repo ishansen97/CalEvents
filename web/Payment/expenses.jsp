@@ -68,19 +68,21 @@
                   <table class="table table-striped text-center" style="margin:0">
                     <thead class="">
                     <th class="text-left">Invoice</th>
-                    <th class="text-left"width="100%">Description</th>
                     <th>Department</th>
+                    <th class="text-left"width="100%">Description</th>
                     <th>Date</th>
                     <th>Method</th>
                     <th class="text-right">Total</th>
                     <th></th>
                     </thead>
                     <tbody>
-                      <% for (Expense exp : expenses) {%>
+                      <% for (Expense exp : expenses) {
+                          String notes = exp.getNotes() != null ? "<div class='text-muted'>"+exp.getNotes()+"</div>" : "";
+                      %>
                       <tr>
                         <th class="text-left"><%= String.format("%05d", exp.getId())%></th>
-                        <td class="text-left"><%= exp.getDesc()%></td>
-                        <td><%= Fmt.toTitleCase(exp.getDept())%></td>
+                        <th><%= Fmt.toTitleCase(exp.getDept())%></th>
+                        <td class="text-left"><%= exp.getDesc()%> <%= notes%></td>
                         <td><%= Fmt.toShortDate(exp.getDate())%></td>
                         <td><%= Fmt.toTitleCase(exp.getMethod())%></td>
                         <td class="text-right">$<%= Fmt.toDec(exp.getAmount())%></td>
