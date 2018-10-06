@@ -6,6 +6,7 @@
 package com.payment.utils;
 
 import com.payment.Expense;
+import com.payment.ExpenseDao;
 import com.payment.PaymentDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,11 +22,57 @@ public class Graphs {
     public static int SUMMARY_PIE_DATA = 1;
     public static int SUMMARY_PIE_LABELS = 2;
 
-    public static int PAYMENT_SUMMARY = 100;
-    public static int PAYMENT_PIE_LABEL = 101;
-    public static int PAYMENT_PIE_DATA = 102;
-    public static int PAYMENT_TOTAL = 103;
-    public static int PAYMENT_EVENT_TOTAL = 104;
+    public static int PAYMENT_SUMMARY = 3;
+    public static int PAYMENT_PIE_LABEL = 4;
+    public static int PAYMENT_PIE_DATA = 5;
+    public static int PAYMENT_TOTAL = 6;
+    public static int PAYMENT_EVENT_TOTAL = 7;
+    public static int PAYMENT_SUM = 8;
+
+    public static int EXPENSE_SUMMARY = 9;
+    public static int EXPENSE_SUM = 10;
+
+    public static int PAYMENT_EXPENSE_BALANCE = 10;
+
+    public static HashMap<Integer, String> getIndexSummary() {
+        HashMap<Integer, String> summary = new HashMap<Integer, String>();
+        try {
+            ResultSet ps = PaymentDao.getPaymentSummary();
+            ResultSet es = ExpenseDao.getAllExpensesSummary();
+
+            double incomeSum = 0;
+            double expenseSum = 0;
+            StringBuilder income = new StringBuilder();
+            StringBuilder expense = new StringBuilder();
+
+            while (ps.next()) {
+                String date = ps.getString("year") + "/" + ps.getString("month");
+                double sum = ps.getDouble("sum");
+                income.append("{ x: '").append(date).append("', y: ").append(String.format("%.0f", sum)).append("}, ");
+                incomeSum += sum;
+            }
+
+            while (es.next()) {
+                String date = es.getString("year") + "/" + es.getString("month");
+                double rand = es.getDouble("sum");
+                expense.append("{ x: '").append(date).append("', y: ").append(String.format("%.0f", rand)).append("}, ");
+                expenseSum += rand;
+            }
+
+            summary.put(PAYMENT_SUMMARY, income.toString());
+            summary.put(EXPENSE_SUMMARY, expense.toString());
+            summary.put(PAYMENT_SUM, Fmt.toDec(incomeSum));
+            summary.put(EXPENSE_SUM, Fmt.toDec(expenseSum));
+            summary.put(PAYMENT_EXPENSE_BALANCE, Fmt.toDec(incomeSum - expenseSum));
+
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Graphs.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Graphs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return summary;
+    }
 
     public static HashMap getPaymentSummary(String date) {
         HashMap<Integer, String> summary = new HashMap<Integer, String>();

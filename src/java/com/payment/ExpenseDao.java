@@ -60,10 +60,10 @@ public class ExpenseDao {
         PreparedStatement ps = con.prepareStatement(query);
 
         ps.setString(1, expense.getDept());
-        ps.setString(2, expense.getDesc());
+        ps.setString(2, expense.getDesc().toLowerCase());
         ps.setString(3, expense.getMethod());
         ps.setDouble(4, expense.getAmount());
-        ps.setString(5, expense.getCategory());
+        ps.setString(5, expense.getCategory().toLowerCase());
         ps.setString(6, expense.getNotes());
 
         if(ps.executeUpdate() > 0) {
@@ -149,5 +149,14 @@ public class ExpenseDao {
             Logger.getLogger(ExpenseDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return summary;
+    }
+
+    public static ResultSet getAllExpensesSummary() throws ClassNotFoundException, SQLException {
+        Connection con = PaymentDB.getConnection();
+        String query = "SELECT year(date_time) as year, month(date_time) as month, count(amount) as count, sum(amount) as sum "
+                + "FROM expenses "
+                + "GROUP BY year(date_time), month(date_time)";
+        PreparedStatement ps = con.prepareStatement(query);
+        return ps.executeQuery();
     }
 }

@@ -132,3 +132,44 @@ function initExpensesPie(id, data, labels) {
     }
   })
 }
+
+function initIndexGraph(id, expense, income) {
+  new Chart(document.getElementById(id).getContext('2d'), {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          label: "Expenses",
+          data: expense,
+          borderColor: "rgb(200, 40, 40)",
+          backgroundColor: "rgba(200, 40, 40, 0.2)",
+        },
+        {
+          label: "Income",
+          data: income,
+          borderColor: "rgb(120, 200, 40)",
+          backgroundColor: "rgba(120, 200, 40, 0.2)",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        barValueSpacing: 5,
+        legend: {
+          display: true,
+          position: 'bottom',
+        },
+        xAxes: [{
+            type: "time",
+            time: {
+              unit: 'month',
+              format: "YYYY/MM",
+              tooltipFormat: 'll',
+            },
+            stacked: true,
+          }],
+      }
+    }
+  });
+}

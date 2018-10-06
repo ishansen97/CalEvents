@@ -42,7 +42,6 @@
               try {
                   ArrayList<Expense> expenses = ExpenseDao.getAllExpenses();
                   if (!expenses.isEmpty()) {
-                      HashMap<Integer, String> summary = Graphs.getExpensesSummary(ExpenseDao.getExpensesSummary());
           %>
           <div class="row">
             <div class="col-12">
@@ -98,6 +97,7 @@
             </div>
           </div>
           <script>
+            <% HashMap<Integer, String> summary = Graphs.getExpensesSummary(ExpenseDao.getExpensesSummary()); %>
             window.addEventListener('DOMContentLoaded', function () {
               initExpensesAllGraph("expensesGraph", [<%= summary.get(Graphs.SUMMARY_GRAPH)%>]);
               initExpensesPie("expensesPie", [<%= summary.get(Graphs.SUMMARY_PIE_DATA)%>], [<%= summary.get(Graphs.SUMMARY_PIE_LABELS)%>]);
