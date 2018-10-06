@@ -20,6 +20,14 @@
         background: #aaa;
     }
 </style>
+<script>
+    function itemDemo() {
+        document.getElementById("item_name").value = "Lava cake";
+        document.getElementById("ingredients").value = "Chocolate,Sugar,Butter,Cocoa";
+        document.getElementById("price").value = 2;
+        
+    }
+</script>
 <body class="w3-light-grey">
     <%@ include file="./Layouts/Navigation.jsp" %>
     <!-- !PAGE CONTENT! -->
@@ -34,7 +42,7 @@
                         <div class="form-row">
                             <div class="col-md-7 form-group">
                                 <label class="text-muted">Name</label>
-                                <input type="text" class="form-control" placeholder="Item Name " name="item_name" required>
+                                <input type="text" class="form-control" placeholder="Item Name " name="item_name" id="item_name" required>
                             </div>
                             <div class="col-md-5 form-group">
                                 <label class="text-muted">Category</label>
@@ -50,20 +58,21 @@
                         <div class="form-row">
                             <div class="col-md-7 form-group">
                                 <label>Ingredients</label>
-                                <input type="text" class="form-control" placeholder="Ingredients" name="item_ingredients" required>
+                                <input type="text" class="form-control" placeholder="Ingredients" name="item_ingredients" id="ingredients" required>
                             </div>  
 
                             <div class="col-md-5 form-group">
                                 <label>Price</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                                    <input type="text" class="form-control" placeholder="Price" name="item_price" required>
+                                    <input type="text" class="form-control" placeholder="Price" name="item_price" id="price" required>
                                 </div>
                             </div> 
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary">Add Item</button>
+                                <button type="button" class="btn btn-success" onclick="itemDemo()">Show Demo</button>
                             </div>
                         </div>
                     </form>

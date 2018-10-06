@@ -41,44 +41,56 @@
 
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-        <% ResultSet res = MenuItems.getItems(); %>
+        <%
+            String query = request.getParameter("search_item");
+            ResultSet res;
+            if (query == null) {
+                res = MenuItems.getItems();
+            } else {
+                res = MenuItems.searchItems(query);
+            }
+        %>
         <br>
         <div class="container">
             <div class="card">
                 <div class="card-body">
                     <div class='d-flex justify-content-between'>
                         <h2>Menu</h2>
+
+                        <form>
                         <div>
-                            <a class='btn btn-primary' href='./add_item.jsp'>Add Item</a>
+                            <h4>Search</h4><input type="text" name="search_item"> 
+<!--                            <a class='btn btn-primary' href='./add_item.jsp'></a>-->
                         </div>
+                        </form>
                     </div>
                 </div>    
-                    <table class="table table-striped table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th class='text-center' width='5%'>Id</th>
-                                <th>Item Name</th>
-                                <th width='40%'>Ingredients</th>
-                                <th class='text-center' width='10%'>Price</th>
-                                <th>Category</th>
-                                <th class='text-center' width='15%'></th>
-                            </tr>
-                        </thead>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
                         <tr>
-                            <% while (res.next()) {%>
-                            <td class='text-center'><%=res.getInt("item_id")%></td>
-                            <td><%=res.getString("name")%></td>
-                            <td><%=res.getString("ingredients")%></td>
-                            <td class='text-center'>$<%= String.format("%.2f", res.getDouble("price"))%></td>
-                            <td><%=res.getString("category")%></td>
-                            <td class='text-center'>
-                                <a href="edit_item.jsp?id=<%=res.getInt("item_id")%>" class="btn btn-sm btn-secondary">Edit</a>
-                                <a href="delete_item.jsp?id=<%=res.getInt("item_id")%>" class="btn btn-sm btn-danger">Delete</a>
-                            </td>
+                            <th class='text-center' width='5%'>Id</th>
+                            <th>Item Name</th>
+                            <th width='40%'>Ingredients</th>
+                            <th class='text-center' width='10%'>Price</th>
+                            <th>Category</th>
+                            <th class='text-center' width='15%'></th>
                         </tr>
-                        <% }%>
-                    </table>
-                
+                    </thead>
+                    <tr>
+                        <% while (res.next()) {%>
+                        <td class='text-center'><%=res.getInt("item_id")%></td>
+                        <td><%=res.getString("name")%></td>
+                        <td><%=res.getString("ingredients")%></td>
+                        <td class='text-center'>$<%= String.format("%.2f", res.getDouble("price"))%></td>
+                        <td><%=res.getString("category")%></td>
+                        <td class='text-center'>
+                            <a href="edit_item.jsp?id=<%=res.getInt("item_id")%>" class="btn btn-sm btn-secondary">Edit</a>
+                            <a href="delete_item.jsp?id=<%=res.getInt("item_id")%>" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    <% }%>
+                </table>
+
             </div>
         </div>
 
