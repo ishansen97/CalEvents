@@ -18,11 +18,14 @@
             String item_ID = request.getParameter("itemid").toString();
             String valueQ = request.getParameter("val").toString();
             String allID = request.getParameter("nikanID").toString();
-            int idRIF = Integer.parseInt(allID);
-            int value = Integer.parseInt(valueQ);
-            Facility facReq = new Sounds();
-            Allocation allreq = new Allocation();
+            Integer idRIF =0;
+            Integer value =0;
+            if(valueQ!=null && valueQ!=""){
+            value = Integer.parseInt(valueQ);
+            idRIF = Integer.parseInt(allID);}
             try {
+                    Facility facReq = new Sounds();
+                    Allocation allreq = new Allocation();
 
                 if (facReq.incrementAvailableQuantity(value, item_ID) && allreq.setAvailablesQ(idRIF, value)) {
                     HttpSession sessionallocated = request.getSession();
@@ -32,7 +35,7 @@
             } catch (Exception e) {
                 out.print("Exception " + e);
             }
-        %>
+//        %>
 
     </body>
 </html>
