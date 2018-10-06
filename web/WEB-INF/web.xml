@@ -64,6 +64,70 @@
         <servlet-name>update</servlet-name>
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>facility.servelets.admin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addfacilityservelet</servlet-name>
+        <servlet-class>facility.servelets.addfacilityservelet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>delete</servlet-name>
+        <servlet-class>facility.servelets.delete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addF</servlet-name>
+        <servlet-class>facility.servelets.addF</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updatefacilitiesSevelet</servlet-name>
+        <servlet-class>facility.servelets.updatefacilitiesSevelet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreatePackage</servlet-name>
+        <servlet-class>facilities.allocation.CreatePackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>determinefacilities</servlet-name>
+        <servlet-class>facilities.allocation.determinefacilities</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>aaaaaa</servlet-name>
+        <servlet-class>facilities.allocation.aaaaaa</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addfacilityservelet</servlet-name>
+        <url-pattern>/addfacilityservelet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>delete</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addF</servlet-name>
+        <url-pattern>/addF</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updatefacilitiesSevelet</servlet-name>
+        <url-pattern>/updatefacilitiesSevelet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePackage</servlet-name>
+        <url-pattern>/CreatePackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>determinefacilities</servlet-name>
+        <url-pattern>/determinefacilities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>aaaaaa</servlet-name>
+        <url-pattern>/aaaaaa</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
