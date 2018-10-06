@@ -190,7 +190,7 @@ public class Reservation {
             Connection con = ServerConnection.getConnection();
             Statement stmt = con.createStatement();
             
-            query = "SELECT pe.event_name,r.res_id,r.date FROM public_events pe, reservation r WHERE r.event_id = pe.event_ID AND r.cus_id = '" +customer+ "'";
+            query = "SELECT pe.event_name,r.res_id,r.date FROM public_booked_events pe, reservation r WHERE r.event_id = pe.event_ID AND r.cus_id = '" +customer+ "'";
             
             res = stmt.executeQuery(query);
         }
@@ -331,7 +331,7 @@ public class Reservation {
         if (ServerConnection.getConnectionStatus()) {
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
-            query = "SELECT DISTINCT b.event_name,res.date,p.amount FROM public_events b,reservation res,payment p WHERE res.cus_id = '" +customer_id+ "' AND b.event_ID = res.event_id AND res.res_id = p.res_id";
+            query = "SELECT DISTINCT b.event_name,res.date,p.amount FROM public_booked_events b,reservation res,payment p WHERE res.cus_id = '" +customer_id+ "' AND b.event_ID = res.event_id AND res.res_id = p.res_id";
             
             result = st.executeQuery(query);
         }

@@ -12,8 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <%--@include file="Layouts/Styles.jsp" %>
-        <%@include file="Layouts/Scripts.jsp" --%>
+        <%@include file="./Layouts/Styles.jsp" %>
+        <%@include file="./Layouts/Scripts.jsp" %>
         <script src="../External/Jquery/jquery.min.js" type="text/javascript"></script>
         <!--<link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>-->
         <!--<script src="../External/Bootstrap/js/bootstrap.js" type="text/javascript"></script>-->
@@ -129,10 +129,18 @@
                 //seats.classList.toggle('collapse');
             }
             
+            function paymentDemo() {
+                document.getElementById("card_name").value = "H.H Andrews";
+                document.getElementById("expiryM").value = 09;
+                document.getElementById("expiryY").value = 20;
+                document.getElementById("card_number").value = "4111 1111 1111 1111";
+                document.getElementById("card_ccv").value = 123;
+            }
+            
             $(document).on("show.bs.collapse", function(e){
                 console.log(e);
                 e.target.scrollIntoView();
-            })
+            });
             
             function validate() {
                 var seats = document.getElementById("show").value;
@@ -203,7 +211,7 @@
             
         </script>
     </head>
-    <body>
+    <body style="background-color: darkslategrey; font-family: verdana">
         
         <% 
             try {
@@ -219,69 +227,76 @@
            
         %>
  
-        <div class="container" style="border: 2px solid blue">
+        <div class="container">
             <a href="calendar.jsp" class="btn btn-light">Go To Calendar View</a>
             <a href="handleReservation.jsp?customer_id=<%=customer_id %>" class="btn btn-light">My reservations</a>
-            <a href="profile.jsp" style="float: right"><%=customer_name %></a>
-            <div id="event" class="jumbotron">
-                <h1>Event Details</h1>
-                <table>
-                    <% while (event.next()) { %>
-                    <tr>
-                        <td>Event Name :</td>
-                        <td><%=event.getString("event_name") %></td>
-                    </tr>
-                    <tr>
-                        <td>Description :</td>
-                        <td><%=event.getString("description") %></td>
-                    </tr>
-                    <tr>
-                        <td>Date :</td>
-                        <td><%=event.getString("date") %></td>
-                    </tr>
-                    <tr>
-                        <td>From :</td>
-                        <td><%=event.getString("start_time") %></td>
-                    </tr>
-                    <tr>
-                        <td>To :</td>
-                        <td><%=event.getString("end_time") %></td>
-                    </tr>
-                    <% } %>
-                </table>
+            <!--<a href="profile.jsp" style="float: right"><%=customer_name %></a>-->
+            <div id="event" class="card bg-light">
+                <div class="card-header">
+                    <h1>Event Details</h1>
+                </div>
+                <div class="card-body bg-primary" style="color: white; font-size: 25px">  
+                    <table>
+                        <% while (event.next()) { %>
+                        <tr>
+                            <td>Event Name :</td>
+                            <td><%=event.getString("event_name") %></td>
+                        </tr>
+                        <tr>
+                            <td>Description :</td>
+                            <td><%=event.getString("description") %></td>
+                        </tr>
+                        <tr>
+                            <td>Date :</td>
+                            <td><%=event.getString("date") %></td>
+                        </tr>
+                        <tr>
+                            <td>From :</td>
+                            <td><%=event.getString("start_time") %></td>
+                        </tr>
+                        <tr>
+                            <td>To :</td>
+                            <td><%=event.getString("end_time") %></td>
+                        </tr>
+                        <% } %>
+                    </table>
+                </div>
             </div>
             <div id="div1">
                 <% if (noOfSeats == 0) { %>
                     <p style="color: red">No Seats are available</p>
                 <%} else if (ev.isBookedByCustomer(customer_id)) { %>
-                <p style="color: red">You have already made a reservation for this event</p>
+                <p style="color: red; font-size: 25px">You have already made a reservation for this event</p>
                 <%} else { %>
-                    <a href="#seats" data-toggle="collapse" data-target="#seats" style="font-size:20px">Seat Arrangements<span style="color:red">(<%=noOfSeats %> available)</span></a>
+                    <a href="#seats" data-toggle="collapse" data-target="#seats" style="font-size:25px; color: white">Seat Arrangements<span style="color:red">(<%=noOfSeats %> available)</span></a>
                <% } %>
             </div>
             
             
 
-            <div id="seats" class="jumbotron col-12 collapse">
-                <form>
-                <h1>Select a Seat <span style="color:red">(Maximum 4 seats)</span></h1>
-            <% while (rs.next()) {
-                int seat = rs.getInt("seat_num");
-            %>
-            <!--<p id="demo"></p>-->
-            <input type="checkbox" id="<%=seat %>" value="<%=seat %>" onclick="display(this.id)" style="font-size: 30px"><%=seat %>
-            <% } %>
-            <button type="button" id="confirm_seat" data-toggle="collapse" data-target="#customer" class="btn btn-success" onclick="return displayCus()">Confirm</button>
-            <button type="reset" id="undo" class="btn btn-info" onclick="undo_seats()">Reset</button>
-            <p id="seat_array"></p>
-            <input type="hidden" id="no_of_seats">
-                </form>
+            <div id="seats" class="col-12 collapse bg-light">
+                <div class="card-header"><h1>Select a Seat <span style="color:red">(Maximum 4 seats)</span></h1></div>
+                
+                    <div class="card-body bg-light">
+                        <form>
+                        <% while (rs.next()) {
+                            int seat = rs.getInt("seat_num");
+                        %>
+                        <!--<p id="demo"></p>-->
+                        <input type="checkbox" id="<%=seat %>" value="<%=seat %>" onclick="display(this.id)" style="font-size: 30px"><%=seat %>
+                        <% } %>
+                        <button type="button" id="confirm_seat" data-toggle="collapse" data-target="#customer" class="btn btn-success" onclick="return displayCus()">Confirm</button>
+                        <button type="reset" id="undo" class="btn btn-info" onclick="undo_seats()">Reset</button>
+                        <p id="seat_array"></p>
+                        <input type="hidden" id="no_of_seats">
+                            </form>
+                        </div>
             </div>
             
             
             
-          <div id="customer" class="col-lg-12 collapse" style="border: 2px solid green">
-                <a href="#customer" id="customer_payment" data-toggle="collapse" style="font-size: 20px">Payment Details</a>
+          <div id="customer" class="col-lg-12 collapse card" style="border: 2px solid green">
+              <div class="card-header"><a href="#customer" id="customer_payment" data-toggle="collapse" style="font-size: 20px">Payment Details</a></div>
 
 
                 <form action="${pageContext.request.contextPath}/ReservationServelet1" name="payment" onsubmit="return validatePayment()" method="POST">
@@ -312,14 +327,14 @@
               <div class="col-md-8 form-group">
                 <label for="cardName">Full Name on Card</label>
                  PAYMENT CARD NAME 
-                <input type="text" class="form-control" name="cardName" placeholder="Full name" required>
+                <input type="text" class="form-control" name="cardName" placeholder="Full name" id="card_name" required>
               </div>
               <div class="col-md-4 form-group">
                 <label for="">Expiry</label>
                 <div class="input-group">
                    PAYMENT EXPIRY DATE
-                  <input type="number" min="1" max="12" class="form-control" name="expiryMonth" placeholder="MM" required>
-                  <input type="number" min="18" class="form-control" name="expiryYear" placeholder="YY" required>
+                  <input type="number" min="1" max="12" class="form-control" name="expiryMonth" placeholder="MM"d id="expiryM" required>
+                  <input type="number" min="18" class="form-control" name="expiryYear" placeholder="YY" id="expiryY" required>
                 </div>
               </div>
             </div>
@@ -327,18 +342,18 @@
               <div class="col-md-8 form-group">
                  PAYMENT CARD NUMBER
                 <label for="cardNumber">Credit Card Number <small class="text-muted">(spaces or dashes are allowed)</small></label>
-                <input type="text" class="form-control" name="cardNumber" placeholder="xxxx xxxx xxxx xxxx" required>
+                <input type="text" class="form-control" name="cardNumber" placeholder="xxxx xxxx xxxx xxxx" id="card_number" required>
               </div>
               <div class="col-md-4 form-group">
                 <label for="">CCV</label>
                  PAYMENT CCV
-                <input type="text" class="form-control" name="cardCCV" placeholder="CCV" required>
+                <input type="text" class="form-control" name="cardCCV" placeholder="CCV" id="card_ccv" required>
               </div>
             </div>
           </div>
           <div class="card-footer">
-              
-                                <button type="submit" class="btn btn-primary btn-block btn-lg">Continue</button>
+              <button type="button" class="btn btn-success" onclick="paymentDemo()">Show Demo</button>
+              <button type="submit" class="btn btn-primary btn-block btn-lg">Continue</button>
           </div>
         </div>
       </form>

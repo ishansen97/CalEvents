@@ -18,6 +18,9 @@
         <script src="../External/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <title>JSP Page</title>
         
+        <%@include file="./Layouts/Styles.jsp" %>
+        <%@include file="./Layouts/Scripts.jsp" %>
+        
         <style>
             #seats {
                 font-size: 40px;
@@ -25,7 +28,7 @@
             }
         </style>
     </head>
-    <body>
+    <body style="background-color: darkslategrey; font-family: verdana">
         
         <script>
             function update(obj) {
@@ -76,10 +79,12 @@
                 String customer_id = session.getAttribute("customer_id").toString();
         %>
         <div class="row">
-            <div class="container d-md-block pl-5 jumbotron">
+            <div class="container d-md-block pl-5 card" style="margin-top: 10px">
                 <a href="handleReservation.jsp?customer_id=<%=customer_id %>" class="btn btn-info">Back to reservation list</a>
-                <h1>Your seat reservations</h1><span style="color: red">(unchecking all the seats will delete your reservation)</span>
-                <div id="seats">
+                <div class="card-header">
+                    <h1>Your seat reservations</h1><span style="color: red">(unchecking all the seats will delete your reservation)</span>
+                </div>
+                <div id="seats" class="card-body">
                 <% while (result.next()) { 
                     int seat = Integer.parseInt(result.getString("seat_num"));
                 %>
@@ -87,15 +92,19 @@
                 <% } %>
                 <button type="button" id="btn" class="btn btn-success" onclick="confirm()">Confirm</button>
                 </div>
-                <form action="<%=request.getContextPath() %>/updateReservationServlet" method="post" onsubmit="return checking_seats()">
-                    <!--<h1>checked seats</h1>
-                    <p id="checked_seats"></p>-->
-                    <h1>unchecked seats</h1>
-                    <p id="unchecked_seats"></p>
-                    <input type="hidden" id="final_seats" name="final_seats" value="">
-                    <input type="hidden" name="reservation" value="<%=reservation %>">
-                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                </form>
+                <div class="card">
+                    <form action="<%=request.getContextPath() %>/updateReservationServlet" method="post" onsubmit="return checking_seats()">
+                        <!--<h1>checked seats</h1>
+                        <p id="checked_seats"></p>-->
+                        <h1>unchecked seats</h1>
+                        <div class="card-header"><p id="unchecked_seats"></p></div>
+                        <div class="card-body">
+                            <input type="hidden" id="final_seats" name="final_seats" value="">
+                            <input type="hidden" name="reservation" value="<%=reservation %>">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
                 
         </div>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="display_report2" language="groovy" pageWidth="795" pageHeight="842" columnWidth="755" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f807e97-29c9-4cb2-8bc3-0addbd9b3903">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="130f28d2-6d5e-4e08-8b2f-555b8268f4a5"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     event_seat_arrangement.`seat_arranegement_id` AS event_seat_arrangement_seat_arranegement_id,
+     event_seat_arrangement.`event_ID` AS event_seat_arrangement_event_ID,
+     event_seat_arrangement.`columns` AS event_seat_arrangement_columns,
+     event_seat_arrangement.`x_columns` AS event_seat_arrangement_x_columns,
+     event_seat_arrangement.`y_columns` AS event_seat_arrangement_y_columns
+FROM
+     `event_seat_arrangement` event_seat_arrangement]]>
+	</queryString>
+	<field name="event_seat_arrangement_seat_arranegement_id" class="java.lang.Integer"/>
+	<field name="event_seat_arrangement_event_ID" class="java.lang.String"/>
+	<field name="event_seat_arrangement_columns" class="java.lang.Integer"/>
+	<field name="event_seat_arrangement_x_columns" class="java.lang.Integer"/>
+	<field name="event_seat_arrangement_y_columns" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="246" y="27" width="100" height="20" uuid="e0bddacb-aaa2-4b56-b930-bb4b7b340369"/>
+				<text><![CDATA[Report Header]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="279" y="12" width="100" height="20" uuid="c284f3c0-11ae-4d6b-a95d-5b5686c5f583"/>
+				<text><![CDATA[Event Seat Summary]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="14" width="100" height="20" uuid="678414ac-81d9-4f39-a700-3855bea24545"/>
+				<textFieldExpression><![CDATA[$F{event_seat_arrangement_seat_arranegement_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="159" y="14" width="100" height="20" uuid="e6f2b050-9e09-44c4-bd9c-dadc29b92662"/>
+				<textFieldExpression><![CDATA[$F{event_seat_arrangement_event_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="14" width="100" height="20" uuid="e566297c-1fd8-4aa4-b643-f035b9bbb858"/>
+				<textFieldExpression><![CDATA[$F{event_seat_arrangement_columns}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="14" width="100" height="20" uuid="d17eca42-87ec-4978-a20d-da4001b784c3"/>
+				<textFieldExpression><![CDATA[$F{event_seat_arrangement_x_columns}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="600" y="14" width="100" height="20" uuid="4c4d93c8-1cc9-4abc-ab8a-908c9b747a67"/>
+				<textFieldExpression><![CDATA[$F{event_seat_arrangement_y_columns}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="135" y="5" width="450" height="120" uuid="f83f462d-9c85-421d-b8e7-55b5542f992d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="394e353e-6eb4-4716-98e7-adc068ab46de">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="7da80406-596b-44cb-866f-5e0833943a24">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30"/>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20"/>
+					</jr:column>
+					<jr:column width="90" uuid="31fff8aa-12d7-48b5-997f-5d772263b6e6">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30"/>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20"/>
+					</jr:column>
+					<jr:column width="90" uuid="7be0828a-4f52-405f-9392-1ea6264c8ace">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30"/>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20"/>
+					</jr:column>
+					<jr:column width="90" uuid="d3cabd6c-96e1-43ee-a559-557eb0dc83c8">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30"/>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20"/>
+					</jr:column>
+					<jr:column width="90" uuid="25c15206-870e-4908-91f4-d8fb3ae65d0e">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30"/>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

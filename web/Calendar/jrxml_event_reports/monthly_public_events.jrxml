@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_booked_events" language="groovy" pageWidth="895" pageHeight="842" columnWidth="855" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ec40b5f-7361-4cf8-a027-6b09390a9e4f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Month" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM public_event WHERE MONTH(Date) = MONTH($P{date})]]>
+	</queryString>
+	<field name="event_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="event_Name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Category" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="start_time" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="end_time" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="location_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_seats" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="310" y="26" width="214" height="31" uuid="f9b9dc65-33f6-442b-a596-2809d6661bba"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Simcoe Blues and Jazz]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="256" y="0" width="197" height="20" uuid="64b7b5e8-9d7d-4e22-ab4e-b483851f9f64"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Monthly public event Report - ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="453" y="0" width="119" height="20" uuid="0294cb2c-b562-4ea1-8a24-7cca22581cca"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="0" width="100" height="20" uuid="470c48f4-121a-4f7d-a40c-d5dfa63f90e8"/>
+				<text><![CDATA[event_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="0" width="100" height="20" uuid="154fc4b1-73e2-4457-a6e0-b890d940082f"/>
+				<text><![CDATA[event_Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="0" width="100" height="20" uuid="e6b7819a-f14d-4b78-a10a-fadc57423c20"/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="0" width="100" height="20" uuid="2f54fb14-1880-4a19-825c-7575fafe92c5"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="0" width="100" height="20" uuid="be8df5c8-4e98-4ccc-9d2e-e379b9fe1154"/>
+				<text><![CDATA[start_time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="2" width="100" height="20" uuid="36bf5ff3-a8b6-4fa7-8ade-a65eb1bcdf21"/>
+				<text><![CDATA[end_time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="742" y="2" width="100" height="20" uuid="d9c0e51d-e31d-454c-8adc-f5e798028ebe"/>
+				<text><![CDATA[no_seats]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="19" y="12" width="100" height="20" uuid="779c0a73-2027-4f9f-a91a-ce0624fc36cf"/>
+				<textFieldExpression><![CDATA[$F{event_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="12" width="100" height="20" uuid="25078455-99d6-411d-91ac-57fe358154d3"/>
+				<textFieldExpression><![CDATA[$F{event_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="256" y="12" width="100" height="20" uuid="96234743-7c82-4d3c-9cb3-1556732fb6e3"/>
+				<textFieldExpression><![CDATA[$F{Category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="381" y="12" width="100" height="20" uuid="0d799877-45e0-4996-b926-6e4a64b1129f"/>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="501" y="12" width="100" height="20" uuid="7d3208b4-3af4-4b9f-8702-7af12fc1a9f9"/>
+				<textFieldExpression><![CDATA[$F{start_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="622" y="12" width="100" height="20" uuid="1ce25266-a490-475e-b613-36b5043bbc33"/>
+				<textFieldExpression><![CDATA[$F{end_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="742" y="12" width="100" height="20" uuid="cc79cebb-9e83-451b-be74-d56e079eaad6"/>
+				<textFieldExpression><![CDATA[$F{no_seats}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

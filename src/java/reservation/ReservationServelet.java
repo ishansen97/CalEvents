@@ -129,25 +129,28 @@ public class ReservationServelet extends HttpServlet {
         catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             ErrorHandling.setMessage(ex.getMessage());
-            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
+            PrintWriter out = response.getWriter();
+            out.println(ex.getMessage());
+            //response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         
         }
         catch (CreditCardExpiredException ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
-            //out.println("CreditCardExpiredException : " + ex.getMessage());
-            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
+            out.println(ex.getMessage());
+            //response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         }
         catch (CreditCardNumberInvalidException ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
-            //out.println("CreditCardNumberInvalidException : " + ex.getMessage());
-            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
+            out.println(ex.getMessage());
+            //response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         }
         catch (Exception ex) {
             Logger.getLogger(ReservationServelet.class.getName()).log(Level.SEVERE, null, ex);
             PrintWriter out = response.getWriter();
-            response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
+            out.println(ex.getMessage());
+            //response.sendRedirect(request.getContextPath() + "/Calendar/404.jsp");
         }
         
     }

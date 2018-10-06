@@ -14,24 +14,34 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <link href="../External/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<!--        <link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="../External/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>-->
+
+        <%@include file="./Layouts/Styles.jsp" %>
+        <%@include file="./Layouts/Scripts.jsp" %>
         <style>
             body{
                 overflow-x: hidden;
+            }
+            .card {
+                font-size: 20px;
+            }
+            .card:hover {
+                color: white;
+                background-color: lightgrey;
             }
         </style>
     </head>
     <body>
         <div class="row">
-        <div id="container" class="col-lg-9 d-none d-md-block pl-4 bg-dark">
+        <!--<div id="container" class="col-lg-9 d-none d-md-block pl-4 bg-dark">-->
             <div id="content-container">
 
                 <div id="planner" class="planner"><%=getPlanner(request) %></div>
                 <%@ page import="com.dhtmlx.planner.*,com.dhtmlx.planner.data.*,java.util.Date"%>
                 <%! String getPlanner(HttpServletRequest request) throws Exception {
                         DHXPlanner pl = new DHXPlanner("./codebase/", DHXSkin.TERRACE);
-                        pl.setWidth(1200);
+                        pl.setWidth(1100);
                         pl.setInitialDate(new Date()); 
                         pl.calendars.attachMiniCalendar();
                         pl.load("events.jsp", DHXDataFormat.JSON);
@@ -41,18 +51,25 @@
                 } 
                 %>
             </div>
-        </div>
+        <!--</div>-->
             <%
                    ResultSet res = EventViewer.getEventView();
+                   int i = 1;
             %>
-            <div class="col bg-warning">
+            <div class="col bg-primary">
                 <div id="eventList" class="col" style="border: 1px solid black; margin: auto; background-color: white">
                     <h1>Upcoming Events</h1>
                     <%while (res.next()) { %>
-                    <div id="e">
-                        <a href="event_reservation.jsp?id=<%=res.getString("event_ID") %>"><%=res.getString("event_name") %></a>
-                        <p><%=res.getString("date") %></p>
+                    <div id="e" class="card">
+                        <div class="card-header">
+                            <h1 class="modal-title">#<%=i %></h1>
+                        </div>
+                        <div class="card-body">
+                            <a href="event_reservation.jsp?id=<%=res.getString("event_ID") %>"><%=res.getString("event_name") %></a>
+                            <p><%=res.getString("date") %></p>
+                        </div>
                     </div>
+                    <% i++; %>    
                     <% } %>
                     <div id="view_more">
                         <center><a href="event_reservation.jsp?id=E006">View more</a><center>

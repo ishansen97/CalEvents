@@ -8,6 +8,8 @@ import Connection.ServerConnection;
 import java.sql.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,7 +49,7 @@ public class EventViewer {
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
             
-            query = "select event_name,description,date,start_time,end_time from public_events where event_ID = '" +event_id+ "'";
+            query = "select event_name,description,date,start_time,end_time from public_booked_events where event_ID = '" +event_id+ "'";
             res = st.executeQuery(query);
         }
         return res;
@@ -85,7 +87,7 @@ public class EventViewer {
             Connection con = ServerConnection.getConnection();
             Statement st = con.createStatement();
             
-            query = "select event_ID,event_name,date from public_events where date > '" +curDate+ "' order by date DESC";
+            query = "select event_ID,event_name,date from public_booked_events where date > '" +curDate+ "' order by date ASC";
             
             res = st.executeQuery(query);
         }
@@ -145,5 +147,71 @@ public class EventViewer {
         }
         else
             return false;
+    }
+    
+    public static ResultSet getEventName(String event_id) {
+        String query = null;
+        ResultSet result = null;
+        try {
+            ServerConnection.setConnection();
+            
+            if (ServerConnection.getConnectionStatus()) {
+                Connection con = ServerConnection.getConnection();
+                Statement st = con.createStatement();
+                query = "SELECT event_name FROM public_booked_events WHERE event_ID = '" +event_id+ "'";
+                
+                result = st.executeQuery(query);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return result;
+        }
+    }
+    
+    public ResultSet getEventSeats(String event_id) {
+        String query = null;
+        ResultSet result = null;
+        try {
+            ServerConnection.setConnection();
+            
+            if (ServerConnection.getConnectionStatus()) {
+                Connection con = ServerConnection.getConnection();
+                Statement st = con.createStatement();
+                query = "SELECT seat_num FROM seats WHERE event_ID = '" +event_id+ "'";
+                
+                result = st.executeQuery(query);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return result;
+        }
+    }
+    
+    public ResultSet getSeatArrangement() {
+        String query = null;
+        ResultSet result = null;
+        try {
+            ServerConnection.setConnection();
+            
+            if (ServerConnection.getConnectionStatus()) {
+                Connection con = ServerConnection.getConnection();
+                Statement st = con.createStatement();
+                query = "SELECT columns, x_columns, y_columns FROM event_seat_arrangement WHERE event_ID = '"+event_id+"'";
+                
+                result = st.executeQuery(query);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return result;
+        }
     }
 }

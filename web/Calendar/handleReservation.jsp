@@ -18,16 +18,19 @@
         <script src="../External/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <title>JSP Page</title>
         
+        <%@include file="./Layouts/Styles.jsp" %>
+        <%@include file="./Layouts/Scripts.jsp" %>
+        
         <style>
             th,td {
                 padding: 20px;
             }
         </style>
     </head>
-    <body>
+    <body style="background-color: darkslategrey; font-family: verdana">
         <div class="container">
             <div class="row">
-                <div class="col-lg-10" style="border: 2px solid green">
+                <div class="col-lg-12">
                     <a href="calendar.jsp" class="btn btn-success">Calendar view</a>
                     <!--<a href="button" class="btn btn-danger">Make reservation</button>-->
                 </div>
@@ -40,28 +43,34 @@
             %>
             
             <div class="row">
-                <div class="col-lg-10" style="border: 2px solid green">
-                    <table class="table table-hover table-striped" >
-                        <tr>
-                            <th>Reservation No.</th>
-                            <th>Event Name</th>
-                            <th>Date</th>
-                        </tr>
-                        <% while (result.next()) { %>
-                        <tr>
-                            <td><%=++i %></td>
-                            <td><%=result.getString("event_name") %></td>
-                            <td><%=result.getString("date") %></td>
-                            <td><a href="editReservation.jsp?id=<%=result.getString("res_id") %>" class="btn btn-success">Edit</a></td>
-                            <td><a href="deleteReservation.jsp?id=<%=result.getString("res_id") %>" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
-                        </tr>
-                        <% } %>
-                    </table>
+                <div class="card col-lg-12">
+                    <div class="card-header">
+                        <h1>My Reservations</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover table-striped" >
+                            <tr>
+                                <th>Reservation No.</th>
+                                <th>Event Name</th>
+                                <th>Date</th>
+                            </tr>
+                            <% while (result.next()) { %>
+                            <tr>
+                                <td><%=++i %></td>
+                                <td><%=result.getString("event_name") %></td>
+                                <td><%=result.getString("date") %></td>
+                                <td><a href="editReservation.jsp?id=<%=result.getString("res_id") %>" class="btn btn-success">Edit</a></td>
+                                <td><a href="deleteReservation.jsp?id=<%=result.getString("res_id") %>" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
+                            </tr>
+                            <% } %>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
         <% } catch (Exception ex) {
                 response.sendRedirect("404.jsp");
+                //out.println(ex.getMessage());
            } 
         %>
         

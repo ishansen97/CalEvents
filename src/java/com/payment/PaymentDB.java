@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class PaymentDB {
     private static Connection con = null;
     private static String url = "jdbc:mysql://127.0.0.1/";
-    private static String dbname = "calendartest";
+    private static String dbname = "calevents";
     private static String username = "root";
     private static String password = "";
 

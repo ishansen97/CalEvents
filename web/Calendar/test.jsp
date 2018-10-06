@@ -12,11 +12,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src="../External/Jquery/jquery.min.js" type="text/javascript"></script>
-        <!--<link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>-->
-        <!--<script src="../External/Bootstrap/js/bootstrap.js" type="text/javascript"></script>-->
+<!--        <script src="../External/Jquery/jquery.min.js" type="text/javascript"></script>
+        <link href="../External/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="../External/Bootstrap/js/bootstrap.js" type="text/javascript"></script>
         <link href="../External/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="../External/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../External/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>-->
+        <%@include file="./Layouts/Styles.jsp" %>
+        <%@include file="./Layouts/Scripts.jsp" %>
         <style>
             #seats {
                 margin-top: 50px;
@@ -172,6 +174,35 @@
                 }
             }
             
+            function customerDemo() {
+                document.getElementById("fname").value = "Henry";
+                document.getElementById("address").value = "No.123,Colombo";
+                document.getElementById("phone").value = "0777129625";
+                document.getElementById("email").value = "henry123@gmail.com";
+                
+            }
+            
+            function paymentDemo() {
+                document.getElementById("card_name").value = "H.H Andrews";
+                document.getElementById("expiryM").value = 09;
+                document.getElementById("expiryY").value = 20;
+                document.getElementById("card_number").value = "4111 1111 1111 1111";
+                document.getElementById("card_ccv").value = 123;
+            }
+            
+            function retrieveSeatArrangement() {
+                var event_id = document.getElementById("event").value;
+                var columns = document.getElementById("columns").value;
+                var sub_rows = document.getElementById("sub_rows").value;
+                var sub_columns = document.getElementById("sub_columns").value;
+                
+                $.post("reservation_seat_arrangement.jsp", {columns : columns, x : sub_columns, y : sub_rows}, function(data) {
+                    $(".modal-body").html(data);
+                    $("#seat_arrangement").modal({show:true});
+                });
+            }
+                
+            
             function validatePhone() {
                 var phone = document.getElementById("phoneNum").value;
                 var phoneNum = phone.toString();
@@ -229,82 +260,102 @@
             
         </script>
     </head>
-    <body>
+    <body style="background-color: darkslategrey; font-family: verdana">
         
         <% 
             try {
                 String event_id = request.getParameter("id");
+                int columns = 0;
+                int sub_rows = 0;
+                int sub_columns = 0;
 
                 EventViewer ev = new EventViewer(event_id);
                 ResultSet rs = ev.getSeats();
                 int noOfSeats = ev.getNoOfSeats();
                 ResultSet event = ev.getEventDetails();
+                ResultSet seat_arrangement = ev.getSeatArrangement();
+                
+                while (seat_arrangement.next()) {
+                    columns = seat_arrangement.getInt("columns");
+                    sub_rows = seat_arrangement.getInt("y_columns");
+                    sub_columns = seat_arrangement.getInt("x_columns");
+                }
            
         %>
  
-        <div class="container" style="border: 2px solid blue">
-            <div id="event" class="jumbotron">
-                <a href="calendar.jsp" class="btn btn-light">Go To Calendar View</a>
-                <h1>Event Details</h1>
-                <table>
-                    <% while (event.next()) { %>
-                    <tr>
-                        <td>Event Name :</td>
-                        <td><%=event.getString("event_name") %></td>
-                    </tr>
-                    <tr>
-                        <td>Description :</td>
-                        <td><%=event.getString("description") %></td>
-                    </tr>
-                    <tr>
-                        <td>Date :</td>
-                        <td><%=event.getString("date") %></td>
-                    </tr>
-                    <tr>
-                        <td>From :</td>
-                        <td><%=event.getString("start_time") %></td>
-                    </tr>
-                    <tr>
-                        <td>To :</td>
-                        <td><%=event.getString("end_time") %></td>
-                    </tr>
-                    <% } %>
-                </table>
-            </div>
+        <div class="container">
+            <a href="calendar.jsp" class="btn btn-success">Go To Calendar View</a>
+                <div id="event" class="card bg-light">
+                    <div class="card-header">
+                        <h1>Event Details</h1>
+                    </div>
+                    <div class="card-body bg-primary" style="color: white; font-size: 25px">    
+                        <table>
+                            <% while (event.next()) { %>
+                            <tr>
+                                <td>Event Name :</td>
+                                <td><%=event.getString("event_name") %></td>
+                            </tr>
+                            <tr>
+                                <td>Description :</td>
+                                <td><%=event.getString("description") %></td>
+                            </tr>
+                            <tr>
+                                <td>Date :</td>
+                                <td><%=event.getString("date") %></td>
+                            </tr>
+                            <tr>
+                                <td>From :</td>
+                                <td><%=event.getString("start_time") %></td>
+                            </tr>
+                            <tr>
+                                <td>To :</td>
+                                <td><%=event.getString("end_time") %></td>
+                            </tr>
+                            <% } %>
+                        </table>
+                    </div>
+                </div>
             <div id="div1">
-                <!--<p id="para" onclick="buttonColor()" data-toggle="collapse" data-target="#seats">Click on me to see the difference!!</p>-->
                 <% if (noOfSeats == 0) { %>
                     <p style="color: red">No Seats are available</p>
                 <% } else { %>
-                    <!--<button type="button" data-toggle="collapse" data-target="#seats" class="btn btn-success" >Show</button>-->
-                    <a href="#seats" data-toggle="collapse" data-target="#seats" style="font-size:20px">Seat Arrangements<span style="color:red">(<%=noOfSeats %> available)</span></a>
+                <input type="hidden" id="columns" value="<%=columns %>">
+                <input type="hidden" id="sub_rows" value="<%=sub_rows %>">
+                <input type="hidden" id="sub_columns" value="<%=sub_columns %>">
+                <a href="#row_collapse" data-toggle="collapse" data-target="#row_collapse" style="font-size:25px; color: white">Seat Reservation<span style="color:red">(<%=noOfSeats %> available)</span></a>
                <% } %>
             </div>
             
-
-            <div id="seats" class="jumbotron col-12 collapse">
-                <h1>Select a Seat <span style="color:red">(Maximum 4 seats)</span></h1>
-                <form>
-            <% while (rs.next()) {
-                int seat = rs.getInt("seat_num");
-            %>
-            <!--<p id="demo"></p>-->
-            <input type="checkbox" id="<%=seat %>" value="<%=seat %>" onclick="display(this.id)" style="font-size: 30px"><%=seat %>
-            <% } %>
-            <button type="button" id="confirm_seat" data-toggle="collapse" data-target="#customer" class="btn btn-success" onclick="return displayCus()">Confirm</button>
-            <button type="reset" id="undo" class="btn btn-info" onclick="undo_seats()">Reset</button>
-            <p id="seat_array"></p>
-            <input type="hidden" id="no_of_seats" value="">
-                </form>
+            <div class="row collapse" id="row_collapse">
+                <div id="seats" class="card-group col-12 collapse">
+                    <div class="card col-12">
+                        <h1>Select a Seat <span style="color:red">(Maximum 4 seats)</span></h1>
+                        <form>
+                        <% while (rs.next()) {
+                            int seat = rs.getInt("seat_num");
+                        %>
+                        <input type="checkbox" id="<%=seat %>" value="<%=seat %>" onclick="display(this.id)" style="font-size: 30px"><%=seat %>
+                        <% } %>
+                        <button type="button" id="confirm_seat" data-toggle="collapse" data-target="#customer" class="btn btn-success" onclick="return displayCus()">Confirm</button>
+                        <button type="reset" id="undo" class="btn btn-info" onclick="undo_seats()">Reset</button>
+                        <button type="button" class="btn btn-secondary" onclick="retrieveSeatArrangement()">View Seat Arrangement</button>
+                        <p id="seat_array"></p>
+                        <input type="hidden" id="no_of_seats" value="">
+                            </form>
+                    </div>
+                </div>
             </div>
             
             
             
-            <div id="customer" class="col-lg-12 collapse" style="border: 2px solid green">
+            <div id="customer" class="col-lg-12 collapse">
                 <a href="#customer" id="customer_payment" data-toggle="collapse" style="font-size: 20px">Customer & Payment Details</a>
                 <div class="row">
-                    <div id="part1" class="col-sm-12" style="border: 2px solid black">
-                        <h1>Customer Details...</h1>
+                    <div id="part1" class="card col-sm-12" style="border: 2px solid black">
+                        <div class="card-header">
+                            <h1>Customer Details...</h1>
+                        </div>
                         <form action="<%=request.getContextPath() %>/ReservationServelet" method="post" onsubmit="return validatePayment()" id="payment">
                             <table>
                                 <tr>
@@ -313,23 +364,29 @@
                                 </tr>
                                 <tr>
                                     <td>Address : </td>
-                                    <td><textarea name="address" cols="42" rows="5" required></textarea></td>
+                                    <td><textarea name="address" cols="42" rows="5" id="address" value="" required></textarea></td>
                                 </tr>
                                 <tr>
                                     <td>Phone : </td>
-                                    <td><input type="text" id="phoneNum" name="phone" required></td>
+                                    <td><input type="text" id="phone" name="phone" value="" required></td>
                                 </tr>
                                 <tr>
                                     <td>Email : </td>
-                                    <td><input type="email" name="email" id="email_address" required></td>
+                                    <td><input type="email" name="email" id="email" value="" required></td>
                                     <td><div class="status"></div></td>
                                     <td><p id="demo"></p></td>
                                 </tr>
+                                <tr>
+                                    <td><button type="button" class="btn btn-success" onclick="customerDemo()">Show Demo</button></td>
+                                </tr>
                             </table>
+                            
                     </div>
                 </div>
-                <div id="part2" class="col-sm-12" style="border: 2px solid black">
-                        <h1>Payment Details...</h1>
+                <div id="part2" class="card bg-light col-sm-12">
+                        <div class="card-header">
+                            <h1>Payment Details...</h1>
+                        </div>
                         <table>
                             <tr>
                                 <td>Seats selected</td>
@@ -356,14 +413,14 @@
                               <div class="col-md-8 form-group">
                                 <label for="cardName">Full Name on Card</label>
                                  PAYMENT CARD NAME 
-                                <input type="text" class="form-control" name="cardName" placeholder="Full name" required>
+                                <input type="text" class="form-control" name="cardName" placeholder="Full name" id="card_name" required>
                               </div>
                               <div class="col-md-4 form-group">
                                 <label for="">Expiry</label>
                                 <div class="input-group">
                                    PAYMENT EXPIRY DATE
-                                  <input type="number" min="1" max="12" class="form-control" name="expiryMonth" placeholder="MM" required>
-                                  <input type="number" min="18" class="form-control" name="expiryYear" placeholder="YY" required>
+                                  <input type="number" min="1" max="12" class="form-control" name="expiryMonth" placeholder="MM" id="expiryM" required>
+                                  <input type="number" min="18" class="form-control" name="expiryYear" placeholder="YY" id="expiryY" required>
                                 </div>
                               </div>
                             </div>
@@ -371,16 +428,17 @@
                               <div class="col-md-8 form-group">
                                  PAYMENT CARD NUMBER
                                 <label for="cardNumber">Credit Card Number <small class="text-muted">(spaces or dashes are allowed)</small></label>
-                                <input type="text" class="form-control" name="cardNumber" placeholder="xxxx xxxx xxxx xxxx" required>
+                                <input type="text" class="form-control" name="cardNumber" id="card_number" placeholder="xxxx xxxx xxxx xxxx" required>
                               </div>
                               <div class="col-md-4 form-group">
                                 <label for="">CCV</label>
                                  PAYMENT CCV
-                                <input type="text" class="form-control" name="cardCCV" placeholder="CCV" required>
+                                 <input type="text" class="form-control" name="cardCCV" id="card_ccv" placeholder="CCV" required>
                               </div>
                             </div>
                           </div>
                           <div class="card-footer">
+                              <button type="button" class="btn btn-success" onclick="paymentDemo()">Show Demo</button>
                                 <button type="submit" class="btn btn-primary btn-block btn-lg">Continue</button>
                           </div>
                         </div>
@@ -388,6 +446,22 @@
                     </div>
             </div>
             
+        </div>
+                            
+        <!--Modal body-->
+        <div id="seat_arrangement" class="modal fade">
+            <div class="modal-dialog bg-white" style="width: 1200px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Seat Arrangement</h1>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
         </div>
           
         <% } catch(Exception ex) {

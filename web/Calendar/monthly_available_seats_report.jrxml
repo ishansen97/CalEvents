@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_available_seats_report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e36cdc20-a73c-4938-ac6c-122cccc40472">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="month_year" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="full_date_format" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT pbe.event_ID, pbe.event_name, esa.available_seats FROM public_booked_events pbe, event_seat_availability esa WHERE pbe.event_ID = esa.event_Id AND MONTH(pbe.date) = MONTH($P{date})]]>
+	</queryString>
+	<field name="event_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="event_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="available_seats" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="153" y="22" width="235" height="33" uuid="28af71f4-6caa-4ef6-b9bc-29237ab19231"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Simcoe Blues and Jazz]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="103" y="0" width="214" height="28" uuid="21b269be-320c-4af4-9775-2f7d05ce6868"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Monthly Seat Availability Report - ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="317" y="0" width="118" height="20" uuid="54aeb291-0707-41d9-8e97-f6711b1179c0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{month_year}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="53" y="0" width="100" height="20" uuid="b34a577a-3d4b-4fea-9bdd-33c4e192dc75"/>
+				<text><![CDATA[event_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="0" width="100" height="20" uuid="13710582-7f41-4f5d-b888-714a826e0aff"/>
+				<text><![CDATA[event_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="2" width="100" height="20" uuid="edecadde-1c03-4d5d-a568-54d7455899d5"/>
+				<text><![CDATA[available_seats]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="53" y="10" width="100" height="20" forecolor="#3333FF" uuid="426af435-f5da-41dc-bd8f-ffb97eee9c62"/>
+				<textFieldExpression><![CDATA[$F{event_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="10" width="100" height="20" forecolor="#3333FF" uuid="09b9b3c5-9f5a-4085-9714-155fab931d96"/>
+				<textFieldExpression><![CDATA[$F{event_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="10" width="100" height="20" forecolor="#3333FF" uuid="fcaff2c1-f939-4888-976f-f600423939e7"/>
+				<textFieldExpression><![CDATA[$F{available_seats}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="43" y="11" width="100" height="20" uuid="7fa5c6ab-4a8e-4263-9cd1-0a0865376793"/>
+				<text><![CDATA[Date of Generation : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="11" width="100" height="20" uuid="1104e05c-6d5e-477d-8e9a-4ac946c77c4c"/>
+				<textFieldExpression><![CDATA[$P{full_date_format}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
