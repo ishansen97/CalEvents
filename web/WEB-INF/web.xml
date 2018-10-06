@@ -32,6 +32,10 @@
         <servlet-name>update</servlet-name>
         <servlet-class>rawServelets.update</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddFacilityExpense</servlet-name>
+        <servlet-class>com.payment.servlets.AddFacilityExpense</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>aaaaaa</servlet-name>
         <url-pattern>/aaaaaa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddFacilityExpense</servlet-name>
+        <url-pattern>/AddFacilityExpense</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

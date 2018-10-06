@@ -28,7 +28,10 @@
         <div class="w3-main" style="margin: 0 auto; margin-top:43px;">
             <br>
             <div class="container" style="max-width: 800px">
-                <form action="" class="form" name="expenses" onsubmit="return validateExpense()">
+                <form action="${pageContext.request.contextPath}/AddFacilityExpense" class="form" name="expenses" onsubmit="return validateExpense()">
+                    <h1>Make payment</h1>
+                    <hr>
+                    <br>
                     <div class="card">
                         <div class="card-header">Add Expenses</div>
                         <div class="card-body">
@@ -51,7 +54,7 @@
                             <div class="form-row">
                                 <div class="col-md form-group">
                                     <label for="notes">Notes</label>
-                                    <textarea name="notes" id="notes" rows="1" class="form-control" placeholder="Extra details" required readonly value="<%= notes%>"></textarea>
+                                    <textarea name="notes" id="notes" rows="2" class="form-control" placeholder="Extra details" required readonly><%= notes%></textarea>
                                 </div>
                             </div>
                             <div class="form-row">
