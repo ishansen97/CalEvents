@@ -1,64 +1,40 @@
 <%-- 
     Document   : updateRaw
-    Created on : Aug 11, 2018, 1:39:48 PM
+    Created on : Oct 1, 2018, 12:40:00 AM
     Author     : Lini Eisha
 --%>
 
-<%@page import="KitchenJavaF.rawMaterials"%>
+<%@page import="test.fetch"%>
+<%@page import="test.Raw_Materials"%>
 <%@page import="java.sql.ResultSet"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<title>Kitchen</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html><head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<%@ include file="Layouts/Styles.jsp" %>
-
-<body class="w3-light-grey">
- 
-<%@ include file="Layouts/Navigation.jsp" %>
-
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
-
-
-    <% ResultSet res = rawMaterials.getRaw(); %>
-    <table>
-        <tr>
-            <th>Raw Material Name </th>
-            <th>Quantity </th>
-            <th>Unit Price(in $) </th>
-        </tr>
-        <tr>
-            <% while (res.next()) { %>
-            <td><%=res.getString("name") %></td>
-            <td><%=res.getString("Quantity") %></td>
-            <td><%=res.getString("unit_price") %></td>
-            <td><a href="hmmmm.jsp?raw_ID=<%=res.getString("R_id") %>">Edit</a></td>
-            <td><a href="hmmmm.jsp?raw_ID=<%=res.getString("R_id") %>">Delete</a></td>
-        </tr>
-        <% } %>
-    </table>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <%@ include file="Layouts/Footer.jsp" %>
-<!-- End page content -->
-</div>
-
-<%@ include file="Layouts/Scripts.jsp" %>
-</body>
-</html>
+        
+<form action="../update" method="POST">
+        <% 
+        
+            String rawID = request.getParameter("raw_ID");
+            String test = "";
+            fetch fetchupd = new fetch();
+            ResultSet rawupd = fetchupd.getRawbyID(rawID);
+       
+                
+        %>
+        
+        <div> 
+        <form>
+            
+            <h3>Update</h3>
+        
+            
+        </form>
+        </div>

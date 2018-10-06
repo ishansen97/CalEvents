@@ -167,7 +167,7 @@
                                             <td><input type="text" name="qty"  placeholder="Quantity" required="" pattern="[0-9]+" /></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
+                                            <td align="right"><button class="button">DEMO </button></td>
                                             <td align="right"><button class="button">INSERT</button>  </td>
                                         </tr>
                                     </table>
