@@ -105,9 +105,7 @@
                   <th class="text-center">Total</th>
                   </thead>
                   <tbody>
-                    <%
-                        for (Payment p : rs) {
-                    %>
+                    <% for (Payment p : rs) {%>
                     <tr>
                       <th><%= Fmt.toDec(p.getAmount())%></th>
                       <td>Customer Name</td>
