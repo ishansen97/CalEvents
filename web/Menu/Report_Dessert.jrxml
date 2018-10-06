@@ -16,10 +16,19 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<textField>
-				<reportElement x="267" y="28" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="219" y="59" width="100" height="20"/>
+				<textElement>
+					<font size="15" isUnderline="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{para1}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="163" y="17" width="222" height="25"/>
+				<textElement>
+					<font size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Simco Blues and Jazz]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -29,36 +38,42 @@
 		<band height="61" splitType="Stretch">
 			<staticText>
 				<reportElement x="43" y="2" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[name]]></text>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="219" y="2" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[ingredients]]></text>
+				<reportElement x="203" y="2" width="116" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ingredients]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="365" y="2" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[price]]></text>
+				<reportElement x="395" y="2" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="37" splitType="Stretch">
 			<textField>
-				<reportElement x="43" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="43" y="0" width="100" height="37"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="219" y="2" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="203" y="2" width="116" height="35"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ingredients}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="365" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="395" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
 		</band>
