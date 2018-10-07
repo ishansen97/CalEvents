@@ -124,7 +124,7 @@
                 <div class="d-flex justify-content-end">
                     <a class="btn btn-sm btn-primary mr-2" href="#" onclick="window.print()">Print</a>
                     <!-- ADMIN ONLY -->
-                    <a class="btn btn-sm btn-danger" href="#" onclick="confirmDelete('<%= rs.getId()%>')">Delete</a>
+                    <%--<a class="btn btn-sm btn-danger" href="#" onclick="confirmDelete('<%= expense.getId()%>')">Delete</a>--%>
                 </div>
             </footer>
         </div>
