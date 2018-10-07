@@ -35,6 +35,8 @@
     <servlet>
         <servlet-name>AddFacilityExpense</servlet-name>
         <servlet-class>com.payment.servlets.AddFacilityExpense</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>allocate</servlet-name>
         <servlet-class>rawServelets.allocate</servlet-class>
     </servlet>
