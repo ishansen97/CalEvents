@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportFacilities" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cbe7c61-453b-4d6f-a5ef-daf71434ae7a">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT * FROM `facilities`]]>
+	</queryString>
+	<field name="facilityID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="facilitiyName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="facilityType" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="availableQuantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalQuantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="facilityCondition" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="soundsBrand" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tentColor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tentSize" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kUType" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="chairMaterial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tableSize" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nOfChairsPT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tableShape" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="ee2c3a98-9bf5-4960-a991-6a7390ac605c"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="9303a355-5df8-4f47-8b2d-4ad85f650f95"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Facilities]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="3bcb0331-aaf7-4948-895b-7daf65e6acd9"/>
+				<text><![CDATA[Facility Summary]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="78" height="20" uuid="88ea8ee6-c686-4a73-a866-90936fbf98ca"/>
+				<text><![CDATA[facilitiyName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="100" height="20" uuid="bde44a4e-d0a7-4318-8592-910e4ff68751"/>
+				<text><![CDATA[facilityType]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="0" width="100" height="20" uuid="6f731548-b488-4f46-80fd-b0d4ca29bfdc"/>
+				<text><![CDATA[availableQuantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="0" width="100" height="20" uuid="b0ad2a83-f389-427c-bed4-8dca86171cfa"/>
+				<text><![CDATA[totalQuantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="0" width="78" height="20" uuid="55d48185-9623-4cd0-b3a0-3f8cc9bf02bb"/>
+				<text><![CDATA[facilityCondition]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="78" height="20" uuid="42992ed9-bd58-4754-979f-b44b50714cac"/>
+				<textFieldExpression><![CDATA[$F{facilitiyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="100" height="20" uuid="9ca26eb3-1463-446f-91eb-6333a0f4b312"/>
+				<textFieldExpression><![CDATA[$F{facilityType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="0" width="100" height="20" uuid="a9bfab2b-ae59-42a9-89b9-5a86d09bcc68"/>
+				<textFieldExpression><![CDATA[$F{availableQuantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="0" width="100" height="20" uuid="d2b4f105-4285-4f82-9a40-475eb21c759a"/>
+				<textFieldExpression><![CDATA[$F{totalQuantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="78" height="20" uuid="1b5251b7-062e-4acb-8533-95fa8c0dab87"/>
+				<textFieldExpression><![CDATA[$F{facilityCondition}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="c24faa57-1908-41b8-8640-d446e1aa6483"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="f3bdafbe-e112-4127-b57c-c12f7fa8ec60"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="e0986468-37f0-4034-822f-2dda8d9b3429"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

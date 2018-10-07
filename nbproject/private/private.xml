@@ -2,28 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/reservation/ReservationServelet1.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/com/payment/CreditCardValidator.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/com/payment/PaymentDB.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Payment/invoice.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/reservation/Reservation.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Calendar/deleteReservation.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Calendar/handleReservation.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Calendar/test.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Calendar/event_reservation.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/reservation/EventViewer.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/reservation/ReservationServelet.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Payment/index.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/reservation/updateReservationServlet.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/com/payment/exception/CreditCardExpiredException.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Payment/scripts/validation.js</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Payment/payment.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Calendar/editReservation.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/com/payment/Payment.java</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Calendar/calendar.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/web/Payment/Layouts/Styles.jsp</file>
-            <file>file:/C:/Users/DELL/Desktop/CalEvents/src/java/com/payment/exception/CreditCardNumberInvalidException.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
