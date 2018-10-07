@@ -29,7 +29,7 @@
                    type = "c";
                }
                Allocation allocate = new Allocation(type);
-               allocate.find_facility_view();
+               allocate.find_facility_view(type);
                ResultSet facilities = allocate.fetch_available_facilities();
                
                
