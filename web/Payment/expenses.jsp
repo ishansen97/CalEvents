@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Payment</title>
+    <title>Payment - Expenses</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@ include file="./Layouts/Styles.jsp" %>

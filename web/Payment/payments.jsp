@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Payment</title>
+    <title>Payment - Income</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="scripts/Chart.bundle.min.js" type="text/javascript"></script>
