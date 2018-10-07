@@ -22,7 +22,7 @@
             <div class="card">
               <div class="card-header"><h5>Generate reports for Payments</h5></div>
               <div class="card-body">
-                <form action="">
+                <form action="generate_reports">
                   <label for="">Month</label>
                   <div class="input-group">
                     <input type="month" class="form-control" name="month" required>
@@ -39,7 +39,7 @@
             <div class="card-header"><h5>Generate reports for Expenses</h5></div>
             <div class="card-body">
               <label for="">Month</label>
-              <form action="">
+              <form action="generate_reports">
                 <div class="input-group">
                   <input type="month" class="form-control" name="month" required>
                   <div class="input-group-append">
