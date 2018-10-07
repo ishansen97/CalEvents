@@ -151,6 +151,46 @@ public class ExpenseDao {
         return summary;
     }
 
+    public static ArrayList<Expense> getExpensesSummaryForMonth(String date) {
+        if (date == null) {
+            return getExpensesSummary();
+        }
+        String where = "";
+        String[] yyyyMM = null;
+        if (date != null) {
+            where = "WHERE year(date_time) = ? AND month(date_time) = ? ";
+            yyyyMM = date.split("-");
+        }
+
+        ArrayList<Expense> summary = new ArrayList<>();
+        String query = "SELECT date_time, dept, sum(amount) as amount "
+                + "FROM expenses "
+                + where
+                + "GROUP BY dept, date(date_time) "
+                + "ORDER BY date_time";
+        try {
+            Connection con = PaymentDB.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            if (date != null) {
+                ps.setString(1, yyyyMM[0]);
+                ps.setString(2, yyyyMM[1]);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Expense ex = new Expense();
+                ex.setDept(rs.getString(DEPT));
+                ex.setAmount(rs.getDouble(AMOUNT));
+                ex.setSQLDate(rs.getDate(DATE));
+                summary.add(ex);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ExpenseDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return summary;
+    }
+
     public static ResultSet getAllExpensesSummary() throws ClassNotFoundException, SQLException {
         Connection con = PaymentDB.getConnection();
         String query = "SELECT year(date_time) as year, month(date_time) as month, count(amount) as count, sum(amount) as sum "
@@ -158,5 +198,99 @@ public class ExpenseDao {
                 + "GROUP BY year(date_time), month(date_time)";
         PreparedStatement ps = con.prepareStatement(query);
         return ps.executeQuery();
+    }
+
+    public static ArrayList<Expense> expensesSearch(String event, String dept, String method, String date, String sort, String order) {
+        if (event == null && date == null && sort == null && dept == null && method == null) {
+            return getAllExpenses();
+        }
+
+        ArrayList<Expense> expenses = new ArrayList<>();
+
+        String[] yyyyMM = null;
+
+        String where = "";
+        String WHERE_EVENT = "";
+        String WHERE_DATE = "";
+        String WHERE_METHOD = "";
+        String WHERE_DEPT = "";
+
+
+        if (event != null) {
+            where = "WHERE ";
+            WHERE_EVENT = where + "description LIKE ?";
+        }
+        if (date != null) {
+            where = "".equals(where) ? "WHERE " : " AND ";
+            WHERE_DATE = where + "year(date_time) = ? AND month(date_time) = ? ";
+            yyyyMM = date.split("-");
+        }
+        if (dept != null) {
+            where = "".equals(where) ? "WHERE " : " AND ";
+            WHERE_DEPT = where + "dept = ? ";
+        }
+        if (method != null) {
+            where = "".equals(where) ? "WHERE " : " AND ";
+            WHERE_METHOD = where + "method = ? ";
+        }
+
+        String ORDER_BY = "ORDER BY ";
+
+        sort = sort == null ? "" : sort;
+        switch(sort) {
+            case "sort_invoice" :
+                ORDER_BY += "exp_id";
+             break;
+            case "sort_amount" :
+                ORDER_BY += "amount";
+                break;
+            default:
+                ORDER_BY += "date_time";
+        }
+
+        ORDER_BY += " ";
+        if (order == null || order.equals("desc")) {
+            ORDER_BY  += "DESC";
+        } else {
+            ORDER_BY += "ASC";
+        }
+
+        try {
+            String query = "SELECT * FROM expenses "
+                    + WHERE_EVENT + WHERE_DEPT + WHERE_METHOD + WHERE_DATE + ORDER_BY;
+
+            Connection con = PaymentDB.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+
+            System.out.println(ps.toString());
+
+            int i = 1;
+            if (event != null) {
+                ps.setString(i++, "%"+event+"%");
+            }
+            if (dept != null) {
+                ps.setString(i++, dept);
+            }
+            if (method != null) {
+                ps.setString(i++, method);
+            }
+            if (date != null) {
+                ps.setString(i++, yyyyMM[0]);
+                ps.setString(i++, yyyyMM[1]);
+            }
+
+            System.out.println(ps.toString());
+
+            ResultSet res = ps.executeQuery();
+
+            while (res.next()) {
+                expenses.add(getExpense(res));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return expenses;
     }
 }
