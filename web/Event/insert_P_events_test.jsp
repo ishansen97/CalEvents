@@ -83,6 +83,23 @@
 
             //return time_validation && date_validation;
         }
+                   function itemDemo() {
+                document.getElementById("event").value = "Birthday Party";
+                document.getElementById("name").value = "Uditha Silva";
+                document.getElementById("phone").value = "0777846511";
+                document.getElementById("email").value = "abishaanr99@gmail.com";
+                document.getElementById("loc").value = "H001";
+                document.getElementById("crowd").value = "100";
+                
+                
+                
+                
+                
+//                document.getElementById("start").value = "2018-10-20";
+//                document.getElementById("start_time").value = "02:00:00";
+//                document.getElementById("end_time").value = "05:00:00";
+//                
+                       }
     </script>
     <style>
         .formField
@@ -189,7 +206,7 @@
 
                                                 <div class='input-group-text rounded-0'><i class='fa fa-user'></i></div>
                                             </div>
-                                            <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg'  name="CustomerName" id="event" placeholder="Customer Name" required>
+                                            <input type='text' class='form-control rounded-0 border border-left-0 form-control-lg'  name="CustomerName" id="name" placeholder="Customer Name" required>
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +218,7 @@
 
                                                 <div class='input-group-text rounded-0'><i class='fa fa-phone'></i></div>
                                             </div>
-                                            <input type='tel' class='form-control rounded-0 border border-left-0 form-control-lg'  name="phoneNo" id="event" placeholder="phone Number" required>
+                                            <input type='tel' class='form-control rounded-0 border border-left-0 form-control-lg'  name="phoneNo" id="phone" placeholder="phone Number" required>
                                         </div>
                                     </div>
                                 </div> 
@@ -213,7 +230,7 @@
 
                                                 <div class='input-group-text rounded-0'><i class='fa fa-envelope'></i></div>
                                             </div>
-                                            <input type='email' class='form-control rounded-0 border border-left-0 form-control-lg'  name="email" id="event" placeholder="Email" required>
+                                            <input type='email' class='form-control rounded-0 border border-left-0 form-control-lg'  name="email" id="email" placeholder="Email" required>
                                         </div>
                                     </div>
                                 </div> 
@@ -275,7 +292,7 @@
                                             <div class='input-group-prepend'>
                                                 <div class='input-group-text rounded-0'><i class='fa fa-users'></i></div>
                                             </div>
-                                            <input type='number' class='form-control rounded-0 border border-left-0 form-control-lg' name="crowdE" min="0" max="500" placeholder="Seat allocation" required>
+                                            <input type='number' class='form-control rounded-0 border border-left-0 form-control-lg' id="crowd" name="crowdE" min="0" max="500" placeholder="Seat allocation" required>
                                             <p id="isAvailable"></p>
                                         </div>
                                     </div>
@@ -283,6 +300,7 @@
                                 
                                 <div id="confirm_btn">
                                     <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#create_menu">Next</button>
+                                    <button type="button" style="margin: auto" class="btn btn-success" onclick="itemDemo()">Demo</button>
                                 </div>
                                    
 

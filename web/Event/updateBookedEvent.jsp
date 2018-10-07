@@ -87,38 +87,38 @@
     </script>
     <%@ include file="Layouts/Styles.jsp" %>
     <style>
-        .eventForm input[type=text], .eventForm input[type=date], .eventForm input[type=time]
-        {
-            width:100%;
-            border:1px solid black;
-            font-size:18px;
-            padding:5px;
-            font-family: Calibri;
-            outline:none;
-            border-radius:10px;
-        }
-        .eventForm input[type=text]:focus, .eventForm input[type=date]:focus, .eventForm input[type=time]:focus
-        {
-            border:1px solid #007bff;
-        }
-        .eventForm input[type=submit]
-        {
-            width:50%;
-            border:1px solid whitesmoke;
-            color:whitesmoke;
-            font-size:18px;
-            background-color: #007bff;
-            font-family: Calibri;
-            border-radius:10px;
-            padding:5px;
-            transition-duration: 0.5s;
-        }
-        .eventForm input[type=submit]:hover
-        {
-            background-color: whitesmoke;
-            color:#007bff;
-            border:1px solid #007bff;
-        }
+        /*        .eventForm input[type=text], .eventForm input[type=date], .eventForm input[type=time]
+                {
+                    width:100%;
+                    border:1px solid black;
+                    font-size:18px;
+                    padding:5px;
+                    font-family: Calibri;
+                    outline:none;
+                    border-radius:10px;
+                }
+                .eventForm input[type=text]:focus, .eventForm input[type=date]:focus, .eventForm input[type=time]:focus
+                {
+                    border:1px solid #007bff;
+                }
+                .eventForm input[type=submit]
+                {
+                    width:50%;
+                    border:1px solid whitesmoke;
+                    color:whitesmoke;
+                    font-size:18px;
+                    background-color: #007bff;
+                    font-family: Calibri;
+                    border-radius:10px;
+                    padding:5px;
+                    transition-duration: 0.5s;
+                }
+                .eventForm input[type=submit]:hover
+                {
+                    background-color: whitesmoke;
+                    color:#007bff;
+                    border:1px solid #007bff;
+                }*/
     </style>
 
 
@@ -137,144 +137,148 @@
                         ResultSet result = Booked_Event.displayThisBookedEvent(event_id);
                     %>
 
-                    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
 
-                        <div class="container-fluid"  style="padding-top:22px">
-                            <!-- Breadcrumbs-->
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="Dashboard">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item active">Update Booked Event</li>
-                            </ol>
+                    <div class="container-fluid"  style="padding-top:22px">
+                        <!-- Breadcrumbs-->
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="Dashboard">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Update Booked Event</li>
+                        </ol>
 
-                            <div class="container-fluid mb-3 bg-white">
-                                <p style="color:black;font-size:50px;text-align:center">Update Public Events</p>
+                        <div class="container mb-3 bg-white" style="max">
+                            <p style="color:black;font-size:50px;text-align:center">Update Public Events</p>
 
-                                <form action="<%=request.getContextPath()%>/UpdateBookedEventServelet" method="post" class="eventForm" onsubmit="return validation()">
-                                    <% while (result.next()) {%>
-                                    <table class="table table-striped">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <form action="<%=request.getContextPath()%>/UpdateBookedEventServelet" method="post" class="eventForm" onsubmit="return validation()">
+                                        <% while (result.next()) {%>
+                                        <table class="table table-striped">
 
-                                        <p style="color:black;font-size:20px;text-align:left">Event name:</p>    
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
+                                            <p style="color:black;font-size:20px;text-align:left">Event name:</p>    
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
 
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-calendar-check'></i></div>
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-calendar-check'></i></div>
+                                                        </div>
+                                                        <input class="form-control" type="text" name="B_event_name" value="<%=result.getString("event_name")%>">
                                                     </div>
-                                                    <input type="text" name="B_event_name" value="<%=result.getString("event_name")%>">
+                                                </div>
+                                            </div> 
+                                            <p style="color:black;font-size:20px;text-align:left">Category:</p>    
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
+
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-calendar-check'></i></div>
+                                                        </div>
+                                                        <input class="form-control" type="text" name="B_category" value="<%=result.getString("Category")%>" >
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <p style="color:black;font-size:20px;text-align:left">Description:</p>    
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
+
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-calendar-check'></i></div>
+                                                        </div>
+                                                        <input class="form-control" type="text" name="B_description" value="<%=result.getString("description")%>">
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <p style="color:black;font-size:20px;text-align:left">Date:</p>
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
+                                                        </div>
+                                                        <input class="form-control" type="text" name="B_date" value="<%=result.getString("Date")%>" id="start">
+                                                        <p style="color:black;font-size:20px;">New Date:</p>
+                                                        <input class="form-control" type="date" name="B_newDate" id="st_date">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div> 
-                                        <p style="color:black;font-size:20px;text-align:left">Category:</p>    
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
-
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-calendar-check'></i></div>
+                                            <p style="color:black;font-size:20px;text-align:left">start time :&nsbp</p>
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
+                                                        </div>
+                                                        <input class="form-control" type="text" name="B_start_time" value="<%=result.getString("start_time")%>" >
+                                                        <input class="form-control" type="time" name="new_B_start_time" id="st_STime" >
                                                     </div>
-                                                    <input type="text" name="B_category" value="<%=result.getString("Category")%>" >
                                                 </div>
                                             </div>
-                                        </div> 
-                                        <p style="color:black;font-size:20px;text-align:left">Description:</p>    
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
 
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-calendar-check'></i></div>
+                                            <p style="color:black;font-size:20px;text-align:left">End time :</p>
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
+                                                        </div>
+                                                        <input class="form-control" type="text" name="B_end_time" value="<%=result.getString("end_time")%>" readonly >
+                                                        <input class="form-control" type="time" name="new_B_end_time" id="ed_Time" >
                                                     </div>
-                                                    <input type="text" name="B_description" value="<%=result.getString("description")%>">
                                                 </div>
                                             </div>
-                                        </div> 
-                                        <p style="color:black;font-size:20px;text-align:left">Date:</p><p style="color:black;font-size:20px;">New Date:</p>
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
-                                                    </div>
-                                                    <input type="text" name="B_date" value="<%=result.getString("Date")%>" id="start">
-                                                    <input <input type="date" name="B_newDate" id="st_date">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p style="color:black;font-size:20px;text-align:left">start time :&nsbp</p>
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
-                                                    </div>
-                                                    <input type="text" name="B_start_time" value="<%=result.getString("start_time")%>" >
-                                                    <input type="time" name="new_B_start_time" id="st_STime" >
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <p style="color:black;font-size:20px;text-align:left">End time :</p>
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
-                                                    </div>
-                                                    <input type="text" name="B_end_time" value="<%=result.getString("end_time")%>" readonly >
-                                                    <input type="time" name="new_B_end_time" id="ed_Time" >
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <p style="color:black;font-size:20px;text-align:left">Location:</p>
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-building'></i></div>
+                                                        </div>
+                                                        <select class="form-control"  type="text" name="B_location" id="loc" required>
+                                                            <option>Choose Location</option>
+                                                            <option>H001</option>
+                                                            <option>H002</option>
+                                                            <option>H003</option>
 
-                                        <p style="color:black;font-size:20px;text-align:left">Location:</p>
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-building'></i></div>
+                                                        </select>
                                                     </div>
-                                                    <select type="text" name="B_location" id="loc" required>
-                                                        <option>Choose Location</option>
-                                                        <option>H001</option>
-                                                        <option>H002</option>
-                                                        <option>H003</option>
-
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <p style="color:black;font-size:20px;text-align:left">Number of seats:</p>
-                                        <div class='form-row mb-2'>
-                                            <div class='form-group col-lg-12'>
-                                                <div class='input-group'>
-                                                    <div class='input-group-prepend'>
-                                                        <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
-                                                    </div>
-                                                    <input type="number" name="B_seats" value="<%=result.getInt("no_seats")%>" >
 
                                                 </div>
                                             </div>
-                                        </div>
+                                            <p style="color:black;font-size:20px;text-align:left">Number of seats:</p>
+                                            <div class='form-row mb-2'>
+                                                <div class='form-group col-lg-12'>
+                                                    <div class='input-group'>
+                                                        <div class='input-group-prepend'>
+                                                            <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
+                                                        </div>
+                                                        <input class="form-control"  type="number" name="B_seats" value="<%=result.getInt("no_seats")%>" >
 
-                                        
-                                      
-                                            <td><input type="hidden" name="B_event_ID" value="<%=result.getString("event_ID")%>"></td>
-                                            <td><input type="submit" name="submit" value="Update"></td>
-                                        </tr>
-                                        <% }%>
-                                    </table>
-                                </form>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+
+
+                                            <td><input class="form-control" type="hidden" name="B_event_ID" value="<%=result.getString("event_ID")%>"></td>
+                                            <td><input class="form-control" type="submit" name="submit" value="Update"></td>
+                                            </tr>
+                                            <% }%>
+                                        </table>
+                                    </form>
+                                </div>
                             </div>
-                        </div>            
-                        <!-- End page content -->
-                    </div>
-                    <%@ include file="Layouts/Footer.jsp" %>
-                    <%@ include file="Layouts/Scripts.jsp" %>
-                    </body>
-                    </html>         
+
+                        </div>
+                    </div>            
+                    <!-- End page content -->
+                </div>
+                <%@ include file="Layouts/Footer.jsp" %>
+                <%@ include file="Layouts/Scripts.jsp" %>
+                </body>
+                </html>         

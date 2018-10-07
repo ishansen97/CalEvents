@@ -35,27 +35,26 @@
         function time_validate() {
 //            var date = document.getElementById("start").value;
             var date = document.getElementById("start").value;
-        var time1 = document.getElementById("start_time").value;
-        var time2 = document.getElementById("end_time").value;
-        
-        var strtime1 = time1.toString();
-        var strtime2 = time2.toString();
-        
-        var start_arr = strtime1.split(":");
-        
-        var ev_date = new Date(date);
-        var cur_date = new Date();
-        var start_time = new Date(time1);
-        var end_time = new Date(time2);
-        
-         if(time1 > time2) {
-            alert("start time should be less than end time");
-            return false;
-        }
-        else {
-            //alert("start_time " + time1);
-            return true;
-        }
+            var time1 = document.getElementById("B_s_time").value;
+            var time2 = document.getElementById("B_e_time").value;
+
+            var strtime1 = time1.toString();
+            var strtime2 = time2.toString();
+
+            var start_arr = strtime1.split(":");
+
+            var ev_date = new Date(date);
+            var cur_date = new Date();
+            var start_time = new Date(time1);
+            var end_time = new Date(time2);
+
+            if (time1 > time2) {
+                alert("start time should be less than end time");
+                return false;
+            } else {
+                //alert("start_time " + time1);
+                return true;
+            }
         }
 
 
@@ -133,6 +132,18 @@
                 $("#display_start").html(data);
             });
         }
+        function itemDemo() {
+            document.getElementById("event").value = "Janadhi's Singing Show";
+            document.getElementById("desc").value = "Musical show will be held by Janadhi and Pikka";
+            document.getElementById("cat").value = "Entertainment";
+            document.getElementById("loc").value = "H001";
+//            document.getElementById("B_s_time").value = "11:00:00";
+//            document.getElementById("B_e_time").value = "16:00:00";
+            document.getElementById("seats").value = "100";
+            
+       
+        }
+
 
 //        function checkTimeAvailable() {
 //            var location = document.getElementById("loc").value;
@@ -255,15 +266,15 @@
                                         </div>
                                     </div>
                                 </div>  
-                                
-                                                                <p style="color:black;font-size:20px;text-align:left">Category:</p>
+
+                                <p style="color:black;font-size:20px;text-align:left">Category:</p>
                                 <div class='form-row mb-2'>
                                     <div class='form-group col-lg-12'>
                                         <div class='input-group'>
                                             <div class='input-group-prepend'>
                                                 <div class='input-group-text rounded-0'><i class='fa fa-building'></i></div>
                                             </div>
-                                            <select class="form-control border border-left-0 form-control-lg rounded-0" name="B_category" id="loc">
+                                            <select class="form-control border border-left-0 form-control-lg rounded-0" name="B_category" id="cat">
                                                 <option>Choose Category</option>
                                                 <option>Musical show</option>
                                                 <option>Entertainment</option>
@@ -324,7 +335,7 @@
                                         </a>--%>
                                     </div>  
                                 </div>
-                                    
+
                                 <p style="color:black;font-size:20px;text-align:left">Seat Allocation:</p>
                                 <div class='form-row mb-2'>
                                     <div class='form-group col-lg-12'>
@@ -332,7 +343,7 @@
                                             <div class='input-group-prepend'>
                                                 <div class='input-group-text rounded-0'><i class='fa fa-flag-checkered'></i></div>
                                             </div>
-                                            <input type='number' class='form-control rounded-0 border border-left-0 form-control-lg' name="seats" min="1" max="500" placeholder="Seat allocation" required>
+                                            <input type='number' class='form-control rounded-0 border border-left-0 form-control-lg' name="seats" min="1" max="500" placeholder="Seat allocation" id="seats" required>
                                             <p id="isAvailable"></p>
                                         </div>
                                     </div>
@@ -346,12 +357,13 @@
                                 <div class="row">
                                     <!--<div class="col-md-6"></div>-->
                                     <div class="col-12 align-content-center"><button type="submit" style="margin: auto" name="action" value="add_employee" class="btn btn-lg btn-outline-success rounded-0 mt-4">Add booked event</button>
+                                        <button type="button" style="margin: auto" class="btn btn-success" onclick="itemDemo()">Demo</button>
                                     </div>
                                 </div>
 
 
                             </div>
-                                                               <div class="col-md-6 text-center pb-5 bg-light">
+                            <div class="col-md-6 text-center pb-5 bg-light">
 
                                 <%@page import="com.dhtmlx.planner.extensions.DHXExtension" %>
                                 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -369,25 +381,25 @@
                                         return p1.render();
                                     }
                                 %>
-                                                                <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-                                                                <div class="file-upload">
-                                
-                                                                    <div class="image-upload-wrap px-5">
-                                                                        <input class="file-upload-input" onchange="readURL(this);" type="file" name="avatar" size="4000000" accept="image/x-png,image/jpg,image/jpeg">
-                                                                        <div class="drag-text py-5">
-                                                                            <img src="../External/images/event.jpg" alt="avatar" class="img-fluid pb-5" style="max-height: 400px">
-                                                                            <h3>choose avatar to upload</h3>
-                                                                            <h3>Or</h3>
-                                                                            <h3>Drag and drop</h3>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="file-upload-content">
-                                                                        <img class="file-upload-image" alt="your image">
-                                                                        <div class="image-title-wrap">
-                                                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove Image</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                                <div class="file-upload">
+
+                                    <div class="image-upload-wrap px-5">
+                                        <input class="file-upload-input" onchange="readURL(this);" type="file" name="avatar" size="4000000" accept="image/x-png,image/jpg,image/jpeg">
+                                        <div class="drag-text py-5">
+                                            <img src="../External/images/event.jpg" alt="avatar" class="img-fluid pb-5" style="max-height: 400px">
+                                            <h3>choose avatar to upload</h3>
+                                            <h3>Or</h3>
+                                            <h3>Drag and drop</h3>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image" alt="your image">
+                                        <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove Image</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-md-6 text-center pb-5 bg-light">
@@ -397,7 +409,7 @@
                                 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
                                 <div id="planner" class="planner"><%=getPlanner(request)%></div>
                                 <%@page import="com.dhtmlx.planner.*,com.dhtmlx.planner.data.*,java.util.Date" %>
-                        
+
                                 <!--                                <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
                                                                 <div class="file-upload">
                                 

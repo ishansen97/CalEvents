@@ -150,13 +150,13 @@
 //            });
 //        }
             function itemDemo() {
-                document.getElementId("event").value = "Musical show by Ishan";
-                document.getElementId("desc").value = "Musical show will be held by Ishan and his band";
-//                document.getElementId("loc").value = "H001";
-//                document.getElementId("start").value = "2018-10-20";
-//                document.getElementId("start_time").value = "02:00:00";
-//                document.getElementId("end_time").value = "05:00:00";
-                
+                document.getElementById("event").value = "Musical show by Ishan";
+                document.getElementById("desc").value = "Musical show will be held by Ishan and his band";
+                document.getElementById("loc").value = "H001";
+//                document.getElementById("start").value = "2018-10-20";
+//                document.getElementById("start_time").value = "02:00:00";
+//                document.getElementById("end_time").value = "05:00:00";
+//                
             }
     </script>
 
@@ -327,8 +327,10 @@
 
                                 <div class="row">
                                     <!--<div class="col-md-6"></div>-->
-                                    <div class="col-12 align-content-center"><button type="submit" style="margin: auto" name="action" value="add_employee" class="btn btn-lg btn-outline-success rounded-0 mt-4">Add public event</button>
-                                        <button type="button" class="btn-btn-success" onclick="itemDemo()" >Demo</button>
+                                    <div class="col-12 align-content-center">
+                                        <button type="submit" style="margin: auto" name="action" value="add_employee" class="btn btn-lg btn-outline-success rounded-0 mt-4">Add public event</button>
+                                        <button type="button" style="margin: auto" class="btn btn-success" onclick="itemDemo()">Demo</button>
+                                       
                                     </div>
                                 </div>
 
