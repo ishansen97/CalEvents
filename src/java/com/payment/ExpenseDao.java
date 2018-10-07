@@ -60,10 +60,10 @@ public class ExpenseDao {
         PreparedStatement ps = con.prepareStatement(query);
 
         ps.setString(1, expense.getDept());
-        ps.setString(2, expense.getDesc().toLowerCase());
+        ps.setString(2, expense.getDesc());
         ps.setString(3, expense.getMethod());
         ps.setDouble(4, expense.getAmount());
-        ps.setString(5, expense.getCategory().toLowerCase());
+        ps.setString(5, expense.getCategory());
         ps.setString(6, expense.getNotes());
 
         if(ps.executeUpdate() > 0) {
