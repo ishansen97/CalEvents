@@ -51,7 +51,7 @@
         <br>
         <div class="row justify-content-between" style="padding: 0">
           <div class="col mb-2">
-            <h2>Payments - <small><i><%= searchString%></i></small></h2>
+            <h2>Income</h2>
           </div>
           <% if (searched) { %>
           <div class="col text-right">
