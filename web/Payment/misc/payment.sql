@@ -17,6 +17,7 @@ CREATE TABLE expenses(
     amount DOUBLE NOT NULL,
     date_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
 DROP VIEW IF EXISTS
     payment_res_event;
 CREATE VIEW payment_res_event AS
@@ -34,7 +35,7 @@ SELECT
     c.name AS cus_name
 FROM
     ((payment p
-JOIN public_events e)
+JOIN public_booked_events e)
 JOIN reservation r)
 JOIN customer c WHERE
     p.res_id = r.res_id AND e.event_id = r.event_id AND r.cus_id = c.cus_id;
@@ -50,3 +51,10 @@ CREATE TABLE `expenses` (
   `amount` double NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP VIEW IF EXISTS payment_event_summary;
+CREATE VIEW payment_event_summary AS
+  SELECT e.event_ID, e.event_name, e.date, count(r.event_id) as bookings, sum(p.amount) as total_income
+    FROM public_booked_events e, reservation r, payment p
+    WHERE e.event_ID = r.event_id AND p.res_id = r.res_id GROUP BY e.event_ID;
