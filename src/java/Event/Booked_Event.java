@@ -109,6 +109,7 @@ public class Booked_Event {
         return false;
     }
    }
+    
     public static ResultSet getBookedEventDetails()throws SQLException, ClassNotFoundException{
         DBConnect connect = DBConnect.getInstance();
         ResultSet result = null;
@@ -180,6 +181,32 @@ public class Booked_Event {
         }
         else 
             return false;
+    }
+        public static ResultSet searchBookedEvents(String search) {
+        String query = null;
+        ResultSet result = null;
+            
+        try {
+            DBConnect connect = DBConnect.getInstance();
+            
+            if(connect.isConnected()){
+                Connection con = connect.getCon();
+                Statement st = con.createStatement();
+                query = "SELECT * FROM booked_event WHERE event_ID LIKE '%"+search+"%' OR event_Name LIKE '%"+search+"%' OR location_id LIKE '%"+search+"%' OR description LIKE '%"+search+"%' OR Date LIKE '%"+search+"%'";
+                
+                System.out.println(query);
+                result = st.executeQuery(query);
+                
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            return result;
+        }
     }
     
 } 

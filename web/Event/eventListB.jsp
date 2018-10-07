@@ -46,8 +46,31 @@
           <div class="col-12">
               
               <p style="color:black;font-size:50px;text-align:center">Booked Event List</p>
+          </div>
+        <div class="col-4">
+            <form action="" method="POST" class="form-group">
+                <input type="text" name="searchBEvent" class="form-group" placeholder="search here">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
               
-              <% ResultSet result = Booked_Event.getBookedEventDetails();
+              <% //ResultSet result = Event.getEventDetails();
+                 String searchText = null; 
+                 searchText = request.getParameter("searchBEvent");
+                 
+                 ResultSet result = null;
+                 
+                 if (searchText == null) {
+                     result =  Booked_Event.getBookedEventDetails();
+                 }
+                 else {
+                     result = Booked_Event.searchBookedEvents(searchText);
+                 }
+                 
+              %>
+              
+              
+              <% ResultSet result1 = Booked_Event.getBookedEventDetails();
               %>
               <table class="table table-striped">
                   <tr>

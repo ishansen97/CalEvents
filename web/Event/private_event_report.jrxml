@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="private_event_report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="172604d4-9084-422e-8378-1d9e20b43714">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="month" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     private_events.`event_ID` AS private_events_event_ID,
+     private_events.`event_Name` AS private_events_event_Name,
+     private_events.`customer_ID` AS private_events_customer_ID,
+     private_events.`Date` AS private_events_Date,
+     private_events.`start_time` AS private_events_start_time,
+     private_events.`end_time` AS private_events_end_time,
+     private_events.`location_ID` AS private_events_location_ID
+FROM
+     `private_events` private_events]]>
+	</queryString>
+	<field name="private_events_event_ID" class="java.lang.String"/>
+	<field name="private_events_event_Name" class="java.lang.String"/>
+	<field name="private_events_customer_ID" class="java.lang.String"/>
+	<field name="private_events_Date" class="java.sql.Date"/>
+	<field name="private_events_start_time" class="java.sql.Time"/>
+	<field name="private_events_end_time" class="java.sql.Time"/>
+	<field name="private_events_location_ID" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0a649433-fc98-4a2e-b78b-6ea9570f5766" x="164" y="30" width="228" height="26"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Simcoe Blues and Jazz]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f540122d-bd1a-4e99-959b-230f01c1479b" x="117" y="0" width="206" height="25"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Private Events - Monthly Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e23ad582-d80d-4ef0-aac9-13e492097dc7" x="323" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

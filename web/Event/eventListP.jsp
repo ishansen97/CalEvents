@@ -19,6 +19,7 @@
 </style>
 
 <body class="w3-light-grey">
+   
     <script>
         $(document).ready(function() {
             $("a.btn-danger").click(function() {
@@ -36,15 +37,39 @@
 <%@ include file="Layouts/Navigation.jsp" %>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+<div class="w3-main" style="margin-left:300px; margin-top: 43px">
 
-    <div class="row">
-          <div class="col-12">
+    <div class="container-fluid bg-white mx-3">
+        <div class="row mt-5">
+            <div class="col-8">
+                <p style="color:black;font-size:50px;text-align:center">Public Event List</p>
+            </div>
+            <div class="col-4">
+                <form action="" method="POST" class="form-group">
+                    <input type="text" name="searchPEvent" class="form-group" placeholder="search here">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
               
-              <p style="color:black;font-size:50px;text-align:center">Public Event List</p>
-              
-              <% ResultSet result = Event.getEventDetails();
+              <% //ResultSet result = Event.getEventDetails();
+                 String searchText = null; 
+                 searchText = request.getParameter("searchPEvent");
+                 
+                 ResultSet result = null;
+                 
+                 if (searchText == null) {
+                     result = Event.getEventDetails();
+                 }
+                 else {
+                     result = Event.searchPublicEvents(searchText);
+                 }
+                 
+                 
               %>
+         
+          <div class="row">
+              <div class="col">
                 <table class="table table-striped">
                     <tr>
                         <th>Event ID</th>
@@ -69,12 +94,15 @@
                     </tr>
                     <% } %>
                 </table>
+              </div>
               
           </div>
     </div>
+
+</div>
               
      <!-- End page content -->
-</div>
+<!--</div>-->
 <%@ include file="Layouts/Footer.jsp" %>
 
 </body>

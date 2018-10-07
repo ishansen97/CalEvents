@@ -3,11 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/UpdateBookedEventServelet.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/deleteBookedEvent.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/Booked_Event.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/UpdateEventServelet.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/MyServletPrivate.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/jrxml_event_reports/monthly_hall_statistics.jrxml</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/package_Form.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListB.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/events.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/DBConnect.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/reports.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/rejectMail.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/EventReport.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/jrxml_event_reports/monthly_booked_event_hall_statistics.jrxml</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_P_events_test.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/Event.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/MyServlet.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/dbconfig.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/monthly_public_event_report.jrxml</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/monthlyu_booked_event_report.jrxml</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/Private_event.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListP.jsp</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/updateBookedEvent.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/getEmailServlet.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListRequest.jsp</file>
         </group>
     </open-files>
 </project-private>

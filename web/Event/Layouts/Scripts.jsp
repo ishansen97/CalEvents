@@ -4,10 +4,11 @@
 <script src="../External/Bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Core plugin JavaScript-->
 <script src="../External/Jquery/jquery.easing.min.js"></script>
+<script src="../External/w3/avatar_upload.js" type="text/javascript"></script>
 <!-- Page level plugin JavaScript-->
 <script src="../External/Datatables/jquery.dataTables.js"></script>
 <script src="../External/Datatables/dataTables.bootstrap4.js"></script>
-
+<script src="../External/Charts/Chart.min.js" type="text/javascript"></script>
 <script>
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");

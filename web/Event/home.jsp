@@ -37,6 +37,9 @@
 	String check = (String) session.getAttribute("skey");
 	String fname = "";
 	String userposition = "";
+        HttpSession session = request.getSession();
+        String path = "C:/Users/RED HAWK/Documents/NetBeansProjects/CalEventsMerge01/web/User/Images/";
+        session.setAttribute("empImgPath", "bla");
 
 	if (check != null) {
 		fname = (String) session.getAttribute("ssname");

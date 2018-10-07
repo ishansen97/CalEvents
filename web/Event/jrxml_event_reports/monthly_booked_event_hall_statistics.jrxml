@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_booked_event_hall_statistics" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65f82268-ab7f-49dc-ab92-bd1d9ceb194d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="month" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT l.location_ID, l.location_name, COUNT(*)
+FROM booked_event be, location l
+WHERE be.location_id = l.location_ID AND MONTH(Date) = MONTH($P{date})
+GROUP BY l.location_ID, l.location_name]]>
+	</queryString>
+	<field name="location_ID" class="java.lang.String"/>
+	<field name="location_name" class="java.lang.String"/>
+	<field name="COUNT(*)" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ba565e51-d3bd-4316-b6b7-68c1c252f47e" x="174" y="26" width="214" height="31"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Simcoe Blues and Jazz]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ee092922-3bac-4f16-aed1-50574d24d446" x="125" y="0" width="204" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Hall Statistics - Booked Events - ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4fc38d8c-58f8-49b3-8455-bb896a396a67" x="329" y="0" width="142" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="99d392a6-9722-41c8-8b1d-135edd935439" x="49" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[location_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51c6c5c8-d86f-48a8-b757-9ad5bbbc6442" x="229" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[location_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d6a41fc-094d-4036-96b7-31dbba57fac6" x="398" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[No_of_events_held]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="20e03151-e6cd-4007-b8e8-911d0200ff3c" x="49" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{location_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="89c96ea0-8207-4789-a20a-fbb12f17e6a5" x="229" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{location_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="feaf3147-b45f-4396-b306-38c02abcaf04" x="398" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
