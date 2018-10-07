@@ -148,6 +148,7 @@
                                         <th class="table-info">Menu Name</th>
                                         <th class="table-info">Expected Crowd</th>
                                         <th class="table-info">Ingredients </th>
+                                        <th class="table-info"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -161,7 +162,7 @@
                                         <td class="table-info"><%=foodO.getString("name")%></td>
                                         <td class="table-info"><%=foodO.getInt("crowd_expected")%></td>
                                         <td class="table-info"><%=foodO.getString("ingredients")%></td>
-
+                                        <td class="table-info"><a class="btn btn-primary" href="../AllocateRawMaterials?nameM=<%=foodO.getString("name")%>&eventID=<%=foodO.getString("private_Id")%>&crowdExpected=<%=foodO.getInt("crowd_expected")%>">Allocate</a></td>
 
                                     </tr>
                                     <%}%>

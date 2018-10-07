@@ -150,7 +150,7 @@ public class Raw_Determine {
         return crowd;
     }
 
-    public double getQuantity(String name) throws ClassNotFoundException, SQLException {
+    public double getQuantity(String id) throws ClassNotFoundException, SQLException {
         ResultSet resultQuantityQ;
         PreparedStatement sq = null;
         double availableQuantity = 0.0;
@@ -158,12 +158,12 @@ public class Raw_Determine {
         if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
 
-            sq = connect.prepareStatement("SELECT * from raw_materials where name = ?");
-            sq.setString(1, name);
+            sq = connect.prepareStatement("SELECT * from raw_materials where rawID = ?");
+            sq.setString(1, id);
             resultQuantityQ = sq.executeQuery();
             while (resultQuantityQ.next()) {
 
-                quantity = resultQuantityQ.getDouble("availableQuantity");
+                quantity = resultQuantityQ.getDouble("quantity");
 
             }
         }
