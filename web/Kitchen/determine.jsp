@@ -193,6 +193,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <%
+                                String message = (String) session.getAttribute("message");
+                                if(message!=null){
+                            %>
+                            <script>
+                                alert("<%=message%>");
+                            </script>
+                            <%
+                                session.removeAttribute("message");}
+                            %>
                         </div>
                     </div>
 

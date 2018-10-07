@@ -387,7 +387,7 @@
                                     var item_id = obj;
                                     //alert(item_id);
 
-                                    $.post("insertIngQuantity.jsp", {menue_ID: item_id}, function (data) {
+                                        $.post("insertIngQuantity.jsp", {menue_ID: item_id}, function (data) {
                                         $("#insertIngModal .modal-body").html(data);
                                     });
                                     $("#insertIngModal").modal();

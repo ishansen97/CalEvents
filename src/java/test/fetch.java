@@ -86,11 +86,11 @@ public class fetch {
 
         ResultSet result = null;
         PreparedStatement statement = null;
-
+        
         if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
 
-            statement = connect.prepareStatement("SELECT * FROM `menu_items`");
+            statement = connect.prepareStatement("SELECT * FROM `menu_items` WHERE item_id NOT IN (SELECT menuID FROM determined)");
 
             result = statement.executeQuery();
 
@@ -100,19 +100,22 @@ public class fetch {
 
     }
 
-    public ResultSet getFoodbyID(String id) throws SQLException, ClassNotFoundException {
+    public ResultSet getFoodbyID(String name) throws SQLException, ClassNotFoundException {
 
         ResultSet result = null;
         PreparedStatement statement = null;
-
+        String id = "";
         if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
 
             statement = connect.prepareStatement("SELECT * FROM `menu_items` WHERE `item_id` = ? ");
-            statement.setString(1, id);
+            statement.setString(1, name);
 
             result = statement.executeQuery();
-
+            
+            
+            
+            
         }
 
         return result;
@@ -128,13 +131,37 @@ public class fetch {
         if (dbcon.isConnected()) {
             Connection connect = dbcon.getCon();
 
-            statement = connect.prepareStatement("SELECT `rawID` FROM `raw_materials` WHERE `name` = ? ");
+            statement = connect.prepareStatement("SELECT *  FROM `raw_materials` WHERE `name` = ? ");
             statement.setString(1, name);
 
             result = statement.executeQuery();
             while(result.next()){
                 
                 id = result.getString("rawID");
+            
+            }
+
+        }
+
+        return id;
+
+    }
+    public String getMenuID(String name) throws SQLException, ClassNotFoundException {
+
+        ResultSet result = null;
+        PreparedStatement statement = null;
+        String id = "";
+
+        if (dbcon.isConnected()) {
+            Connection connect = dbcon.getCon();
+
+            statement = connect.prepareStatement("SELECT *  FROM `menu_items` WHERE `name` = ? ");
+            statement.setString(1, name);
+
+            result = statement.executeQuery();
+            while(result.next()){
+                
+                id = result.getString("item_id");
             
             }
 
@@ -209,6 +236,8 @@ class d {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
 //    fetch f = new fetch();
+    
+//        System.out.println(f.getFoodbyID("bread crums"));
 //    //ResultSet r = f.fetchAppetizers();
 //    
 //    while(r.next()){

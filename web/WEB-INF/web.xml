@@ -32,6 +32,14 @@
         <servlet-name>update</servlet-name>
         <servlet-class>rawServelets.update</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>allocate</servlet-name>
+        <servlet-class>rawServelets.allocate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllocateRawMaterials</servlet-name>
+        <servlet-class>rawServelets.AllocateRawMaterials</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>insertRaw</servlet-name>
         <url-pattern>/insertRaw</url-pattern>
@@ -63,6 +71,14 @@
     <servlet-mapping>
         <servlet-name>update</servlet-name>
         <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>allocate</servlet-name>
+        <url-pattern>/allocate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllocateRawMaterials</servlet-name>
+        <url-pattern>/AllocateRawMaterials</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

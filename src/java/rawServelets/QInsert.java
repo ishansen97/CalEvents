@@ -14,8 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import test.Raw_Determine;
 import test.fetch;
+import testpackage.deterineAllocaio;
 
 /**
  *
@@ -40,37 +42,63 @@ public class QInsert extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QInsert</title>");            
+            out.println("<title>Servlet QInsert</title>");
             out.println("</head>");
             out.println("<body>");
             String[] rawName = request.getParameterValues("rawName");
             String[] rawQuantity = request.getParameterValues("ingQuantity");
             String menuItemName = request.getParameter("menu_ID");
             String rawID = "";
-            out.print("<br>"+menuItemName);
+            String menuID = "";
+
             
-            for(int i = 0 ; i < rawName.length ; i++){
-            out.println("<h1>" + rawName[i] + "</h1>");
-            
-                
-                out.print("<br>"+rawID);
-           
-            out.println("<h1>" + rawQuantity[i] + "</h1>");
+
+            boolean error = false;
+            try {
+                deterineAllocaio ins = new deterineAllocaio();
+                fetch fetch = new fetch();
+                menuID = fetch.getMenuID(menuItemName);
+
+                out.print(rawName.length);
+                for (int i = 0; i < rawName.length; i++) {
+                    out.print("<br>Raw item Name : " + rawName[i]);
+
+                    rawID = fetch.getItemID(rawName[i].trim());
+                    double q = Double.parseDouble(rawQuantity[i].trim());
+                    out.print("<br>Raw item id : " + fetch.getItemID(rawName[i].trim()));
+                    if (!ins.insertDtermine(rawID, menuID, rawName[i].trim(), menuItemName, q)) {
+                        error = true;
+                        break;
+                    }
+                    out.println("<h1>" + rawQuantity[i] + "</h1>");
+
+                }
+                if (!error) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("message", "Data Inserted");
+                    response.sendRedirect("Kitchen/determine.jsp");
+                }
+                out.print("<br>Menu item Name : " + menuItemName);
+                out.print("<br>Menu item id : " + menuID);
+                out.println("</body>");
+                out.println("</html>");
+            } catch (SQLException ex) {
+                Logger.getLogger(QInsert.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QInsert.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                out.println(ex);
             }
-            out.println("</body>");
-            out.println("</html>");
+        } catch (Exception ex) {
+            Logger.getLogger(QInsert.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
 //        PreparedStatement pstmt = 
 //                conn.prepareStatement("select * from employee where id in (?)");
 //Array array = conn.createArrayOf("VARCHAR", new Object[]{"1", "2","3"});
 //pstmt.setArray(1, array);
 //ResultSet rs = pstmt.executeQuery();
-        
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,9 +128,9 @@ public class QInsert extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         PrintWriter out = response.getWriter();
-        
+
 //        int item_id = Integer.parseInt(request.getParameter("item_id"));
 //        String rawID = request.getParameter("rawID");
 //        double ingQuantity = Double.parseDouble(request.getParameter("ingQuantity"));
@@ -114,7 +142,6 @@ public class QInsert extends HttpServlet {
 //        if(message.equalsIgnoreCase("new record inserted"))response.sendRedirect("Kitchen/adminOperations.jsp");
 //        else if(message.equalsIgnoreCase("new record not inserted"))response.sendRedirect("Kitchen/errorInserting.jsp");
 //        else if(message.equalsIgnoreCase("raw material already exist"))response.sendRedirect("Kitchen/wrong.jsp");
-        
     }
 
     /**
