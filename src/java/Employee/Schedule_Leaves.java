@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Uditha
+ * @author Dell
  */
-@WebServlet(name = "Tasks", urlPatterns = {"/E-Management/Tasks"})
-public class Tasks extends HttpServlet {
+@WebServlet(name = "Schedule_Leaves", urlPatterns = {"/E-Management/Schedule-Leaves"})
+public class Schedule_Leaves extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,23 +33,24 @@ public class Tasks extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           
-             Object authenticate = request.getSession(false).getAttribute("authenticated");
-            if(null != authenticate){
+            
+            Object authenticate = request.getSession(false).getAttribute("authenticated");
+            if (null != authenticate) {
+
+                // Setting active nav links
+                request.getSession().setAttribute("nav00", "");
+                request.getSession().setAttribute("nav01", "");
+                request.getSession().setAttribute("nav02", "");
+                request.getSession().setAttribute("nav03", "");
+                request.getSession().setAttribute("nav04", "");
+		request.getSession().setAttribute("nav05", "");
                 
-            // Setting active nav links
-            request.getSession().setAttribute("nav00", "w3-text-gray");
-            request.getSession().setAttribute("nav01", "");
-            request.getSession().setAttribute("nav02", "");
-            request.getSession().setAttribute("nav03", "w3-blue");
-            request.getSession().setAttribute("nav04", "");
-	    request.getSession().setAttribute("nav05", "");
-            
-            request.getRequestDispatcher("/User/Tasks.jsp").forward(request, response);
-            
-            }else{
-                    response.sendRedirect("/CalEvents/Admin");
-                }
+
+                request.getRequestDispatcher("/User/Leave_Request.jsp").forward(request, response);
+
+            } else {
+                response.sendRedirect("/CalEvents/Admin");
+            }
         }
     }
 

@@ -206,6 +206,18 @@
                                                     <td class="pl-3 py-2">Contact </td>
                                                     <td class="pl-2">: ${contact_number}</td>
                                                 </tr>
+                                                <%
+                                                    if (avatar != null) {
+                                                %>
+                                                <tr>
+                                                    <td colspan="2" class=" pt-4 pl-1 pr-1 text-center">
+                                                        <form action="Employee-Performance" method="POST">
+                                                            <input type="text" name="empid" value="${id}" hidden>
+                                                            <button type="submit" class="btn btn-block btn-primary rounded-0">View Performance</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
                                             </table>
                                         </div>
                                     </div>

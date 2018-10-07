@@ -227,7 +227,45 @@ public class Attendance {
     }
 
     // View all employees
-    public int confirmLeaveRequest(String employeeId, String date, String leaveType) throws ClassNotFoundException, SQLException {
+    public static int confirmLeaveRequest(String employeeId, String date, String leaveType) throws ClassNotFoundException, SQLException {
+
+        ServerConnection.setConnection();
+        int query03 = 0;
+
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+
+            Statement st = con.createStatement();
+
+            String sql = "INSERT INTO employee_leave_schedule (employee_id, date, leave_type) VALUES (?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, employeeId);
+            ps.setString(2, date);
+            ps.setString(3, leaveType);
+            ps.executeUpdate();
+
+            if (leaveType.equalsIgnoreCase("full")) {
+
+                String sql01 = "INSERT INTO employee_attendance (employee_id, date, arrival_time, departure_time) VALUES (?,?,?,?)";
+                PreparedStatement ps01 = con.prepareStatement(sql01);
+                ps01.setString(1, employeeId);
+                ps01.setString(2, date);
+                ps01.setString(3, "00:00:00");
+                ps01.setString(4, null);
+                ps01.executeUpdate();
+            }
+
+            String sql03 = "UPDATE employee_leave_request SET status =? WHERE employee_leave_request.employee_id = '" + employeeId + "' AND employee_leave_request.date = '" + date + "'";
+            PreparedStatement ps02 = con.prepareStatement(sql03);
+            ps02.setString(1, "confirmed");
+            query03 = ps02.executeUpdate();
+
+        }
+        return query03;
+    }
+
+    // View all employees
+    public static int scheduleLeaveRequest(String employeeId, String date, String leaveType) throws ClassNotFoundException, SQLException {
 
         ServerConnection.setConnection();
         int query = 0;
@@ -238,41 +276,15 @@ public class Attendance {
 
             Statement st = con.createStatement();
 
-            sql = "INSERT INTO employee_leave_schedule (employee_id, date, leave_type) VALUES (?,?,?)";
+            String sql = "INSERT INTO employee_leave_request (employee_id, date, leave_type) VALUES (?,?,?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, employeeId);
             ps.setString(2, date);
             ps.setString(3, leaveType);
             query = ps.executeUpdate();
 
-            if (leaveType.equals("full")) {
-
-                sql = "INSERT INTO employee_attendance (employee_id, date, arrival_time, departure_time) VALUES (?,?,?,?)";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, employeeId);
-                ps.setString(2, date);
-                ps.setString(3, "00:00:00");
-                ps.setString(4, "00:00:00");
-                query = ps.executeUpdate();
-
-            } else {
-
-                sql = "INSERT INTO employee_attendance (employee_id, date, departure_time) VALUES (?,?,?)";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, employeeId);
-                ps.setString(2, date);
-                ps.setString(3, "14:00:00");
-                query = ps.executeUpdate();
-            }
-
-            sql = "UPDATE employee_leave_request SET status =? WHERE employee_leave_request.employee_id = '" + employeeId + "' AND employee_leave_request.date = '" + date + "'";
-            ps = con.prepareStatement(sql);
-            ps.setString(1, "confirmed");
-            query = ps.executeUpdate();
-
         }
         return query;
-
     }
 
     public static boolean isTimeForShortLeave() {

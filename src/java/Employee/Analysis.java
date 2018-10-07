@@ -130,4 +130,82 @@ public class Analysis {
         double noOfLeaves = (noOfLeavesThisYear/365.0)*100; 
 	return noOfLeaves;
     }
+     
+    public static String getDepartmentLeaveStat(String department) throws ClassNotFoundException, SQLException {
+	
+	ServerConnection.setConnection();
+        String noOfLeavesThisYear = null;
+        String noOfLeavesLastYear = null;
+
+	if (ServerConnection.getConnectionStatus()) {
+	    Connection con = ServerConnection.getConnection();
+	    Statement st = con.createStatement();
+
+	    String thisYearLeaveCountQuery = "SELECT COUNT(employee_id) AS Leave_Count FROM employee_leave_schedule WHERE YEAR(date) = YEAR(CURDATE()) AND employee_id IN (SELECT id FROM employees WHERE department = '"+department+" Department')";
+            ResultSet res = st.executeQuery(thisYearLeaveCountQuery);
+            while(res.next()){
+                noOfLeavesThisYear = res.getString("Leave_Count");
+            }
+            
+            String lastYearLeaveCountQuery = "SELECT COUNT(employee_id) AS Leave_Count FROM employee_leave_schedule WHERE YEAR(date) = YEAR(CURDATE()) AND employee_id IN (SELECT id FROM employees WHERE department = '"+department+" Department')";
+            ResultSet res01 = st.executeQuery(lastYearLeaveCountQuery);
+            while(res01.next()){
+                noOfLeavesLastYear = res01.getString("Leave_Count");
+            }
+	}
+        
+	return noOfLeavesThisYear+","+noOfLeavesLastYear;
+    }
+    
+    public static String getDepartmentEmploymentStat(String department) throws ClassNotFoundException, SQLException {
+	
+	ServerConnection.setConnection();
+        String noOfTerminatedEmployees = null;
+        int noOfNewEmployees = getYearStatDepartmentEmployment(department);
+
+	if (ServerConnection.getConnectionStatus()) {
+	    Connection con = ServerConnection.getConnection();
+	    Statement st = con.createStatement();
+
+	    String currCountQuery = "SELECT COUNT(id) AS Terminated_Employees FROM employees WHERE department = '"+department+" Department' AND YEAR(dot) = YEAR(CURDATE())";
+            ResultSet res = st.executeQuery(currCountQuery);
+            while(res.next()){
+                noOfTerminatedEmployees = res.getString("Terminated_Employees");
+            }
+	}
+        
+	return noOfNewEmployees+","+noOfTerminatedEmployees;
+    }
+    
+    public static String getDepartmentGenderStat(String department) throws ClassNotFoundException, SQLException {
+	
+	ServerConnection.setConnection();
+        int noOfMaleEmployees = 0;
+        int noOfFemaleEmployees = 0;
+        int noOfEmployees = getDepartmentEmployment(department);
+        
+
+	if (ServerConnection.getConnectionStatus()) {
+	    Connection con = ServerConnection.getConnection();
+	    Statement st = con.createStatement();
+
+	    String thisYearLeaveCountQuery = "SELECT COUNT(`id`) AS Male_Count FROM employees WHERE gender = 'Male' AND department = '"+department+" Department'";
+            ResultSet res = st.executeQuery(thisYearLeaveCountQuery);
+            while(res.next()){
+                noOfMaleEmployees = res.getInt("Male_Count");
+            }
+            
+            String lastYearLeaveCountQuery = "SELECT COUNT(`id`) AS Female_Count FROM employees WHERE gender = 'Female' AND department = '"+department+" Department'";
+            ResultSet res01 = st.executeQuery(lastYearLeaveCountQuery);
+            while(res01.next()){
+                noOfFemaleEmployees = res01.getInt("Female_Count");
+            }
+
+	}
+        
+        int malePercentage = (noOfMaleEmployees/noOfEmployees)*100;
+        int femalePercentage = (noOfFemaleEmployees/noOfEmployees)*100;
+        
+	return malePercentage+","+femalePercentage;
+    }
 }

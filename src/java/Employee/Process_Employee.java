@@ -101,7 +101,7 @@ public class Process_Employee extends HttpServlet {
                     if (addEmployee > 0) {
                         request.getSession().setAttribute("message", "Employee successfully added");
 
-                        activity.recordActivity(actor, "New employee " + id + " was added into the system under " + department);
+                        activity.recordActivity(actor, "Employee "+id+" was added to the system", "New employee " + id + " was added to the system under " + department);
 
                         response.sendRedirect("New-Employee");
                     }
@@ -169,7 +169,7 @@ public class Process_Employee extends HttpServlet {
                     if (updateEmployee > 0) {
                         request.getSession().setAttribute("message", "Employee successfully updated");
 
-                        activity.recordActivity(actor, "Employee " + id + " details were updated");
+                        activity.recordActivity(actor,"Employee " + id + " details were updated", "Employee " + id + " details were updated");
 
                         response.sendRedirect("Employees");
                     }
@@ -194,7 +194,7 @@ public class Process_Employee extends HttpServlet {
                     if (resetPassword > 0) {
                         request.getSession().setAttribute("message", "Employee successfully updated");
 
-                        activity.recordActivity(actor, "Employee " + id + " password was resetted");
+                        activity.recordActivity(actor, "Employee " + id + " password was resetted", "Employee " + id + " password was resetted");
 
                         response.sendRedirect("Employees");
                     }
@@ -229,7 +229,7 @@ public class Process_Employee extends HttpServlet {
 
                         request.getSession().setAttribute("message", "Employee successfully removed");
 
-                        activity.recordActivity(actor, "Employee " + id + " was removed from the system");
+                        activity.recordActivity(actor,"Employee " + id + " was removed from the system", "Employee " + id + " was removed from the system");
 
                         response.sendRedirect("Employees");
                     }

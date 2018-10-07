@@ -14,7 +14,7 @@ public class Activity {
     private String sql = null;
 
     // Add log record
-    public Integer recordActivity(String actor, String activity) throws ClassNotFoundException, SQLException {
+    public Integer recordActivity(String actor, String activity, String descripition) throws ClassNotFoundException, SQLException {
 
         
         // Setting server connection
@@ -25,10 +25,11 @@ public class Activity {
 
             // If connection successfully established
             Connection con = ServerConnection.getConnection();
-            sql = "INSERT INTO activity_log (actor, activity, occurred_on)values (?, ?, NOW())";
+            sql = "INSERT INTO activity_log (actor, activity, descripition, occurred_on)values (?, ?, ?, NOW())";
             ps = con.prepareStatement(sql);
             ps.setString(1, actor);
             ps.setString(2, activity);
+            ps.setString(3, descripition);
             int querry = ps.executeUpdate();
             return querry;
         }

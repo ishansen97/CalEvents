@@ -22,7 +22,7 @@
                     <a href='Profile' class='w3-bar-item w3-button' style='text-decoration: none;'>Update Profile</a>
                 </div>
             </div>
-            <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+            <a data-toggle="modal" data-target="#leaveRequestModal" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
         </div>
     </div>
     <hr>
@@ -34,9 +34,12 @@
 
         <a href="New-Employee" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav01}" style="text-decoration: none"><i class="fa fa-user-tie fa-fw"></i>&nbsp; New Employee</a>
         <a href="Employees" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav02}" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees</a>
-        <a href="Tasks" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav03}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Event Assignment</a>
         <a href="Logs" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav04}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Activity Log</a>
         <a href="Statistics" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav05}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Statistics</a>
+        <a href="Schedule-Leaves" class="w3-bar-item w3-button w3-padding w3-hover-blue-gray ${nav06}" style="text-decoration: none"><i class="fa fa-calendar-alt fa-fw"></i>&nbsp; Schedule Leaves</a>
+        
+        
+        
         <!--    <div class="w3-dropdown-hover">
             <button class="w3-button" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Employees <i class="fa fa-caret-down"></i></button>
             <div class="w3-dropdown-content w3-bar-block">
@@ -100,6 +103,47 @@
         </div>
 
     </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="leaveRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:12%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form action="/CalEvents/E-Management/Process-Leave" method="POST">
+      <div class="modal-body">
+          <div class="form-group">
+              <label for="inputAddress">Employee ID</label>
+              <input type="text" class="form-control" name="empId" value="${p_id}" readonly>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-6">
+                  <input type="text" name="action" value="requestLeave" hidden>
+                  <input type="text" name="department" value="${p_department}" hidden>
+                  <label for="inputCity">Date requested</label>
+                  <input type="date" class="form-control" name="date">
+              </div>
+              <div class="form-group col-md-6">
+                  <label for="inputState">Leave type</label>
+                  <select name="type" class="form-control">
+                      <option selected>Short</option>
+                      <option>Full</option>
+                  </select>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Request leave</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 <%@page import="Employee.Business, Employee.Attendance" %>
 <%

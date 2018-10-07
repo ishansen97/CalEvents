@@ -115,8 +115,26 @@
                             <canvas id="myChart" width="200" height="100"></canvas>
 
                         </div>
-                        <div class="col pr-5 pt-5">
-                            <h5 class="pb-3">Feeds</h5>
+                        <div class="col-3 pr-5 pl-1 pt-5 offset-md-4">
+                            <div class="card">
+                                <div class="card-header">Business Operating Hours</div>
+                                <div class="card-body">
+                                    <form action="Update-Hours" method="POST">
+                                    <div class="form-group">
+                                        <label>Opening Hour</label>
+                                        <input type="time" name="openingTime" class="form-control form-control-lg" value="<% out.print(Business.getBusinessOpeningTime()); %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Closing Hour</label>
+                                        <input type="time" name="closingTime" class="form-control form-control-lg" value="<% out.print(Business.getBusinessClosingTime()); %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-block btn-success btn-lg">Update Hours</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+<!--                            <h5 class="pb-3">Feeds</h5>
                             <table class="w3-table w3-striped w3-white">
                                 <tr>
                                     <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
@@ -148,7 +166,7 @@
                                     <td>System notifications</td>
                                     <td><i>Fully functional</i></td>
                                 </tr>
-                            </table>
+                            </table>-->
                         </div>
                     </div>
 
