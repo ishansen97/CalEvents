@@ -1,8 +1,3 @@
-<%-- 
-    Document   : updateEvent
-    Created on : Oct 7, 2018, 12:10:56 AM
-    Author     : hp
---%>
 
 <%-- 
     Document   : updateEvent
@@ -36,7 +31,7 @@
                         ResultSet result = Event.displayThisEvent(event_id);
                     %>
 
-                    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+                
 
 
                         <div class="container-fluid"  style="padding-top:22px">
@@ -48,7 +43,7 @@
                                 <li class="breadcrumb-item active">Update Public Event</li>
                             </ol>
 
-                            <div class="container-fluid mb-3 bg-white">
+                            <div class="container-fluid mb-3 bg-white" style="max">
                                 <p style="color:black;font-size:50px;text-align:center">Update Public Events</p>
                                 <form action="<%=request.getContextPath()%>/UpdateEventServelet" method="post" class="eventForm">
                                     <% while (result.next()) {%>
@@ -61,7 +56,7 @@
 
                                                     <div class='input-group-text rounded-0'><i class='fa fa-calendar-check'></i></div>
                                                 </div>
-                                                <input type="text" name="event_name" value="<%=result.getString("event_name")%>"id="event" placeholder="Event Name">
+                                                <input class="form-control" type="text" name="event_name" value="<%=result.getString("event_name")%>"id="event" placeholder="Event Name">
                                             </div>
                                         </div>
                                     </div> 
@@ -72,7 +67,7 @@
                                                 <div class='input-group-prepend'>
                                                     <div class='input-group-text rounded-0'><i class='fa fa-list-alt'></i></div>
                                                 </div>
-                                                <textarea input type="text" name="description" id="desc" placeholder="Event Description" ><%=result.getString("description")%></textarea>
+                                                <textarea class="form-control" input type="text" name="description" id="desc" placeholder="Event Description" ><%=result.getString("description")%></textarea>
                                             </div>
                                         </div>
                                     </div>  
@@ -83,7 +78,7 @@
                                                 <div class='input-group-prepend'>
                                                     <div class='input-group-text rounded-0'><i class='fa fa-building'></i></div>
                                                 </div>
-                                                <select type="text" name="location" id="loc" required>
+                                                <select class="form-control" type="text" name="location" id="loc" required>
                                                     <option>Choose Location</option>
                                                     <option>H001</option>
                                                     <option>H002</option>
@@ -100,8 +95,8 @@
                                                 <div class='input-group-prepend'>
                                                     <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
                                                 </div>
-                                                <input type="text" name="date" value="<%=result.getString("date")%>" id="start">
-                                                <input type="date" name="newDate">
+                                                <input class="form-control" type="text" name="date" value="<%=result.getString("date")%>" id="start">
+                                                <input class="form-control" type="date" name="newDate">
                                             </div>
                                         </div>
                                     </div>
@@ -113,8 +108,8 @@
                                                 <div class='input-group-prepend'>
                                                     <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
                                                 </div>
-                                                <input type="text" name="start_time" value="<%=result.getString("start_time")%>" >
-                                                <<input type="time" name="new_start_time" >>
+                                                <input class="form-control" type="text" name="start_time" value="<%=result.getString("start_time")%>" >
+                                                <<input class="form-control" type="time" name="new_start_time" >>
                                             </div>
                                         </div>
                                     </div>
@@ -126,8 +121,8 @@
                                                 <div class='input-group-prepend'>
                                                     <div class='input-group-text rounded-0'><i class='fa fa-calendar'></i></div>
                                                 </div>
-                                                <input type="text" name="end_time" value="<%=result.getString("end_time")%>" readonly >
-                                                <input type="time" name="new_end_time" >
+                                                <input class="form-control" type="text" name="end_time" value="<%=result.getString("end_time")%>" readonly >
+                                                <input class="form-control" type="time" name="new_end_time" >
                                             </div>
                                         </div>
                                     </div>
@@ -139,8 +134,8 @@
                                         <table class="table table-striped">
 
                                             <tr>
-                                                <td><input type="hidden" name="event_ID" value="<%=result.getString("event_ID")%>"></td>
-                                                <td><input type="submit" name="submit" value="Update"></td>
+                                                <td><input class="form-control" type="hidden" name="event_ID" value="<%=result.getString("event_ID")%>"></td>
+                                                <td><input class="form-control" type="submit" name="submit" value="Update"></td>
                                             </tr>
                                             <% }%>
                                         </table>

@@ -148,17 +148,17 @@
 
     <body class="w3-light-grey">
 
-        <%@ include file="Layouts/Navigation.jsp" %>
+        
 
         <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+        <div class="w3-main" style="margin-left:50px;margin-top:43px;">
 
 
             <div class="container-fluid"  style="padding-top:22px">
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="Dashboard">Dashboard</a>
+                        <a href="Dashboard">Simcoe Blues and Jazz</a>
                     </li>
                     <li class="breadcrumb-item active">Event Request</li>
                 </ol>

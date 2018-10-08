@@ -3,24 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/newjsp.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insertEvent.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_B_events.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/DBConnect.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/rejectMail.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_P_events.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_P_events_test.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/index.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/Event.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/MyServlet.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListB.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/MailSender.java</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/SendEmail.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/updateEventTest.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_B_events_test.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/Private_event.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/Stats.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/getEmailServlet.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_B_events.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/updateEvent.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListP.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/rejectMail.java</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/updateBookedEvent.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListRequest.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/getEmailServlet.java</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/index.jsp</file>
         </group>
     </open-files>
 </project-private>

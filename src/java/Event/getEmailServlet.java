@@ -85,14 +85,14 @@ public class getEmailServlet extends HttpServlet {
             }
             
             //String body = "Mail";
-            String msg = "Dear Customer,\n\n This is regarding the  I'm Lolla Abishaan You can contact me anytime, i'm free, You can use me for free trial";
+            String msg = "Dear Customer,\n\n This is regarding the request you have made through our website for an event, In-order to proceed futher with your request Please contact the manager.\n\n\n Thank you! \n Simcoe Blues & Jazz Management.";
             
-            String username = "databaser4@gmail.com";
-            String password = "tankionline";        
+            String username = "bocmetro@gmail.com";
+            String password = "boc123456";        
                     
             out.println(email);
             out.println("SSL Email Started");
-            String sub = "Confirm Mail";
+            String sub = "Event Request Confirmation";
            Properties prop = new Properties();
         prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         prop.put("mail.smtp.auth", true);
