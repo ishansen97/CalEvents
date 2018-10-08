@@ -276,10 +276,10 @@
             <div class="photo-section">
                 <div class="photo-title">
                     <div class="active title"><a href="CusProfile.jsp">My Profile</a></div>
-                    <div class="title"><a href="Gallery">Gallery</a></div>
+                    <!--<div class="title"><a href="Gallery">Gallery</a></div>-->
                     <div class="title"><a href="bookedEvents">Booked Events</a></div>
                     <div class="title"><a href="Feedback.jsp">Feedback</a></div>
-                    <div class="title"><a href="Notification.jsp"><u>Notifications</u></a></div>
+                   <!-- <div class="title"><a href="Notification.jsp"><u>Notifications</u></a></div>-->
 
 
                 </div>

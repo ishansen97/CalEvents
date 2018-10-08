@@ -20,7 +20,7 @@
         <link href="Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="style.css" rel="stylesheet" type="text/css"/>
-
+        <link href="Navigation.jsp" rel="" type="text/jsp"/>
         <style type="text/css">
             @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700");
             * {
@@ -58,7 +58,7 @@
             .face {
                 width: 150px;
                 height: 150px;
-                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
+                background-image: url("images/4.jpg");
                 background-size: cover;
                 background-position: top center;
                 border-radius: 50%;
@@ -131,8 +131,8 @@
 
             .title a{
                 text-decoration: none;
-                color: grey;
-                font-size: 22px;
+                color: blackgrey;
+                font-size: 30px;
             }
             .photo-section .thumb-wrapper {
                 width: 100%;
@@ -232,15 +232,7 @@
     </head>
     <body>
 
-        <%
-            response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
-            response.setHeader("pragma", "no-cache");
-
-            if (session.getAttribute("username") == null && session.getAttribute("id") == null) {
-                response.sendRedirect("login.jsp");
-            }
-
-        %>
+      
         <link href="font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="header">
@@ -249,38 +241,20 @@
             </div>
             <div class="content">
                 <div class="face">
-                    <%   Connection con = null;
+                   <%   Connection con = null;
                         Statement statement = null;
                         ResultSet resultSet = null;
 
                     %>
-                    <%try {
-                            con = DBConnection.createConnection();
-                            statement = con.createStatement();
-                            String sql = "SELECT * FROM users where userID=" + session.getAttribute("id");
-
-                            resultSet = statement.executeQuery(sql);
-                            while (resultSet.next()) {
-                    %>
-                    <div class="number"><%=resultSet.getString("userID")%></div>
-                </div>
-
-
-                <div class="name">Hi <%=resultSet.getString("name")%></div>
-
-                <div><form action="logoutServlet" method="post">
-                        &nbsp&nbsp&nbsp<input type="submit" class=" button btn-outline-danger" value="Logout">
-
-                    </form></div>
 
             </div>
             <div class="photo-section">
                 <div class="photo-title">
-                    <div class="active title"><a href="AdminProfile.jsp">My Profile</a></div>
+                    <div class="title"><a href="viewCustomers.jsp">View Customers</a></div>
+                    <div class="title"><a href="CusSearch.jsp">Search Customers</a></div> 
                     
-                    <div class="title"><a href="bookedEventsAd.jsp">Booked Events</a></div>
-                    <div class="title"><a href="Feedback.jsp">Feedback</a></div>
-                    <div class="title"><a href="NotificationAd.jsp">Notifications</a></div>
+                    <div class="title"><u><a href="FeedbackAd.jsp">Feedback</a></u></div>
+                   
 
                 </div>
 
@@ -288,15 +262,10 @@
                 <div align="center">
 
                    
-                    <% }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    %>
-                    <br><br><br><br><br><br>
+                    <br><br>
 
 
-                    <table border="2" class="table-hover" cellpadding="50">
+                    <table border="2" class="table-hover" cellpadding="25" style="overflow-y:scroll; height:200px;">
 
 
                         <tr class="table-info">
@@ -305,7 +274,7 @@
                             <th>Email</th>
                             <th>Subject</th>
                             <th>Comments</th>
-                            <th>UserID</th>
+                            <th>Customer ID</th>
 
                             <th>Delete</th>
 
@@ -327,10 +296,9 @@
                             <td><%=resultSet.getString("email")%></td>
                             <td><%=resultSet.getString("subject")%></td>
                             <td><%=resultSet.getString("comments")%></td>
-                            <td><%=resultSet.getString("userid")%></td>
+                            <td><%=resultSet.getString("cus_id")%></td>
 
-                            <!--<td><input type="submit" value="update" onclick="location.href = 'updateFeedback.jsp?fid=<%=resultSet.getString("fid")%>'"/></td>-->
-
+                           
                             <td><form action="DeleteFeedback" method="post">
                                     <input type="hidden" name="fid" value="<%=resultSet.getString("fid")%>"/>
                                     <input type="submit" value= "Delete" class="select-button" > 
@@ -346,8 +314,35 @@
                                 %>
                         </tr>
                     </table>
-                    <br><br><br>
+                    
+                    
+                  
+                    <br><br>
+                                  
+                  <form action="reportFeedbackServlet" method="post">
+            <h2><input type="submit" value="Reports" class="button btn-primary"></h2><br>
+            
+            </form>
+            <div class="btn-group btn-group-lg" align="right">
+            
+            
+            
+            
+            <form action="Inquiry" method="post">
+          <h3><input type="submit" value="Inquiry" class="button btn-warning"></h3><br></form>
+          
+            <form action="Appreciation" method="post">
+            <h3><input type="submit" value="Appreciation" class="button btn-danger"></h3><br></form>
+            
+            <form action="Suggestion" method="post">
+            <h3><input type="submit" value="Suggestions" class="button btn-info"></h3><br></form>
+            
+            <form action="Complaint" method="post">
+            <h3><input type="submit" value="Complaints" class="button btn-info"></h3><br></form>
+            
+       
                 </div>
+</div>
 
             </div>
 

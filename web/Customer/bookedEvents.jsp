@@ -34,7 +34,7 @@
             .container {
                 width: 100%;
                 max-width: 80%;
-                height: 100%;
+                height: 1500px;
 
                 margin: 50px auto 0;
                 box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
@@ -58,7 +58,7 @@
             .face {
                 width: 150px;
                 height: 150px;
-                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
+                background-image:  url("images/4.jpg");
                 background-size: cover;
                 background-position: top center;
                 border-radius: 50%;
@@ -257,19 +257,19 @@
                     <%try {
                             con = DBConnection.createConnection();
                             statement = con.createStatement();
-                            String sql = "SELECT * FROM users where userID=" + session.getAttribute("id");
+                            String sql = "SELECT * FROM customer where cus_id=" + session.getAttribute("id");
 
                             resultSet = statement.executeQuery(sql);
                             while (resultSet.next()) {
                     %>
-                    <!--<div class="number"><%=resultSet.getString("userID")%></div>->
+                    <!--<div class="number"><%=resultSet.getString("cus_id")%></div>-->
                 </div>
 
 
                 <div class="name">Hi <%=resultSet.getString("name")%></div>
 
                 <div><form action="logoutServlet" method="post">
-                        &nbsp&nbsp&nbsp<input type="submit" class=" button btn-outline-danger" value="Logout">
+                        &nbsp&nbsp&nbsp<input type="submit" class=" button btn-danger" value="Logout">
 
                     </form></div>
 
@@ -277,74 +277,37 @@
             <div class="photo-section">
                 <div class="photo-title">
                     <div class="active title"><a href="CusProfile.jsp">My Profile</a></div>
-                    <div class="title"><a href="Gallery">Gallery</a></div>
-                    <div class="title"><a href="bookedEvents.jsp">Booked Events</a></div>
+
+                    <div class="title"><a href="bookedEvents.jsp"><u>Booked Events</u></a></div>
                     <div class="title"><a href="Feedback.jsp">Feedback</a></div>
-                    <div class="title"><a href="Notification.jsp">Notifications</a></div>
+                    <!-- <div class="title"><a href="Notification.jsp">Notifications</a></div>-->
 
                 </div>
-
-
-                <div align="center">
-
-                   
-                    <% }
+  <% }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     %>
+
+                <div align="center">
+
+
+                  
                     <br><br><br><br><br><br>
 
 
-                    <table border="2" class="table-hover" cellpadding="50">
+                    <table border="2" class="table-hover" cellpadding="25">
 
 
-                        <tr class="table-info">
-                            
-                            
-                            <th>Email</th>
-                            <th>Subject</th>
-                            
+                        <button class="btn-primary" onclick="location.href = 'handleReservation.jsp'">Click here for your booked events</button>
+                        <br><br><br>
+                        </div>
 
-                        </tr>
-
-                        <%
-                            try {
-                                con = DBConnection.createConnection();
-                                statement = con.createStatement();
-                                String sqll = "SELECT * FROM  feedback where userID=" + session.getAttribute("id");
-
-                                resultSet = statement.executeQuery(sqll);
-                                while (resultSet.next()) {
-                        %>
-                        <tr>
-
-                           
-                            
-                            <td><%=resultSet.getString("email")%></td>
-                            <td><%=resultSet.getString("subject")%></td>
-                           
-
-                            <!--<td><input type="submit" value="update" onclick="location.href = 'updateFeedback.jsp?fid=<%=resultSet.getString("fid")%>'"/></td>-->
+                        </div>
 
 
+                        </div>
 
-
-                                <% }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                %>
-                        </tr>
-                    </table>
-                    <br><br><br>
-                </div>
-
-            </div>
-
-
-        </div>
-
-        <script src="Bootstrap/js/bootstrap.js"></script>
+                        <script src="Bootstrap/js/bootstrap.js"></script>
     </body>
 </html>

@@ -5,7 +5,6 @@
 --%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="util.DBConnection" %>
 <%@page import="java.io.PrintWriter"%>
@@ -17,7 +16,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <link href="Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
@@ -32,7 +30,7 @@
             }
 
             .container {
-                width: 900px;
+                width: 100%;
                 max-width: 80%;
                 height: 100%;
 
@@ -58,7 +56,7 @@
             .face {
                 width: 150px;
                 height: 150px;
-                background-image: url("images/4.jpg");
+                background-image:url("images/4.jpg");
                 background-size: cover;
                 background-position: top center;
                 border-radius: 50%;
@@ -133,7 +131,6 @@
                 text-decoration: none;
                 color: blackgrey;
                 font-size: 30px;
-                
             }
             .photo-section .thumb-wrapper {
                 width: 100%;
@@ -141,7 +138,7 @@
                 flex-wrap: wrap;
             }
             .photo-section .thumb-wrapper .thumb-unit {
-                width: 33.3%;
+                width: 33.33%;
                 background-color: pink;
                 background-size: cover;
                 background-position: center;
@@ -151,7 +148,24 @@
                 display: block;
                 padding-top: 100%;
             }
-
+            .photo-section .thumb-wrapper .thumb-unit:nth-child(1) {
+                background-image: url(https://images.unsplash.com/photo-1461010083959-8a5727311252?dpr);
+            }
+            .photo-section .thumb-wrapper .thumb-unit:nth-child(2) {
+                background-image: url("https://images.unsplash.com/photo-1430163393927-3dab9af7ea38?dpr=1&auto=compress,format&fit=crop&w=376&h=251&q=80&cs=tinysrgb&crop=");
+            }
+            .photo-section .thumb-wrapper .thumb-unit:nth-child(3) {
+                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSAYEWLVhW1R3NTkuvL3jZ6hghIXOVlhU-uYApn-yPBh5drMU3O);
+            }
+            .photo-section .thumb-wrapper .thumb-unit:nth-child(4) {
+                background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ_XfkV4qaDqhkWDZ7KrlXXLFwL60fhggN7fanMPYD4IzirQwwq);
+            }
+            .photo-section .thumb-wrapper .thumb-unit:nth-child(5) {
+                background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRXzsSNHONO2So54HkHVPzO8NBqD62jGT-CVpVaVcbRoh-MpZeONg);
+            }
+            .photo-section .thumb-wrapper .thumb-unit:nth-child(6) {
+                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
+            }
 
             .footer {
                 display: flex;
@@ -212,94 +226,97 @@
 
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profile</title>
+        <title>View All Customers</title>
     </head>
     <body>
-
-        <%
-            response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
-            response.setHeader("pragma", "no-cache");
-
-            if (session.getAttribute("id") == null) {
-                response.sendRedirect("login.jsp");
-            }
-
-        %>
        
+        <link href="font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="header">
-
+                
             </div>
             <div class="content">
-                <div class="face">
-                    <%  Connection con = null;
-                        Statement statement = null;
-                        ResultSet resultSet = null;
-
-                    %>
-                    <%                                    try {
-                            con = DBConnection.createConnection();
-                            statement = con.createStatement();
-                            String sql = "SELECT * FROM  customer where cus_id='"+session.getAttribute("id")+"'";
-
-                            resultSet = statement.executeQuery(sql);
-                            while (resultSet.next()) {
-                    %>
-                </div>
-
- <div><form action="logoutServlet" method="post">
-                        &nbsp&nbsp&nbsp<input type="submit" class="button btn-danger" value="Logout">
- </form></div>
-                   
-                <div class="name">Hi <%=resultSet.getString("name")%></div>
-                 <button onclick="window.open('demo.pdf')" style="float: right;" class="button btn-warning">DEMO</button>
                 
-                <div class="email"><%=resultSet.getString("email")%></div>
-
-
-              
-            </div>
             <div class="photo-section">
                 <div class="photo-title">
-<div class="title"><a href="CusProfile.jsp" ><u>My Profile</u></a></div>
-            
-            <div class="title"><a href="bookedEvents">Booked Events</a></div>
-            <div class="title"><a href="Feedback.jsp">Feedback</a></div>
-          
+                    <div class="active title"><a href="viewCustomers.jsp">View All Customers</a></div>
+
+                    <div class="title"><a href="FeedbackAd.jsp">Feedback</a></div>
+
+
                 </div>
-<br>
+
+<br><br>
                 <div align="center">
 
+<h1><i>Maximum Reservations</i></h1>
+                    <br>
+
+
+                    <table border="2" class="table-hover" cellpadding="50" align="center">
+
+
+                        <tr class="table-info">
+                            <th>User ID</th>
+                            <th>Seats</th>
+
+                            <th>RID</th>
 
 
 
-                    <p style="font-size:18px" class="text-center"><strong><big> Full name:  </big></strong><%=resultSet.getString("name")%></p>
-                    <p style="font-size:18px"><strong><big>Address: </big></strong><%=resultSet.getString("address")%></p>
-                    <p style="font-size:18px"><strong><big>Contact No: </big></strong> <%=resultSet.getString("contact_number")%></p>
-                    <p style="font-size:18px"><strong><big>Email:</big> </strong><%=resultSet.getString("email")%></p>
-                    <br><br>
+                        </tr>
+
+                        <%
+	
+
+                                            Connection conn = null;
+                                            Statement st = null;
+                                            ResultSet resultSett = null;
+                        %>
+
+
+                        <%
+                            try {
+                                conn = DBConnection.createConnection();
+                                st = conn.createStatement();
+                                String sqll = "SELECT * from reservation order by seats  DESC LIMIT 5";
+
+                                resultSett = st.executeQuery(sqll);
+                                while (resultSett.next()) {
+                        %>
+                        <tr>
+
+                            <td><%=resultSett.getString("cus_id")%></td>
+                            <td><%=resultSett.getString("seats")%></td>
+
+                            <td><%=resultSett.getString("rid")%></td>
+
+
+                        </tr>
 
 
 
-                   
 
-                    <button class="btn btn-success"  onclick="location.href = 'updateProfile.jsp?cus_id=<%=session.getAttribute("id")%>'"/>Edit Your Profile
-                    </button>
+
+
+                        <%}
+                                   }catch (Exception e) {
+                               e.printStackTrace();
+                           }
+                        %> </table>
+                        
+                        <br><br>
+                         <form action="reportServlet" method="post">
+            <input type="submit" value="Report">
+        </form>
+                        <br>
                 </div>
 
 
-                <% }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                %>
             </div>
-             <BR><br><br>
-<%@ include file="Layouts/Footer.jsp" %>
-           <br>
-           
-            
+            <%@ include file="Layouts/Footer.jsp" %>
         </div>
+
 
         <script src="Bootstrap/js/bootstrap.js"></script>
     </body>

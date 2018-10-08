@@ -49,7 +49,7 @@
         .face {
             width: 150px;
             height: 150px;
-            background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
+            background-image: url("images/4.jpg");
             background-size: cover;
             background-position: top center;
             border-radius: 50%;
@@ -122,8 +122,8 @@
 
         .title a{
             text-decoration: none;
-            color: grey;
-            font-size: 22px;
+            color: blackgrey;
+            font-size: 30px;
         }
         .photo-section .thumb-wrapper {
             width: 100%;
@@ -247,19 +247,19 @@
             <%try {
                     con = DBConnection.createConnection();
                     statement = con.createStatement();
-                    String sql = "SELECT * FROM users where userID=" + session.getAttribute("id");
+                    String sql = "SELECT * FROM customer where cus_id='"+session.getAttribute("id")+"'";
 
                     resultSet = statement.executeQuery(sql);
                     while (resultSet.next()) {
             %>
-            <!--<div class="number"><%=resultSet.getString("userID")%></div>-->
+
         </div>
 
 
         <div class="name">Hi <%=resultSet.getString("name")%></div>
 
         <div><form action="logoutServlet" method="post">
-                &nbsp&nbsp&nbsp<input type="submit" class=" button btn-outline-dark" value="Logout">
+                &nbsp&nbsp&nbsp<input type="submit" class=" button btn-danger" value="Logout">
 
             </form></div>
 
@@ -267,10 +267,10 @@
     <div class="photo-section">
         <div class="photo-title">
             <div class="title"><a href="CusProfile.jsp">My Profile</a></div>
-            <div class="title"><a href="Gallery">Gallery</a></div>
+            
             <div class="title"><a href="bookedEvents">Booked Events</a></div>
             <div class="title"><a href="Feedback.jsp"><u>Feedback</u></a></div>
-            <div class="title"><a href="Notification.jsp">Notifications</a></div>
+          
 
 
         </div>
@@ -278,9 +278,9 @@
 
         <div align="center">
 
-            <form name="form" action="AddFeedback" method="post" > 
+           <form name="form" action="AddFeedback" method="post" >
                 <br><br>
-                <table>
+                <table class="table-secondary" cellpadding="25" cellspacing="50">
                     <!--<tr>
                         <td><b>Name : </b></td>
                        
@@ -291,7 +291,7 @@
 
                                 con = DBConnection.createConnection();
                                 statement = con.createStatement();
-                                String sql2 = "SELECT *  FROM users where userID=" + session.getAttribute("id");
+                                String sql2 = "SELECT *  FROM customer where cus_id='"+session.getAttribute("id")+"'";
 
                                 resultSet = statement.executeQuery(sql2);
                                 while (resultSet.next()) {
@@ -312,16 +312,37 @@
 
                     </tr>
                     <tr>
-                        <td><b>Subject</b></td>
-                        <td><input type="text" name="subject" required></td>  <%-- validate empty fields--%> 
+
+                     
+                    <tr>
+                        <%--<td><b>INQUIRY TYPE*</b></td>
+                        <td> <select required name="subject"  placeholder="Please select"> <!-- validate empty fields -->
+	   	    	<option value="Please select" placeholder="Please select"></option>
+	    		<option value="Order Inquiry">Inquiry</option>
+	    		<option value="Complaint">Complaint</option>
+	    		<option value="Appreciation">Appreciation</option>
+	    		<option value="Suggestion">Suggestion</option> --%>
+	    		<div class="input-group mb-3">
+	    		<td><div class="input-group mb-3">
+ 
+    <label for="inputGroupSelect01"><b>INQUIRY TYPE*</b></label>
+  <td><select name="subject" class="custom-select" id="inputGroupSelect01">
+    <option selected>Choose...</option>
+    <option value="Order Inquiry">Inquiry</option>
+    <option value="Complaint">Complaint</option>
+    <option value="Appreciation">Appreciation</option>
+    <option value="Suggestion">Suggestion</option>
+  </select></td>
+
+	  
                     </tr>
                     <tr>
-                        <td><b>Comments</b></td>
+                        <td><b>COMMENTS</b></td>
                         <td><textarea rows="10" name="comments" cols="18" required></textarea></td>  <%-- validate empty fields--%> 
                     </tr>
                     <tr>
-                        <td><b>User ID</b></td>
-                        <td><input type="text" name="userID" value=<%=session.getAttribute("id")%>></td>  <%-- validate empty fields--%> 
+                        
+                        <td><input type="hidden" name="cus_id" value=<%=session.getAttribute("id")%>></td>  <%-- validate empty fields--%> 
                     </tr>
 
                     <tr>
@@ -339,6 +360,7 @@
                         }
                     %>
                 </table>
+                </div>
             </form>
                 <br><br>
         </div>

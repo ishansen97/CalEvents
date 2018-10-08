@@ -32,7 +32,7 @@
 
             .container {
                 width: 100%;
-                max-width: 100%;
+                max-width: 80%;
                 height: 100%;
 
                 margin: 50px auto 0;
@@ -57,8 +57,8 @@
             .face {
                 width: 150px;
                 height: 150px;
-                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
-                background-size: cover;
+                background-image:url("images/4.jpg");
+                 background-size: cover;
                 background-position: top center;
                 border-radius: 50%;
                 margin: 0 auto;
@@ -130,8 +130,8 @@
 
             .title a{
                 text-decoration: none;
-                color: grey;
-                font-size: 22px;
+                color: blackgrey;
+                font-size: 30px;
             }
             .photo-section .thumb-wrapper {
                 width: 100%;
@@ -231,15 +231,6 @@
     </head>
     <body>
 
-        <%
-            response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
-            response.setHeader("pragma", "no-cache");
-
-            if (session.getAttribute("username") == null && session.getAttribute("id") == null) {
-                response.sendRedirect("login.jsp");
-            }
-
-        %>
         <link href="font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="header">
@@ -248,82 +239,26 @@
             </div>
             <div class="content">
                 <div class="face">
-                    <%                         Connection con = null;
-                        Statement statement = null;
-                        ResultSet resultSet = null;
-
-                    %>
-                    <%try {
-                            con = DBConnection.createConnection();
-                            statement = con.createStatement();
-                            String sql = "SELECT * FROM users where userID=" + session.getAttribute("id");
-
-                            resultSet = statement.executeQuery(sql);
-                            while (resultSet.next()) {
-                    %>
-                    <div class="number"><%=resultSet.getString("userID")%></div>
-                </div>
-
-
-                <div class="name">Hi <%=resultSet.getString("name")%></div>
-
-                <div><form action="logoutServlet" method="post">
-                        &nbsp&nbsp&nbsp<input type="submit" class=" button button4" value="Logout">
-
-                    </form></div>
+                  
 
             </div>
             <div class="photo-section">
                 <div class="photo-title">
-                    <div class="active title"><a href="CusProfile.jsp">My Profile</a></div>
-                    <div class="title"><a href="Gallery">Gallery</a></div>
-                    <div class="title"><a href="bookedEvents">Booked Events</a></div>
-                    <div class="title"><a href="#">Feedback</a></div>
+                    <div class=" title"><u><a href="viewCustomers.jsp">View All Customers</a></u></div>
+                     <div class=" title"><a href="CusSearch.jsp">Search Customers</a></div>
+                    <div class="title"><a href="FeedbackAd.jsp">Feedback</a></div>
 
 
                 </div>
 
-                <% }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                %>
 
                 <div align="center">
 
 
-                    <br><br><br><br><br><br>
-                    <!--<table class="table table-sm">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>-->
+                    <br><br><br>
+   
     
-                    <table border="2" class="table-hover" cellpadding="50" align="center">
+                    <table border="2" class="table-hover" cellpadding="25" align="center">
 
 
                         <tr class="table-info">
@@ -333,7 +268,7 @@
                             <th>Address</th>
                             <th>Contact No</th>
                             <th>Email</th>
-                            <th>Username</th>
+                            
                            
                         </tr>
                            
@@ -350,34 +285,42 @@
                             try {
                                 conn = DBConnection.createConnection();
                                 st = conn.createStatement();
-                                String sqll = "SELECT * FROM  users1";
+                                String sqll = "SELECT * FROM  customer";
 
                                 resultSett = st.executeQuery(sqll);
                                 while (resultSett.next()) {
                         %>
                         <tr>
 
-                            <td><%=resultSett.getString("userID")%></td>
+                            <td><%=resultSett.getString("cus_id")%></td>
                             <td><%=resultSett.getString("name")%></td>
 
                             <td><%=resultSett.getString("address")%></td>
-                            <td><%=resultSett.getString("contactNo")%></td>
+                            <td><%=resultSett.getString("contact_number")%></td>
                             <td><%=resultSett.getString("email")%></td>
-                            <td><%=resultSett.getString("username")%></td>
+                            
                         </tr>
 
                             
                    
-                <% }
-                    } catch (Exception e) {
+                
+                 
+                
+                 <%}
+                            }catch (Exception e) {
                         e.printStackTrace();
                     }
-                %>
-                 </table>
-            </div>
+                %> </table>
+                
+                <br>
+              <%--   <form action="" method="post"> --%>
+            <h2><input type="submit" value="Top 5 customers with maximum Reservations"  onclick="window.open('maxReservation.pdf')" class="button btn-primary"></h2><br>
+            
+       <%--</form> --%>
 
-
+  
         </div>
+       <%@ include file="Layouts/Footer.jsp" %>
         </div>
               
 

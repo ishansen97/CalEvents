@@ -11,10 +11,11 @@
 <html>
     <head>
 
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link href="Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
-        <style>
+        <style type="text/css">
             @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700");
             * {
                 box-sizing: border-box;
@@ -26,7 +27,7 @@
 
             .container {
                 width: 100%;
-                max-width: 100%;
+                max-width: 1000px;
                 height: 100%;
 
                 margin: 50px auto 0;
@@ -36,19 +37,22 @@
             .header {
                 display: flex;
                 justify-content: space-between;
-                padding: 20px 20px;
+                padding: 10px 20px;
                 font-size: 30px;
+
                 color: orange;
             }
 
             .content {
                 text-align: center;
+                padding: 10px 20px;
+                background-color: lightgray;
             }
 
             .face {
                 width: 150px;
                 height: 150px;
-                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
+                background-image: url("images/4.jpg");
                 background-size: cover;
                 background-position: top center;
                 border-radius: 50%;
@@ -140,24 +144,7 @@
                 display: block;
                 padding-top: 100%;
             }
-            .photo-section .thumb-wrapper .thumb-unit:nth-child(1) {
-                background-image: url(https://images.unsplash.com/photo-1461010083959-8a5727311252?dpr);
-            }
-            .photo-section .thumb-wrapper .thumb-unit:nth-child(2) {
-                background-image: url("https://images.unsplash.com/photo-1430163393927-3dab9af7ea38?dpr=1&auto=compress,format&fit=crop&w=376&h=251&q=80&cs=tinysrgb&crop=");
-            }
-            .photo-section .thumb-wrapper .thumb-unit:nth-child(3) {
-                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSAYEWLVhW1R3NTkuvL3jZ6hghIXOVlhU-uYApn-yPBh5drMU3O);
-            }
-            .photo-section .thumb-wrapper .thumb-unit:nth-child(4) {
-                background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ_XfkV4qaDqhkWDZ7KrlXXLFwL60fhggN7fanMPYD4IzirQwwq);
-            }
-            .photo-section .thumb-wrapper .thumb-unit:nth-child(5) {
-                background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRXzsSNHONO2So54HkHVPzO8NBqD62jGT-CVpVaVcbRoh-MpZeONg);
-            }
-            .photo-section .thumb-wrapper .thumb-unit:nth-child(6) {
-                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
-            }
+
 
             .footer {
                 display: flex;
@@ -214,8 +201,6 @@
 
 
 
-
-
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile</title>
@@ -232,56 +217,52 @@
 
         %>
 
+        <link href="font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="header">
-                <div class="icon"><i class="fa fa-ellipsis-h"></i></div>
-                <div class="icon"><i class="fa fa-plus"></i></div>
+
             </div>
             <div class="content">
                 <div class="face">
-                    <%   Connection con = null;
+                    <%                         Connection con = null;
                         Statement statement = null;
                         ResultSet resultSet = null;
 
                     %>
-                    <%                        try {
+                    <%                                    try {
                             con = DBConnection.createConnection();
                             statement = con.createStatement();
-                            String sql = "SELECT * FROM  users where userID=" + session.getAttribute("id");
+                            String sql = "SELECT * FROM  customer where cus_id='"+session.getAttribute("id")+"'";
 
                             resultSet = statement.executeQuery(sql);
                             while (resultSet.next()) {
                     %>
-
-
-                    <div class="number"><%=resultSet.getString("userID")%></div>
                 </div>
 
 
                 <div class="name">Hi <%=resultSet.getString("name")%></div>
                 <div class="email"><%=resultSet.getString("email")%></div>
 
+
                 <div><form action="logoutServlet" method="post">
-                        &nbsp&nbsp&nbsp<input type="submit" class="btn btn-success" value="Logout">
+                        &nbsp&nbsp&nbsp<input type="submit" class="button btn-danger" value="Logout">
+
                     </form></div>
-                <div class="social">
-                    <div class="text"><span><i class="fa fa-twitter"></i></span>Ratings</div>
-                    <!--<div class="text"><span><i class="fa fa-play"></i></span>11k</div>
-                    <div class="text"><span><i class="fa fa-vine"></i></span>155</div>
-                    <div class="text"><span><i class="fa fa-google-plus"></i></span>2.7k</div> -->
-                </div>
+
             </div>
             <div class="photo-section">
                 <div class="photo-title">
-                    <div class="active title"><a href="CusProfile.jsp">My Profile</a></div>
-                    <div class="title"><a href="Gallery">Gallery</a></div>
+                    <div class="title"><a href="CusProfile.jsp"><u>My Profile</u></a></div>
+
                     <div class="title"><a href="bookedEvents.jsp">Booked Events</a></div>
                     <div class="title"><a href="Feedback.jsp">Feedback</a></div>
-                    <div class="title"><a href="Notification.jsp">Notifications</a></div>
+                    <!-- <div class="title"><a href="Notification.jsp">Notifications</a></div>-->
 
 
 
                 </div>
+
+                <div align="center">
 
                 <div align="center">
                     <h><b>Update your details</b></h>
@@ -291,18 +272,18 @@
                     <form method="post" action="UpdateProfileServlet">
 
                         <br><label>
-                            UserID:<br><label>
-                                <input type="text" name="user"  value="<%=resultSet.getString("userID")%>" readonly></label>
-                            <br>
+                            UserID:<br>
+                                <input type="text" name="user"  value="<%=resultSet.getString("cus_id")%>" readonly></label>
+                           </label> <br>
                             Full Name:<br>
-                            <input type="text" name="fullName"  value="<%=resultSet.getString("name")%>" >
+                            <input type="text" name="name"  pattern="[a-zA-Z\s]+" title=" Enter letters only"  value="<%=resultSet.getString("name")%>" >
                             <br>
                             Address:<br>
-                            <input type="text" name="address" value="<%=resultSet.getString("address")%>">
+                            <input type="text" name="address"  pattern="[a-zA-Z0-9,./\-\s]+" title=" Special characters not allowed"  value="<%=resultSet.getString("address")%>">
                             <br>
                             Contact Number:<br>
 
-                            <input type="text" name="contactNumber" value="<%=resultSet.getString("contactNo")%>" >
+                            <input type="number" name="contact_number" minlength="10" maxlength="10" pattern="[0-9\d]+" title=" Enter numbers only"  value="<%=resultSet.getString("contact_number")%>" >
 
                             <br>
                             Email:<br>
@@ -327,9 +308,10 @@
                                 }
                             %></div>
 
-                            <div class="footer"><i class="fa fa-camera"></i><i class="fa fa-play"></i>
-                                <div class="face"></div><i class="fa fa-search"></i><i class="fa fa-globe"></i>
-                            </div>
+                           
+                            <BR>
+<%@ include file="Layouts/Footer.jsp" %>
+           <br> 
                             </div>
 
                             <script src="Bootstrap/js/bootstrap.js"></script>

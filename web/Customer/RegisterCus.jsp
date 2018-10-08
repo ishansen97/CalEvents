@@ -263,30 +263,22 @@
 
                             <tr>
                                 <td> Contact Number  </td>
-                                <td> <input type="number" id="3" name="contactNo" maxlength="10" pattern="[0-9\s]+" title=" Enter numbers only" required/></td>
+                                <td> <input type="number" id="3" name="contact_number" maxlength="10" pattern="[0-9\s]+" title=" Enter numbers only" required/></td>
                             </tr>
 
                             <tr>
                                 <td>  Email  </td>
                                 <td> <input type="email" name="email" required/></td>
                             </tr>
-                            <tr>
-                                <td>  User  </td>
-                                <td> <input type="radio" name="userType" value = "customer" checked>Customer<br>
-
-                                    <!--<input type="radio" name="userType" value = "admin" >Admin<br>-->
-                                </td>
-                            </tr>
-
                             <!--<tr>
                                 <td>  Login username </td>
                                 <td> <input type="text" name="username" /></td>
-                            </tr>
+                            </tr>-->
 
                             <tr>
                                 <td> Password  </td>
                                 <td> <input type="password" name="password" pattern=".{6,}" title="Six or more characters" /></td>
-                            </tr>-->
+                            </tr>
 
                             <tr>
                                 <td></td>

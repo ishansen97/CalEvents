@@ -1,19 +1,25 @@
+<%-- 
+    Document   : CusProfile
+    Created on : Aug 11, 2018, 9:04:39 AM
+    Author     : Shashi Perera
+--%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="util.DBConnection" %>
+<%@page import="java.io.PrintWriter"%>
+
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+         pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
 <html>
-
     <head>
-
-        <title>Login/Register</title>
-
-        <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="292041729795-1mno4fs5qgbncrl1cv7o0595bb5rtmhc.apps.googleusercontent.com">
-   
         <link href="Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
         <style type="text/css">
             @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700");
             * {
@@ -26,8 +32,8 @@
 
             .container {
                 width: 100%;
-                max-width: 100%;
-                height: 800px;
+                max-width: 80%;
+                height: 100%;
 
                 margin: 50px auto 0;
                 box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
@@ -36,20 +42,23 @@
             .header {
                 display: flex;
                 justify-content: space-between;
-                padding: 20px 20px;
+                padding: 10px 20px;
                 font-size: 30px;
+
                 color: orange;
             }
 
             .content {
                 text-align: center;
+                padding: 10px 20px;
+                background-color: lightgray;
             }
 
             .face {
                 width: 150px;
                 height: 150px;
-                background-image: url(images/4.jpg);
-                background-size: cover;
+                background-image:url("images/4.jpg");
+                 background-size: cover;
                 background-position: top center;
                 border-radius: 50%;
                 margin: 0 auto;
@@ -121,8 +130,8 @@
 
             .title a{
                 text-decoration: none;
-                color: grey;
-                font-size: 22px;
+                color: blackgrey;
+                font-size: 30px;
             }
             .photo-section .thumb-wrapper {
                 width: 100%;
@@ -217,78 +226,160 @@
 
 
         </style>
-
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>View All Customers</title>
     </head>
-
     <body>
-    <link href="font-awesome.min.css" rel="stylesheet">
-    <div class="container">
-        <div class="header">
-            <div class="icon"><i class="fa fa-ellipsis-h"></i></div>
-            <div class="name">You are not logged in.</div>
-            <div class="icon"><i class="fa fa-plus"></i></div>
-        </div>
-        <div class="content">
-            <div class="face">  </div>
 
-
-
-            <div class="photo-section">
-                <div class="photo-title">
-                    <!--<div class="active title"><a href="CusProfile">My Profile</a></div>
-                    <div class="title"><a href="Gallery">Gallery</a></div>
-                    <div class="title"><a href="bookedEvents">Booked Events</a></div>
-                    <div class="title"><a href="#">Videos</a></div>-->
-
-
-                </div>
-                <br><br>
-                <div align="center">
-                    <form name="form" action="loginServlet" method="post" >
-                        <div class="form-row">
-                            <div class="col">
-                                <h3><b>For Registered Customer</b></h3><br><br>
-                                <table align="center">
-               <tr> 	<div class="col-xs-3">	
-                                        <td> Enter Email :</td>
-                                        <td> <input type="email" name="email" class="form-control" id="ex2" required/></td></div>
-                                    </tr>
-
-                                  
-                                    <tr><div class="col-xs-3">
-                                        <td>Enter password : </td>
-                                        <td> <input type="password" name="pass" class="form-control" id="ex2" required/></td></div>
-                                    </tr>
-
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td></td>
-                                        <td><br><input type="submit" class="button btn-primary" value="Login" />&nbsp;&nbsp;
-                                            <input type="reset" class="button btn-primary" value="Reset"/></td>
-                                    </tr>
-                                </table>
-                            <!--</div>
-                             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-    
-    </script>-->
-                        </div>
-                           
-                                <br><br><br>
-
-                            </div>
-                    </form>
-
-                </div>
+        <link href="font-awesome.min.css" rel="stylesheet">
+        <div class="container">
+            <div class="header">
+                <div class="icon"><i class="fa fa-ellipsis-h"></i></div>
+                <div class="icon"><i class="fa fa-plus"></i></div>
+            </div>
+            <div class="content">
+                <div class="face">
+                  
 
             </div>
+            <div class="photo-section">
+                <div class="photo-title">
+                    <div class="active title"><a href="viewCustomers.jsp">View All Customers</a></div>
+                    <div class="active title"><u><a href="CusSearch.jsp">Search Customers</a></u></div>
+                    
+                    <div class="title"><a href="FeedbackAd.jsp">Feedback</a></div>
+
+
+                </div>
+
+
+                <div align="center">
+
+
+                    <br><br><br>
+   
+
+
+                    <br><br><br>
+   <%
+
+                Connection con = null;
+                Statement statement = null;
+                ResultSet resultSet = null;
+            %>
+            
+             <form action="Search" method="post">
+                 <h3>Enter the name : 
+             <input type=text name="name">
+            <input type="submit" class="button btn-primary" value="Search By Name"></h3>
+        </form>
+            
+            <br>
+            
+            <form action="viewCustomers.jsp" method="post">
+
+                                   <%
+                            try {
+                                con = DBConnection.createConnection();
+                                statement = con.createStatement();
+                                String sql = "SELECT * FROM customer where name='"+request.getAttribute("name")+"'";
+                                resultSet = statement.executeQuery(sql);
+                                while (resultSet.next()) {
+                        %><table border="2" class="table-hover" cellpadding="50" align="center">
+                    <tr>
+                     <th>User ID</th>
+                            <th>Name</th>
+
+                            <th>Address</th>
+                            <th>Contact No</th>
+                            <th>Email</th>
+                  
+                    
+                    </tr>
+                        
+                        <tr>
+                           <td><%=resultSet.getString("cus_id")%></td>
+                            <td><%=resultSet.getString("name")%></td>
+
+                            <td><%=resultSet.getString("address")%></td>
+                            <td><%=resultSet.getString("contact_number")%></td>
+
+                       
+                            <td><%=resultSet.getString("email")%> </td>
+
+                        
+                        </tr>
+                        <%
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        %>
+
+                    
+                    
+                </table><br>
+                </form>
+                
+                <form action="Search" method="post">
+                 Enter the ID : 
+             <input  type=search name="cus_id"  placeholder="Search"  >
+            <input type="submit" class="button btn-primary" value="Search By ID">
+        </form>
+            
+            <br>
+            
+            <form action="viewCustomers.jsp" method="post">
+
+                                   <%
+                            try {
+                                con = DBConnection.createConnection();
+                                statement = con.createStatement();
+                                String sql1 = "SELECT * FROM customer where cus_id='"+request.getAttribute("cus_id")+"'";
+                                resultSet = statement.executeQuery(sql1);
+                                while (resultSet.next()) {
+                        %><table border="2" class="table-hover" cellpadding="50" align="center">
+                    <tr>
+                     <th>User ID</th>
+                            <th>Name</th>
+
+                            <th>Address</th>
+                            <th>Contact No</th>
+                            <th>Email</th>
+                  
+                    
+                    </tr>
+                        
+                        <tr>
+                           <td><%=resultSet.getString("cus_id")%></td>
+                            <td><%=resultSet.getString("name")%></td>
+
+                            <td><%=resultSet.getString("address")%></td>
+                            <td><%=resultSet.getString("contact_number")%></td>
+
+                       
+                            <td><%=resultSet.getString("email")%> </td>
+
+                        
+                        </tr>
+                        <%
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        %>
+
+                    </table></form>
+            </div>
+
+  <br><br>
         </div>
+       <%@ include file="Layouts/Footer.jsp" %>
+        </div>
+              
 
         <script src="Bootstrap/js/bootstrap.js"></script>
-
-    </div>
-</body>
+    </body>
 </html>

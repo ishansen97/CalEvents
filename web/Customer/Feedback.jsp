@@ -32,7 +32,7 @@
             }
 
             .container {
-                width: 100%;
+                width: 800px;
                 max-width: 80%;
                 height: 100%;
 
@@ -58,8 +58,8 @@
             .face {
                 width: 150px;
                 height: 150px;
-                background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR5heNMmxfRuWx3r1LjFNdiFXPlWEmxA3nxBvYy-pF1wuBHidpqpw);
-                background-size: cover;
+                background-image: url("images/4.jpg");
+                 background-size: cover;
                 background-position: top center;
                 border-radius: 50%;
                 margin: 0 auto;
@@ -131,8 +131,8 @@
 
             .title a{
                 text-decoration: none;
-                color: grey;
-                font-size: 22px;
+                color: blackgrey;
+                font-size: 30px;
             }
             .photo-section .thumb-wrapper {
                 width: 100%;
@@ -236,7 +236,7 @@
             response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
             response.setHeader("pragma", "no-cache");
 
-            if (session.getAttribute("username") == null && session.getAttribute("id") == null) {
+            if (session.getAttribute("id") == null) {
                 response.sendRedirect("login.jsp");
             }
 
@@ -257,19 +257,19 @@
                     <%try {
                             con = DBConnection.createConnection();
                             statement = con.createStatement();
-                            String sql = "SELECT * FROM users where userID=" + session.getAttribute("id");
+                            String sql = "SELECT * FROM customer where cus_id='"+session.getAttribute("id")+"'";
 
                             resultSet = statement.executeQuery(sql);
                             while (resultSet.next()) {
                     %>
-                   <!-- <div class="number"><%=resultSet.getString("userID")%></div>-->
+                   <%-- <div class="number"><%=resultSet.getString("userID")%></div>--%>
                 </div>
 
 
                 <div class="name">Hi <%=resultSet.getString("name")%></div>
-
+				<div class="number"><%=resultSet.getString("email")%></div><br>
                 <div><form action="logoutServlet" method="post">
-                        &nbsp&nbsp&nbsp<input type="submit" class=" button btn-outline-danger" value="Logout">
+                        &nbsp&nbsp&nbsp<input type="submit" class=" button btn-danger" value="Logout">
 
                     </form></div>
 
@@ -279,22 +279,22 @@
                     <div class="active title"><a href="CusProfile.jsp">My Profile</a></div>
                     
                     <div class="title"><a href="bookedEvents.jsp">Booked Events</a></div>
-                    <div class="title"><a href="Feedback.jsp">Feedback</a></div>
-                    <div class="title"><a href="Notification.jsp">Notifications</a></div>
+                    <div class="title"><a href="Feedback.jsp"><u>Feedback</u></a></div>
+                    <!--<div class="title"><a href="Notification.jsp">Notifications</a></div>-->
 
                 </div>
 
 
                 <div align="center">
-
-                    <button class="btn btn-danger" value="Add feedback" onclick="location.href = 'addFeedback.jsp'"<%=resultSet.getString("userID")%>>Add feedback</button>
+<br><br>
+                    <p>PLEASE TAKE A MINUTE TO LET US KNOW WHAT YOU THINK ABOUT US.    &nbsp&nbsp <button class="btn btn-primary" value="Add feedback" onclick="location.href = 'addFeedback.jsp'"<%=resultSet.getString("cus_id")%>>Add feedback</button></p>
 
                     <% }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     %>
-                    <br><br><br><br><br><br>
+                    <br><br>
 
 
                     <table border="2" class="table-hover" cellpadding="50">
@@ -303,10 +303,10 @@
                         <tr class="table-info">
                             
                             
-                            <th>Email</th>
+                           
                             <th>Subject</th>
                             <th>Comments</th>
-                            <th>UserID</th>
+                            
 
                             <th>Delete</th>
 
@@ -316,7 +316,7 @@
                             try {
                                 con = DBConnection.createConnection();
                                 statement = con.createStatement();
-                                String sqll = "SELECT * FROM  feedback where userID=" + session.getAttribute("id");
+                                String sqll = "SELECT * FROM  feedback where cus_id='"+session.getAttribute("id")+"'";
 
                                 resultSet = statement.executeQuery(sqll);
                                 while (resultSet.next()) {
@@ -325,10 +325,9 @@
 
                            
                             
-                            <td><%=resultSet.getString("email")%></td>
                             <td><%=resultSet.getString("subject")%></td>
                             <td><%=resultSet.getString("comments")%></td>
-                            <td><%=resultSet.getString("userid")%></td>
+                            
 
                             <!--<td><input type="submit" value="update" onclick="location.href = 'updateFeedback.jsp?fid=<%=resultSet.getString("fid")%>'"/></td>-->
 
@@ -352,7 +351,8 @@
 
             </div>
 
-
+<%@ include file="Layouts/Footer.jsp" %>
+           <br> 
         </div>
 
         <script src="Bootstrap/js/bootstrap.js"></script>

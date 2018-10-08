@@ -228,7 +228,7 @@
             response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
             response.setHeader("pragma", "no-cache");
 
-            if (session.getAttribute("username") == null && session.getAttribute("id") == null) {
+            if (session.getAttribute("id") == null) {
                 response.sendRedirect("login.jsp");
             }
 
@@ -240,34 +240,26 @@
             </div>
             <div class="content">
                 <div class="face">
-                    <%                         Connection con = null;
+                    <%  Connection con = null;
                         Statement statement = null;
                         ResultSet resultSet = null;
 
                     %>
-                    <%                                    try {
+                    <%      try {
                             con = DBConnection.createConnection();
                             statement = con.createStatement();
-                            String sql = "SELECT * FROM  users where userID=" + session.getAttribute("id");
+                            String sql = "SELECT * FROM  customer where cus_id='"+session.getAttribute("id")+"'";
 
                             resultSet = statement.executeQuery(sql);
                             while (resultSet.next()) {
                     %>
-                    <div class="number"><%=resultSet.getString("userID")%></div>
+                    <div class="number"><%=resultSet.getString("cus_id")%></div>
                 </div>
 
 
                 <div class="name">Hi <%=resultSet.getString("name")%></div>
                 <div class="email"><%=resultSet.getString("email")%></div>
-                <a href="#" onclick="signOut();">Sign out</a>
-                <script>
-                    function signOut() {
-                        var auth2 = gapi.auth2.getAuthInstance();
-                        auth2.signOut().then(function () {
-                            console.log('User signed out.');
-                        });
-                    }
-                </script>
+                
                 <div><form action="logoutServlet" method="post">
                         &nbsp&nbsp&nbsp<input type="submit" class=" btn btn-dark" value="Logout">
 
@@ -277,7 +269,7 @@
             <div class="photo-section">
                 <div class="photo-title">
                     <div class="title"><a href="CusProfile.jsp"><u>My Profile</u></a></div>
-                    <div class="title"><a href="Gallery">Gallery</a></div>
+                    
                     <div class="title"><a href="bookedEvents.jsp">Booked Events</a></div>
                     <div class="title"><a href="Feedback.jsp">Feedback</a></div>
                     <div class="title"><a href="Notification.jsp">Notifications</a></div>

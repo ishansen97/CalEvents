@@ -275,11 +275,11 @@
             </div>
             <div class="photo-section">
                 <div class="photo-title">
-                    <div class="active title"><a href="AdminProfile.jsp">My Profile</a></div>
+                    <div class="active title"><a href="viewCustomers.jsp">View Customers</a></div>
                    
                     <div class="title"><a href="bookedEventsAd.jsp">Booked Events</a></div>
-                    <div class="title"><a href="FeedbackAd.jsp">Feedback</a></div>
-                    <div class="title"><a href="NotificationAd.jsp"><u>Notifications</u></a></div>
+                    
+                    <!--<div class="title"><a href="NotificationAd.jsp"><u>Notifications</u></a></div>-->
 
 
                 </div>
