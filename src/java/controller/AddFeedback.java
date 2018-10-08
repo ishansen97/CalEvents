@@ -38,7 +38,7 @@ public class AddFeedback extends HttpServlet {
 			String email = request.getParameter("email");
 			String subject = request.getParameter("subject");
 			String comments = request.getParameter("comments");
-			String userID = request.getParameter("userID");
+			String cus_id = request.getParameter("cus_id");
                         out.println("working");
 			
 			
@@ -49,7 +49,7 @@ public class AddFeedback extends HttpServlet {
 			f.setEmail(email);
 			f.setSubject(subject);
 			f.setComments(comments);
-			f.setUserID(userID);
+			f.setUserID(cus_id);
 			
 			
 			IFeedbackService iFeedbackService = new FeedbackServiceImp();

@@ -2,20 +2,20 @@ package model;
 
 public class Customer {
 	
-	private String fullName;
+	private String name;
 	private String address;
-	private String contactNumber;
+	private String contact_number;
 	private String email;
-	private String userType; //to view all cutomers as admin
-	private String userName;
+	//private String userType; 
+	//private String userName;
 	private String password;
 	
 	
 	public String getFullName() {
-		return fullName;
+		return name;
 	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFullName(String name) {
+		this.name = name;
 	}
 	public String getAddress() {
 		return address;
@@ -24,10 +24,10 @@ public class Customer {
 		this.address = address;
 	}
 	public String getContactNumber() {
-		return contactNumber;
+		return contact_number;
 	}
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
+	public void setContactNumber(String contact_number) {
+		this.contact_number = contact_number;
 	}
 	public String getEmail() {
 		return email;
@@ -35,18 +35,8 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getUserType() {
-		return userType;
-	}
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	
+	
 	public String getPassword() {
 		return password;
 	}

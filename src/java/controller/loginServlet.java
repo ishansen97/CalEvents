@@ -32,49 +32,37 @@ public class loginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	
-		//String uname = request.getParameter("uname");
-                String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
 		String email = request.getParameter("email");
                 
-                	Customer c = new Customer();	
+        Customer c = new Customer();	
 		
 		
 		
 		c.setEmail(pass);
 		ICustomerService iCustomerService = new CustomerServiceImp();
 		
-		iCustomerService.updateRegister(user, c);
+		//iCustomerService.updateRegister(user, c);
 				
 		
 		
 		iCustomerService.loginCheck(pass, email);		
 		iCustomerService.GetID(pass, email);
 		
-		String id = iCustomerService.GetID( pass, email);
+		String id = iCustomerService.GetID(pass,email);
 
 		
                 
 		if(iCustomerService.loginCheck(pass,email)) {
 			
-			/*if(utype.equals("admin")) {
 				
 				HttpSession session = request.getSession();
-				//session.setAttribute("username", uname);
-				session.setAttribute("id", id);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("AdminProfile.jsp");	
-				dispatcher.forward(request, response);
 				
-			}*/
-			//else if(utype.equals("customer")) {
-				
-				HttpSession session = request.getSession();
-				//session.setAttribute("username", uname);
 				session.setAttribute("id", id);
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("CusProfile.jsp");
 				dispatcher.forward(request, response);
-			//}
+			
 		}
 		
 		else {

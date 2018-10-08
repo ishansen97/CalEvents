@@ -34,14 +34,14 @@ public class UpdateProfileServlet extends HttpServlet {
 		Customer c = new Customer();	
 		
 		String user = request.getParameter("user");
-		String fullName = request.getParameter("fullName");
+		String name = request.getParameter("name");
 		String address = request.getParameter("address");
-		String contactNumber = request.getParameter("contactNumber");
+		String contact_number = request.getParameter("contact_number");
 		String email = request.getParameter("email");
 		
-		c.setFullName(fullName);
+		c.setFullName(name);
 		c.setAddress(address);
-		c.setContactNumber(contactNumber);
+		c.setContactNumber(contact_number);
 		c.setEmail(email);
 		
 		ICustomerService cs = new CustomerServiceImp();

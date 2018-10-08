@@ -30,21 +30,21 @@ public class registerServlet extends HttpServlet {
 		
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
-		String contactNo = request.getParameter("contactNo");
+		String contact_number = request.getParameter("contact_number");
 		String email = request.getParameter("email");
-		String userType = request.getParameter("userType");
+		
 		//String userName = request.getParameter("username");
-		//String password = request.getParameter("password");
+		String password = request.getParameter("password");
 		
 		Customer register = new Customer();
 		
 		register.setFullName(name);
 		register.setAddress(address);
-		register.setContactNumber(contactNo);
+		register.setContactNumber(contact_number);
 		register.setEmail(email);
-		register.setUserType(userType);
+		//register.setUserType(userType);
 		//register.setUserName(userName);
-		//register.setPassword(password);
+		register.setPassword(password);
 		
 		
 		
@@ -53,24 +53,10 @@ public class registerServlet extends HttpServlet {
 		
 		request.setAttribute("register", register);
 		
-		request.getRequestDispatcher("password.jsp").forward(request, response);
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 		
 		
-	
-		
-	/*	registerService registerServicee = new registerService();
-		
-		String registeredServicee = registerServicee.register(register);
-		
-		if(registeredServicee.equals("SUCCESS"))
-		{
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
-		else
-		{
-			request.setAttribute("errMessage", registeredServicee);
-			request.getRequestDispatcher("/Register.jsp").forward(request, response);
-		}*/
+
 		}
 	
 	}

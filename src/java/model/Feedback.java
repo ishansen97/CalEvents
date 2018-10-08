@@ -16,7 +16,7 @@ public class Feedback {
 	private String username;
 	private String subject;
 	private String comments;
-	private String userID;
+	private String cus_id;
 
     /**
      * @return the fid
@@ -92,14 +92,14 @@ public class Feedback {
      * @return the userID
      */
     public String getUserID() {
-        return userID;
+        return cus_id;
     }
 
     /**
      * @param userID the userID to set
      */
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserID(String cus_id) {
+        this.cus_id = cus_id;
     }
         
         

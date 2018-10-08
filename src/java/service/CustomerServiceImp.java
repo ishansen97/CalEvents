@@ -17,11 +17,11 @@ public class CustomerServiceImp implements ICustomerService {
 		//String userID = Register.ge
 		String name = register.getFullName();
 		String address=register.getAddress();
-		String contactNo=register.getContactNumber(); 
+		String contact_number=register.getContactNumber(); 
 		String email=register.getEmail();
-		String userType=register.getUserType();
+		//String userType=register.getUserType();
 		//String userName=register.getUserName();
-		//String password=register.getPassword();
+		String password=register.getPassword();
 		
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
@@ -29,17 +29,17 @@ public class CustomerServiceImp implements ICustomerService {
 	try
 	{
 		con = DBConnection.createConnection();
-		String query ="insert into users(userID,name,address,contactNo,email,userType) values (NULL,?,?,?,?,?)";
+		String query ="insert into customer(cus_id,name,address,contact_number,email,password) values (NULL,?,?,?,?,?)";
 		
 		preparedStatement = con.prepareStatement(query);
 
 		preparedStatement.setString(1,name);
 		preparedStatement.setString(2,address);
-		preparedStatement.setString(3,contactNo);
+		preparedStatement.setString(3,contact_number);
 		preparedStatement.setString(4,email);
-		preparedStatement.setString(5,userType);
+		//preparedStatement.setString(5,userType);
 		//preparedStatement.setString(6,userName);
-		//preparedStatement.setString(7,password);
+		preparedStatement.setString(5,password);
 		
 		
 		preparedStatement.executeUpdate();
@@ -68,70 +68,12 @@ public class CustomerServiceImp implements ICustomerService {
 }
         
         
-        @Override
-	public String updateRegister(String user, Customer c) {
-		
-		Connection con = null;
-		PreparedStatement statement = null;
-
-		
-		if(user != null) {
-			
-			
-                       
-                        String password = c.getPassword();
-			
-			
-			try {
-				
-				con = DBConnection.createConnection();
-				String sq = "update users set password=? where userID="+user;
-			
-				statement = con.prepareStatement(sq);
-				//statement.setString(1, user);
-				/*statement.setString(2, fullName);
-				statement.setString(3, address);
-				statement.setString(4, contactNumber);
-				statement.setString(5, email);
-				//statement.setString(6, username);*/
-                                statement.setString(1, password);
-                                
-                                
-				statement.executeUpdate();
-			
-			
-			}			
-			
-		 catch (SQLException e) {
-			e.getMessage();
-		} finally {
-	
-		try {
-			if (statement != null) {
-				statement.close();
-			}
-			if (con != null) {
-				con.close();
-			}
-		} catch (SQLException e) {
-			 e.getMessage();
-		}
-		}
-                }
-
-		//return user;
-            return user;
-	}
-        
-        
-
-	
-
+     
 	@Override
 	public boolean loginCheck( String pass, String email) {
 		
 		
-			String sql =" select *  from users where password=? AND email=? "; 
+			String sql =" select *  from customer where password=? AND email=? "; 
 			
 			Connection con = null;
 
@@ -177,11 +119,11 @@ public class CustomerServiceImp implements ICustomerService {
 		{
 			con = DBConnection.createConnection();	
 			statement=con.createStatement();
-			String sql1 =" select userID  from users where password='"+pass+"'"; 
+			String sql1 =" select cus_id  from customer where password='"+pass+"'"; 
 			
 			resultSet = statement.executeQuery(sql1);
 			while(resultSet.next()) {
-				id = resultSet.getString("userID");
+				id = resultSet.getString("cus_id");
 			}
 		
 		
@@ -201,22 +143,22 @@ public class CustomerServiceImp implements ICustomerService {
 		
 		if(user != null) {
 			
-			String fullName = c.getFullName();
+			String name = c.getFullName();
 			String  address = c.getAddress();
-			String contactNumber = c.getContactNumber();
+			String contact_number = c.getContactNumber();
 			String email = c.getEmail();
 			
 			
 			try {
 				
 				con = DBConnection.createConnection();
-				String sq = "update users set userID=?, name=?,address=?,contactNo=?,email=? where userID="+user;
+				String sq = "update customer set cus_id=?, name=?,address=?,contact_number=?,email=? where cus_id="+user;
 			
 				statement = con.prepareStatement(sq);
 				statement.setString(1, user);
-				statement.setString(2, fullName);
+				statement.setString(2, name);
 				statement.setString(3, address);
-				statement.setString(4, contactNumber);
+				statement.setString(4, contact_number);
 				statement.setString(5, email);
 				
 				statement.executeUpdate();

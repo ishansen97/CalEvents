@@ -3,13 +3,13 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-//import com.mysql.cj.jdbc.*;
+import com.mysql.cj.jdbc.*;
 
 public class DBConnection {
 	public static Connection createConnection() {
 		
 		Connection con = null;
-		String url="jdbc:mysql://localhost:3306/cargoapp";
+		String url="jdbc:mysql://localhost:3306/calevents";
 		String username = "root";
 		String password = "";
 		

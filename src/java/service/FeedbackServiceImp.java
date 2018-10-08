@@ -34,14 +34,14 @@ public class FeedbackServiceImp implements IFeedbackService{
 				String email = f.getEmail();
 				String subject = f.getSubject();
 				String comments = f.getComments();
-				String userID = f.getUserID();
+				String cus_id = f.getUserID();
 				
 					
 				
 				try
 				{
 					con = DBConnection.createConnection();
-                                    String sql="Update feedback set fid=?,email=?,subject=?,comments=?,userID=?  where fid="+fid;
+                                    String sql="Update feedback set fid=?,email=?,subject=?,comments=?,cus_id=?  where fid="+fid;
 
 				preparedStatement = con.prepareStatement(sql);
 				preparedStatement.setString(1, fid);
@@ -49,7 +49,7 @@ public class FeedbackServiceImp implements IFeedbackService{
 				preparedStatement.setString(2, email);
 				preparedStatement.setString(3, subject);
 				preparedStatement.setString(4, comments);
-				preparedStatement.setString(5, userID);
+				preparedStatement.setString(5, cus_id);
 				
 				
 				preparedStatement.executeUpdate();				
@@ -122,11 +122,11 @@ public class FeedbackServiceImp implements IFeedbackService{
                 Connection con = null;
 		PreparedStatement preparedStatement = null;
                 
-		String username = f.getUsername();
+		
 		String email = f.getEmail();
 		String subject = f.getSubject();
 		String comments = f.getComments();
-		String userID = f.getUserID();
+		String cus_id = f.getUserID();
 		
 		
 
@@ -134,14 +134,14 @@ public class FeedbackServiceImp implements IFeedbackService{
 		try
 		{
 			con = DBConnection.createConnection();
-			String q ="insert into feedback(email,subject,comments,userID) values (?,?,?,?)";
+			String q ="insert into feedback(email,subject,comments,cus_id) values (?,?,?,?)";
 			
 			preparedStatement = con.prepareStatement(q);
 			//preparedStatement.setString(,username);
 			preparedStatement.setString(1,email);
 			preparedStatement.setString(2,subject);
 			preparedStatement.setString(3,comments);
-			preparedStatement.setString(4,userID);
+			preparedStatement.setString(4,cus_id);
 			
 			
                    int result = preparedStatement.executeUpdate();

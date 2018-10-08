@@ -40,7 +40,7 @@ response.setContentType("text/html");
 		String email = request.getParameter("email");
 		String subject = request.getParameter("subject");
 		String comments = request.getParameter("comments");
-		String userID = request.getParameter("userID");
+		String userID = request.getParameter("cus_id");
 	
 		
 		
