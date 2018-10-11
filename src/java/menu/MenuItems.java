@@ -6,6 +6,8 @@
 package menu;
 import Connection.ServerConnection;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -193,6 +195,57 @@ public class MenuItems {
             e.getStackTrace();
             System.out.println(e);
             return false;
+        }
+    }
+    
+    public static ResultSet searchItems(String search) throws ClassNotFoundException, SQLException {
+        ServerConnection.setConnection();
+        String query = null;
+        ResultSet res = null;
+        
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            
+            query = "SELECT * FROM `Menu_items` "
+                    + "WHERE name LIKE ? OR ingredients LIKE ? OR category LIKE ?";
+            
+            PreparedStatement st = con.prepareStatement(query);
+            String searchstr = "%" + search + "%";
+            st.setString(1, searchstr);
+            st.setString(2, searchstr);
+            st.setString(3, searchstr);
+            
+            System.out.println(st.toString());
+            
+            res = st.executeQuery();
+            
+        }
+        return res;
+        
+    }
+    
+    public static ResultSet getMenuCategories() {
+        String query = null;
+        ResultSet res = null;
+        try {
+            ServerConnection.setConnection();
+            
+            if (ServerConnection.getConnectionStatus()) {
+                Connection con = ServerConnection.getConnection();
+                Statement st = con.createStatement();
+                
+                query = "SELECT DISTINCT category FROM menu_items";
+                
+                res = st.executeQuery(query);
+                
+            }
+            return res;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuItems.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuItems.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return res;
         }
     }
  
