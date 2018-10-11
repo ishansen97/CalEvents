@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly_public_event_report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6d38c7d-33be-4b50-8550-ca5682e07e0b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="month" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     *
+FROM
+     `public_events` public_events
+WHERE
+     MONTH(date) = MONTH($P{date})]]>
+	</queryString>
+	<field name="event_ID" class="java.lang.String"/>
+	<field name="event_name" class="java.lang.String"/>
+	<field name="location_ID" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="date" class="java.sql.Date"/>
+	<field name="start_time" class="java.sql.Time"/>
+	<field name="end_time" class="java.sql.Time"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="eda1cea9-99be-420d-b979-4d12073c2807" x="168" y="28" width="220" height="30"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Simcoe Blues and Jazz]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ff9c157a-e276-439f-b557-511342182c21" x="132" y="0" width="192" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Monthly Public Event Report - ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9657d01a-f9f4-40eb-b10c-af44c27f3a4a" x="324" y="0" width="137" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{month}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7f09475c-45b4-462b-a9e0-7317dc846a16" x="34" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[event_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5d34b46-2a5c-4992-9354-42fea1ebe1aa" x="169" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[event_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="181e22f5-1c46-4589-b404-556c8008ad3c" x="302" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[location_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ae80f5e8-8083-4f9c-981d-90c150c242a0" x="432" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d11651b7-77f6-4552-86d2-6e07b9cd9c13" x="34" y="8" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{event_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ce13b4ef-a9be-43e8-952c-d789bc4c4f54" x="168" y="8" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{event_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f143c18-a52f-4830-82d7-1724cc17d3ea" x="302" y="8" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{location_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fa70441a-ac13-44eb-971b-928dd9060f1d" x="432" y="8" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
