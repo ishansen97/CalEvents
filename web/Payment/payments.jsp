@@ -1,3 +1,7 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="com.payment.utils.*"%>
+<%@page import="com.payment.PaymentDao"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.math.RoundingMode"%>
@@ -7,19 +11,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Payment</title>
+    <title>Payment - Income</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="scripts/Chart.bundle.min.js" type="text/javascript"></script>
     <script src="scripts/palette.js" type="text/javascript"></script>
+    <script src="scripts/charts.js" type="text/javascript"></script>
     <%@ include file="Layouts/Styles.jsp" %>
     <%
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM");
-        String reqDate = request.getParameter("date");
-        if (reqDate == null) {
-            reqDate = fmt.format(new Date());
+        String reqEvent = Fmt.nullIfBlank(request.getParameter("event"));
+        String reqDate = Fmt.nullIfBlank(request.getParameter("date"));
+        String reqSort = Fmt.nullIfBlank(request.getParameter("sort"));
+        String reqOrder = Fmt.nullIfBlank(request.getParameter("order"));
+
+        boolean searched = true;
+        String searchDate = reqDate != null ? reqDate : "";
+        String searchString = "Search for: ";
+        if (reqEvent != null) {
+            searchString += "'" + reqEvent + "' ";
         }
-        Date dobj = fmt.parse(reqDate);
+        if (reqDate != null) {
+            searchString += "on " + reqDate + " ";
+        }
+        if (searchString.equals("Search for: ")) {
+            searched = false;
+            searchString = "All";
+        }
     %>
   </head>
   <body class="w3-light-grey">
@@ -31,52 +49,49 @@
       <div class="container">
         <br>
         <br>
-        <form method="GET" class="row" id="search_payments" style="padding:0">
-          <div class="col-8">
-            <h2>Payments - <small><i><%= new SimpleDateFormat("MMMM yyyy").format(dobj)%></i></small></h2>
+        <div class="row justify-content-between" style="padding: 0">
+          <div class="col mb-2">
+            <h2>Income</h2>
           </div>
-          <div class="col-4">
-            <div class="input-group">
-              <input name="date" type="month" value="<%= reqDate%>" class="form-control" >
-              <div class="input-group-append">
-                <button class="form-control btn btn-primary">Search</button>
-              </div>
+          <% if (searched) { %>
+          <div class="col text-right">
+            <a href="payments.jsp" class="btn btn-danger">Clear</a>
+          </div>
+          <% } %>
+        </div>
+        <form method="GET" class="row justify-content-end" id="search_payments" style="padding:0">
+          <div class="input-group col-12" style="font-size: 0.95em">
+            <input name="event" type="text" placeholder="Event name" value="<%= reqEvent == null ? "" : reqEvent%>" class="form-control">
+            <div class="input-group-append">
+              <input name="date" type="month" value="<%= searchDate%>" class="form-control" >
+              <button class="form-control btn btn-primary">Search</button>
             </div>
           </div>
-
+          <div class="input-group col-3 mt-2">
+            <select name="sort" id="" class="form-control form-control-sm">
+              <option value="" disabled selected>Sort by...</option>
+              <option value="sort_date">Date</option>
+              <option value="sort_event">Event</option>
+              <option value="sort_price">Price</option>
+            </select>
+            <div class="input-group-append">
+              <select name="order" id="order" class="form-control form-control-sm">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+              </select>
+            </div>
+          </div>
         </form>
         <hr>
         <br>
         <%
-            SimpleDateFormat datefmt = new SimpleDateFormat("dd/MM/yy");
             try {
-                ResultSet rs = Payment.getPaymentsForMonth(reqDate);
-                if (rs.next()) {
-                    rs.previous();
-                    ResultSet paymentSummary = Payment.getPaymentSummaryForMonth(reqDate);
-                    String paymentData = "";
-                    double paymentTotal = 0;
-                    double paymentSum;
-                    while (paymentSummary.next()) {
-                        paymentSum = paymentSummary.getDouble("sum(amount)");
-                        paymentTotal += paymentSum;
-                        paymentData += "{ "
-                                + "x: '" + paymentSummary.getString("date(date_time)") + "', "
-                                + "y: " + paymentSum + ", "
-                                + "},";
-                    }
+//                ArrayList<Payment> rs = PaymentDao.getPaymentsForMonth(reqDate);
+                ArrayList<Payment> rs = PaymentDao.paymentSearch(reqEvent, reqDate, reqSort, reqOrder);
+                if (!rs.isEmpty()) {
 
-                    ResultSet eventsSummary = Payment.getEventsSummary(reqDate);
-                    String eventsLabels = "";
-                    String eventsData = "";
-                    int eventsTotal = 0;
-                    int eventsCount;
-                    while (eventsSummary.next()) {
-                        eventsCount = eventsSummary.getInt("count(event_id)");
-                        eventsTotal += eventsCount;
-                        eventsLabels += "'" + eventsSummary.getString("event_id") + "', ";
-                        eventsData += eventsCount + ", ";
-                    }
+                    if (reqEvent == null) {
+                      HashMap<Integer, String> summary = Graphs.getPaymentSummary(reqDate);
         %>
         <div class="row" style="padding: 0">
           <div class="col-12">
@@ -91,87 +106,22 @@
                 <div class="row">
                   <div class="col-12">
                     <span class="text-secondary">
-                      Total Income: <b>$<%= String.format("%.2f", paymentTotal)%></b> <small>(from a total of <%= eventsTotal%> payments)</small>
+                      Total Income: <b>$<%= summary.get(Graphs.PAYMENT_TOTAL)%></b> <small>(from a total of <%= summary.get(Graphs.PAYMENT_EVENT_TOTAL)%> payments)</small>
                     </span>
                   </div>
                 </div>
 
                 <script>
-                  var paymentsGraph = document.getElementById("paymentsGraph").getContext("2d");
-                  var paymentData = [<%= paymentData%>];
-                  var paymentsLineGraph = new Chart(paymentsGraph, {
-                    type: 'line',
-                    data: {
-                      datasets: [
-                        {
-                          data: paymentData,
-                          borderColor: "rgb(120, 200, 40)",
-                          backgroundColor: "rgba(120, 200, 40, 0.2)",
-                        },
-                      ],
-                    },
-                    options: {
-
-                      title: {
-                        display: true,
-                        text: 'Income',
-                      },
-                      legend: {
-                        display: false,
-                      },
-                      scales: {
-                        barValueSpacing: 2,
-                        xAxes: [{
-                            type: "time",
-                            time: {
-                              unit: 'day',
-                              format: "YYYY-MM-DD",
-                              tooltipFormat: 'll',
-                            },
-                          }],
-                      },
-                      elements: {
-                        line: {
-                          tension: 0, // disables bezier curves
-                        }
-                      }
-                    }
-                  });
-
-                  var eventsPie = document.getElementById("eventsPie").getContext("2d");
-                  var eventsData = [<%= eventsData%>];
-                  var eventsLabel = [<%= eventsLabels%>];
-                  var eventsPieChart = new Chart(eventsPie, {
-                    type: 'doughnut',
-                    data: {
-                      labels: eventsLabel,
-                      datasets: [{
-                          label: "Most popular events",
-                          data: eventsData,
-                          backgroundColor: palette('cb-Pastel2', eventsData.length).map(function (hex) {
-                            return '#' + hex;
-                          }),
-                        }],
-                    },
-                    options: {
-                      title: {
-                        display: true,
-                        text: 'Most popular events',
-                      },
-                      legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                          boxWidth: 20
-                        },
-                      },
-                    }
-                  });
+                  window.addEventListener("DOMContentLoaded", function () {
+                    initPaymentsGraph("paymentsGraph", [<%= summary.get(Graphs.PAYMENT_SUMMARY)%>]);
+                    initEventsPie("eventsPie", [<%= summary.get(Graphs.PAYMENT_PIE_LABEL)%>], [<%= summary.get(Graphs.PAYMENT_PIE_DATA)%>]);
+                  })
                 </script></div>
             </div>
           </div>
         </div>
         <br>
+        <%}%>
         <div class="row" style="padding: 0">
           <div class="col-12">
             <div class="card">
@@ -190,21 +140,17 @@
                   <th class="text-center">Total</th>
                   </thead>
                   <tbody>
-                    <%
-                        while (rs.next()) {
-                            double amount = rs.getDouble("amount");
-                            Date date = rs.getDate("pay_date");
-                    %>
+                    <% for (Payment p : rs) {%>
                     <tr>
-                      <th><%= String.format("%05d", rs.getInt("pay_id"))%></th>
-                      <td><%= rs.getString("name") %></td>
-                      <td><%= rs.getString("event_name")%> (<a href="#"><%= rs.getString("event_id")%></a>)</td>
+                      <th><%= String.format("%05d", p.getId())%></th>
+                      <td><%= p.getEvent().getCusName()%></td>
+                      <td><%= p.getEvent().getEventName()%> (<a href="#"><%= p.getEvent().getEventId()%></a>)</td>
                       <td class="text-right">
-                        <a class="btn btn-sm btn-outline-secondary" href="invoice.jsp?id=<%= String.format("%05d", rs.getInt("pay_id"))%>">View</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="invoice.jsp?id=<%= String.format("%05d", p.getId())%>">View</a>
                       </td>
-                      <td class="text-center"><%= datefmt.format(date)%></td>
-                      <td class="text-center"><%= rs.getString("pay_method")%></td>
-                      <td class="text-center">$<%= String.format("%.2f", amount)%></td>
+                      <td class="text-center"><%= Fmt.toShortDate(p.getDate())%></td>
+                      <td class="text-center"><%= p.getMethod()%></td>
+                      <td class="text-center">$<%= Fmt.toDec(p.getAmount())%></td>
                     </tr>
                     <% }%>
                   </tbody>
@@ -216,12 +162,14 @@
         <% } else {%>
         <div class="row">
           <div class="col-12 alert alert-info" role="alert">
-            No payments found for <%= reqDate%>
+            No payments found for query
           </div>
         </div>
         <%
             }
-        } catch (Exception e) {%>
+        } catch (Exception e) {
+          e.printStackTrace();
+        %>
         <div class="row">
           <div class="alert alert-danger" role="alert">
             Error while loading page! Please retry <%= e%>

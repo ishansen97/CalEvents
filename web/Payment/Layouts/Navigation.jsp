@@ -23,9 +23,12 @@
     <h5>Dashboard</h5>
   </div>
   <div class="w3-bar-block" id="w3-nav-buttons">
-    <a href="./" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bar-chart-o fa-fw"></i>&nbsp; Overview</a>
-    <a href="./payments.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users fa-fw"></i>&nbsp; Payments</a>
-    <a href="./payment_test.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-users-cog fa-fw"></i>&nbsp; Expenses</a>
+    <a href="./" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-table fa-fw"></i>&nbsp; Overview</a>
+    <a href="./events.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-envelope-open fa-fw"></i>&nbsp; Events</a>
+    <a href="./payments.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-line-chart fa-fw"></i>&nbsp; Income</a>
+    <a href="./expenses.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bar-chart fa-fw"></i>&nbsp; Expenses</a>
+    <a href="./make_expense.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-bank fa-fw"></i>&nbsp; Make Payments</a>
+    <a href="./reports.jsp" class="w3-bar-item w3-button w3-padding" style="text-decoration: none"><i class="fa fa-file-text fa-fw"></i>&nbsp; Reports</a>
   </div>
 </nav>
 <!-- End of Sidebar/menu -->
