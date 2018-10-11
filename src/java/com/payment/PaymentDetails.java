@@ -13,11 +13,51 @@ import java.util.Date;
  */
 public class PaymentDetails {
 
-    private String eventId, eventName;
-    private Date resDate, eventDate;
-
+    private String eventId, eventName, cusId, cusName, cusAddress, cusContact, cusEmail;
+    private Date resDate;
+    private Date eventDate;
     public PaymentDetails() {
+        
+    }
 
+    public String getCusAddress() {
+        return cusAddress;
+    }
+
+    public void setCusAddress(String cusAddress) {
+        this.cusAddress = cusAddress;
+    }
+
+    public String getCusContact() {
+        return cusContact;
+    }
+
+    public void setCusContact(String cusContact) {
+        this.cusContact = cusContact;
+    }
+
+    public String getCusEmail() {
+        return cusEmail;
+    }
+
+    public void setCusEmail(String cusEmail) {
+        this.cusEmail = cusEmail;
+    }
+
+    public String getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(String cusId) {
+        this.cusId = cusId;
+    }
+
+    public String getCusName() {
+        return cusName;
+    }
+
+    public void setCusName(String cusName) {
+        this.cusName = cusName;
     }
 
     public Date getEventDate() {

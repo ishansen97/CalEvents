@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.payment.example.EventDetails"%>
 <%@page import="com.payment.example.Expenses"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -19,6 +20,7 @@
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
       <br>
       <%
+          /*
           EventDetails[] events = {
               new EventDetails("Event 1", new Date(118, 9, 1), EventDetails.STATUS_OPEN, 10, 50, 10.00, new Expenses(10.0, 30.0)),
               new EventDetails("Event 2", new Date(118, 9, 10), EventDetails.STATUS_OPEN, 9, 30, 5.00, new Expenses(51.0, 61.0)),
@@ -26,7 +28,9 @@
               new EventDetails("Event 4", new Date(118, 8, 11), EventDetails.STATUS_CLOSED, 50, 60, 2.99, new Expenses(65.0, 15.0)),
               new EventDetails("Event 5", new Date(118, 12, 11), EventDetails.STATUS_OPEN, 180, 200, 10.99, new Expenses(100.0, 150.0)),
               new EventDetails("Event 5", new Date(118, 12, 11), EventDetails.STATUS_CLOSED, 2, 3, 50.99, new Expenses(300.0, 200.0)),
-          };
+          };*/
+
+          ArrayList<EventDetails> events = EventDetails.getEventDetails();
 
           try {
       %>
@@ -44,17 +48,14 @@
                 <tr>
                   <th class="event-details" width="60%">Event</th>
                   <th class="event-statistics" width="30%">Reservations</th>
-                  <th class="event-expected">Expected</th>
                   <th class="event-income">Income</th>
-                  <th class="event-expenses">Expenses</th>
-                  <th class="event-profit">Profit</th>
                   <th></th>
                 </tr>
               </thead>
               <% for (EventDetails event : events) {%>
               <tr class="event event--<%= event.getStatusClass()%>">
                 <td class="event-details">
-                  <div class="event-name"><a href="" class="event-text"><%= event.getName()%></a></div>
+                  <div class="event-name"><span href="" class="event-text"><span style="opacity:0.8; text-transform: uppercase"><%= event.getId()%> - </span> <%= event.getName()%></span></div>
                   <div class="event-date d-flex justify-content-between">
                     <span class="text-muted"><%= event.getDate()%></span>
                     <small class="text-muted">Ticket Price: <b><%=event.getPrice()%></b></small>
@@ -71,13 +72,11 @@
                     <div class="progress-bar event-progress" role="progressbar" style="width: <%= event.getPercentage() %>%"></div>
                   </div>
                 </td>
-                <td class="event-expected text-secondary" title="Expected"><%= event.getExpected()%></td>
                 <td class="event-income text-success"><%= event.getIncome()%></td>
-                <td class="event-expenses text-danger"><%= event.getExpenses()%></td>
-                <td class="event-profit text-primary"><%= event.getProfit()%></td>
-                <td><a class="event-button btn btn-sm btn-outline-secondary " href="#">Details</a></td>
+                <td><a class="event-button btn btn-sm btn-outline-secondary " href="payments.jsp?event=<%= event.getName()%>">Details</a></td>
               </tr>
               <!-- EVENT DETAILS -->
+              <%--
               <tr class="event event-details" style="display:none">
                 <td colspan="2">
 
@@ -108,6 +107,7 @@
                   </div>
                 </td>
               </tr>
+              --%>
               <% } %>
             </table>
           </div>

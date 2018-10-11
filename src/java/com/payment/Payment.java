@@ -116,6 +116,10 @@ public class Payment {
         this.amount = Double.parseDouble(amount);
         this.method = method;
     }
+    
+    public PaymentDetails event() {
+        return event();
+    }
 
     public PaymentDetails getEvent() {
         return event;

@@ -1,3 +1,7 @@
+<%@page import="com.payment.ExpenseDao"%>
+<%@page import="com.payment.utils.Graphs"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.payment.PaymentDao"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.math.RoundingMode"%>
@@ -12,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@ include file="Layouts/Styles.jsp" %>
     <script src="scripts/Chart.bundle.min.js" type="text/javascript"></script>
+    <script src="scripts/charts.js" type="text/javascript"></script>
+    <script src="scripts/palette.js" type="text/javascript"></script>
   </head>
   <body class="w3-light-grey">
     <%@ include file="Layouts/Navigation.jsp" %>
@@ -23,121 +29,107 @@
           <h2>Overview</h2>
           <hr>
         </div>
+
+        <% try {
+                HashMap<Integer, String> sum = Graphs.getIndexSummary();%>
         <div class="row" style="padding: 0">
-          <%
-              SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM");
-              String reqDate = request.getParameter("date");
-              if (reqDate == null) {
-                  reqDate = fmt.format(new Date());
-              }
-              Date dobj = fmt.parse(reqDate);
-
-              try {
-                  ResultSet rs = Payment.getPaymentSummary();
-                  double incomeSum = 0;
-                  double expenseSum = 0;
-                  String data1 = "";
-                  String data2 = "";
-
-                  while (rs.next()) {
-                      String date = rs.getString("year") + "-" + rs.getString("month");
-                      double sum = rs.getDouble("sum");
-                      double rand = Math.random() * 15;
-                      data1 += "{ x: '" + date + "', "
-                              + "y:" + String.format("%.0f", sum) + " }, ";
-
-                      data2 += "{ x: '" + date + "', "
-                              + "y:" + String.format("%.0f", rand) + " }, ";
-
-                      expenseSum += rand;
-                      incomeSum += sum;
-                  }
-          %>
-          <div class="col-10">
+          <div class="col">
             <div class="card">
               <div class="card-header">Cashflow</div>
               <div class="card-body">
-                <canvas id="incomeChart" width="600" height="200"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="card">
-              <div class="card-header">
-                Summary
-              </div>
-              <div class="card-body">
-                <div>
-                  <small class="text-secondary">Income</small>
-                  <h5 class="text-success">$<%= String.format("%.2f", incomeSum)%></h5>
-                </div>
-                <hr>
-                <div>
-                  <small class="text-secondary">Expenses</small>
-                  <h5 class="text-danger">$<%= String.format("%.2f", expenseSum)%></h5>
-                </div>
-                <hr>
-                <div>
-                  <small class="text-secondary">Balance</small>
-                  <h4 class="text-primary">$<%= String.format("%.2f", (incomeSum - expenseSum))%></h4>
+                <div class="row">
+                  <div class="col-10">
+                    <canvas id="incomeChart" width="600" height="200"></canvas>
+                  </div>
+                  <div class="col-2">
+                    <div><h4>Summary</h4></div>
+                    <div>
+                      <small class="text-secondary">Income</small>
+                      <h5 class="text-success">$<%= sum.get(Graphs.PAYMENT_SUM)%></h5>
+                    </div>
+                    <hr>
+                    <div>
+                      <small class="text-secondary">Expenses</small>
+                      <h5 class="text-danger">$<%= sum.get(Graphs.EXPENSE_SUM)%></h5>
+                    </div>
+                    <hr>
+                    <div>
+                      <small class="text-secondary">Balance</small>
+                      <h4 class="text-primary">$<%= sum.get(Graphs.PAYMENT_EXPENSE_BALANCE)%></h4>
+                    </div>
+                  </div
                 </div>
               </div>
             </div>
           </div>
-          <script>
-            var ctx = document.getElementById("incomeChart").getContext('2d');
-            var myChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                datasets: [
-                  {
-                    label: "Expenses",
-                    data: [<%= data2%>],
-                    borderColor: "rgb(200, 40, 40)",
-                    backgroundColor: "rgba(200, 40, 40, 0.2)",
-                  },
-                  {
-                    label: "Income",
-                    data: [<%= data1%>],
-                    borderColor: "rgb(120, 200, 40)",
-                    backgroundColor: "rgba(120, 200, 40, 0.2)",
-                  },
-                ],
-              },
-              options: {
-                responsive: true,
-
-                scales: {
-                  barValueSpacing: 5,
-                  legend: {
-                    display: true,
-                    position: 'bottom',
-                  },
-                  xAxes: [{
-                      type: "time",
-                      time: {
-                        unit: 'month',
-                        format: "YYYY/MM",
-                        tooltipFormat: 'll',
-                      },
-                      stacked: true,
-                    }],
-                }
-              }
-            });
-          </script>
         </div>
-        <% } catch (Exception e) {%>
-        <div class="alert alert-danger" role="alert">
-          Error while loading page! Please retry <%= e%>
-        </div>
-        <% }%>
+        <script>
+          window.addEventListener("DOMContentLoaded", function () {
+            initIndexGraph("incomeChart", [<%= sum.get(Graphs.EXPENSE_SUMMARY)%>], [<%= sum.get(Graphs.PAYMENT_SUMMARY)%>]);
+          });
+        </script>
       </div>
       <br>
-      <%@ include file="Layouts/Footer.jsp" %>
-      <!-- End page content -->
+      <% HashMap<Integer, String> summary = Graphs.getPaymentSummary(null);%>
+      <div class="row" style="padding: 0">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">Income</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-9"><canvas id="paymentsGraph" height="150" width="500"></canvas></div>
+                <div class="col-3"><canvas id="paymentsPie" height="100" width="100"></canvas></div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-12">
+                  <span class="text-secondary">
+                    Total Income: <b>$<%= summary.get(Graphs.PAYMENT_TOTAL)%></b> <small>(from a total of <%= summary.get(Graphs.PAYMENT_EVENT_TOTAL)%> payments)</small>
+                  </span>
+                </div>
+              </div>
+
+              <script>
+                window.addEventListener("DOMContentLoaded", function () {
+                  initPaymentsGraph("paymentsGraph", [<%= summary.get(Graphs.PAYMENT_SUMMARY)%>]);
+                  initEventsPie("paymentsPie", [<%= summary.get(Graphs.PAYMENT_PIE_LABEL)%>], [<%= summary.get(Graphs.PAYMENT_PIE_DATA)%>]);
+                })
+              </script></div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <% HashMap<Integer, String> esummary = Graphs.getExpensesSummary(ExpenseDao.getExpensesSummaryForMonth(null));%>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">Expenses Summary</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-9"><canvas id="expensesGraph" height="150" width="500"></canvas></div>
+                <div class="col-3"><canvas id="expensesPie" height="100" width="100"></canvas></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          window.addEventListener('DOMContentLoaded', function () {
+            initExpensesAllGraph("expensesGraph", [<%= esummary.get(Graphs.SUMMARY_GRAPH)%>]);
+            initExpensesPie("expensesPie", [<%= esummary.get(Graphs.SUMMARY_PIE_DATA)%>], [<%= esummary.get(Graphs.SUMMARY_PIE_LABELS)%>]);
+          });
+        </script>
+      </div>
+      <% } catch (Exception e) {%>
+      <div class="alert alert-danger" role="alert">
+        Error while loading page! Please retry <%= e%>
+      </div>
+      <% }%>
     </div>
+    <br>
+    <%@ include file="Layouts/Footer.jsp" %>
+    <!-- End page content -->
   </div>
-  <%@ include file="Layouts/Scripts.jsp" %>
+</div>
+<%@ include file="Layouts/Scripts.jsp" %>
 </body>
 </html>

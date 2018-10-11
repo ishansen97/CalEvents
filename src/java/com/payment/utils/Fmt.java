@@ -86,4 +86,8 @@ public class Fmt {
         return String.format("%.2f", val);
     }
 
+    public static String nullIfBlank(String str) {
+        return str == "" ? null : str;
+    }
+
 }

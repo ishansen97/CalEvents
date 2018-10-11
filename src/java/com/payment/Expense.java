@@ -17,6 +17,8 @@ public class Expense {
     private String dept;
     private String desc;
     private String method;
+    private String category;
+    private String notes;
     private double amount;
     private Date date;
 
@@ -27,6 +29,15 @@ public class Expense {
         this.desc = desc;
         this.method = method;
         this.dept = dept;
+        this.amount = amount;
+    }
+
+    public Expense(String dept, String desc, String method, double amount, String category, String notes) {
+        this.dept = dept;
+        this.desc = desc;
+        this.method = method;
+        this.category = category;
+        this.notes = notes;
         this.amount = amount;
     }
 
@@ -84,6 +95,22 @@ public class Expense {
 
     public java.sql.Date getSQLDate() {
         return new java.sql.Date(date.getTime());
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
 }

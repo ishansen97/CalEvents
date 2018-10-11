@@ -51,17 +51,22 @@ public class AddExpense extends HttpServlet {
             String dept = request.getParameter("dept");
             String desc = request.getParameter("desc");
             String method = request.getParameter("method");
+            String notes = request.getParameter("notes");
+            String category = request.getParameter("type");
+
             double amount = Double.parseDouble(request.getParameter("amount"));
 
-            Expense expense = new Expense(dept, desc, method, amount);
             try {
-                if (ExpenseDao.createExpense(expense)) {
+                Expense expense = new Expense(dept, desc, method, amount, category, notes);
+                if (ExpenseDao.addFacilityExpense(expense)) {
                     response.sendRedirect("expenses.jsp");
+                } else {
+                    throw new Exception("Could not insert expense!");
                 }
             } catch (Exception e) {
-                out.println("Error! " + e);
+                out.println("Error! <b>" + e);
             }
-
+            out.println("Error");
             out.println("</body>");
             out.println("</html>");
 

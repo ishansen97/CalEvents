@@ -1,6 +1,5 @@
 <%@page import="java.util.HashMap"%>
-<%@page import="com.payment.utils.Graphs"%>
-<%@page import="com.payment.utils.Fmt"%>
+<%@page import="com.payment.utils.*"%>
 <%@page import="com.payment.PaymentDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Date"%>
@@ -12,7 +11,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Payment</title>
+    <title>Payment - Income</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="scripts/Chart.bundle.min.js" type="text/javascript"></script>
@@ -21,11 +20,24 @@
     <%@ include file="Layouts/Styles.jsp" %>
     <%
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM");
-        String reqDate = request.getParameter("date");
-        if (reqDate == null) {
-            reqDate = fmt.format(new Date());
+        String reqEvent = Fmt.nullIfBlank(request.getParameter("event"));
+        String reqDate = Fmt.nullIfBlank(request.getParameter("date"));
+        String reqSort = Fmt.nullIfBlank(request.getParameter("sort"));
+        String reqOrder = Fmt.nullIfBlank(request.getParameter("order"));
+
+        boolean searched = true;
+        String searchDate = reqDate != null ? reqDate : "";
+        String searchString = "Search for: ";
+        if (reqEvent != null) {
+            searchString += "'" + reqEvent + "' ";
         }
-        Date dobj = fmt.parse(reqDate);
+        if (reqDate != null) {
+            searchString += "on " + reqDate + " ";
+        }
+        if (searchString.equals("Search for: ")) {
+            searched = false;
+            searchString = "All";
+        }
     %>
   </head>
   <body class="w3-light-grey">
@@ -37,27 +49,49 @@
       <div class="container">
         <br>
         <br>
-        <form method="GET" class="row" id="search_payments" style="padding:0">
-          <div class="col-8">
-            <h2>Payments - <small><i><%= new SimpleDateFormat("MMMM yyyy").format(dobj)%></i></small></h2>
+        <div class="row justify-content-between" style="padding: 0">
+          <div class="col mb-2">
+            <h2>Income</h2>
           </div>
-          <div class="col-4">
-            <div class="input-group">
-              <input name="date" type="month" value="<%= reqDate%>" class="form-control" >
-              <div class="input-group-append">
-                <button class="form-control btn btn-primary">Search</button>
-              </div>
+          <% if (searched) { %>
+          <div class="col text-right">
+            <a href="payments.jsp" class="btn btn-danger">Clear</a>
+          </div>
+          <% } %>
+        </div>
+        <form method="GET" class="row justify-content-end" id="search_payments" style="padding:0">
+          <div class="input-group col-12" style="font-size: 0.95em">
+            <input name="event" type="text" placeholder="Event name" value="<%= reqEvent == null ? "" : reqEvent%>" class="form-control">
+            <div class="input-group-append">
+              <input name="date" type="month" value="<%= searchDate%>" class="form-control" >
+              <button class="form-control btn btn-primary">Search</button>
             </div>
           </div>
-
+          <div class="input-group col-3 mt-2">
+            <select name="sort" id="" class="form-control form-control-sm">
+              <option value="" disabled selected>Sort by...</option>
+              <option value="sort_date">Date</option>
+              <option value="sort_event">Event</option>
+              <option value="sort_price">Price</option>
+            </select>
+            <div class="input-group-append">
+              <select name="order" id="order" class="form-control form-control-sm">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+              </select>
+            </div>
+          </div>
         </form>
         <hr>
         <br>
         <%
             try {
-                ArrayList<Payment> rs = PaymentDao.getPaymentsForMonth(reqDate);
+//                ArrayList<Payment> rs = PaymentDao.getPaymentsForMonth(reqDate);
+                ArrayList<Payment> rs = PaymentDao.paymentSearch(reqEvent, reqDate, reqSort, reqOrder);
                 if (!rs.isEmpty()) {
-                    HashMap<Integer, String> summary = Graphs.getPaymentSummary(reqDate);
+
+                    if (reqEvent == null) {
+                      HashMap<Integer, String> summary = Graphs.getPaymentSummary(reqDate);
         %>
         <div class="row" style="padding: 0">
           <div class="col-12">
@@ -87,6 +121,7 @@
           </div>
         </div>
         <br>
+        <%}%>
         <div class="row" style="padding: 0">
           <div class="col-12">
             <div class="card">
@@ -107,8 +142,8 @@
                   <tbody>
                     <% for (Payment p : rs) {%>
                     <tr>
-                      <th><%= Fmt.toDec(p.getAmount())%></th>
-                      <td>Customer Name</td>
+                      <th><%= String.format("%05d", p.getId())%></th>
+                      <td><%= p.getEvent().getCusName()%></td>
                       <td><%= p.getEvent().getEventName()%> (<a href="#"><%= p.getEvent().getEventId()%></a>)</td>
                       <td class="text-right">
                         <a class="btn btn-sm btn-outline-secondary" href="invoice.jsp?id=<%= String.format("%05d", p.getId())%>">View</a>
@@ -127,12 +162,14 @@
         <% } else {%>
         <div class="row">
           <div class="col-12 alert alert-info" role="alert">
-            No payments found for <%= reqDate%>
+            No payments found for query
           </div>
         </div>
         <%
             }
-        } catch (Exception e) {%>
+        } catch (Exception e) {
+          e.printStackTrace();
+        %>
         <div class="row">
           <div class="alert alert-danger" role="alert">
             Error while loading page! Please retry <%= e%>

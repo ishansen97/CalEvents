@@ -43,6 +43,8 @@ public class PaymentDao {
         dt.setEventId(rs.getString(EVENT_ID));
         dt.setEventName(rs.getString(EVENT_NAME));
         dt.setEventDate(rs.getDate(EVENT_DATE));
+        dt.setCusId(rs.getString("cus_id"));
+        dt.setCusName(rs.getString("cus_name"));
         pm.setEvent(dt);
         return pm;
     }
@@ -89,7 +91,88 @@ public class PaymentDao {
         return payments;
     }
 
+    public static ArrayList<Payment> paymentSearch(String event, String date, String sort, String order) {
+        if (event == null && date == null && sort == null) {
+            return getAllPayments();
+        }
+
+        ArrayList<Payment> payments = new ArrayList<>();
+
+        String[] yyyyMM = null;
+
+        String where = "";
+        String WHERE_EVENT = "";
+        String WHERE_DATE = "";
+
+
+        if (event != null) {
+            where = "WHERE ";
+            WHERE_EVENT = where + "event_name LIKE ?";
+        }
+        if (date != null) {
+            where = "".equals(where) ? "WHERE " : " AND ";
+            WHERE_DATE = where + "year(pay_date) = ? AND month(pay_date) = ? ";
+            yyyyMM = date.split("-");
+        }
+
+        String ORDER_BY = "ORDER BY ";
+
+        sort = sort == null ? "" : sort;
+        switch(sort) {
+            case "sort_event" :
+                ORDER_BY += "event_id";
+             break;
+            case "sort_price" :
+                ORDER_BY += "amount";
+                break;
+            default:
+                ORDER_BY += "pay_date";
+        }
+
+        ORDER_BY += " ";
+        if (order == null || order.equals("desc")) {
+            ORDER_BY  += "DESC";
+        } else {
+            ORDER_BY += "ASC";
+        }
+
+        try {
+            String query = "SELECT * FROM payment_res_event "
+                    + WHERE_EVENT + WHERE_DATE + ORDER_BY;
+
+            Connection con = PaymentDB.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+
+            System.out.println(ps.toString());
+
+            int i = 1;
+            if (event != null) {
+                ps.setString(i++, "%"+event+"%");
+            }
+            if (date != null) {
+                ps.setString(i++, yyyyMM[0]);
+                ps.setString(i++, yyyyMM[1]);
+            }
+
+            System.out.println(ps.toString());
+
+            ResultSet res = ps.executeQuery();
+
+            while (res.next()) {
+                payments.add(getPayment(res));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return payments;
+    }
+
     public static ArrayList<Payment> getPaymentsForMonth(String date) {
+        if (date == null) {
+            return getAllPayments();
+        }
         ArrayList<Payment> payments = new ArrayList<>();
         try {
             String[] yyyyMM = date.split("-");
@@ -135,30 +218,45 @@ public class PaymentDao {
     }
 
     public static ResultSet getPaymentSummaryForMonth(String date) throws ClassNotFoundException, SQLException {
-        String[] yyyyMM = date.split("-");
+        String where = "";
+        String[] yyyyMM = null;
+        if (date != null) {
+            where = "WHERE year(pay_date) = ? AND month(pay_date) = ? ";
+            yyyyMM = date.split("-");
+        }
+
         String query = "SELECT date(pay_date), sum(amount) "
                 + "FROM payment "
-                + "WHERE year(pay_date) = ? AND month(pay_date) = ? "
+                + where
                 + "GROUP BY year(pay_date), month(pay_date), day(pay_date)";
 
         Connection con = PaymentDB.getConnection();
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, yyyyMM[0]);
-        ps.setString(2, yyyyMM[1]);
+        if (date != null) {
+            ps.setString(1, yyyyMM[0]);
+            ps.setString(2, yyyyMM[1]);
+        }
 
         return ps.executeQuery();
     }
 
     public static ResultSet getEventsSummary(String date) throws ClassNotFoundException, SQLException {
-        String[] yyyyMM = date.split("-");
+        String where = "";
+        String[] yyyyMM = null;
+        if (date != null) {
+            where = "WHERE year(pay_date) = ? AND month(pay_date) = ? ";
+            yyyyMM = date.split("-");
+        }
         String query = "SELECT event_id, count(event_id) FROM `payment_res_event` "
-                + "WHERE year(pay_date) = ? AND month(pay_date) = ? "
+                + where
                 + "GROUP BY year(pay_date), month(pay_date), event_Id";
 
         Connection con = PaymentDB.getConnection();
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, yyyyMM[0]);
-        ps.setString(2, yyyyMM[1]);
+        if (date != null) {
+            ps.setString(1, yyyyMM[0]);
+            ps.setString(2, yyyyMM[1]);
+        }
 
         return ps.executeQuery();
     }
@@ -170,5 +268,28 @@ public class PaymentDao {
                 + "GROUP BY year(pay_date), month(pay_date)";
         PreparedStatement ps = con.prepareStatement(query);
         return ps.executeQuery();
+    }
+
+    public static PaymentDetails getCustomerDetails(String id) {
+        PaymentDetails customer = null;
+        try {
+            Connection con = PaymentDB.getConnection();
+            String query = "SELECT * FROM `customer` WHERE cus_id = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                customer = new PaymentDetails();
+                customer.setCusId(rs.getString("cus_id"));
+                customer.setCusName(rs.getString("name"));
+                customer.setCusAddress(rs.getString("address"));
+                customer.setCusEmail(rs.getString("email"));
+                customer.setCusContact(rs.getString("contact_number"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return customer;
     }
 }
