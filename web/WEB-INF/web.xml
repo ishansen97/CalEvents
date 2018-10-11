@@ -8,8 +8,7 @@
         <servlet-name>CheckEmailAvailability</servlet-name>
         <url-pattern>/CheckEmailAvailability</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>780</session-timeout>
+    <servlet>
         <servlet-name>insertRaw</servlet-name>
         <servlet-class>insertRaw</servlet-class>
     </servlet>
@@ -91,7 +90,7 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            780
         </session-timeout>
     </session-config>
 </web-app>
