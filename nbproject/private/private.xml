@@ -8,11 +8,9 @@
             <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/SendEmail.java</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_B_events.jsp</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/updateEvent.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/eventListP.jsp</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/rejectMail.java</file>
-            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/updateBookedEvent.jsp</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/src/java/Event/getEmailServlet.java</file>
             <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/index.jsp</file>
+            <file>file:/C:/Users/hp/Desktop/CalEvents/web/Event/insert_P_events_test.jsp</file>
         </group>
     </open-files>
 </project-private>
