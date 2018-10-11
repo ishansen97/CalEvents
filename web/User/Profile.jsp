@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Profile</title>
+<link rel="icon" href="../External/Images/icon.jpeg">
 <%@ include file="Layouts/Styles.jsp" %>
 </head>
 
@@ -177,7 +178,7 @@
                         <img src="${p_avatar}" class="img-fluid px-5 pt-5">
                     </div>
                     <div class="offset-md-4 pt-2">
-                        <input class='file-upload form-control rounded-0 border border-0' style="background-color: transparent" type='file' name='avatar' accept='image/x-png'>
+                        <input class='file-upload form-control rounded-0 border border-0' style="background-color: transparent" type='file' name='avatar' accept="image/x-png,image/jpg,image/jpeg">
                     </div>
                 </div>
             </div>

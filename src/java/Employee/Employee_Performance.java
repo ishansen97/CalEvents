@@ -38,12 +38,13 @@ public class Employee_Performance extends HttpServlet {
             if (null != authenticate) {
 
                 // Setting active nav links
-                request.getSession().setAttribute("nav00", "");
+                request.getSession().setAttribute("nav00", "w3-text-gray");
                 request.getSession().setAttribute("nav01", "");
-                request.getSession().setAttribute("nav02", "");
+                request.getSession().setAttribute("nav02", "w3-blue");
                 request.getSession().setAttribute("nav03", "");
                 request.getSession().setAttribute("nav04", "");
 		request.getSession().setAttribute("nav05", "");
+                request.getSession().setAttribute("nav06", "");
                 
 
                 request.getRequestDispatcher("/User/Employee_Performance.jsp").forward(request, response);

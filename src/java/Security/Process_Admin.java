@@ -108,7 +108,7 @@ public class Process_Admin extends HttpServlet {
                                     request.getSession().setAttribute("authenticated", "user_authenticated");
 
                                     attendance.recordArrivalTime(currentTime);
-                                    
+
                                     request.getSession().setAttribute("p_username", res.getString("username"));
                                     request.getSession().setAttribute("p_nic", res.getString("nic"));
                                     request.getSession().setAttribute("p_first_name", res.getString("first_name"));
@@ -124,10 +124,12 @@ public class Process_Admin extends HttpServlet {
                                     request.getSession().setAttribute("p_gender", res.getString("gender"));
                                     request.getSession().setAttribute("p_department", res.getString("department"));
                                     request.getSession().setAttribute("p_privilege_mode", res.getString("privilege_mode"));
-                                    
+
                                     // Setting project name to be used for search function 
                                     request.getSession().setAttribute("p_nam", "CalEvents");
-                                    
+
+                                    //Setting default employee profile image path
+                                    request.getSession().setAttribute("empImgPath", "C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Images/");
 
                                     switch (department) {
 
@@ -156,26 +158,26 @@ public class Process_Admin extends HttpServlet {
 
                                 } else if (leaveStatus.equals("full")) {
                                     request.getSession().setAttribute("login_Message", "Your attendance has been confirmed as a full day leave");
-                                    response.sendRedirect("Admin");
+                                    response.sendRedirect(request.getContextPath()+"/Admin");
                                     //If the time has passed for employees on short leave to login, following will be displayed
                                 } else {
                                     request.getSession().setAttribute("login_Message", "Your attendance has been confirmed as a short-day leave, login time has passed !");
-                                    response.sendRedirect("Admin");
+                                    response.sendRedirect(request.getContextPath()+"/Admin");
                                 }
                             } else {
                                 request.getSession().setAttribute("login_Message", "You have logged out of the system !");
-                                response.sendRedirect("Admin");
+                                response.sendRedirect(request.getContextPath()+"/Admin");
                             }
                         }
 
                     } else {
                         request.getSession().setAttribute("login_Message", "Invalid credentials ! Please check your username and password");
-                        response.sendRedirect("Admin");
+                        response.sendRedirect(request.getContextPath()+"/Admin");
                     }
 
                 } else {
                     request.getSession().setAttribute("login_Message", "Operating hours are now closed !");
-                    response.sendRedirect("Admin");
+                    response.sendRedirect(request.getContextPath()+"/Admin");
                 }
 
             } catch (Exception e) {

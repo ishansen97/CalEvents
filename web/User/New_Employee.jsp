@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>New Employee</title>
+        <link rel="icon" href="../External/Images/icon.jpeg">
         <%@ include file="Layouts/Styles.jsp" %>
     </head>
 

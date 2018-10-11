@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Dashboard</title>
+        <link rel="icon" href="../External/Images/icon.jpeg">
         <%@ include file="Layouts/Styles.jsp" %>
         <style>
             a{
@@ -52,26 +53,26 @@
 
 
                                 <div class="w3-quarter">
-                                    <a href="Tasks">
+                                    <a href="Profile">
                                         <div class="w3-container w3-red w3-padding-16 custom-red-hover">
-                                            <div class="w3-left"><i class="fa fa-calendar-alt w3-xxxlarge"></i></div>
+                                            <div class="w3-left"><i class="fa fa-user w3-xxxlarge"></i></div>
                                             <div class="w3-right">
                                             </div>
                                             <div class="w3-clear"></div>
-                                            <h4 class="pt-3">Events</h4>
+                                            <h4 class="pt-3">Profile</h4>
                                         </div>
                                     </a>
                                 </div>
 
 
                                 <div class="w3-quarter">
-                                    <a href="Employees">
+                                    <a href="Statistics">
                                         <div class="w3-container w3-blue w3-padding-16 custom-blue-hover">
-                                            <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+                                            <div class="w3-left"><i class="fa fa-chart-line w3-xxxlarge"></i></div>
                                             <div class="w3-right">
                                             </div>
                                             <div class="w3-clear"></div>
-                                            <h4 class="pt-3">Feedback</h4>
+                                            <h4 class="pt-3">Statistics</h4>
                                         </div>
                                     </a>
                                 </div>
@@ -110,14 +111,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-5 mt-5 mb-5">
+                        <div class="col-md-6 mt-5 mb-5">
                             <p class="text-center pb-3">Employment Count </p>
-                            <canvas id="myChart" width="200" height="100"></canvas>
+                            <canvas id="myChart" width="200" height="110"></canvas>
 
                         </div>
-                        <div class="col-3 pr-5 pl-1 pt-5 offset-md-4">
+                        <div class="col-3 pr-5 pl-1 pt-5 offset-md-3">
                             <div class="card">
-                                <div class="card-header">Business Operating Hours</div>
+                                <div class="card-header bg-secondary text-white">Business Operating Hours</div>
                                 <div class="card-body">
                                     <form action="Update-Hours" method="POST">
                                     <div class="form-group">

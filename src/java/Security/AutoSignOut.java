@@ -36,7 +36,7 @@ public class AutoSignOut extends HttpServlet {
 
             Object ForceSignOut = request.getSession(false).getAttribute("ForceSignOut");
             if (ForceSignOut != null) {
-                response.sendRedirect("/CalEvents/Admin");
+                response.sendRedirect(request.getContextPath()+"/Admin");
             }
         }
 

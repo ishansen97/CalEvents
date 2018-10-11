@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Employees</title>
+        <link rel="icon" href="../External/Images/icon.jpeg">
         <%@ include file="Layouts/Styles.jsp" %>
         <style>
             /* width */

@@ -60,7 +60,7 @@ public class Logout extends HttpServlet {
    
                 if (request.getSession() != null) {
                     request.getSession().invalidate();
-                    response.sendRedirect("/CalEvents/Admin");
+                    response.sendRedirect(request.getContextPath()+"/Admin");
                 }
             } catch (Exception e) {
                 out.print(e);

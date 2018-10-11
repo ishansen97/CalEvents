@@ -56,6 +56,7 @@ public class New_Employee extends HttpServlet {
                 request.getSession().setAttribute("nav03", "");
                 request.getSession().setAttribute("nav04", "");
 		request.getSession().setAttribute("nav05", "");
+                request.getSession().setAttribute("nav06", "");
                 
                 
                 request.getRequestDispatcher("/User/New_Employee.jsp").forward(request, response);

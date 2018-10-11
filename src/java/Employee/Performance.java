@@ -10,26 +10,10 @@ public class Performance {
 
     public static double getEmployeeYearlyAttendanceStat(String employee_id) throws ClassNotFoundException, SQLException {
 
-        ServerConnection.setConnection();
-        int thisYearAttendance = 0;
-        int lastYearAttendance = 0;
+        int thisYearAttendance = getEmployeeThisYearAttendanceCount(employee_id);
+        int lastYearAttendance = getEmployeeLastYearAttendanceCount(employee_id);
 
-        if (ServerConnection.getConnectionStatus()) {
-            Connection con = ServerConnection.getConnection();
-            Statement st = con.createStatement();
-
-            String currCountQuery = "SELECT COUNT(`Employee ID`) AS Year_Attendance FROM attendance WHERE `Employee ID` = '" + employee_id + "' AND YEAR = YEAR(CURDATE())";
-            ResultSet res = st.executeQuery(currCountQuery);
-            while (res.next()) {
-                thisYearAttendance = res.getInt("Year_Attendance");
-            }
-
-            String preCountQuery = "SELECT COUNT(`Employee ID`) AS Year_Attendance FROM attendance WHERE `Employee ID` = '" + employee_id + "' AND YEAR = YEAR(CURDATE())-1";
-            ResultSet res01 = st.executeQuery(preCountQuery);
-            while (res01.next()) {
-                lastYearAttendance = res01.getInt("Year_Attendance");
-            }
-        }
+       
         double percentageAttendance = thisYearAttendance - lastYearAttendance;
         return (percentageAttendance / lastYearAttendance) * 100.0;
     }
@@ -72,27 +56,9 @@ public class Performance {
 
     public static double getEmployeeLeaveStat(String employee_Id) throws ClassNotFoundException, SQLException {
 
-        ServerConnection.setConnection();
-        int noOfLeavesThisYear = 0;
-        int noOfLeavesLastYear = 0;
-
-        if (ServerConnection.getConnectionStatus()) {
-            Connection con = ServerConnection.getConnection();
-            Statement st = con.createStatement();
-
-            String thisYearLeaveCountQuery = "SELECT COUNT(employee_id) AS Leave_Count FROM employee_leave_schedule WHERE YEAR(date) = YEAR(CURDATE()) AND employee_id = '" + employee_Id + "'";
-            ResultSet res = st.executeQuery(thisYearLeaveCountQuery);
-            while (res.next()) {
-                noOfLeavesThisYear = res.getInt("Leave_Count");
-            }
-
-            String lastYearLeaveCountQuery = "SELECT COUNT(employee_id) AS Leave_Count FROM employee_leave_schedule WHERE YEAR(date) = YEAR(CURDATE()) AND employee_id = '" + employee_Id + "'";
-            ResultSet res01 = st.executeQuery(lastYearLeaveCountQuery);
-            while (res01.next()) {
-                noOfLeavesLastYear = res01.getInt("Leave_Count");
-            }
-        }
-
+        int noOfLeavesThisYear = getEmployeeThisYearLeaveCount(employee_Id);
+        int noOfLeavesLastYear = getEmployeeLastYearLeaveCount(employee_Id);
+        
         if (noOfLeavesThisYear == 0) {
             noOfLeavesThisYear = 1;
         }

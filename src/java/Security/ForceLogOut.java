@@ -58,7 +58,7 @@ public class ForceLogOut extends HttpServlet {
                 if (request.getSession() != null) {
                     request.getSession().invalidate();
                     request.getSession().setAttribute("login_Message", ForceSignOut);
-                    response.sendRedirect("/CalEvents/Admin");
+                    response.sendRedirect(request.getContextPath()+"/Admin");
                 }
             } catch (Exception e) {
                 out.print(e);

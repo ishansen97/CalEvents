@@ -33,12 +33,13 @@ public class Statistics extends HttpServlet {
 	response.setContentType("text/html;charset=UTF-8");
 	try (PrintWriter out = response.getWriter()) {
 
-	    request.getSession().setAttribute("nav00", "");
+	    request.getSession().setAttribute("nav00", "w3-text-gray");
 	    request.getSession().setAttribute("nav01", "");
 	    request.getSession().setAttribute("nav02", "");
 	    request.getSession().setAttribute("nav03", "");
 	    request.getSession().setAttribute("nav04", "");
 	    request.getSession().setAttribute("nav05", "w3-blue");
+            request.getSession().setAttribute("nav06", "");
 	    
 	    request.getRequestDispatcher("/User/Statistics.jsp").forward(request, response);
 	}

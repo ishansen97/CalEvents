@@ -79,7 +79,7 @@ public class Attendance {
                 int querry = ps.executeUpdate();
 
                 return querry;
-            } catch (Exception e) {
+            } catch (SQLException e) {
             }
         }
 

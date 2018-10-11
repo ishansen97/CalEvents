@@ -3,6 +3,7 @@
 <html>
 <head>
 <title>Event Assignment</title>
+<link rel="icon" href="../External/Images/icon.jpeg">
 <%@ include file="Layouts/Styles.jsp" %>
 </head>
 

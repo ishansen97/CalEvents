@@ -64,25 +64,25 @@ public class Process_Leave extends HttpServlet {
                     switch (department) {
 
                         case "Event Department":
-                            response.sendRedirect("/CalEvents/E-Management/Dashboard");
+                            response.sendRedirect(request.getContextPath()+"/Dashboard");
                             break;
                         case "Menu Department":
-                            response.sendRedirect("/CalEvents/EManagement/Dashboard");
+                            response.sendRedirect(request.getContextPath()+"/Dashboard");
                             break;
                         case "Gallery Department":
-                            response.sendRedirect("/CalEvents/Administrator/Dashboard");
+                            response.sendRedirect(request.getContextPath()+"/Dashboard");
                             break;
                         case "Facility Department":
-                            response.sendRedirect("/CalEvents/Administrator/Dashboard");
+                            response.sendRedirect(request.getContextPath()+"/Dashboard");
                             break;
                         case "Kitchen Department":
-                            response.sendRedirect("/CalEvents/Administrator/Dashboard");
+                            response.sendRedirect(request.getContextPath()+"/Dashboard");
                             break;
                         case "Customer Department":
-                            response.sendRedirect("/CalEvents/Administrator/Dashboard");
+                            response.sendRedirect(request.getContextPath()+"/Dashboard");
                             break;
                         case "Employee Department":
-                            response.sendRedirect("/CalEvents/E-Management/Dashboard");
+                            response.sendRedirect(request.getContextPath()+"/E-Management/Dashboard");
                             break;
                     }
 
