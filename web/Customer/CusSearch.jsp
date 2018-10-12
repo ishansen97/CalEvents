@@ -269,9 +269,9 @@
             %>
             
              <form action="Search" method="post">
-                 <h3>Enter the name : 
+                 <big>Enter the name : </big>
              <input type=text name="name">
-            <input type="submit" class="button btn-primary" value="Search By Name"></h3>
+            <input type="submit" class="button btn-primary" value="Search By Name">
         </form>
             
             <br>
@@ -323,7 +323,7 @@
                 </form>
                 
                 <form action="Search" method="post">
-                 Enter the ID : 
+                    <big>Enter the ID : </big>
              <input  type=search name="cus_id"  placeholder="Search"  >
             <input type="submit" class="button btn-primary" value="Search By ID">
         </form>

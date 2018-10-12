@@ -257,12 +257,12 @@
                     <%try {
                             con = DBConnection.createConnection();
                             statement = con.createStatement();
-                            String sql = "SELECT * FROM customer where cus_id=" + session.getAttribute("id");
+                            String sql = "SELECT * FROM users where userID=" + session.getAttribute("id");
 
                             resultSet = statement.executeQuery(sql);
                             while (resultSet.next()) {
                     %>
-                    <!--<div class="number"><%=resultSet.getString("cus_id")%></div>-->
+                    <!--<div class="number"><%=resultSet.getString("userID")%></div>-->
                 </div>
 
 
@@ -283,20 +283,20 @@
                     <!-- <div class="title"><a href="Notification.jsp">Notifications</a></div>-->
 
                 </div>
-  <% }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    %>
+
 
                 <div align="center">
 
 
-                  
+                    <% }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    %>
                     <br><br><br><br><br><br>
 
 
-                    <table border="2" class="table-hover" cellpadding="25">
+                    <table border="2" class="table-hover" cellpadding="50">
 
 
                         <button class="btn-primary" onclick="location.href = 'handleReservation.jsp'">Click here for your booked events</button>

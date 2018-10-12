@@ -41,7 +41,7 @@ public class FeedbackServiceImp implements IFeedbackService{
 				try
 				{
 					con = DBConnection.createConnection();
-                                    String sql="Update feedback set fid=?,email=?,subject=?,comments=?,cus_id=?  where fid="+fid;
+                                    String sql="Update feedback set fid=?,email=?,subject=?,comments=?,userID=?  where fid="+fid;
 
 				preparedStatement = con.prepareStatement(sql);
 				preparedStatement.setString(1, fid);

@@ -265,7 +265,7 @@
                     <br><br>
 
 
-                    <table border="2" class="table-hover" cellpadding="25" style="overflow-y:scroll; height:200px;">
+                    <table border="2" class="table-hover" cellpadding="25" bgcolor="white">
 
 
                         <tr class="table-info">
@@ -276,7 +276,7 @@
                             <th>Comments</th>
                             <th>Customer ID</th>
 
-                            <th>Delete</th>
+                          
 
                         </tr>
 
@@ -299,10 +299,7 @@
                             <td><%=resultSet.getString("cus_id")%></td>
 
                            
-                            <td><form action="DeleteFeedback" method="post">
-                                    <input type="hidden" name="fid" value="<%=resultSet.getString("fid")%>"/>
-                                    <input type="submit" value= "Delete" class="select-button" > 
-                                </form>	
+                           
 
 
 
@@ -328,17 +325,17 @@
             
             
             
-            <form action="Inquiry" method="post">
+            <form action="<%=request.getContextPath() %>/Inquiry" method="post">
           <h3><input type="submit" value="Inquiry" class="button btn-warning"></h3><br></form>
           
-            <form action="Appreciation" method="post">
+            <form action="<%=request.getContextPath() %>/Appreciation" method="post">
             <h3><input type="submit" value="Appreciation" class="button btn-danger"></h3><br></form>
             
-            <form action="Suggestion" method="post">
-            <h3><input type="submit" value="Suggestions" class="button btn-info"></h3><br></form>
+            <form action="<%=request.getContextPath() %>/Suggestion" method="post">
+            <h3><input type="submit" value="Suggestion" class="button btn-info"></h3><br></form>
             
-            <form action="Complaint" method="post">
-            <h3><input type="submit" value="Complaints" class="button btn-info"></h3><br></form>
+            <form action="<%=request.getContextPath() %>/Complaint" method="post">
+            <h3><input type="submit" value="Complaints" class="button btn-secondary"></h3><br></form>
             
        
                 </div>

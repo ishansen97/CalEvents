@@ -5,6 +5,7 @@
 --%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="util.DBConnection" %>
 <%@page import="java.io.PrintWriter"%>
@@ -129,8 +130,8 @@
 
             .title a{
                 text-decoration: none;
-                color: blackgrey;
-                font-size: 30px;
+                color: grey;
+                font-size: 22px;
             }
             .photo-section .thumb-wrapper {
                 width: 100%;
@@ -233,10 +234,14 @@
         <link href="font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="header">
-                
+                <div class="icon"><i class="fa fa-ellipsis-h"></i></div>
+                <div class="icon"><i class="fa fa-plus"></i></div>
             </div>
             <div class="content">
-                
+                <div class="face">
+                    
+
+            </div>
             <div class="photo-section">
                 <div class="photo-title">
                     <div class="active title"><a href="viewCustomers.jsp">View All Customers</a></div>
@@ -246,11 +251,11 @@
 
                 </div>
 
-<br><br>
+
                 <div align="center">
 
-<h1><i>Maximum Reservations</i></h1>
-                    <br>
+
+                    <br><br><br>
 
 
                     <table border="2" class="table-hover" cellpadding="50" align="center">
@@ -279,7 +284,7 @@
                             try {
                                 conn = DBConnection.createConnection();
                                 st = conn.createStatement();
-                                String sqll = "SELECT * from reservation order by seats  DESC LIMIT 5";
+                                String sqll = "SELECT * from reservation order by seats DESC LIMIT 5";
 
                                 resultSett = st.executeQuery(sqll);
                                 while (resultSett.next()) {
@@ -305,7 +310,7 @@
                            }
                         %> </table>
                         
-                        <br><br>
+                        
                          <form action="reportServlet" method="post">
             <input type="submit" value="Report">
         </form>
