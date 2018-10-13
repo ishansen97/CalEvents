@@ -96,7 +96,7 @@ public class Analysis {
             
             String terminatedCountQuery = "SELECT COUNT(id) AS Terminated_Employees FROM employees WHERE department = '" + department + " Department' AND YEAR(dot) = YEAR(CURDATE())";
             ResultSet res01 = st.executeQuery(terminatedCountQuery);
-            while (res.next()) {
+            while (res01.next()) {
                 noOfTerminatedEmployees = res01.getInt("Terminated_Employees");
             }
         }
@@ -227,5 +227,43 @@ public class Analysis {
 
         }
         return noOfMaleEmployees + "," + noOfFemaleEmployees;
+    }
+    
+    public static int getSriLankanResidenceStat() throws ClassNotFoundException, SQLException {
+
+        ServerConnection.setConnection();
+        int noOfSriLankans = 0;
+
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+
+            String thisYearLeaveCountQuery = "SELECT COUNT(id) AS 'Sri_Lankans' FROM employees WHERE country = 'Sri Lanka'";
+            ResultSet res = st.executeQuery(thisYearLeaveCountQuery);
+            while (res.next()) {
+                noOfSriLankans = res.getInt("Sri_Lankans");
+            }
+        }
+        return noOfSriLankans;
+    }
+    
+     public static int getCanadianResidenceStat() throws ClassNotFoundException, SQLException {
+
+        ServerConnection.setConnection();
+        int noOfSriLankans = 0;
+        int noOfCanadians = 0;
+
+        if (ServerConnection.getConnectionStatus()) {
+            Connection con = ServerConnection.getConnection();
+            Statement st = con.createStatement();
+
+            String lastYearLeaveCountQuery = "SELECT COUNT(id) AS 'Canadians' FROM employees WHERE country = 'Canada'";
+            ResultSet res01 = st.executeQuery(lastYearLeaveCountQuery);
+            while (res01.next()) {
+                noOfCanadians = res01.getInt("Canadians");
+            }
+
+        }
+        return noOfCanadians;
     }
 }

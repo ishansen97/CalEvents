@@ -70,6 +70,8 @@
                                     <div class="w3-card bg-white text-center">
                                         <div class="card-header bg-secondary text-white">
                                             <% out.print(department); %> Department Attendance Statistics
+                                            <% out.print(Analysis.getDepartmentEmploymentStat(department)); %>
+                                            
                                         </div>
                                         <div class="card-body p-3">
                                             <canvas id="Chart01" width="200" height="80"></canvas>
@@ -268,7 +270,7 @@
                     labels: ["Current Year", "Last Year"],
                     datasets: [
                         {
-                            data: [<% out.print(Analysis.getDepartmentLeaveStat(department));%>],
+                            data: [<% out.print(Analysis.getDepartmentLeaveStat(department)); %>],
                             backgroundColor: [
                                 'rgb(255, 0, 0, 0.7)',
                                 'rgb(255, 204, 0, 0.7)'
@@ -315,7 +317,7 @@
                     labels: ["Employeed", "Terminated"],
                     datasets: [
                         {
-                            data: [<%out.print(Analysis.getDepartmentEmploymentStat(department));%>],
+                            data: [<% out.print(Analysis.getYearStatDepartmentEmployment(department)); %>],
                             backgroundColor: [
                                 'rgb(105,180,255, 0.8)',
                                 'rgb(255,105,180, 0.8)'
@@ -361,7 +363,7 @@
                     labels: ["Male", "Female"],
                     datasets: [
                         {
-                            data: [<% out.print(Analysis.getDepartmentGenderStat(department));%>],
+                            data: [<% out.print(Analysis.getDepartmentGenderStat(department)); %>],
                             backgroundColor: [
                                 'rgb(16,169,244, 0.7)',
                                 'rgb(173,244,16, 0.7)'
