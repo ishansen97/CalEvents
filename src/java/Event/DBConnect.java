@@ -17,7 +17,7 @@ public class DBConnect {
     private String url, username, password;
     
     private DBConnect() {
-        this.url = "jdbc:mysql://localhost:3306/calendartest";
+        this.url = "jdbc:mysql://localhost:3306/calevents";
         this.username = "root";
         this.password = "";
         

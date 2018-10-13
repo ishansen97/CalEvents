@@ -14,7 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% String url = "jdbc:mysql://localhost:3306/calendartest";
+        <% String url = "jdbc:mysql://localhost:3306/calevents";
            String user = "root";
            String pass = "";
            

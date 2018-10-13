@@ -204,7 +204,7 @@
 
     <body class="w3-light-grey">
 
-        <%@ include file="Layouts/Navigation.jsp" %>
+        <%@ include file="../Layouts/Navigation.jsp" %>
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main" style="margin-left:300px;margin-top:43px;">
