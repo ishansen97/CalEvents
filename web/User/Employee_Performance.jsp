@@ -106,10 +106,13 @@
                                             <%                                                
                                                 DecimalFormat numberFormat = new DecimalFormat("#.00");
                                                 Double attendanceStat = Performance.getEmployeeYearlyAttendanceStat(empid);
+                                                double newAttCount;
                                                 if (attendanceStat >= 0) {
-                                                    out.print("<i class='fas fa-arrow-up text-success'> " + numberFormat.format(attendanceStat) + "%</i>");
+                                                    newAttCount = attendanceStat*100;
+                                                    out.print("<i class='fas fa-arrow-up text-success'> " + numberFormat.format(newAttCount) + "%</i>");
                                                 } else {
-                                                    out.print("<i class='fas fa-arrow-down text-danger'> " + numberFormat.format(attendanceStat) + "%</i>");
+                                                    newAttCount = attendanceStat*-100;
+                                                    out.print("<i class='fas fa-arrow-down text-danger'> " + numberFormat.format(newAttCount) + "%</i>");
                                                 }
                                             %></td>
                                     </tr>
@@ -169,7 +172,7 @@
             datasets: [
                 {
                     label: "Current",
-                    fill: true,
+                    fill: false,
                     lineTension: 0.1,
                     backgroundColor: "rgba(75, 192, 192, 0.6)",
                     borderColor: "rgba(75,192,192,1)",
@@ -197,7 +200,7 @@
                 },
                 {
                     label: "Previous",
-                    fill: true,
+                    fill: false,
                     lineTension: 0.1,
                     backgroundColor: "rgb(102, 0, 204, 0.6)",
                     borderColor: "rgb(102, 0, 204, 1)",

@@ -129,7 +129,7 @@ public class Process_Admin extends HttpServlet {
                                     request.getSession().setAttribute("p_nam", "CalEvents");
 
                                     //Setting default employee profile image path
-                                    request.getSession().setAttribute("empImgPath", "C:/Users/Uditha/Documents/GitHub/CalEvents/web/User/Images/");
+                                    request.getSession().setAttribute("empImgPath", "C:/Users/RED HAWK/Documents/NetBeansProjects/CalEvents/web/User/Images/");
 
                                     switch (department) {
 

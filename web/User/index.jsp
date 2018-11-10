@@ -129,8 +129,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Closing Hour</label>
-                                            <input type="time" name="closingTime" class="form-control form-control-lg" value="<% out.print(Business.getBusinessClosingTime());
-					   %>">
+                                            <input type="time" name="closingTime" class="form-control form-control-lg" value="<% out.print(Business.getBusinessClosingTime()); %>">
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-block btn-success btn-lg">Update Hours</button>
@@ -138,39 +137,6 @@
                                     </form>
                                 </div>
                             </div>
-                            <!--                            <h5 class="pb-3">Feeds</h5>
-                                                        <table class="w3-table w3-striped w3-white">
-                                                            <tr>
-                                                                <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-                                                                <td>System notifications</td>
-                                                                <td><i>Fully functional</i></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-                                                                <td>System notifications</td>
-                                                                <td><i>Fully functional</i></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-                                                                <td>System notifications</td>
-                                                                <td><i>Fully functional</i></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-                                                                <td>System notifications</td>
-                                                                <td><i>Fully functional</i></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-                                                                <td>System notifications</td>
-                                                                <td><i>Fully functional</i></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-                                                                <td>System notifications</td>
-                                                                <td><i>Fully functional</i></td>
-                                                            </tr>
-                                                        </table>-->
                         </div>
                     </div>
 

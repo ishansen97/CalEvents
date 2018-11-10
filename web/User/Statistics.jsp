@@ -70,7 +70,6 @@
                                     <div class="w3-card bg-white text-center">
                                         <div class="card-header bg-secondary text-white">
                                             <% out.print(department); %> Department Attendance Statistics
-                                            <% out.print(Analysis.getDepartmentEmploymentStat(department)); %>
                                             
                                         </div>
                                         <div class="card-body p-3">

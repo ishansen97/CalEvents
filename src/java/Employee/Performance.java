@@ -15,7 +15,7 @@ public class Performance {
 
        
         double percentageAttendance = thisYearAttendance - lastYearAttendance;
-        return (percentageAttendance / lastYearAttendance) * 100.0;
+        return (percentageAttendance / lastYearAttendance);
     }
 
     public static int getEmployeeThisYearAttendanceCount(String employee_id) throws ClassNotFoundException, SQLException {
